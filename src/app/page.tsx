@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <NavigationSection />
-      <main className="container mx-auto px-4">
+      <main className="">
         <HeroSection />
         <ServicesSection />
         <TestimonialSection />

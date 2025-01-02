@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function HeroSection() {
   return (
     <>
-      <section className="min-h-screen grid grid-cols-1 md:grid-cols-2 items-center gap-4">
+      <section className="container mx-auto px-4 min-h-screen grid grid-cols-1 md:grid-cols-2 items-center gap-4">
         <div className=" space-y-4   capitalize">
           <h1 className=" text-3xl lg:text-5xl text-balance font-bold">
             Empowering your career journey through seamless connections.
@@ -26,7 +26,7 @@ export default function HeroSection() {
             width={800}
             height={800}
             alt="LORRAINE founder of beyond the savannah"
-            className="object-conver h-full w-full  -mt-48"
+            className="object-conver h-full w-full  lg:-mt-48"
           />
         </div>
       </section>

@@ -13,7 +13,7 @@ export default function TestimonialSection() {
   return (
     <>
       {/* <section className="my-20"> */}
-      <section className="mt-64 h-[50vh] flex flex-col justify-center">
+      <section className="container mx-auto px-4 mt-64 h-[50vh] flex flex-col justify-center">
         <div className="">
           <h2 className="text-xl">Testimonials</h2>
           <div className="border-2 rounded-md border-amber-200 w-36"></div>

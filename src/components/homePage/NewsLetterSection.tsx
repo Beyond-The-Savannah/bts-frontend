@@ -3,8 +3,7 @@ import { Button } from "../ui/button";
 export default function NewsLetterSection() {
   return (
     <>
-      {/* <section className="flex flex-col justify-center h-screen "> */}
-      <section className="mt-64 h-full lg:h-[50vh] flex flex-col justify-center">
+      <section className="container mx-auto px-4 mt-64 h-full lg:h-[50vh] flex flex-col justify-center">
         <div className="">
           <h2 className="text-xl">News letter</h2>
           <div className="border-2 rounded-md border-amber-200 w-36"></div>
