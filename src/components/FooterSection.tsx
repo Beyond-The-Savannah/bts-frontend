@@ -13,8 +13,8 @@ export default function FooterSection() {
   return (
     <>
       <footer className="bg-green-700">
-        <div className=" flex flex-wrap justify-center gap-4 px-12 py-24">
-          <div className="w-[24%]">
+        <div className=" flex flex-wrap justify-center gap-12 lg:gap-4 px-12 py-24">
+          <div className="w-full md:w-56 lg:w-[24%]">
             <p className="text-lg text-amber-300 uppercase font-semibold mb-2">
               BEYOND THE SAVANNAH
             </p>
@@ -23,7 +23,7 @@ export default function FooterSection() {
               the savannah!
             </p>
           </div>
-          <div className="w-[24%]">
+          <div className="w-full md:w-56 lg:w-[24%]">
             <p className="text-lg text-amber-300 uppercase font-semibold mb-2">
               PRODUCTS
             </p>
@@ -45,7 +45,7 @@ export default function FooterSection() {
               </li>
             </ul>
           </div>
-          <div className="w-[24%]">
+          <div className="w-full md:w-56 lg:w-[24%]">
             <p className="text-lg text-amber-300 uppercase font-semibold mb-2">
               USEFUL LINKS
             </p>
@@ -92,7 +92,7 @@ export default function FooterSection() {
               </li>
             </ul>
           </div>
-          <div className="w-[24%]">
+          <div className="w-full md:w-56 lg:w-[24%]">
             <p className="text-lg text-amber-300 uppercase font-semibold mb-2">
               CONTACT
             </p>
@@ -114,7 +114,7 @@ export default function FooterSection() {
           </div>
         </div>
         <div className="text-center py-4">
-            <p className="c">© 2023 Beyond The Savannah. All rights reserved.</p>
+            <p className="c">&#169; 2025 Beyond The Savannah. All rights reserved.</p>
         </div>
       </footer>
     </>

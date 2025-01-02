@@ -13,7 +13,7 @@ export default function ServicesSection() {
           {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
             <div
               key={index}
-              className=" bg-slate-200 rounded-lg h-96 w-[30rem]"
+              className=" bg-slate-200 rounded-lg h-96 w-full lg:w-[30rem]"
             ></div>
           ))}
         </div>

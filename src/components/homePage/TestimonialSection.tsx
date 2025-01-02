@@ -21,19 +21,19 @@ export default function TestimonialSection() {
             What are people saying
           </p>
         </div>
-        <div className="my-8 max-w-6xl mx-auto">
-          <Carousel>
+        <div className="my-8 w-full lg:max-w-6xl mx-auto">
+          <Carousel className="mx-8">
             <CarouselContent>
               {clientTestimonials.map((testimonial) => (
-                <CarouselItem key={testimonial.id} className="basis-2/3 ">
-                  <div className="bg-slate-300 rounded-lg px-8 py-4 h-96 flex gap-4 items-center">
+                <CarouselItem key={testimonial.id} className="basis-10/12 lg:basis-2/3">
+                  <div className="bg-slate-300 rounded-lg px-8 py-4 h-full lg:h-96 flex flex-col md:flex-row gap-4 items-center">
                     <div className="w-full grid place-content-center">
                       <Image
                         src={testimonial.imgSource}
                         width={200}
                         height={200}
                         alt={testimonial.name}
-                        className="object-cover  size-48 rounded-full"
+                        className="object-cover  size-24 lg:size-48 rounded-full"
                       />
                       <p className="text-center mt-4 italic font-semibold ">
                         {testimonial.name}
@@ -41,7 +41,7 @@ export default function TestimonialSection() {
                     </div>
                     <div className="c">
                       <QuoteIcon className="rotate-180" size={28} />
-                      <p className="ml-12 text-balance text-md">
+                      <p className="ml-6 lg:ml-12 text-balance text-md">
                         {testimonial.details}
                       </p>
                       <QuoteIcon className=" w-full ml-auto" size={28} />
