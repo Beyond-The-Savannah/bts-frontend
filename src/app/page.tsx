@@ -1,3 +1,4 @@
+import FooterSection from "@/components/FooterSection";
 import HeroSection from "@/components/homePage/HeroSection";
 import NewsLetterSection from "@/components/homePage/NewsLetterSection";
 import ServicesSection from "@/components/homePage/ServicesSection";
@@ -12,6 +13,7 @@ export default function Home() {
         <TestimonialSection />
         <NewsLetterSection/>
       </main>
+      <FooterSection/>
     </>
   );
 }
