@@ -9,6 +9,8 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { CircleCheck } from "lucide-react";
+import { ScrollArea } from "../ui/scroll-area";
+import { Button } from "../ui/button";
 
 export default function ServicesSection() {
   return (
@@ -20,14 +22,14 @@ export default function ServicesSection() {
           <p className="capitalize text-3xl font-bold  mt-2">
             How we can help you
           </p>
-        </div>
-        <div className="flex flex-wrap justify-center gap-4 my-8">
+        <div className="flex flex-wrap justify-center gap-8 my-8 ">
           {servicesList.map((service) => (
             <div
               key={service.id}
-              className=" bg-white rounded-lg  w-full lg:w-[30rem]"
+              className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[25vw]"
             >
-              <div className="grid content-between h-[45vh] pb-4">
+              <div className="grid content-between h-full lg:h-full] pb-4">
+               
                 <Image
                   src={service.img}
                   height={600}
@@ -36,64 +38,68 @@ export default function ServicesSection() {
                   className="object-cover w-full h-48 rounded-t-md"
                 />
                 <div className="py-4 px-8">
-                  <h5 className="font-semibold text-lg">{service.title}</h5>
+                  <h5 className="font-semibold">{service.title}</h5>
                   <p className="c">{service.valueProposal}</p>
                 </div>
                   <Dialog>
-                    <DialogTrigger className=" border border-amber-500 py-2 px-4  rounded-lg text-base bg-amber-500 hover:bg-amber-600 w-24 mx-8">
+                    <DialogTrigger className=" border border-amber-500 py-2 px-4  rounded-lg text-base  hover:bg-amber-500 w-24 mx-8">
                       Preview
                     </DialogTrigger>
-                    <DialogContent className="max-w-6xl mx-auto">
-                      <DialogHeader>
+                    <DialogHeader>
                         <DialogTitle></DialogTitle>
                         <DialogDescription></DialogDescription>
                       </DialogHeader>
-                      <div className="max-w-6xl mx-auto">
-                        <div className="text-center">
-                          <h5 className="font-semibold text-4xl">
-                            {service.title}
-                          </h5>
-                          <p className="c">{service.subheading}</p>
+                    <DialogContent className="max-w-6xl mx-auto">
+                      <ScrollArea className="max-h-[70vh] w-full px-8 overflow-y-auto">
+                        <div className="max-w-6xl mx-autom ">
+                          <div className="text-center text-balance mb-4">
+                            <h5 className="font-semibold text-2xl md:text-4xl ">
+                              {service.title}
+                            </h5>
+                            <p className="c">{service.subheading}</p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-6 items-center gap-12">
-                        <div className="col-span-2">
-                          <Image
-                            src={service.img}
-                            height={600}
-                            width={400}
-                            alt={service.title}
-                            className="object-cover w-full h-[40vh] rounded-md"
-                          />
-                          {/* <h5 className="font-semibold text-4xl">{service.title}</h5>
-                          <p className="c">{service.subheading}</p> */}
+                        <div className="grid grid-cols-1 md:grid-cols-6 items-center gap-12 ">
+                          <div className="col-span-6 md:col-span-2 flex flex-col">
+                            <Image
+                              src={service.img}
+                              height={600}
+                              width={400}
+                              alt={service.title}
+                              className="object-cover w-full h-[40vh] rounded-md"
+                            />
+                            <Button className="border border-amber-500 bg-amber-500 py-2 px-4  rounded-lg text-base  hover:bg-amber-600 w-32 mx-auto my-4" >Get This Service</Button>
+                          </div>
+                          <div className="col-span-6 md:col-span-4">
+                            <h6 className="text-3xl">
+                              What&apos;s in this service
+                            </h6>
+                            <div className="border-2 rounded-md border-amber-200 w-72 mb-4"></div>
+                            {service.benefits.map((benefit, index) => (
+                              <div
+                                key={index}
+                                className="flex items-center gap-4 mb-8"
+                              >
+                                <span>
+                                  <CircleCheck
+                                    className="text-green-400"
+                                    size={24}
+                                  />
+                                </span>
+                                <p className="">{benefit}</p>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                        <div className="col-span-4">
-                          <h6 className="text-3xl">
-                            What&apos;s in this service
-                          </h6>
-                          <div className="border-2 rounded-md border-amber-200 w-72 mb-4"></div>
-                          {service.benefits.map((benefit, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center gap-4 mb-8"
-                            >
-                              <span>
-                                <CircleCheck
-                                  className="text-green-400"
-                                  size={24}
-                                />
-                              </span>
-                              <p>{benefit}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
+
+                      </ScrollArea>
+          
                     </DialogContent>
                   </Dialog>
               </div>
             </div>
           ))}
+        </div>
         </div>
       </section>
     </>

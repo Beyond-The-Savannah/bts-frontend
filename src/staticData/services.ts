@@ -85,7 +85,7 @@ export const servicesList=[
             "Stay ahead with the latest trends and changes in the remote work sector, so you can adapt to new technologies, industries, and opportunities that emerge in the evolving remote workforce.",
             "Ask questions and seek guidance on anything remote working.",
         ],
-        valueProposal:"This is more than a Call. Are you feeling stuck in your career or unsure about your next steps? Our Consultation Call service offers you the opportunity to connect one-on-one and provide tailored advice and actionable strategies to help you navigate your professional challenges.",
+        valueProposal:"Are you feeling stuck in your career or unsure about your next steps? Let us have an one-on-one and provide tailored advice and actionable strategies to help you navigate your professional challenges.",
     },
     {
         id:7,
@@ -100,7 +100,7 @@ export const servicesList=[
             "Find reliable remote job opportunities, effectively navigate remote job boards, and recognize red flags to avoid scams.",
             "Learn from the industry expert with years of experience in remote work.",
         ],
-        valueProposal:"Our Master Class is designed to equip you with the essential skills, strategies, and insights needed to thrive in a virtual work environment, whether you're a seasoned professional looking to transition to remote roles or a newcomer eager to enter the workforce.",
+        valueProposal:"Whether you're a seasoned professional looking to transition to remote roles or a newcomer eager to enter the workforce, our Master Class is designed to equip you with the essential skills, strategies, and insights needed to thrive in a work environment.",
     },
     {
         id:8,
@@ -114,6 +114,6 @@ export const servicesList=[
             "Clear Communication of Expectations: Get a how to introductory video that will allow you to clearly articulate their roles, work styles, and expectations.",
             "Engagement and Accessibility: Get a 15 minutes consultation call for pointers and one round of review.",
         ],
-        valueProposal:"An introductory video is more than just a welcome—it's an essential tool for remote workers to establish rapport, communicate effectively, and set the tone for a productive working relationship.",
+        valueProposal:"An introductory video is more than just a welcome, it's an essential tool for remote workers to establish rapport, communicate effectively, and set the tone for a productive working relationship.",
     },
 ]
