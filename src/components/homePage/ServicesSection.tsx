@@ -1,3 +1,15 @@
+import { servicesList } from "@/staticData/services";
+import Image from "next/image";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import { CircleCheck } from "lucide-react";
+
 export default function ServicesSection() {
   return (
     <>
@@ -10,11 +22,77 @@ export default function ServicesSection() {
           </p>
         </div>
         <div className="flex flex-wrap justify-center gap-4 my-8">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
+          {servicesList.map((service) => (
             <div
-              key={index}
-              className=" bg-slate-200 rounded-lg h-96 w-full lg:w-[30rem]"
-            ></div>
+              key={service.id}
+              className=" bg-white rounded-lg  w-full lg:w-[30rem]"
+            >
+              <div className="grid content-between h-[45vh] pb-4">
+                <Image
+                  src={service.img}
+                  height={600}
+                  width={400}
+                  alt={service.title}
+                  className="object-cover w-full h-48 rounded-t-md"
+                />
+                <div className="py-4 px-8">
+                  <h5 className="font-semibold text-lg">{service.title}</h5>
+                  <p className="c">{service.valueProposal}</p>
+                </div>
+                  <Dialog>
+                    <DialogTrigger className=" border border-amber-500 py-2 px-4  rounded-lg text-base bg-amber-500 hover:bg-amber-600 w-24 mx-8">
+                      Preview
+                    </DialogTrigger>
+                    <DialogContent className="max-w-6xl mx-auto">
+                      <DialogHeader>
+                        <DialogTitle></DialogTitle>
+                        <DialogDescription></DialogDescription>
+                      </DialogHeader>
+                      <div className="max-w-6xl mx-auto">
+                        <div className="text-center">
+                          <h5 className="font-semibold text-4xl">
+                            {service.title}
+                          </h5>
+                          <p className="c">{service.subheading}</p>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-6 items-center gap-12">
+                        <div className="col-span-2">
+                          <Image
+                            src={service.img}
+                            height={600}
+                            width={400}
+                            alt={service.title}
+                            className="object-cover w-full h-[40vh] rounded-md"
+                          />
+                          {/* <h5 className="font-semibold text-4xl">{service.title}</h5>
+                          <p className="c">{service.subheading}</p> */}
+                        </div>
+                        <div className="col-span-4">
+                          <h6 className="text-3xl">
+                            What&apos;s in this service
+                          </h6>
+                          <div className="border-2 rounded-md border-amber-200 w-72 mb-4"></div>
+                          {service.benefits.map((benefit, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center gap-4 mb-8"
+                            >
+                              <span>
+                                <CircleCheck
+                                  className="text-green-400"
+                                  size={24}
+                                />
+                              </span>
+                              <p>{benefit}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+              </div>
+            </div>
           ))}
         </div>
       </section>
