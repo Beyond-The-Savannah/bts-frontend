@@ -11,6 +11,8 @@ import {
 import { CircleCheck } from "lucide-react";
 import { ScrollArea } from "../ui/scroll-area";
 import { Button } from "../ui/button";
+// import Link from "next/link";
+import { Link } from 'next-view-transitions'
 
 export default function ServicesSection() {
   return (
@@ -68,7 +70,11 @@ export default function ServicesSection() {
                               alt={service.title}
                               className="object-cover w-full h-[40vh] rounded-md"
                             />
-                            <Button className="border border-amber-500 bg-amber-500 py-2 px-4  rounded-lg text-base  hover:bg-amber-600 w-32 mx-auto my-4" >Get This Service</Button>
+                            <Link href={`service/${service.titleSlug}`}>
+                            <Button className="border border-amber-500 bg-amber-500 py-2 px-4  rounded-lg text-base  hover:bg-amber-600 w-full mx-auto my-4" >
+                              Get This Service
+                            </Button>
+                            </Link>
                           </div>
                           <div className="col-span-6 md:col-span-4">
                             <h6 className="text-3xl">
