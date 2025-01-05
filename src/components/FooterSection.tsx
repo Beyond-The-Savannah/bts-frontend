@@ -1,3 +1,4 @@
+import { servicesList } from "@/staticData/services";
 import {
   Instagram,
   Linkedin,
@@ -7,7 +8,8 @@ import {
   PhoneCallIcon,
   YoutubeIcon,
 } from "lucide-react";
-import Link from "next/link";
+// import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 export default function FooterSection() {
   return (
@@ -25,24 +27,20 @@ export default function FooterSection() {
           </div>
           <div className="w-full md:w-56 lg:w-[24%]">
             <p className="text-lg text-amber-300 uppercase font-semibold mb-2">
-              PRODUCTS
+              SERVICES
             </p>
             <ul className="space-y-2">
-              <li>
-                <Link href="/" className="hover:font-semibold">CV Revamp</Link>
-              </li>
-              <li>
-                <Link href="/" className="hover:font-semibold">Student&apos;s Package Revamp</Link>
-              </li>
-              <li>
-                <Link href="/" className="hover:font-semibold">LinkedIn Optimisation</Link>
-              </li>
-              <li>
-                <Link href="/" className="hover:font-semibold">Coaching Session</Link>
-              </li>
-              <li>
-                <Link href="/" className="hover:font-semibold">Interview Prep</Link>
-              </li>
+              {servicesList.map((service) => (
+                <li key={service.id}>
+                  <Link
+                    href={`/service/${service.titleSlug}`}
+                    className="hover:font-semibold"
+                  >
+                    {service.title}
+                  </Link>
+                </li>
+              ))}
+  
             </ul>
           </div>
           <div className="w-full md:w-56 lg:w-[24%]">
@@ -114,7 +112,9 @@ export default function FooterSection() {
           </div>
         </div>
         <div className="text-center py-4">
-            <p className="c">&#169; 2025 Beyond The Savannah. All rights reserved.</p>
+          <p className="c">
+            &#169; 2025 Beyond The Savannah. All rights reserved.
+          </p>
         </div>
       </footer>
     </>
