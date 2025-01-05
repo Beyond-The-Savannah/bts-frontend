@@ -3,7 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavigationSection from "@/components/NavigationSection";
 import FooterSection from "@/components/FooterSection";
-import { ViewTransitions } from "next-view-transitions"
+import { ViewTransitions } from 'next-view-transitions'
+import TanstackQueryProvider from "@/lib/tanstack";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,11 +30,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ViewTransitions>
-          <NavigationSection/>
-          {children}
-          <FooterSection/>
-        </ViewTransitions>
+        <TanstackQueryProvider>
+          <ViewTransitions>
+            <NavigationSection/>
+            {children}
+            <FooterSection/>
+          </ViewTransitions>
+        </TanstackQueryProvider>
       </body>
     </html>
   );
