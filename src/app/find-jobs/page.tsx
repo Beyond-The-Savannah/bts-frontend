@@ -6,13 +6,13 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 
-export default function JobsPage() {
-  async function fetchRemoteJobsList(): Promise<ListingRemoteJobs[]> {
-    const result =
-      fetch(`https://efmsapi.azurewebsites.net/api/Jobs/getAllJobsByCompany?name=&jobCategoryId=0
+export async function fetchRemoteJobsList(): Promise<ListingRemoteJobs[]> {
+  const result =
+    fetch(`https://efmsapi.azurewebsites.net/api/Jobs/getAllJobsByCompany?name=&jobCategoryId=0
 `).then((res) => res.json());
-    return result;
-  }
+  return result;
+}
+export default function JobsPage() {
   function DateFormatter(date: string) {
     const formattedDate = new Date(date).toISOString().split("T")[0];
     return formattedDate;
