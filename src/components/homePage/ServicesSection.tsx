@@ -29,7 +29,7 @@ export default function ServicesSection() {
           {servicesList.map((service) => (
             <div
               key={service.id}
-              className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[25vw]"
+              className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[25vw] hover:shadow-lg"
             >
               <div className="grid content-between h-full lg:h-full] pb-4">
                
@@ -45,7 +45,7 @@ export default function ServicesSection() {
                   <p className="c">{service.valueProposal}</p>
                 </div>
                   <Dialog>
-                    <DialogTrigger className=" border border-amber-500 py-2 px-4  rounded-lg text-base  hover:bg-amber-500 w-24 mx-8">
+                    <DialogTrigger className=" border border-amber-500 py-1 px-2  rounded-lg text-base  hover:bg-amber-500 w-24 mx-8">
                       Preview
                     </DialogTrigger>
                     <DialogHeader>
