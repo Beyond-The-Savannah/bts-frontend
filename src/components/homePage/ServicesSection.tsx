@@ -45,7 +45,7 @@ export default function ServicesSection() {
                   <p className="c">{service.valueProposal}</p>
                 </div>
                   <Dialog>
-                    <DialogTrigger className=" border border-amber-500 py-1 px-2  rounded-lg text-base  hover:bg-amber-500 w-24 mx-8">
+                    <DialogTrigger className=" border border-amber-500 py-1 px-2  rounded-lg text-base  hover:bg-amber-500 w-24 hover:scale-105 transition duration-500 mx-8">
                       Preview
                     </DialogTrigger>
                     <DialogHeader>
@@ -63,7 +63,7 @@ export default function ServicesSection() {
                           </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-6 items-center gap-12 ">
-                          <div className="col-span-6 md:col-span-2 flex flex-col">
+                          <div className="col-span-6 md:col-span-2 flex flex-col items-center">
                             <Image
                               src={service.img}
                               height={600}
@@ -72,7 +72,7 @@ export default function ServicesSection() {
                               className="object-cover w-full h-[40vh] rounded-md"
                             />
                             <Link href={`service/${service.titleSlug}`}>
-                            <Button className="border border-amber-500 bg-amber-500 py-2 px-4  rounded-lg text-base  hover:bg-amber-600 w-full mx-auto my-4" >
+                            <Button size='lg' className="border border-amber-400 bg-amber-400 text-black hover:text-white   rounded-lg text-base  hover:bg-amber-600 hover:scale-105 transition duration-500  my-4" >
                               Get This Service
                             </Button>
                             </Link>
@@ -85,7 +85,7 @@ export default function ServicesSection() {
                             {service.benefits.map((benefit, index) => (
                               <div
                                 key={index}
-                                className="flex items-center gap-4 mb-8"
+                                className="flex items-center gap-4 my-8"
                               >
                                 <span>
                                   <CircleCheck

@@ -17,7 +17,7 @@ export default function NavigationSection() {
     <>
       <nav className="">
         <NavigationMenu className=" fixed">
-          <NavigationMenuList className="bg-slate-500/30  backdrop-blur-md flex items-center justify-between gap-12  w-[99.9vw] rounded-md  px-12 py-4">
+          <NavigationMenuList className="bg-slate-500/30  backdrop-blur-md flex items-center justify-between gap-2 lg:gap-12  w-[99.9vw] rounded-md  px-4 lg:px-12 py-4">
             <NavigationMenuItem>
               <Link href="/">
                 <Image
@@ -25,14 +25,14 @@ export default function NavigationSection() {
                   height={400}
                   width={400}
                   alt="Beyond the savanah logo"
-                  className="object-contain size-32 absolute"
+                  className="object-contain size-24 md:size-32 absolute"
                 />
               </Link>
             </NavigationMenuItem>
-            <div className="flex items-center gap-4">
+            <div className="flex  items-end md:items-center gap-3 lg:gap-8">
               {simpleNavigationMenuItems.map((menuItem) => (
                 <NavigationMenuItem key={menuItem.id} className="">
-                  <Link href={`${menuItem.link}`} className="hover:shadow-md hover:shadow-amber-300 hover:bg-slate-50 rounded-md px-4 py-2">
+                  <Link href={`${menuItem.link}`} className="font-semibold flex hover:scale-110 transition ease-in">
                   {menuItem.title}
                   </Link>
                 </NavigationMenuItem>
@@ -40,17 +40,18 @@ export default function NavigationSection() {
 
               {NonSimpleNavigationMenuItems.map((item) => (
                 <NavigationMenuItem key={item.id} className="pr-48">
-                  <NavigationMenuTrigger className="text-base relative  bg-slate-500/5 hover:shadow-md hover:shadow-amber-300 hover:bg-slate-50 rounded-md px-4 py-2">
+                  <NavigationMenuTrigger className="font-semibold text-base relative bg-transparent hover:bg-transparent hover:scale-110 transition ease-in">
                     {item.title}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="">
-                    <ul className="grid grid-cols-2 gap-3 p-4 w-[400px] lg:w-[600px]">
+                    <ul className="grid md:grid-cols-2 gap-3 p-4 w-[400px] lg:w-[600px] px-8">
                       {item.subLinks.map((sublink) => (
                         <li key={sublink.title}>
                           <Link
                             href={sublink.link}
                             // className="hover:border-b-2 border-amber-300 hover:bg-slate-50 px-4 py-2"
-                            className="hover:shadow-md hover:shadow-amber-300 hover:bg-slate-50 rounded-md px-4 py-2"
+                            // className="hover:shadow-md hover:shadow-amber-300 hover:bg-slate-50 rounded-md px-4 py-2"
+                            className="flex hover:scale-105 transition ease-in"
                           >
                             {sublink.title}
                           </Link>
