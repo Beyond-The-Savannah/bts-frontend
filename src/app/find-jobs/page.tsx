@@ -1,4 +1,5 @@
 "use client";
+import RemoteJobListingErrorUI from "@/components/RemoteJobListingErrorUI";
 import RemoteJobListingsLoadingUI from "@/components/RemoteJobListingsLoadingUI";
 import { Button } from "@/components/ui/button";
 import { ListingRemoteJobs } from "@/types/remoteJobsListing";
@@ -22,17 +23,15 @@ export default function JobsPage() {
     data: remoteJobs,
     isLoading,
     isError,
-    error,
   } = useQuery({
     queryKey: ["allJobs"],
     queryFn: fetchRemoteJobsList,
   });
 
-  if (isLoading) {<RemoteJobListingsLoadingUI/>};
-  if (isError) {
-    <p className="font-bold text-green-300">Error Fetching</p>;
-  }
-  console.log("TANSTACK ERROR->", error);
+  if (isLoading){ return <RemoteJobListingsLoadingUI/>};
+  if (isError){ return <RemoteJobListingErrorUI/>};
+
+  
 
   return (
     <>
