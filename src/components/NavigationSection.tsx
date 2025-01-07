@@ -1,8 +1,13 @@
-import { navigationMenuItems } from "@/staticData/navigation";
+import {
+  NonSimpleNavigationMenuItems,
+  simpleNavigationMenuItems,
+} from "@/staticData/navigation";
 import {
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuList,
+  NavigationMenuTrigger,
 } from "./ui/navigation-menu";
 import Image from "next/image";
 import { Link } from "next-view-transitions";
@@ -11,8 +16,8 @@ export default function NavigationSection() {
   return (
     <>
       <nav>
-        <NavigationMenu className="px-12">
-          <NavigationMenuList className="">
+        <NavigationMenu className=" bg-orange-300 max-w-screen">
+          <NavigationMenuList className="bg-purple-400 flex items-center justify-between gap-12  w-[100vw]  px-12">
             <NavigationMenuItem>
               <Link href="/">
                 <Image
@@ -20,15 +25,39 @@ export default function NavigationSection() {
                   height={400}
                   width={400}
                   alt="Beyond the savanah logo"
-                  className="object-cover size-32"
+                  className="object-contain size-24"
                 />
               </Link>
             </NavigationMenuItem>
-            {navigationMenuItems.map((menuItem) => (
-              <NavigationMenuItem key={menuItem.id}>
-                {/* {menuItem.title} */}
-              </NavigationMenuItem>
-            ))}
+            <div className="flex items-center gap-4">
+              {simpleNavigationMenuItems.map((menuItem) => (
+                <NavigationMenuItem key={menuItem.id} className="">
+                  <Link href={`${menuItem.link}`}>{menuItem.title}</Link>
+                </NavigationMenuItem>
+              ))}
+
+              {NonSimpleNavigationMenuItems.map((item) => (
+                <NavigationMenuItem key={item.id} className="">
+                  <NavigationMenuTrigger className="text-base relative">
+                    {item.title}
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent className="">
+                    <ul className="grid grid-cols-2 gap-3 p-4 w-[400px] lg:w-[600px]">
+                      {item.subLinks.map((sublink) => (
+                        <li key={sublink.title}>
+                          <Link
+                            href={sublink.link}
+                            className="hover:border-b-2 border-amber-300 hover:bg-amber-50 px-4 py-2"
+                          >
+                            {sublink.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              ))}
+            </div>
           </NavigationMenuList>
         </NavigationMenu>
       </nav>
