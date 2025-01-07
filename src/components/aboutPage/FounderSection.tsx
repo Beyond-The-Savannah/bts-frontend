@@ -4,10 +4,11 @@ import Image from "next/image";
 export default function FounderSection() {
   return (
     <>
-      <section className="container mx-auto px-4 h-screen flex flex-col justify-center">
+      <section className="container mx-auto px-4 h-[60vh] flex flex-col justify-center">
         <div className="">
           <h2 className="text-xl">Meet The Founder</h2>
-          <div className="border-2 rounded-md border-amber-200 w-36"></div>
+          {/* <div className="border-2 rounded-md border-amber-200 w-36"></div> */}
+          <div className="border-2 rounded-md border-stone-500 w-36"></div>
           <p className="capitalize text-5xl font-bold  mt-2">
             Hi, I&apos;m Loarraine
           </p>
@@ -39,6 +40,7 @@ export default function FounderSection() {
                 className="object-cover size-12/12 rounded-3xl"
               />
               <div className="bg-amber-400 rounded-lg h-[40vh] aspect-video">
+              {/* <div className="bg-[#e3dad2] rounded-lg h-[40vh] aspect-video"> */}
               </div>
             </div>
           </div>

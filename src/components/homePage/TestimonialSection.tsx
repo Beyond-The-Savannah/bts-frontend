@@ -13,10 +13,11 @@ export default function TestimonialSection() {
   return (
     <>
       {/* <section className="my-20"> */}
-      <section className="container mx-auto px-4 mt-64 h-[50vh] flex flex-col justify-center">
+      <section className="container mx-auto px-4 mt-64 h-[40vh] flex flex-col justify-center">
         <div className="">
           <h2 className="text-xl">Testimonials</h2>
-          <div className="border-2 rounded-md border-amber-200 w-36"></div>
+          {/* <div className="border-2 rounded-md border-amber-200 w-36"></div> */}
+          <div className="border-2 rounded-md border-stone-500 w-36"></div>
           <p className="capitalize text-3xl font-bold  mt-2">
             What are people saying
           </p>
@@ -26,7 +27,7 @@ export default function TestimonialSection() {
             <CarouselContent>
               {clientTestimonials.map((testimonial) => (
                 <CarouselItem key={testimonial.id} className="basis-10/12 lg:basis-2/3">
-                  <div className="bg-slate-300 rounded-lg px-8 py-4 h-full lg:h-96 flex flex-col md:flex-row gap-4 items-center">
+                  <div className="bg-slate-100 rounded-lg px-8 py-4 h-full lg:h-96 flex flex-col md:flex-row gap-4 items-center">
                     <div className="w-full grid place-content-center">
                       <Image
                         src={testimonial.imgSource}

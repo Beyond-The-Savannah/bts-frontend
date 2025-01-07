@@ -16,8 +16,8 @@ export default function NavigationSection() {
   return (
     <>
       <nav>
-        <NavigationMenu className=" bg-orange-300 max-w-screen">
-          <NavigationMenuList className="bg-purple-400 flex items-center justify-between gap-12  w-[100vw]  px-12">
+        <NavigationMenu className=" ">
+          <NavigationMenuList className="bg-slate-100 backdrop-blur-md flex items-center justify-between gap-12  w-[100vw]  px-12 py-4">
             <NavigationMenuItem>
               <Link href="/">
                 <Image
@@ -25,7 +25,7 @@ export default function NavigationSection() {
                   height={400}
                   width={400}
                   alt="Beyond the savanah logo"
-                  className="object-contain size-24"
+                  className="object-contain size-32 absolute"
                 />
               </Link>
             </NavigationMenuItem>
@@ -37,8 +37,8 @@ export default function NavigationSection() {
               ))}
 
               {NonSimpleNavigationMenuItems.map((item) => (
-                <NavigationMenuItem key={item.id} className="">
-                  <NavigationMenuTrigger className="text-base relative">
+                <NavigationMenuItem key={item.id} className="pr-48">
+                  <NavigationMenuTrigger className="text-base relative bg-slate-100">
                     {item.title}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="">

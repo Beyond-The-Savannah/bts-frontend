@@ -6,7 +6,8 @@ export default function NewsLetterSection() {
       <section className="container mx-auto px-4 mt-64 h-full lg:h-[50vh] flex flex-col justify-center">
         <div className="">
           <h2 className="text-xl">News letter</h2>
-          <div className="border-2 rounded-md border-amber-200 w-36"></div>
+          {/* <div className="border-2 rounded-md border-amber-200 w-36"></div> */}
+          <div className="border-2 rounded-md border-stone-500 w-36"></div>
           <p className="capitalize text-3xl font-bold  mt-2">
             Get curated, remote jobs listings
           </p>
@@ -24,7 +25,7 @@ export default function NewsLetterSection() {
                 </p>
             </article>
             <form action="" className=" flex flex-col gap-4">
-                <input type="email" name="email" id="" className="bg-white text-black rounded-lg py-2" />
+                <input type="email" name="email" id="" placeholder="Your Email Address" className="bg-white text-black rounded-lg py-2 px-4" />
                 <Button type="submit" className="text-base bg-green-600 hover:bg-green-700 w-64 mx-auto">
                     Subscribe
                 </Button>
