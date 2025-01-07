@@ -44,7 +44,7 @@ export default function FooterSection() {
                 <li key={service.id}>
                   <Link
                     href={`/service/${service.titleSlug}`}
-                    className="hover:font-semibold"
+                    className="flex hover:scale-105 transition ease-in"
                   >
                     {service.title}
                   </Link>
@@ -62,7 +62,7 @@ export default function FooterSection() {
                   href="https://www.tiktok.com/@beyond.the.savannah"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex hover:font-semibold"
+                  className="flex hover:scale-105 transition ease-in"
                 >
                   <Music3Icon size={20} className="mr-2" /> Tiktok
                 </a>
@@ -72,7 +72,7 @@ export default function FooterSection() {
                   href="https://www.linkedin.com/in/otienolorraine/?originalSubdomain=ke"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex hover:font-semibold"
+                  className="flex hover:scale-105 transition ease-in"
                 >
                   <Linkedin size={20} className="mr-2" /> LinkedIn
                 </a>
@@ -82,7 +82,7 @@ export default function FooterSection() {
                   href="https://www.instagram.com/lorraineotieno/?hl=en"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex hover:font-semibold"
+                  className="flex hover:scale-105 transition ease-in"
                 >
                   <Instagram size={20} className="mr-2" /> Instagram
                 </a>
@@ -92,7 +92,7 @@ export default function FooterSection() {
                   href="https://www.youtube.com/@beyondthesavannah"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex hover:font-semibold"
+                  className="flex hover:scale-105 transition ease-in"
                 >
                   <YoutubeIcon size={20} className="mr-2" /> Youtube
                 </a>

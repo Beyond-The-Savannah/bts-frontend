@@ -15,9 +15,9 @@ import { Link } from "next-view-transitions";
 export default function NavigationSection() {
   return (
     <>
-      <nav>
-        <NavigationMenu className=" ">
-          <NavigationMenuList className="bg-slate-100 backdrop-blur-md flex items-center justify-between gap-12  w-[100vw]  px-12 py-4">
+      <nav className="">
+        <NavigationMenu className=" fixed">
+          <NavigationMenuList className="bg-slate-500/30  backdrop-blur-md flex items-center justify-between gap-12  w-[99vw] rounded-md  px-12 py-4">
             <NavigationMenuItem>
               <Link href="/">
                 <Image
