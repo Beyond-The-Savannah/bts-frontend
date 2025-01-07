@@ -32,13 +32,15 @@ export default function NavigationSection() {
             <div className="flex items-center gap-4">
               {simpleNavigationMenuItems.map((menuItem) => (
                 <NavigationMenuItem key={menuItem.id} className="">
-                  <Link href={`${menuItem.link}`}>{menuItem.title}</Link>
+                  <Link href={`${menuItem.link}`} className="hover:shadow-md hover:shadow-amber-300 hover:bg-slate-50 rounded-md px-4 py-2">
+                  {menuItem.title}
+                  </Link>
                 </NavigationMenuItem>
               ))}
 
               {NonSimpleNavigationMenuItems.map((item) => (
                 <NavigationMenuItem key={item.id} className="pr-48">
-                  <NavigationMenuTrigger className="text-base relative bg-slate-100">
+                  <NavigationMenuTrigger className="text-base relative  bg-slate-500/5 hover:shadow-md hover:shadow-amber-300 hover:bg-slate-50 rounded-md px-4 py-2">
                     {item.title}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="">
@@ -47,7 +49,8 @@ export default function NavigationSection() {
                         <li key={sublink.title}>
                           <Link
                             href={sublink.link}
-                            className="hover:border-b-2 border-amber-300 hover:bg-amber-50 px-4 py-2"
+                            // className="hover:border-b-2 border-amber-300 hover:bg-slate-50 px-4 py-2"
+                            className="hover:shadow-md hover:shadow-amber-300 hover:bg-slate-50 rounded-md px-4 py-2"
                           >
                             {sublink.title}
                           </Link>
