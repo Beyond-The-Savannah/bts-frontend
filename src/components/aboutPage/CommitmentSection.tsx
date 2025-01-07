@@ -1,3 +1,4 @@
+import { Link } from "next-view-transitions";
 import { Button } from "../ui/button";
 
 export default function CommitmentSection() {
@@ -18,13 +19,17 @@ export default function CommitmentSection() {
           </p>
         </div>
         <div className="max-w-md mx-auto my-12 flex justify-center items-center gap-4">
-          <Button className="text-base border-amber-100 bg-amber-100 text-black  hover:bg-amber-50 hover:scale-105 transition duration-500">
-            View Remote Opennings
-          </Button>
+        <Link href='/find-jobs'>
+            <Button size='lg' className="text-base border-amber-100 bg-amber-100 text-black  hover:bg-amber-50 hover:scale-105 transition duration-500">
+              View Remote Opennings
+            </Button>
+        </Link>
           <p className="text-lg">or</p>
-          <Button className="text-base border-amber-400 bg-amber-400 text-black hover:bg-amber-300 hover:scale-105 transition duration-500">
-            Try Our Services
-          </Button>
+          <Link href='/#services'>
+            <Button size='lg' className="text-base border-amber-400 bg-amber-400 text-black hover:bg-amber-300 hover:scale-105 transition duration-500">
+              Try Our Services
+            </Button>
+          </Link>
         </div>
       </section>
     </>

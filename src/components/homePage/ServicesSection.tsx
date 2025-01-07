@@ -17,7 +17,7 @@ import { Link } from 'next-view-transitions'
 export default function ServicesSection() {
   return (
     <>
-      <section className="py-20 bg-amber-50 ">
+      <section id="services" className="pt-40 pb-20 bg-amber-50 ">
         <div className="container mx-auto px-4">
           <h2 className="text-xl">Our Services</h2>
           <div className="border-2 rounded-md border-stone-500 w-36"></div>
