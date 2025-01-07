@@ -8,7 +8,7 @@ export default async function ServicePage({params}:{params:Promise<{titleSlug:st
     const specificService= servicesList.find((service)=> service.titleSlug==serviceTitleSlug)
   return (
     <>
-     <section className="container mx-auto px-4 ">
+     <section className="container mx-auto px-4 pt-40">
         <div className="h-[50vh] grid grid-cols-1 md:grid-cols-12 items-center gap-4">
           <div className="col-span-4">
             <Image

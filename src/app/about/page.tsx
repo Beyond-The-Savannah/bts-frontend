@@ -6,11 +6,11 @@ import HeroSection from "@/components/aboutPage/HeroSection";
 
 export default function AboutPage() {
   return (
-    <>
+    <div className="pt-12">
     <HeroSection/>
     {/* <WhySection/> */}
     <FounderSection/>
     <CommitmentSection/>
-    </>
+    </div>
   )
 }

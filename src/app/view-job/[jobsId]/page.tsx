@@ -46,7 +46,7 @@ export default function SinglJobListingPage({
 
   return (
     <>
-      <section className="container mx-auto  min-h-screen">
+      <section className="container mx-auto  min-h-screen pt-40">
         <span>{jobsId}</span>
         {filteredRemoteJob && (
 

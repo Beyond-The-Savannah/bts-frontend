@@ -37,11 +37,11 @@ export default function JobsPage() {
   return (
     <>
       <section className="container mx-auto min-h-screen">
-        <div className="flex flex-wrap  items-center justify-center mb-20 gap-8">
+        <div className="flex flex-wrap  items-center justify-center pt-40 mb-20 gap-8">
           {remoteJobs?.map((job, index) => (
             <div
               key={index}
-              className="border rounded-xl w-5/12 bg-slate-100 hover:shadow-amber-300 hover:shadow-md hover:bg-amber-100 duration-700 px-8 py-4"
+              className="border rounded-xl w-5/12 bg-slate-100 hover:shadow-amber-300 hover:shadow-md hover:bg-slate-200 duration-700 px-8 py-4"
             >
               <div className="flex items-center gap-2">
                 <Image
