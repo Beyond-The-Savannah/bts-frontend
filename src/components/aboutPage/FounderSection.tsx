@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function FounderSection() {
   return (
     <>
-      <section className="container mx-auto px-4 h-[60vh] flex flex-col justify-center">
+      <section className="container mx-auto px-4 h-[100vh] flex flex-col justify-center">
         <div className="">
           <h2 className="text-xl">Meet The Founder</h2>
           {/* <div className="border-2 rounded-md border-amber-200 w-36"></div> */}

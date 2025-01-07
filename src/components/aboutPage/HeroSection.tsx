@@ -4,7 +4,7 @@ import React from "react";
 export default function HeroSection() {
   return (
     <>
-      <section className="container mx-auto px-4 h-[100vh] flex flex-col justify-center">
+      <section className="container mx-auto pt-40 px-4 h-[100vh] flex flex-col justify-center">
         <div className=" text-balance space-y-4  max-w-7xl mx-auto">
           <h1 className="capitalize text-center text-3xl lg:text-5xl text-balance font-bold ">
             Beyond the Savannah

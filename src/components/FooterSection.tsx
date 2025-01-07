@@ -16,12 +16,12 @@ export default function FooterSection() {
   return (
     <>
       <footer className="bg-green-950/95">
-        <div className=" flex flex-wrap justify-center gap-12 lg:gap-4 px-12 py-24">
-          <div className="w-full md:w-56 lg:w-[24%]">
-            <p className="text-lg text-amber-400 uppercase font-semibold mb-2">
+        <div className=" flex flex-wrap justify-center gap-12 lg:gap-8 px-12 py-24">
+          <div className="w-full md:w-56 lg:w-[20%]">
+            <p className=" text-amber-400 uppercase font-semibold mb-2">
               BEYOND THE SAVANNAH
             </p>
-            <p className="text-amber-100">
+            <p className="text-sm text-amber-100">
               Seamless connections, soaring carrers, elevate yours with beyond
               the savannah!
             </p>
@@ -36,7 +36,7 @@ export default function FooterSection() {
             </Link>
           </div>
           <div className="w-full md:w-56 lg:w-[24%]">
-            <p className="text-lg text-amber-400 uppercase font-semibold mb-2">
+            <p className=" text-amber-400 uppercase font-semibold mb-2">
               SERVICES
             </p>
             <ul className="space-y-2 text-amber-100">
@@ -44,7 +44,7 @@ export default function FooterSection() {
                 <li key={service.id}>
                   <Link
                     href={`/service/${service.titleSlug}`}
-                    className="flex hover:scale-105 transition ease-in"
+                    className="text-sm flex hover:scale-105 transition ease-in"
                   >
                     {service.title}
                   </Link>
@@ -53,18 +53,18 @@ export default function FooterSection() {
             </ul>
           </div>
           <div className="w-full md:w-56 lg:w-[24%]">
-            <p className="text-lg text-amber-400 uppercase font-semibold mb-2">
+            <p className=" text-amber-400 uppercase font-semibold mb-2">
               USEFUL LINKS
             </p>
-            <ul className="space-y-2 text-amber-100">
+            <ul className="space-y-2 text-sm text-amber-100">
               <li>
                 <a
                   href="https://www.tiktok.com/@beyond.the.savannah"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex hover:scale-105 transition ease-in"
+                  className="flex items-center hover:scale-105 transition ease-in"
                 >
-                  <Music3Icon size={20} className="mr-2" /> Tiktok
+                  <Music3Icon size={14} className="mr-2" /> Tiktok
                 </a>
               </li>
               <li>
@@ -72,9 +72,9 @@ export default function FooterSection() {
                   href="https://www.linkedin.com/in/otienolorraine/?originalSubdomain=ke"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex hover:scale-105 transition ease-in"
+                  className="flex items-center hover:scale-105 transition ease-in"
                 >
-                  <Linkedin size={20} className="mr-2" /> LinkedIn
+                  <Linkedin size={14} className="mr-2" /> LinkedIn
                 </a>
               </li>
               <li>
@@ -82,9 +82,9 @@ export default function FooterSection() {
                   href="https://www.instagram.com/lorraineotieno/?hl=en"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex hover:scale-105 transition ease-in"
+                  className="flex items-center hover:scale-105 transition ease-in"
                 >
-                  <Instagram size={20} className="mr-2" /> Instagram
+                  <Instagram size={14} className="mr-2" /> Instagram
                 </a>
               </li>
               <li>
@@ -92,30 +92,30 @@ export default function FooterSection() {
                   href="https://www.youtube.com/@beyondthesavannah"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex hover:scale-105 transition ease-in"
+                  className="flex items-center hover:scale-105 transition ease-in"
                 >
-                  <YoutubeIcon size={20} className="mr-2" /> Youtube
+                  <YoutubeIcon size={14} className="mr-2" /> Youtube
                 </a>
               </li>
             </ul>
           </div>
           <div className="w-full md:w-56 lg:w-[24%]">
-            <p className="text-lg text-amber-400 uppercase font-semibold mb-2">
+            <p className=" text-amber-400 uppercase font-semibold mb-2">
               CONTACT
             </p>
             <ul className="space-y-2 text-amber-100">
-              <li className="flex">
+              <li className="flex items-center">
                 {" "}
-                <MapPin size={20} className="mr-2" /> Nairobi city, Kenya
+                <MapPin size={14} className="mr-2" /> Nairobi city, Kenya
               </li>
-              <li className="flex">
+              <li className="flex items-center">
                 {" "}
-                <MailIcon size={20} className="mr-2" />{" "}
+                <MailIcon size={14} className="mr-2" />{" "}
                 info@beyondthesavannah.co.ke
               </li>
-              <li className="flex">
+              <li className="flex items-center">
                 {" "}
-                <PhoneCallIcon size={20} className="mr-2" /> 0737120764
+                <PhoneCallIcon size={14} className="mr-2" /> 0737120764
               </li>
             </ul>
           </div>

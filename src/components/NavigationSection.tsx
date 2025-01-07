@@ -25,7 +25,7 @@ export default function NavigationSection() {
                   height={400}
                   width={400}
                   alt="Beyond the savanah logo"
-                  className="object-contain size-24 md:size-32 absolute"
+                  className="object-contain size-24 md:size-32 rounded-lg absolute"
                 />
               </Link>
             </NavigationMenuItem>
