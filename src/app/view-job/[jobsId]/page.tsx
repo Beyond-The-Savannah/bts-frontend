@@ -67,22 +67,22 @@ export default function SinglJobListingPage({
                     height={400}
                     width={400}
                     alt={`${filteredRemoteJob.companyName} image`}
-                    className="object-cover  size-12 md:size-32 border rounded-md"
+                    className="object-contain  size-12 md:size-32 border rounded-md"
                   />
                   <h3 className="text-3xl">{filteredRemoteJob?.companyName}</h3>
                 </div>
 
-                <div className="my-10">
-                  <p className="text-xl font-medium">
-                  <span className="font-bold text-xs mr-1">Role:</span>
+                <div className="my-10 space-y-4">
+                  <p className="text-xl font-medium ml-4">
+                  <span className="font-bold block text-xs -ml-4 mr-1">Role:</span>
                     {filteredRemoteJob.jobName}
                   </p>
-                  <p className="text-lg font-medium">
-                  <span className="font-bold text-xs mr-1">Department:</span>
+                  <p className="text-lg font-medium ml-4">
+                  <span className="font-bold block text-xs -ml-4 mr-1">Department:</span>
                     {filteredRemoteJob.jobSubCategory}
                   </p>
-                  <p className="text-base font-medium">
-                  <span className="font-bold text-xs mr-1">Location:</span>
+                  <p className="text-base font-medium ml-4">
+                  <span className="font-bold block text-xs -ml-4 mr-1">Location:</span>
                     {filteredRemoteJob.jobCategory}
                   </p>
                 </div>
