@@ -13,11 +13,11 @@ export async function fetchRemoteJobsList(): Promise<ListingRemoteJobs[]> {
 `).then((res) => res.json());
   return result;
 }
+export function DateFormatter(date: string) {
+  const formattedDate = new Date(date).toISOString().split("T")[0];
+  return formattedDate;
+}
 export default function JobsPage() {
-  function DateFormatter(date: string) {
-    const formattedDate = new Date(date).toISOString().split("T")[0];
-    return formattedDate;
-  }
 
   const {
     data: remoteJobs,
@@ -28,15 +28,19 @@ export default function JobsPage() {
     queryFn: fetchRemoteJobsList,
   });
 
-  if (isLoading){ return <RemoteJobListingsLoadingUI/>};
-  if (isError){ return <RemoteJobListingErrorUI/>};
-
-  
-
   return (
     <>
       <section className="container mx-auto min-h-screen">
-        <div className="flex flex-wrap  items-center justify-center pt-40 mb-20 gap-8">
+        <div className="pt-40 mb-10">
+          <h2 className="text-xl">Global Open Roles</h2>
+          <div className="border-2 rounded-md border-stone-500 w-36"></div>
+          <p className="capitalize text-3xl font-bold  mt-2">
+            Remote Opportunities
+          </p>
+        </div>
+        {isLoading && <RemoteJobListingsLoadingUI />}
+        {isError && <RemoteJobListingErrorUI />}
+        <div className="flex flex-wrap  items-center justify-center  mb-20 gap-8">
           {remoteJobs?.map((job, index) => (
             <div
               key={index}

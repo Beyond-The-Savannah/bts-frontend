@@ -2,7 +2,7 @@ export default function RemoteJobListingsLoadingUI() {
   return (
     <>
       <section className="container mx-auto min-h-screen">
-        <div className="flex flex-wrap pt-40 items-center justify-center gap-8">
+        <div className="flex flex-wrap  items-center justify-center gap-8">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
             <div
               key={item}
