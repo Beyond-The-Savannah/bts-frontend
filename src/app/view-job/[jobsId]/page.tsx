@@ -5,7 +5,7 @@ import SingleJobLoadingUI from "@/components/SingleJobLoadingUI";
 import { Button } from "@/components/ui/button";
 import { SingleRemoteJob } from "@/types/remoteJobsListing";
 import { useQuery } from "@tanstack/react-query";
-import { CalendarPlus, CalendarX } from "lucide-react";
+import { ArrowUpRight, CalendarPlus, CalendarX } from "lucide-react";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 import { use } from "react";
@@ -40,16 +40,11 @@ export default function SinglJobListingPage({
   const filteredRemoteJob = remoteJobs?.find(
     (job) => job.jobsId == parseInt(`${jobsId}`)
   );
-  // if (isLoading) {
-  //   return <SingleJobLoadingUI />;
-  // }
-  // if (isError) {
-  //   return <SingleJobLoadingErrorUI />;
-  // }
+  
 
   return (
     <>
-      <section className="container mx-auto  min-h-screen pt-40">
+      <section className="container mx-auto  min-h-screen pt-40 px-4">
         <div className="">
           <h2 className="text-xl">Global Open Roles</h2>
           <div className="border-2 rounded-md border-stone-500 w-36"></div>
@@ -61,28 +56,46 @@ export default function SinglJobListingPage({
         {isLoading && <SingleJobLoadingUI />}
         {isError && <SingleJobLoadingErrorUI />}
 
-        <div className="py-10 flex flex-row-reverse gap-4">
+        <div className="py-10 flex flex-row-reverse flex-wrap lg:flex-nowrap gap-4">
           {filteredRemoteJob && (
-            <div className="    flex items-center justify-between gap-4 border rounded-lg py-4  px-8 mb-12">
-              <div className="w-[20vw]">
-                <p className="c">{filteredRemoteJob.jobName}</p>
-                <p className="c">{filteredRemoteJob.jobSubCategory}</p>
-                <p className="c">{filteredRemoteJob.jobCategory}</p>
-                <Image
-                  src={filteredRemoteJob?.imageUrl}
-                  height={400}
-                  width={400}
-                  alt={`${filteredRemoteJob.companyName} image`}
-                  className="object-cover  size-12 md:size-32 border rounded-md"
-                />
-                <h3>{filteredRemoteJob?.companyName}</h3>
+            // <div className="    flex items-center justify-between gap-4 border rounded-lg py-4  px-8 mb-12">
+            <div className="bg  gap-4 rounded-lg py-4 px-8 mb-12">
+              <div className="w-[60vw] lg:w-[30vw]">
+                <div className="flex items-center gap-4">
+                  <Image
+                    src={filteredRemoteJob?.imageUrl}
+                    height={400}
+                    width={400}
+                    alt={`${filteredRemoteJob.companyName} image`}
+                    className="object-cover  size-12 md:size-32 border rounded-md"
+                  />
+                  <h3 className="text-3xl">{filteredRemoteJob?.companyName}</h3>
+                </div>
+
+                <div className="my-10">
+                  <p className="text-xl font-medium">
+                  <span className="font-bold text-xs mr-1">Role:</span>
+                    {filteredRemoteJob.jobName}
+                  </p>
+                  <p className="text-lg font-medium">
+                  <span className="font-bold text-xs mr-1">Department:</span>
+                    {filteredRemoteJob.jobSubCategory}
+                  </p>
+                  <p className="text-base font-medium">
+                  <span className="font-bold text-xs mr-1">Location:</span>
+                    {filteredRemoteJob.jobCategory}
+                  </p>
+                </div>
+                
               </div>
-              <div className="space-y-4">
-                <p className="flex items-center gap-1 rounded-xl bg-green-100 text-green-400 py-1 px-4 w-40">
+              <div className="space-y-8">
+                <p className="flex items-center gap-1 rounded-xl bg-green-100 text-green-400 py-1 px-4 w-72">
+                <span className="font-semibold text-sm mr-1">Posted on:</span>
                   <CalendarPlus size={24} className="" />
                   {DateFormatter(`${filteredRemoteJob.dateCreated}`)}
                 </p>
-                <p className="flex items-center gap-1 rounded-xl bg-red-100 text-red-400 py-1 px-4 w-40">
+                <p className="flex items-center gap-1 rounded-xl bg-red-100 text-red-400 py-1 px-4 w-72">
+                <span className="font-semibold text-sm mr-1">Deadline on:</span>
                   <CalendarX size={24} className="" />
                   {DateFormatter(`${filteredRemoteJob.endDate}`)}
                 </p>
@@ -93,10 +106,11 @@ export default function SinglJobListingPage({
                 >
                   <Button
                     variant="outline"
-                    size="sm"
-                    className="hover:bg-amber-200 hover:border-amber-200"
+                    size="lg"
+                    className="w-72 bg-slate-200 hover:shadow-amber-300 hover:shadow-md duration-700"
                   >
                     Apply for position
+                    <ArrowUpRight size={4}/>
                   </Button>
                 </Link>
               </div>

@@ -30,7 +30,7 @@ export default function JobsPage() {
 
   return (
     <>
-      <section className="container mx-auto min-h-screen">
+      <section className="container mx-auto min-h-screen px-4">
         <div className="pt-40 mb-10">
           <h2 className="text-xl">Global Open Roles</h2>
           <div className="border-2 rounded-md border-stone-500 w-36"></div>
@@ -40,11 +40,11 @@ export default function JobsPage() {
         </div>
         {isLoading && <RemoteJobListingsLoadingUI />}
         {isError && <RemoteJobListingErrorUI />}
-        <div className="flex flex-wrap  items-center justify-center  mb-20 gap-8">
+        <div className="flex flex-wrap lg:justify-center  mb-20 gap-8 md:gap-2 md:gap-y-8 lg:gap-8">
           {remoteJobs?.map((job, index) => (
             <div
               key={index}
-              className="border rounded-xl w-5/12 bg-slate-100 hover:shadow-amber-300 hover:shadow-md hover:bg-slate-200 duration-700 px-8 py-4"
+              className="border rounded-xl w-full md:w-[22rem] lg:w-5/12 bg-slate-100 hover:shadow-amber-300 hover:shadow-md hover:bg-slate-200 duration-700 px-8 py-4"
             >
               <div className="flex items-center gap-2">
                 <Image
@@ -61,7 +61,7 @@ export default function JobsPage() {
                   </p>
                 </div>
               </div>
-              <div className="flex -items-end justify-between mt-4 ">
+              <div className="flex items-end justify-between mt-4 ">
                 <div className="space-y-2 ml-12">
                   <p className="capitalize font-semibold">{job.jobName}</p>
                   <p className="capitalize text-sm">{job.jobSubCategory}</p>
