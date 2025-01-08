@@ -78,7 +78,7 @@ export const servicesList=[
     },
     {
         id:6,
-        title:"Consultation Call /Pick My Brain",
+        title:"Consultation Call",
         titleSlug:"consultation-call",
         subheading:"This package includes 30 minutes consultation call on remote work and navigating the remote work landscape",
         img:"https://images.pexels.com/photos/8297125/pexels-photo-8297125.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",

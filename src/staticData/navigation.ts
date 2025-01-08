@@ -18,7 +18,7 @@ export const NonSimpleNavigationMenuItems = [
     subLinks: [
       {
         title: "LinkedIn Optimization",
-        link: "/service/interview-preparation",
+        link: "/service/linkedin-optimization",
       },
       {
         title: "Students Package",

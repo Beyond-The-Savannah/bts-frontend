@@ -9,7 +9,7 @@ export default function CommitmentSection() {
           <h1 className="capitalize text-center text-3xl lg:text-5xl text-balance font-bold">
             Our Committment To You
           </h1>
-          <p className="text-lg lg:text-xl w-8/12 text-start mx-auto">
+          <p className="text-lg lg:text-xl w-10/12 md:w-9/12 text-start mx-auto">
             We at Beyond the Savannah, understand that the landscape of work is
             changing. With the rise of remote work, professionals now have the
             chance to explore roles that were once confined to specific
@@ -18,18 +18,28 @@ export default function CommitmentSection() {
             employability and streamline your job search.
           </p>
         </div>
-        <div className="max-w-md mx-auto my-12 flex justify-center items-center gap-4">
-        <Link href='/find-jobs'>
-            <Button size='lg' className="text-base border-amber-100 bg-amber-100 text-black  hover:bg-amber-50 hover:scale-105 transition duration-500">
-              View Remote Opennings
-            </Button>
-        </Link>
-          <p className="text-lg">or</p>
-          <Link href='/#services'>
-            <Button size='lg' className="text-base border-amber-400 bg-amber-400 text-black hover:bg-amber-300 hover:scale-105 transition duration-500">
-              Try Our Services
-            </Button>
-          </Link>
+        <div className="max-w-md mx-auto my-12 flex flex-wrap lg:flex-nowrap justify-center items-center gap-4">
+          <div className="c">
+            <Link href="/find-jobs">
+              <Button
+                size="lg"
+                className="text-base border-amber-100 bg-amber-100 text-black  hover:bg-amber-50 hover:scale-105 transition duration-500"
+              >
+                View Remote Opennings
+              </Button>
+            </Link>
+          </div>
+          <div className="flex flex-wrap md:flex-nowrap gap-4 items-center text-center">
+            <p className="text-lg">or</p>
+            <Link href="/#services">
+              <Button
+                size="lg"
+                className="text-base border-amber-400 bg-amber-400 text-black hover:bg-amber-300 hover:scale-105 transition duration-500"
+              >
+                Try Our Services
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
     </>

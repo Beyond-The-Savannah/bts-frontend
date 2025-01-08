@@ -29,9 +29,9 @@ export default function ServicesSection() {
           {servicesList.map((service) => (
             <div
               key={service.id}
-              className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[25vw] hover:shadow-lg"
+              className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[25vw] hover:shadow-amber-300 hover:shadow-md duration-700"
             >
-              <div className="grid content-between h-full lg:h-full] pb-4">
+              <div className="grid content-between h-full lg:h-full pb-4">
                
                 <Image
                   src={service.img}
@@ -40,12 +40,12 @@ export default function ServicesSection() {
                   alt={service.title}
                   className="object-cover w-full h-48 rounded-t-md"
                 />
-                <div className="py-4 px-8">
+                <div className="space-y-2 py-4 px-8">
                   <h5 className="font-semibold">{service.title}</h5>
                   <p className="c">{service.valueProposal}</p>
                 </div>
                   <Dialog>
-                    <DialogTrigger className=" border border-amber-500 py-1 px-2  rounded-lg text-base  hover:bg-amber-500 w-24 hover:scale-105 transition duration-500 mx-8">
+                    <DialogTrigger className=" border border-amber-300 py-1 px-2  rounded-lg text-base w-24 hover:shadow-amber-300 hover:shadow-md hover:bg-amber-200 duration-700 mx-8">
                       Preview
                     </DialogTrigger>
                     <DialogHeader>
