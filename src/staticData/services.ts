@@ -4,7 +4,8 @@ export const servicesList=[
         title:"LinkedIn Optimization",
         titleSlug:"linkedin-optimization",
         subheading:"Elevate Your Professional Brand with a 45-Minute LinkedIn Profile Optimization Session",
-        img:"https://images.pexels.com/photos/1083792/pexels-photo-1083792.jpeg",
+        // img:"https://images.pexels.com/photos/1083792/pexels-photo-1083792.jpeg",
+        img:"/images/linkedin website view.png",
         details:"Your LinkedIn profile is your digital business card, and it has the power to make a lasting impression on potential employers, clients, and professional connections. Join us for a focused 45-minute virtual consultation designed to revamp and optimize your LinkedIn profile for success.",
         benefits:[
             "Tailored Recommendations: Receive personalized insights and recommendations from an experienced professional.",
