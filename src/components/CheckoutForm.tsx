@@ -1,15 +1,18 @@
 "use client"
-
+// import {usePaystackPayment} from "react-paystack"
 import { useForm } from "react-hook-form"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
 import { Input } from "./ui/input"
+import { Button } from "./ui/button"
 import {zodResolver} from "@hookform/resolvers/zod"
 import {z} from "zod"
-import { Button } from "./ui/button"
+
+
 
 const checkOutFormSchema=z.object({
     email:z.string().trim().email({ message:"Invalid Email"})
 })
+
 
 
 export default function CheckoutForm() {
@@ -20,9 +23,22 @@ export default function CheckoutForm() {
             email:""
         }
     })
+    // const config={
+    //     reference:(new Date()).getTime().toString(),
+    //     email: ``,
+    //     amount:3000,
+    //     publicKey:process.env.NEXT_PUBLIC_PS_KEY
+    // }
+    // const onSuccess = (reference) => {
+    //     console.log(reference);
+    //   };
+    // const intializePayment= usePaystackPayment(config)
+
     function onSumbit(values: z.infer<typeof checkOutFormSchema>){
+        // intializePayment(onSuccess)
         console.log(values)
     }
+    
     
   return (
     <>
