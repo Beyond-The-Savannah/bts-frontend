@@ -14,6 +14,7 @@ export const servicesList=[
             "Actionable Steps: Walk away with actionable steps and a clearer understanding of how to leverage LinkedIn effectively.",
         ],
         valueProposal:"Invest in your professional growth and make the most out of your LinkedIn presence. Book your 45-minute LinkedIn profile optimization session today and watch your online brand thrive!",
+        price:15000,
     },
     {
         id:2,
@@ -28,6 +29,7 @@ export const servicesList=[
             "Bonus: As a special bonus, we're offering insights into three job openings currently available, giving you a head start in your job search.",
         ],
         valueProposal:"This is the boost your career needs. Take action today to increase your chances of landing your dream job. Book our CV review and cover letter package now",
+        price:5000,
     },
     {
         id:3,
@@ -42,6 +44,7 @@ export const servicesList=[
             "Bonus: As a special bonus, we're offering insights into three job openings currently available, giving you a head start in your job search.",
         ],
         valueProposal:"This is the boost your career needs. Take action today to increase your chances of landing your dream job. Book our ATS CV revamp and cover letter package now!",
+        price:8000,
     },
     {
         id:4,
@@ -58,6 +61,7 @@ export const servicesList=[
             "Chart Your Course: Create a roadmap for your personal and professional journey.",
         ],
         valueProposal:"Invest in yourself and take the first step toward a brighter, more fulfilling future. Book your 1-hour coaching session today to start your transformative journey!",
+        price:7000,
     },
     {
         id:5,
@@ -75,6 +79,7 @@ export const servicesList=[
             "Your Path to Success: Chart your unique path to interview success, no matter your industry or role.",
         ],
         valueProposal:"Invest in yourself and take the next step toward landing your dream job. Book your 2-hour guided interview preparation session today and set yourself up for a brighter career future!",
+        price:12000,
     },
     {
         id:6,
@@ -92,6 +97,7 @@ export const servicesList=[
             "Ask questions and seek guidance on anything remote working.",
         ],
         valueProposal:"Are you feeling stuck in your career or unsure about your next steps? Let us have an one-on-one and provide tailored advice and actionable strategies to help you navigate your professional challenges.",
+        price:4000,
     },
     {
         id:7,
@@ -108,6 +114,7 @@ export const servicesList=[
             "Learn from the industry expert with years of experience in remote work.",
         ],
         valueProposal:"Whether you're a seasoned professional looking to transition to remote roles or a newcomer eager to enter the workforce, our Master Class is designed to equip you with the essential skills, strategies, and insights needed to thrive in a work environment.",
+        price:3500,
     },
     {
         id:8,
@@ -123,5 +130,6 @@ export const servicesList=[
             "Engagement and Accessibility: Get a 15 minutes consultation call for pointers and one round of review.",
         ],
         valueProposal:"An introductory video is more than just a welcome, it's an essential tool for remote workers to establish rapport, communicate effectively, and set the tone for a productive working relationship.",
+        price:3000,
     },
 ]
