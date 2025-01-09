@@ -1,11 +1,12 @@
 "use client"
-// import {usePaystackPayment} from "react-paystack"
+import {usePaystackPayment} from "react-paystack"
 import { useForm } from "react-hook-form"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
 import { Input } from "./ui/input"
 import { Button } from "./ui/button"
 import {zodResolver} from "@hookform/resolvers/zod"
 import {z} from "zod"
+
 
 
 
@@ -23,19 +24,25 @@ export default function CheckoutForm() {
             email:""
         }
     })
-    // const config={
-    //     reference:(new Date()).getTime().toString(),
-    //     email: ``,
-    //     amount:3000,
-    //     publicKey:process.env.NEXT_PUBLIC_PS_KEY
-    // }
-    // const onSuccess = (reference) => {
+    const config = {
+        reference: (new Date()).getTime().toString(),
+        email: `gitonga1993@gmail.com`,
+        amount: 2000000,
+        currency:'KES',
+        publicKey:"pk_test_83ea57747e15eb6b35096660d6b6517d3d57c706"
+        // publicKey: `${process.env.NEXT_PUBLIC_PS_KEY}`,
+    };
+
+    // const onSuccess = (reference:any) => {
     //     console.log(reference);
     //   };
-    // const intializePayment= usePaystackPayment(config)
+      const onClose = () => {
+        console.log('closed')
+      }
+      const initializePayment = usePaystackPayment(config);
 
     function onSumbit(values: z.infer<typeof checkOutFormSchema>){
-        // intializePayment(onSuccess)
+        initializePayment({onClose})
         console.log(values)
     }
     
