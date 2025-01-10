@@ -59,7 +59,7 @@ export default function NavigationSection() {
                     {item.title}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="">
-                    <ul className="grid md:grid-cols-2 gap-3 p-4 w-[400px] lg:w-[600px] px-8">
+                    <ul className="grid md:grid-cols-2 justify-end gap-3 p-4 w-[500px] lg:w-[600px] px-8">
                       {item.subLinks.map((sublink) => (
                         <li key={sublink.title}>
                           <Link
@@ -90,7 +90,8 @@ export default function NavigationSection() {
                   </SheetHeader>
                   <div className="">
                     <NavigationMenu>
-                      <NavigationMenuList className="flex flex-col items-start gap-8">
+                      {/* <NavigationMenuList className="flex flex-col items-start gap-8"> */}
+                      <NavigationMenuList className="flex flex-col items-end ml-36 gap-8 pt-8 ">
                         {simpleNavigationMenuItems.map((menuItem) => (
                           <NavigationMenuItem
                             key={menuItem.id}
@@ -115,8 +116,8 @@ export default function NavigationSection() {
                             <NavigationMenuTrigger className=" px-0 font-semibold text-base relative bg-transparent hover:bg-transparent hover:scale-110 transition ease-in">
                               {item.title}
                             </NavigationMenuTrigger>
-                            <NavigationMenuContent className="">
-                              <ul className="flex flex-col px-4 py-2 space-y-4 w-64">
+                            <NavigationMenuContent className="w-52">
+                              <ul className="flex flex-col px-4 py-2 space-y-4 ">
                                 {item.subLinks.map((sublink) => (
                                   <li key={sublink.title}>
                                     <SheetClose asChild className="">
