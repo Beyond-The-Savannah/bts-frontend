@@ -27,7 +27,7 @@ export default function CheckoutForm() {
     const config = {
         reference: (new Date()).getTime().toString(),
         email: `gitonga1993@gmail.com`,
-        amount: 2000000,
+        amount: 2500000,
         currency:'KES',
         publicKey:"pk_test_83ea57747e15eb6b35096660d6b6517d3d57c706"
         // publicKey: `${process.env.NEXT_PUBLIC_PS_KEY}`,
@@ -62,7 +62,7 @@ export default function CheckoutForm() {
                         </FormItem>
                     )}
                 />
-                <Button type='submit' size='lg' className="bg-green-400 hover:bg-green-500">Pay</Button>
+                <Button type='submit' size='lg' className="w-full bg-green-400 hover:bg-green-500">Start payment process</Button>
             </form>
         </Form>
     </>

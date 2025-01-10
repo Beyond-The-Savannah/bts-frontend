@@ -1,5 +1,5 @@
 import CheckoutForm from "@/components/CheckoutForm";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { servicesList } from "@/staticData/services";
 import { CircleCheck } from "lucide-react";
 import Image from "next/image";
@@ -77,26 +77,23 @@ export default async function ServicePage({
             <p className="text-2xl lg:text-xl">
               {specificService?.valueProposal}
             </p>
-            {/* <Button
-              size="lg"
-              className="bg-green-900 hover:bg-green-500 hover:shadow-amber-300 hover:shadow-md duration-700 w-full"
-            >
-              Purchase
-            </Button> */}
-            <Dialog>
-              <DialogTrigger className="px-4 py-2 rounded-lg w-full text-white bg-green-600 hover:bg-green-700 hover:shadow-amber-300 hover:shadow-md duration-700">Purchase</DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Checkout Session</DialogTitle>
-                  <DialogDescription>
-                    Please enter the following details, and choose your preffered payment method to complete the service purchase
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="c">
+            <Drawer>
+              <DrawerTrigger className="px-4 py-2 rounded-lg w-full text-white bg-green-600 hover:bg-green-700 hover:shadow-amber-300 hover:shadow-md duration-700">Purchase</DrawerTrigger>
+              <DrawerContent className="max-w-xl mx-auto">
+                <DrawerHeader>
+                  <DrawerTitle>Checkout Session</DrawerTitle>
+                  <DrawerDescription>Please enter the following details, and choose your preffered payment method to complete the service purchase</DrawerDescription>
+                </DrawerHeader>
+                <div className=" max-w-md mx-auto py-4 px-8">
                   <CheckoutForm/>
                 </div>
-              </DialogContent>
-            </Dialog>
+                <DrawerFooter>
+                  <DrawerClose>
+                    <p>Close</p>
+                  </DrawerClose>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
           </div>
         </div>
       </section>
