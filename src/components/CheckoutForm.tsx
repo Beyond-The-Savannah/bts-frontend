@@ -17,7 +17,10 @@ const checkOutFormSchema=z.object({
 
 
 export default function CheckoutForm() {
-
+    
+    const payStackKey=process.env.NEXT_PUBLIC_PS_KEY
+    if(!payStackKey){ throw new Error('PS key is missing')}
+    
     const form =useForm<z.infer<typeof checkOutFormSchema>>({
         resolver:zodResolver(checkOutFormSchema),
         defaultValues:{
@@ -29,13 +32,9 @@ export default function CheckoutForm() {
         email: `gitonga1993@gmail.com`,
         amount: 2500000,
         currency:'KES',
-        publicKey:"pk_test_83ea57747e15eb6b35096660d6b6517d3d57c706"
-        // publicKey: `${process.env.NEXT_PUBLIC_PS_KEY}`,
+        publicKey:payStackKey,
     };
 
-    // const onSuccess = (reference:any) => {
-    //     console.log(reference);
-    //   };
       const onClose = () => {
         console.log('closed')
       }
