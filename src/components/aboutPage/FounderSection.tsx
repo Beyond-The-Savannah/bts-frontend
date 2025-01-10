@@ -1,5 +1,6 @@
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
-// import { CldVideoPlayer } from "next-cloudinary";
+import DisplayVideoFromNextCloudinary from "../DisplayVideoFromNextCloudinary";
+
 
 export default function FounderSection() {
   return (
@@ -22,14 +23,7 @@ export default function FounderSection() {
               employee development in the evolving landscape of remote work.
             </p>
           </div>
-          {/* <div className="col-span-8"> */}
           <div className="w-full md:w-6/12">
-            {/* <CldVideoPlayer
-              src="https://res.cloudinary.com/dh8qlzbzk/video/upload/v1735985501/loarrine_video_nsysrl.mp4"
-              width={1620}
-              height={1080}
-              className="aspect-video rounded-lg"
-            /> */}
             <div className="flex flex-wrap lg:flex-nowrap items-center justify-center gap-6">
               <DisplayImageFromNextCloudinary
                 src="founder_loarrine_dx6gt5"
@@ -38,9 +32,13 @@ export default function FounderSection() {
                 alt="Beyond the savannah founder loarine"
                 classname="object-cover w-96 h-[60vh] rounded-3xl"
               />
-              {/* <div className="bg-amber-400 rounded-lg h-[40vh] aspect-video"> */}
-              <div className="bg-amber-400 rounded-lg w-full h-[40vh]">
-              </div>
+
+              <DisplayVideoFromNextCloudinary
+                src="loarrine_video_nsysrl"
+                height={1220}
+                width={1080}
+                classname="bg-amber-400 rounded-lg w-full h-full aspect-video"
+              />
             </div>
           </div>
         </div>
