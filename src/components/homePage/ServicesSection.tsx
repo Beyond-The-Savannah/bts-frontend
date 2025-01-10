@@ -12,7 +12,7 @@ import { CircleCheck } from "lucide-react";
 import { ScrollArea } from "../ui/scroll-area";
 import { Button } from "../ui/button";
 // import Link from "next/link";
-import { Link } from 'next-view-transitions'
+import { Link } from "next-view-transitions";
 
 export default function ServicesSection() {
   return (
@@ -25,33 +25,37 @@ export default function ServicesSection() {
           <p className="capitalize text-3xl font-bold  mt-2">
             How we can help you
           </p>
-        <div className="flex flex-wrap justify-center gap-8 my-8 ">
-          {servicesList.map((service) => (
-            <div
-              key={service.id}
-              className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[25vw] hover:shadow-amber-300 hover:shadow-md duration-700"
-            >
-              <div className="grid content-between h-full lg:h-full pb-4">
-               
-                <Image
-                  src={service.img}
-                  height={600}
-                  width={400}
-                  alt={service.title}
-                  className="object-cover w-full h-48 rounded-t-md"
-                />
-                <div className="space-y-2 py-4 px-8">
-                  <h5 className="font-semibold">{service.title}</h5>
-                  <p className="c">{service.valueProposal}</p>
-                </div>
+          <div className="flex flex-wrap justify-center gap-8 my-8 ">
+            {servicesList.map((service) => (
+              <div
+                key={service.id}
+                className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[27vw] hover:shadow-amber-300 hover:shadow-md duration-700"
+              >
+                <div className="grid content-between h-full lg:h-full pb-4">
+                  <Image
+                    src={service.img}
+                    height={600}
+                    width={400}
+                    alt={service.title}
+                    className="object-cover w-full h-48 rounded-t-md"
+                  />
+                  <div className="space-y-2 py-4 px-8">
+                    <div className="flex gap-1 items-center justify-between">
+                      <h5 className="font-semibold">{service.title}</h5>
+                      <p className="bg-amber-100 rounded-lg py-2 px-6 w-36 text-xs">
+                        KES <span className="text-xl">{service.price}</span>
+                      </p>
+                    </div>
+                    <p className="c">{service.valueProposal}</p>
+                  </div>
                   <Dialog>
                     <DialogTrigger className=" border border-amber-300 py-1 px-2  rounded-lg text-base w-24 hover:shadow-amber-300 hover:shadow-md hover:bg-amber-200 duration-700 mx-8">
                       Preview
                     </DialogTrigger>
                     <DialogHeader>
-                        <DialogTitle></DialogTitle>
-                        <DialogDescription></DialogDescription>
-                      </DialogHeader>
+                      <DialogTitle></DialogTitle>
+                      <DialogDescription></DialogDescription>
+                    </DialogHeader>
                     <DialogContent className="max-w-6xl mx-auto">
                       <ScrollArea className="max-h-[70vh] w-full px-8 overflow-y-auto">
                         <div className="max-w-6xl mx-autom ">
@@ -72,9 +76,12 @@ export default function ServicesSection() {
                               className="object-cover w-full h-[40vh] rounded-md"
                             />
                             <Link href={`service/${service.titleSlug}`}>
-                            <Button size='lg' className="border border-amber-400 bg-amber-400 text-black hover:text-white   rounded-lg text-base  hover:bg-amber-600 hover:scale-105 transition duration-500  my-4" >
-                              Get This Service
-                            </Button>
+                              <Button
+                                size="lg"
+                                className="border border-amber-400 bg-amber-400 text-black hover:text-white   rounded-lg text-base  hover:bg-amber-600 hover:scale-105 transition duration-500  my-4"
+                              >
+                                Get This Service
+                              </Button>
                             </Link>
                           </div>
                           <div className="col-span-6 md:col-span-4">
@@ -98,15 +105,13 @@ export default function ServicesSection() {
                             ))}
                           </div>
                         </div>
-
                       </ScrollArea>
-          
                     </DialogContent>
                   </Dialog>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
         </div>
       </section>
     </>
