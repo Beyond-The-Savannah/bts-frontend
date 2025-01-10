@@ -1,5 +1,4 @@
 import { servicesList } from "@/staticData/services";
-import Image from "next/image";
 import {
   Dialog,
   DialogContent,
@@ -13,6 +12,7 @@ import { ScrollArea } from "../ui/scroll-area";
 import { Button } from "../ui/button";
 // import Link from "next/link";
 import { Link } from "next-view-transitions";
+import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 
 export default function ServicesSection() {
   return (
@@ -32,12 +32,19 @@ export default function ServicesSection() {
                 className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[27vw] hover:shadow-amber-300 hover:shadow-md duration-700"
               >
                 <div className="grid content-between h-full lg:h-full pb-4">
-                  <Image
+                  {/* <Image
                     src={service.img}
                     height={600}
                     width={400}
                     alt={service.title}
                     className="object-cover w-full h-48 rounded-t-md"
+                  /> */}
+                  <DisplayImageFromNextCloudinary
+                    src={service.img}
+                    height={400}
+                    width={600}
+                    alt={service.title}
+                    classname="object-cover w-full h-48 rounded-t-md"
                   />
                   <div className="space-y-2 py-4 px-8">
                     <div className="flex gap-1 items-center justify-between">
@@ -68,13 +75,20 @@ export default function ServicesSection() {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-6 items-center gap-12 ">
                           <div className="col-span-6 md:col-span-2 flex flex-col items-center">
-                            <Image
+                            {/* <Image
                               src={service.img}
                               height={600}
                               width={400}
                               alt={service.title}
                               className="object-cover w-full h-[40vh] rounded-md"
-                            />
+                            /> */}
+                            <DisplayImageFromNextCloudinary
+                    src={service.img}
+                    height={400}
+                    width={600}
+                    alt={service.title}
+                    classname="object-cover w-full h-[40vh] rounded-md"
+                  />
                             <Link href={`service/${service.titleSlug}`}>
                               <Button
                                 size="lg"

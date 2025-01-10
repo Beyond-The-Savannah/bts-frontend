@@ -1,4 +1,5 @@
 import CheckoutForm from "@/components/CheckoutForm";
+import DisplayImageFromNextCloudinary from "@/components/DisplayImageFromNextCloudinary";
 import {
   Drawer,
   DrawerClose,
@@ -11,7 +12,6 @@ import {
 } from "@/components/ui/drawer";
 import { servicesList } from "@/staticData/services";
 import { CircleCheck } from "lucide-react";
-import Image from "next/image";
 
 export default async function ServicePage({
   params,
@@ -27,14 +27,16 @@ export default async function ServicePage({
       <section className="container mx-auto space-y-12 px-4 pt-52 pb-40">
         <div className="min-h-[50vh] grid grid-cols-1 md:grid-cols-12 items-start gap-4">
           <div className="col-span-12 md:col-span-5 lg:col-span-4">
-            <Image
-              src={`${specificService?.img}`}
-              width={800}
-              height={800}
-              alt={`beyond the savannah, ${specificService?.title} service image`}
-              // className="object-cover w-[60rem] h-72 rounded  "
-              className="object-cover w-[40rem] h-72 rounded  "
-            />
+            {specificService && (
+              <DisplayImageFromNextCloudinary
+                src={specificService.img}
+                height={800}
+                width={800}
+                prioty
+                alt={`beyond the savannah, ${specificService.title} service image`}
+                classname="object-cover w-[40rem] bg-gray-200 h-72 rounded"
+              />
+            )}
           </div>
           <div className=" col-span-12 md:col-span-6 lg:col-span-8 space-y-4   capitalize md:ml-12 lg:ml-24 ">
             <h1 className=" text-3xl lg:text-5xl text-balance font-bold">
@@ -61,12 +63,13 @@ export default async function ServicePage({
                 <div className="border-2 rounded-md border-amber-200 w-full md:w-72 mb-4"></div>
               </div>
               <div className="c">
-                <Image
-                  src="/images/square elements.png"
-                  width={800}
+                <DisplayImageFromNextCloudinary
+                  src="square_elements_esh32r"
                   height={800}
-                  alt={`beyond the savannah, ${specificService?.title} service image`}
-                  className="object-cover size-32  "
+                  width={800}
+                  prioty
+                  alt="square shapes"
+                  classname="object-cover size-32"
                 />
               </div>
             </div>
@@ -79,12 +82,13 @@ export default async function ServicePage({
               </div>
             ))}
             <div className="c">
-              <Image
-                src="/images/square elements.png"
-                width={800}
+              <DisplayImageFromNextCloudinary
+                src="square_elements_esh32r"
                 height={800}
-                alt={`beyond the savannah, ${specificService?.title} service image`}
-                className="object-cover size-32  rotate-180"
+                width={800}
+                prioty
+                alt="square shapes"
+                classname="object-cover size-32 rotate-180"
               />
             </div>
           </div>

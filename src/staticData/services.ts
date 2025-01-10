@@ -4,8 +4,7 @@ export const servicesList=[
         title:"LinkedIn Optimization",
         titleSlug:"linkedin-optimization",
         subheading:"Elevate Your Professional Brand with a 45-Minute LinkedIn Profile Optimization Session",
-        // img:"https://images.pexels.com/photos/1083792/pexels-photo-1083792.jpeg",
-        img:"/images/linkedin website view.png",
+        img:"linkedin_website_view_1_kz1qml",
         details:"Your LinkedIn profile is your digital business card, and it has the power to make a lasting impression on potential employers, clients, and professional connections. Join us for a focused 45-minute virtual consultation designed to revamp and optimize your LinkedIn profile for success.",
         benefits:[
             "Tailored Recommendations: Receive personalized insights and recommendations from an experienced professional.",
@@ -22,7 +21,7 @@ export const servicesList=[
         title:"Students Package",
         titleSlug:"students-package",
         subheading:"Enhance Your Job Application Package with a Comprehensive CV Review and Cover Letter",
-        img:"https://images.pexels.com/photos/3466163/pexels-photo-3466163.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        img:"student_package_odwl96",
         details:"Unlock the full potential of your job search with our tailored CV review and cover letter services. This package is designed to empower you in your career journey by ensuring your application materials stand out to potential employers.",
         benefits:[
             "Unlock the full potential of your job search with our tailored CV review and cover letter services. This package is designed to empower you in your career journey by ensuring your application materials stand out to potential employers.",
@@ -37,7 +36,7 @@ export const servicesList=[
         title:"ATS CV REVAMP",
         titleSlug:"ats-cv-revamp",
         subheading:"",
-        img:"https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        img:"avs_cv_ymup2h",
         details:"Navigating the Applicant Tracking System (ATS) is crucial in today's competitive job market, and we're here to help you excel. Our comprehensive package includes an ATS-compliant CV and a precision-crafted ATS-compliant cover letter, tailored to your specific job application needs.",
         benefits:[
             "ATS-Compliant CV: We'll create a CV that passes through ATS filters with ease, ensuring your qualifications and experience are properly recognized by employers.",
@@ -52,7 +51,7 @@ export const servicesList=[
         title:"Coaching Session",
         titleSlug:"coaching-session",
         subheading:"Unlock Your Full Potential with a 1-Hour Coaching Session",
-        img:"https://images.pexels.com/photos/8761549/pexels-photo-8761549.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        img:"coaching_ekq5bx",
         details:"Embark on a journey of self-discovery, self-assessment, and goal setting that will transform the way you approach your career and personal growth.",
          benefits:[
             "Discover Your True Self: Gain insights into your strengths, values, and aspirations to better understand your unique path.",
@@ -69,7 +68,7 @@ export const servicesList=[
         title:"Interview Preparation",
         titleSlug:"interview-preparation",
         subheading:"Prepare for Success with a 2-Hour Guided Interview Preparation Session",
-        img:"https://images.pexels.com/photos/6878705/pexels-photo-6878705.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        img:"interview_prep_wi4ubt",
         details:"Your next career move deserves careful planning and strategy. Join us for a comprehensive 2-hour virtual meeting dedicated to interview preparation, where we'll equip you with the tools and confidence you need to succeed.",
          benefits:[
             "Discover Your True Self: Gain insights into your strengths, values, and aspirations to better understand your unique path.",
@@ -87,7 +86,7 @@ export const servicesList=[
         title:"Consultation Call",
         titleSlug:"consultation-call",
         subheading:"This package includes 30 minutes consultation call on remote work and navigating the remote work landscape",
-        img:"https://images.pexels.com/photos/8297125/pexels-photo-8297125.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        img:"consultation_qiod4j",
         details:"Are you feeling stuck in your career or looking for tailored guidance to elevate your professional journey? this is more than a call—it's your opportunity to invest in yourself and get expert-level guidance. Ready to take the next step? Let's talk!",
          benefits:[
             "Receive a personalized plan that aligns with your remote work goals—whether you're transitioning into remote work, seeking a new remote role, or aiming to excel in your current position.",
@@ -105,7 +104,7 @@ export const servicesList=[
         title:"Remote Work Master Class",
         titleSlug:"remote-work-master-class",
         subheading:"The session will be a richly immersive two-hour experience.",
-        img:"https://images.pexels.com/photos/4261785/pexels-photo-4261785.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        img:"remote_master_class_xmnolp",
         details:"Ready to thrive in the world of remote work? Join our exclusive Master Class designed for professionals seeking to transition to or excel in remote roles. Whether you're a seasoned remote worker or just starting, don't miss your chance to elevate your career—register now!",
          benefits:[
             "Gain a clear understanding of remote job basics, different employment types, key  and the optimal time zones to target for job applications.",
@@ -122,7 +121,7 @@ export const servicesList=[
         title:"Introductory Video",
         titleSlug:"introductory-video",
         subheading:"Duration 15 minutes.",
-        img:"https://images.pexels.com/photos/6954220/pexels-photo-6954220.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        img:"video_rlra8u",
         details:"In the dynamic landscape of remote work, establishing a personal connection can be challenging. This is why most if not all companies, require a 1 minute introductory video. This package will give you pointers and how to address yourself to your future employer!",
          benefits:[
             "Creating a Personal Connection: Get help in introducing yourself —through tone, body language, and expression. This is essential in the remote world where face-to-face interactions are limited.",

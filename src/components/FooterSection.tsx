@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 // import Link from "next/link";
 import { Link } from "next-view-transitions";
-import Image from "next/image";
+import DisplayImageFromNextCloudinary from "./DisplayImageFromNextCloudinary";
 
 export default function FooterSection() {
   return (
@@ -26,12 +26,13 @@ export default function FooterSection() {
               the savannah!
             </p>
             <Link href="/">
-              <Image
-                src="https://i.postimg.cc/0jDHqfz9/Blue-Modern-Global-Network-Company-Logo-5.png"
-                height={400}
-                width={400}
-                alt="Beyond the savanah logo"
-                className="object-cover size-32 rounded-lg my-4"
+              <DisplayImageFromNextCloudinary
+                src="BTS_Logo_xa2iht"
+                height={800}
+                width={800}
+                prioty
+                alt="square shapes"
+                classname="object-cover size-32 rounded-lg my-4"
               />
             </Link>
           </div>

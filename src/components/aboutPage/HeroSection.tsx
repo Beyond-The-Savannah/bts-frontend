@@ -1,5 +1,6 @@
-import Image from "next/image";
+
 import React from "react";
+import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 
 export default function HeroSection() {
   return (
@@ -17,12 +18,13 @@ export default function HeroSection() {
             career
           </p>
           <div>
-            <Image
-              src="/images/remote bento 1 transparent.png"
-              height={400}
-              width={1200}
-              alt="bento remote image"
-              className="object-contain h-full w-full"
+            
+            <DisplayImageFromNextCloudinary
+                src="remote_bento_1_transparent_ots5xr"
+                height={400}
+                width={1200}
+                alt="Beyond the savannah about hero image"
+                classname="object-contain h-full w-full"
             />
           </div>
         </div>
