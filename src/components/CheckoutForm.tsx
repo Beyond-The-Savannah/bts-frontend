@@ -16,21 +16,23 @@ const checkOutFormSchema=z.object({
 
 
 
-export default function CheckoutForm() {
+export default function CheckoutForm(amount:{amount:number}) {
     
     const payStackKey=process.env.NEXT_PUBLIC_PS_KEY
     if(!payStackKey){ throw new Error('PS key is missing')}
-    
+    const amountInCents=amount.amount*100
     const form =useForm<z.infer<typeof checkOutFormSchema>>({
         resolver:zodResolver(checkOutFormSchema),
         defaultValues:{
             email:""
         }
     })
+    const {watch} =form
+    const email=watch('email')
     const config = {
         reference: (new Date()).getTime().toString(),
-        email: `gitonga1993@gmail.com`,
-        amount: 2500000,
+        email,
+        amount: amountInCents,
         currency:'KES',
         publicKey:payStackKey,
     };
@@ -43,6 +45,7 @@ export default function CheckoutForm() {
     function onSumbit(values: z.infer<typeof checkOutFormSchema>){
         initializePayment({onClose})
         console.log(values)
+        console.log(amountInCents)
     }
     
     
@@ -56,7 +59,8 @@ export default function CheckoutForm() {
                     render={({field})=>(
                         <FormItem>
                             <FormLabel>Email Address </FormLabel>
-                            <FormControl><Input placeholder="email@mail.com" {...field}/></FormControl>
+                            <FormControl>
+                                <Input placeholder="email@mail.com" {...field} required/></FormControl>
                             <FormMessage/>
                         </FormItem>
                     )}

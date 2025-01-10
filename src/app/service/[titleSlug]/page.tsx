@@ -85,7 +85,9 @@ export default async function ServicePage({
                   <DrawerDescription>Please enter the following details, and choose your preffered payment method to complete the service purchase</DrawerDescription>
                 </DrawerHeader>
                 <div className=" max-w-md mx-auto py-4 px-8">
-                  <CheckoutForm/>
+                  {specificService?.price && (
+                   <CheckoutForm amount={specificService?.price}/>
+                  )}
                 </div>
                 <DrawerFooter>
                   <DrawerClose>
