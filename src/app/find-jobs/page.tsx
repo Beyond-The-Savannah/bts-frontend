@@ -2,21 +2,23 @@
 import RemoteJobListingErrorUI from "@/components/RemoteJobListingErrorUI";
 import RemoteJobListingsLoadingUI from "@/components/RemoteJobListingsLoadingUI";
 import { Button } from "@/components/ui/button";
-import { ListingRemoteJobs } from "@/types/remoteJobsListing";
+import { DateFormatter } from "@/lib/utils";
+import { fetchRemoteJobsList } from "@/remoteData/getData";
+// import { ListingRemoteJobs } from "@/types/remoteJobsListing";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 
-export async function fetchRemoteJobsList(): Promise<ListingRemoteJobs[]> {
-  const result =
-    fetch(`https://efmsapi.azurewebsites.net/api/Jobs/getAllJobsByCompany?name=&jobCategoryId=0
-`).then((res) => res.json());
-  return result;
-}
-export function DateFormatter(date: string) {
-  const formattedDate = new Date(date).toISOString().split("T")[0];
-  return formattedDate;
-}
+// export async function fetchRemoteJobsList(): Promise<ListingRemoteJobs[]> {
+//   const result =
+//     fetch(`https://efmsapi.azurewebsites.net/api/Jobs/getAllJobsByCompany?name=&jobCategoryId=0
+// `).then((res) => res.json());
+//   return result;
+// }
+// export function DateFormatter(date: string) {
+//   const formattedDate = new Date(date).toISOString().split("T")[0];
+//   return formattedDate;
+// }
 export default function JobsPage() {
 
   const {

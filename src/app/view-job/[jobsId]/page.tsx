@@ -1,8 +1,9 @@
 "use client";
-import { DateFormatter, fetchRemoteJobsList } from "@/app/find-jobs/page";
 import SingleJobLoadingErrorUI from "@/components/SingleJobLoadingErrorUI";
 import SingleJobLoadingUI from "@/components/SingleJobLoadingUI";
 import { Button } from "@/components/ui/button";
+import { DateFormatter } from "@/lib/utils";
+import { fetchRemoteJobsList } from "@/remoteData/getData";
 import { SingleRemoteJob } from "@/types/remoteJobsListing";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowUpRight, CalendarPlus, CalendarX } from "lucide-react";
