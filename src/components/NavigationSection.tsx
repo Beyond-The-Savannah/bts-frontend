@@ -42,16 +42,18 @@ export default function NavigationSection() {
               </Link>
             </NavigationMenuItem>
             <div className="hidden md:flex  items-end md:items-center gap-3 lg:gap-8">
-              {simpleNavigationMenuItems.map((menuItem) => (
-                <NavigationMenuItem key={menuItem.id} className="">
-                  <Link
-                    href={`${menuItem.link}`}
-                    className="font-semibold flex hover:scale-110 transition ease-in"
-                  >
-                    {menuItem.title}
-                  </Link>
-                </NavigationMenuItem>
-              ))}
+              <ul className="hidden md:flex  items-end md:items-center gap-3 lg:gap-8">
+                {simpleNavigationMenuItems.map((menuItem) => (
+                  <NavigationMenuItem key={menuItem.id} className="">
+                    <Link
+                      href={`${menuItem.link}`}
+                      className="font-semibold flex hover:scale-110 transition ease-in"
+                    >
+                      {menuItem.title}
+                    </Link>
+                  </NavigationMenuItem>
+                ))}
+              </ul>
 
               {NonSimpleNavigationMenuItems.map((item) => (
                 <NavigationMenuItem key={item.id} className="pr-48">
