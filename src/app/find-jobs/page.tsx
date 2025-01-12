@@ -7,14 +7,16 @@ import { useGetRemoteListingJobsUsingTanstack } from "@/remoteData/getData";
 import { Params, SearchParams } from "@/types/remoteJobsListing";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useTransitionRouter } from 'next-view-transitions'
+
 import { use } from "react";
 
 export default function JobsPage(props: {
   params: Params;
   searchParams: SearchParams;
 }) {
-  const router = useRouter();
+
+  const router = useTransitionRouter()
   const searchParams = use(props.searchParams);
 
   const page = searchParams["page"] ?? "1";
