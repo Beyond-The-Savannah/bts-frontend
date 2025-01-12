@@ -41,7 +41,27 @@ export default function SinglJobListingPage({
   const filteredRemoteJob = remoteJobs?.find(
     (job) => job.jobsId == parseInt(`${jobsId}`)
   );
-  
+  const fixedHTML = (htmlString: string) => {
+    return (
+      htmlString
+        // .replace(</\/g,"")
+        .replace(/ul>/g, "<ul>")
+        .replace(/li>/g, "<li>") // Fix list item tags
+        .replace(/<b>/g, "<strong>") // Replace <b> with <strong>
+        .replace(/<\/b>/g, "</strong>") // Replace closing <b>
+        .replace(/<i>/g, "<em>") // Replace <i> with <em>
+        .replace(/<\/i>/g, "</em>") // Replace closing <i>
+        .replace(/<h1>/g, "<h1>") // Ensure <h1> tags are correct
+        .replace(/<\/h1>/g, "</h1>") // Ensure closing <h1>
+        .replace(/<h2>/g, "<h2>") // Ensure <h2> tags are correct
+        .replace(/<\/h2>/g, "</h2>") // Ensure closing <h2>
+        .replace(/p>/g, "<p>") // Ensure <p> tags are correct
+        .replace(/<\/p>/g, "</p>") // Ensure closing <p>
+        .replace(/<\/?ul>/g, "<ul>") // Ensure <ul> tags are correct
+        .replace(/<\/?ol>/g, "<ol>") // Ensure <ol> tags are correct
+        .replace(/<\/?br>/g, "<br>")
+    ); 
+  };
 
   return (
     <>
@@ -69,34 +89,42 @@ export default function SinglJobListingPage({
                     width={400}
                     alt={`${filteredRemoteJob.companyName} image`}
                     className="object-contain  size-12 md:size-32 border rounded-md"
+                    // className="object-cover  h-32 w-32  border rounded-md"
                   />
                   <h3 className="text-3xl">{filteredRemoteJob?.companyName}</h3>
                 </div>
 
                 <div className="my-10 space-y-4">
                   <p className="text-xl font-medium ml-4">
-                  <span className="font-bold block text-xs -ml-4 mr-1">Role:</span>
+                    <span className="font-bold block text-xs -ml-4 mr-1">
+                      Role:
+                    </span>
                     {filteredRemoteJob.jobName}
                   </p>
                   <p className="text-lg font-medium ml-4">
-                  <span className="font-bold block text-xs -ml-4 mr-1">Department:</span>
+                    <span className="font-bold block text-xs -ml-4 mr-1">
+                      Department:
+                    </span>
                     {filteredRemoteJob.jobSubCategory}
                   </p>
                   <p className="text-base font-medium ml-4">
-                  <span className="font-bold block text-xs -ml-4 mr-1">Location:</span>
+                    <span className="font-bold block text-xs -ml-4 mr-1">
+                      Location:
+                    </span>
                     {filteredRemoteJob.jobCategory}
                   </p>
                 </div>
-                
               </div>
               <div className="space-y-8">
                 <p className="flex items-center gap-1 rounded-xl bg-green-100 text-green-400 py-1 px-4 w-72">
-                <span className="font-semibold text-sm mr-1">Posted on:</span>
+                  <span className="font-semibold text-sm mr-1">Posted on:</span>
                   <CalendarPlus size={24} className="" />
                   {DateFormatter(`${filteredRemoteJob.dateCreated}`)}
                 </p>
                 <p className="flex items-center gap-1 rounded-xl bg-red-100 text-red-400 py-1 px-4 w-72">
-                <span className="font-semibold text-sm mr-1">Deadline on:</span>
+                  <span className="font-semibold text-sm mr-1">
+                    Deadline on:
+                  </span>
                   <CalendarX size={24} className="" />
                   {DateFormatter(`${filteredRemoteJob.endDate}`)}
                 </p>
@@ -111,7 +139,7 @@ export default function SinglJobListingPage({
                     className="w-72 bg-slate-200 hover:shadow-amber-300 hover:shadow-md duration-700"
                   >
                     Apply for position
-                    <ArrowUpRight size={4}/>
+                    <ArrowUpRight size={4} />
                   </Button>
                 </Link>
               </div>
@@ -125,10 +153,18 @@ export default function SinglJobListingPage({
                     key={listing.id}
                     className=" border rounded-lg py-4  px-8"
                   >
-                    <p className="text-xl font-semibold">
+                    <h3 className="text-xl font-semibold">
                       {listing.sectionName}
-                    </p>
-                    <h3>{`<${listing.sectionDescription}`}</h3>
+                    </h3>
+                    {/* <div className="prose:"
+                    dangerouslySetInnerHTML={{ __html: fixedHTML(listing.sectionName) }}
+                    >
+                    </div> */}
+  
+                    <div className="prose"
+                    dangerouslySetInnerHTML={{ __html: fixedHTML(listing.sectionDescription) }}
+                    >
+                    </div>
                   </article>
                 ))}
               </>
