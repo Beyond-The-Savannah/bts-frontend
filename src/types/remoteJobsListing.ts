@@ -35,3 +35,5 @@ export interface SingleRemoteJob {
     isActive: boolean;                // Indicates if the section is active
     isDeleted: boolean;               // Indicates if the section is deleted
 }
+export type Params = Promise<{ slug: string }>
+export type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
