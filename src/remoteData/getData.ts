@@ -1,4 +1,5 @@
 import { ListingRemoteJobs } from "@/types/remoteJobsListing";
+import { useQuery } from "@tanstack/react-query";
 
 export async function fetchRemoteJobsList(): Promise<ListingRemoteJobs[]> {
     const result =
@@ -6,3 +7,19 @@ export async function fetchRemoteJobsList(): Promise<ListingRemoteJobs[]> {
   `).then((res) => res.json());
     return result;
   }
+export const useGetRemoteListingJobsUsingTanstack=()=>{
+  return useQuery({
+    queryKey:["allRemoteJobs"],
+    queryFn:fetchRemoteJobsList
+  })
+}
+
+ // const {
+  //   data: remoteJobs,
+  //   isLoading,
+  //   isError,
+  // } = useQuery({
+  //   queryKey: ["allJobs"],
+  //   queryFn: fetchRemoteJobsList,
+  // });
+  
