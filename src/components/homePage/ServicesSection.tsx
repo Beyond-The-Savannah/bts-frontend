@@ -10,7 +10,6 @@ import {
 import { CircleCheck } from "lucide-react";
 import { ScrollArea } from "../ui/scroll-area";
 import { Button } from "../ui/button";
-// import Link from "next/link";
 import { Link } from "next-view-transitions";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 
@@ -21,7 +20,6 @@ export default function ServicesSection() {
         <div className="container mx-auto px-4">
           <h2 className="text-xl">Our Services</h2>
           <div className="border-2 rounded-md border-stone-500 w-36"></div>
-          {/* <div className="border-2 rounded-md border-amber-200 w-36"></div> */}
           <p className="capitalize text-3xl font-bold  mt-2">
             How we can help you
           </p>
@@ -32,13 +30,6 @@ export default function ServicesSection() {
                 className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[27vw] hover:shadow-amber-300 hover:shadow-md duration-700"
               >
                 <div className="grid content-between h-full lg:h-full pb-4">
-                  {/* <Image
-                    src={service.img}
-                    height={600}
-                    width={400}
-                    alt={service.title}
-                    className="object-cover w-full h-48 rounded-t-md"
-                  /> */}
                   <DisplayImageFromNextCloudinary
                     src={service.img}
                     height={400}
@@ -48,7 +39,7 @@ export default function ServicesSection() {
                   />
                   <div className="space-y-2 py-4 px-8">
                     <div className="flex gap-1 items-center justify-between">
-                      <h5 className="font-semibold">{service.title}</h5>
+                      <p className="font-semibold">{service.title}</p>
                       <p className="bg-amber-100 rounded-lg py-2 px-6 w-36 text-xs">
                         KES <span className="text-xl">{service.price}</span>
                       </p>
@@ -67,28 +58,21 @@ export default function ServicesSection() {
                       <ScrollArea className="max-h-[70vh] w-full px-8 overflow-y-auto">
                         <div className="max-w-6xl mx-autom ">
                           <div className="text-center text-balance mb-4">
-                            <h5 className="font-semibold text-2xl md:text-4xl ">
+                            <p className="font-semibold text-2xl md:text-4xl ">
                               {service.title}
-                            </h5>
+                            </p>
                             <p className="c">{service.subheading}</p>
                           </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-6 items-center gap-12 ">
                           <div className="col-span-6 md:col-span-2 flex flex-col items-center">
-                            {/* <Image
-                              src={service.img}
-                              height={600}
-                              width={400}
-                              alt={service.title}
-                              className="object-cover w-full h-[40vh] rounded-md"
-                            /> */}
                             <DisplayImageFromNextCloudinary
-                    src={service.img}
-                    height={400}
-                    width={600}
-                    alt={service.title}
-                    classname="object-cover w-full h-[40vh] rounded-md"
-                  />
+                              src={service.img}
+                              height={400}
+                              width={600}
+                              alt={service.title}
+                              classname="object-cover w-full h-[40vh] rounded-md"
+                            />
                             <Link href={`service/${service.titleSlug}`}>
                               <Button
                                 size="lg"
@@ -99,9 +83,9 @@ export default function ServicesSection() {
                             </Link>
                           </div>
                           <div className="col-span-6 md:col-span-4">
-                            <h6 className="text-3xl">
+                            <p className="text-3xl">
                               What&apos;s in this service
-                            </h6>
+                            </p>
                             <div className="border-2 rounded-md border-amber-200 w-72 mb-4"></div>
                             {service.benefits.map((benefit, index) => (
                               <div
