@@ -7,7 +7,7 @@ import { useGetRemoteListingJobsUsingTanstack } from "@/remoteData/getData";
 import { Params, SearchParams } from "@/types/remoteJobsListing";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
-import { useTransitionRouter } from 'next-view-transitions'
+import { useTransitionRouter } from "next-view-transitions";
 
 import { use } from "react";
 
@@ -15,8 +15,7 @@ export default function JobsPage(props: {
   params: Params;
   searchParams: SearchParams;
 }) {
-
-  const router = useTransitionRouter()
+  const router = useTransitionRouter();
   const searchParams = use(props.searchParams);
 
   const page = searchParams["page"] ?? "1";
@@ -95,7 +94,7 @@ export default function JobsPage(props: {
         </div>
         {remoteJobs && (
           <div className="grid place-content-center">
-            <div className=" mb-20 flex gap-2 items-center">
+            <div className=" mb-20 flex flex-wrap gap-2 items-center">
               <Button
                 variant="outline"
                 onClick={() => {
@@ -107,9 +106,33 @@ export default function JobsPage(props: {
               >
                 previous
               </Button>
-              <p>
+              {/* <p>
                 {page} of {Math.ceil(remoteJobs?.length / Number(per_page))}
-              </p>
+              </p> */}
+              <ul className="flex flex-wrap gap-2 items-center">
+                {[
+                  ...new Array(Math.ceil(remoteJobs.length / Number(per_page))),
+                ].map((_, index) => {
+                  const pageNavigation = index + 1;
+                  return (
+                    <Button
+                      key={index}
+                      type="button"
+                      size="sm"
+                      variant={
+                        pageNavigation == Number(page) ? "default" : "outline"
+                      }
+                      onClick={() => {
+                        router.push(
+                          `find-jobs/?page=${pageNavigation}&per_page=${per_page}`
+                        );
+                      }}
+                    >
+                      {pageNavigation}
+                    </Button>
+                  );
+                })}
+              </ul>
               <Button
                 variant="outline"
                 onClick={() => {
