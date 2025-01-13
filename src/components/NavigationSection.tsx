@@ -82,7 +82,7 @@ export default function NavigationSection() {
             {/* mobile navigation  */}
             <div className="block md:hidden">
               <Sheet>
-                <SheetTrigger>
+                <SheetTrigger aria-label="mobile navigation button">
                   <MenuSquareIcon className="" size={32} />
                 </SheetTrigger>
                 <SheetContent className="overflow-auto">
