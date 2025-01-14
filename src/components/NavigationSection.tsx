@@ -28,7 +28,7 @@ export default function NavigationSection() {
     <>
       <nav className="">
         <NavigationMenu className=" fixed">
-          <NavigationMenuList className="bg-slate-500/30  backdrop-blur-md flex items-center justify-between gap-2 lg:gap-12  w-[99.9vw] rounded-md  px-4 lg:px-12 py-4">
+          <NavigationMenuList className="bg-bts-BrownTwo/50  backdrop-blur-md flex items-center justify-between gap-2 lg:gap-12  w-[99.9vw] rounded-md  px-4 lg:px-12 py-4">
             <NavigationMenuItem>
               <Link href="/">
                 <DisplayImageFromNextCloudinary

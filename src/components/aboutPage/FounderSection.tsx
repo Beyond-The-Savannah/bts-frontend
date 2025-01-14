@@ -4,8 +4,8 @@ import DisplayVideoFromNextCloudinary from "../DisplayVideoFromNextCloudinary";
 
 export default function FounderSection() {
   return (
-    <>
-      <section className="container mx-auto px-4 min-h-[100vh] flex flex-col justify-center">
+    <section className="bg-bts-BrownTwo">
+      <div className="container mx-auto px-4 min-h-[100vh] flex flex-col justify-center">
         <div className="">
           <h2 className="text-xl">Meet The Founder</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
@@ -42,7 +42,7 @@ export default function FounderSection() {
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

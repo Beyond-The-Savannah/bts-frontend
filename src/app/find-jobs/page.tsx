@@ -57,7 +57,7 @@ export default function JobsPage(props: {
             <div
               key={index}
               // className="border rounded-xl w-full md:w-[22rem] lg:w-5/12 bg-slate-100 hover:shadow-amber-300 hover:shadow-md hover:bg-slate-200 duration-700 px-8 py-4"
-              className=" border-bts-BrownFive rounded-xl w-full md:w-[22rem] lg:w-5/12 bg-bts-BrownTwo hover:shadow-bts-BrownFour hover:shadow-md hover:bg-bts-BrownFive duration-700 px-8 py-4"
+              className=" border-bts-BrownFive rounded-xl w-full md:w-[22rem] lg:w-5/12 bg-bts-BrownTwo hover:shadow-bts-BrownFour hover:shadow-md hover:bg-bts-BrownFive/50 duration-700 px-8 py-4"
             >
               <div className="flex items-center gap-2">
                 <Image
@@ -70,7 +70,7 @@ export default function JobsPage(props: {
                 <div className="flex items-center justify-between w-full">
                   <p className="">{job.companyName}</p>
                   {/* <p className="capitalize text-sm rounded-xl bg-slate-300 w-24 text-center"> */}
-                  <p className="capitalize text-sm rounded-xl bg-bts-GreenOne text-white w-24 text-center">
+                  <p className="capitalize text-sm rounded-xl bg-bts-BrownOne text-black w-24 text-center">
                     {DateFormatter(`${job.dateCreated}`)}
                   </p>
                 </div>
