@@ -42,7 +42,7 @@ export default function ServicesSection() {
                     <div className="flex gap-1 items-center justify-between">
                       <p className="font-semibold">{service.title}</p>
                       <p className="bg-amber-100 rounded-lg py-2 px-6 w-36 text-xs">
-                        KES <span className="text-xl">{service.price}</span>
+                        KES <span className="text-xl">{service.priceString}</span>
                       </p>
                     </div>
                     <p className="c">{service.valueProposal}</p>

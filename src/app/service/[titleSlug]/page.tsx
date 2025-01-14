@@ -44,9 +44,9 @@ export default async function ServicePage({
             </h1>
             <p className="bg-amber-100 rounded-lg py-2 px-6 w-48 text">
               {" "}
-              KES <span className="text-2xl">{specificService?.price}</span>
+              KES <span className="text-2xl">{specificService?.priceString}</span>
             </p>
-            <p className="text-2xl lg:text-xl w-full lg:w-4/5">
+            <p className="text-2xl font-medium lg:text-xl w-full lg:w-4/5">
               {specificService?.subheading}
             </p>
             <p className="text-lg w-full lg:w-4/5">
@@ -60,11 +60,11 @@ export default async function ServicePage({
             <div className="flex items-center justify-between ">
               <div className="c">
                 <h6 className="text-3xl ">What&apos;s in this service</h6>
-                <div className="border-2 rounded-md border-amber-200 w-full md:w-72 mb-4"></div>
+                <div className="border-2 rounded-md border-bts-BrownThree w-full md:w-72 mb-4"></div>
               </div>
               <div className="c">
                 <DisplayImageFromNextCloudinary
-                  src="square_elements_esh32r"
+                  src="Beyond_The_Savannah_Square_Elements_rryzny"
                   height={800}
                   width={800}
                   prioty
@@ -76,14 +76,18 @@ export default async function ServicePage({
             {specificService?.benefits.map((benefit, index) => (
               <div key={index} className="flex items-center gap-4 mb-8">
                 <span>
-                  <CircleCheck className="text-green-400" size={24} />
+                  <CircleCheck
+                    // className="text-green-400"
+                    className="text-bts-BrownFive"
+                    size={24}
+                  />
                 </span>
                 <p className="text-base">{benefit}</p>
               </div>
             ))}
             <div className="c">
               <DisplayImageFromNextCloudinary
-                src="square_elements_esh32r"
+                src="Beyond_The_Savannah_Square_Elements_rryzny"
                 height={800}
                 width={800}
                 prioty
@@ -97,7 +101,8 @@ export default async function ServicePage({
               {specificService?.valueProposal}
             </p>
             <Drawer>
-              <DrawerTrigger className="px-4 py-2 rounded-lg w-full text-white bg-green-600 hover:bg-green-700 hover:shadow-amber-300 hover:shadow-md duration-700">
+              {/* <DrawerTrigger className="px-4 py-2 rounded-lg w-full text-white bg-green-600 hover:bg-green-700 hover:shadow-amber-300 hover:shadow-md duration-700"> */}
+              <DrawerTrigger className="px-4 py-2 rounded-lg w-full text-white bg-bts-GreenOne hover:bg-green-700 hover:shadow-bts-BrownThree hover:shadow-md duration-700">
                 Purchase
               </DrawerTrigger>
               <DrawerContent className="max-w-xl mx-auto">

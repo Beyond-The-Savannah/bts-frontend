@@ -65,7 +65,11 @@ export default function CheckoutForm(amount:{amount:number}) {
                         </FormItem>
                     )}
                 />
-                <Button type='submit' size='lg' className="w-full bg-green-400 hover:bg-green-500">Start payment process</Button>
+                <Button type='submit' size='lg' 
+                    // className="w-full bg-green-400 hover:bg-green-500"
+                    className="w-full bg-bts-GreenOne hover:bg-green-500"
+                >
+                    Start payment process</Button>
             </form>
         </Form>
     </>

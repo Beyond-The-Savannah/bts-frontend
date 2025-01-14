@@ -15,6 +15,7 @@ export const servicesList=[
         ],
         valueProposal:"Invest in your professional growth and make the most out of your LinkedIn presence. Book your 45-minute LinkedIn profile optimization session today and watch your online brand thrive!",
         price:15000,
+        priceString:"15,000",
     },
     {
         id:2,
@@ -30,6 +31,7 @@ export const servicesList=[
         ],
         valueProposal:"This is the boost your career needs. Take action today to increase your chances of landing your dream job. Book our CV review and cover letter package now",
         price:5000,
+        priceString:"5,000",
     },
     {
         id:3,
@@ -45,6 +47,7 @@ export const servicesList=[
         ],
         valueProposal:"This is the boost your career needs. Take action today to increase your chances of landing your dream job. Book our ATS CV revamp and cover letter package now!",
         price:8000,
+        priceString:"8,000",
     },
     {
         id:4,
@@ -62,6 +65,7 @@ export const servicesList=[
         ],
         valueProposal:"Invest in yourself and take the first step toward a brighter, more fulfilling future. Book your 1-hour coaching session today to start your transformative journey!",
         price:7000,
+        priceString:"7,000",
     },
     {
         id:5,
@@ -80,6 +84,7 @@ export const servicesList=[
         ],
         valueProposal:"Invest in yourself and take the next step toward landing your dream job. Book your 2-hour guided interview preparation session today and set yourself up for a brighter career future!",
         price:12000,
+        priceString:"12,000",
     },
     {
         id:6,
@@ -98,6 +103,7 @@ export const servicesList=[
         ],
         valueProposal:"Are you feeling stuck in your career or unsure about your next steps? Let us have an one-on-one and provide tailored advice and actionable strategies to help you navigate your professional challenges.",
         price:4000,
+        priceString:"4,000",
     },
     {
         id:7,
@@ -115,6 +121,7 @@ export const servicesList=[
         ],
         valueProposal:"Whether you're a seasoned professional looking to transition to remote roles or a newcomer eager to enter the workforce, our Master Class is designed to equip you with the essential skills, strategies, and insights needed to thrive in a work environment.",
         price:3500,
+        priceString:"3,500",
     },
     {
         id:8,
@@ -131,5 +138,6 @@ export const servicesList=[
         ],
         valueProposal:"An introductory video is more than just a welcome, it's an essential tool for remote workers to establish rapport, communicate effectively, and set the tone for a productive working relationship.",
         price:3000,
+        priceString:"3,000",
     },
 ]
