@@ -7,9 +7,11 @@ import { fetchRemoteJobsList } from "@/remoteData/getData";
 import { SingleRemoteJob } from "@/types/remoteJobsListing";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowUpRight, CalendarPlus, CalendarX } from "lucide-react";
+import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TelegramIcon, TelegramShareButton, TwitterShareButton, WhatsappIcon, WhatsappShareButton, XIcon } from "react-share";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 import { use } from "react";
+
 
 export default function SinglJobListingPage({
   params,
@@ -165,10 +167,6 @@ export default function SinglJobListingPage({
                     <h3 className="text-xl font-semibold">
                       {listing.sectionName}
                     </h3>
-                    {/* <div className="prose:"
-                    dangerouslySetInnerHTML={{ __html: fixedHTML(listing.sectionName) }}
-                    >
-                    </div> */}
 
                     <div
                       className="prose"
@@ -180,6 +178,34 @@ export default function SinglJobListingPage({
                 ))}
               </>
             )}
+            <div className="space-y-4">
+              <p className="">Share this remote job Opportunity with your friends and colleagues</p>
+              {
+              filteredRemoteJob && (
+                <div className="flex flex-wrap gap-4 items-center">
+                  <TwitterShareButton title={`Job Role : ${filteredRemoteJob.jobName}, through`} url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}>
+                    <XIcon className="size-8 rounded-lg"/>
+                  </TwitterShareButton>
+                  <LinkedinShareButton title={`Job Role : ${filteredRemoteJob.jobName}, through`} url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}>
+                    <LinkedinIcon className="size-8 rounded-lg"/>
+                  </LinkedinShareButton>
+                  <FacebookShareButton title={`Job Role : ${filteredRemoteJob.jobName}, through`} url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}>
+                    <FacebookIcon className="size-8 rounded-lg"/>
+                  </FacebookShareButton>
+                  <WhatsappShareButton title={`Job Role : ${filteredRemoteJob.jobName}, through`} url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}>
+                    <WhatsappIcon className="size-8 rounded-md"/>
+                  </WhatsappShareButton>
+                  <TelegramShareButton title={`Job Role : ${filteredRemoteJob.jobName}, through`} url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}>
+                    <TelegramIcon className="size-8 rounded-md" />
+                  </TelegramShareButton>
+                  <EmailShareButton title={`Job Role : ${filteredRemoteJob.jobName}, through`} url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}>
+                    <EmailIcon  className="size-8 rounded-md" />
+                  </EmailShareButton>
+              </div>
+              )
+              }
+              
+            </div>
           </div>
           {!singleJob && <p>We cannot find that particular job listing</p>}
         </div>
