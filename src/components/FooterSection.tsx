@@ -15,10 +15,11 @@ import DisplayImageFromNextCloudinary from "./DisplayImageFromNextCloudinary";
 export default function FooterSection() {
   return (
     <>
-      <footer className="bg-green-950/95">
+      <footer className="bg-bts-GreenOne">
         <div className=" flex flex-wrap justify-center gap-12 lg:gap-8 px-12 py-24">
           <div className="w-full md:w-56 lg:w-[20%]">
-            <p className=" text-amber-400 uppercase font-semibold mb-2">
+            {/* <p className=" text-amber-400 uppercase font-semibold mb-2"> */}
+            <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               BEYOND THE SAVANNAH
             </p>
             <p className="text-sm text-amber-100">
@@ -37,7 +38,8 @@ export default function FooterSection() {
             </Link>
           </div>
           <div className="w-full md:w-56 lg:w-[24%]">
-            <p className=" text-amber-400 uppercase font-semibold mb-2">
+            {/* <p className=" text-amber-400 uppercase font-semibold mb-2"> */}
+            <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               SERVICES
             </p>
             <ul className="space-y-2 text-amber-100">
@@ -54,7 +56,8 @@ export default function FooterSection() {
             </ul>
           </div>
           <div className="w-full md:w-56 lg:w-[24%]">
-            <p className=" text-amber-400 uppercase font-semibold mb-2">
+            {/* <p className=" text-amber-400 uppercase font-semibold mb-2"> */}
+            <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               USEFUL LINKS
             </p>
             <ul className="space-y-2 text-sm text-amber-100">
@@ -101,7 +104,8 @@ export default function FooterSection() {
             </ul>
           </div>
           <div className="w-full md:w-56 lg:w-[24%]">
-            <p className=" text-amber-400 uppercase font-semibold mb-2">
+            {/* <p className=" text-amber-400 uppercase font-semibold mb-2"> */}
+            <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               CONTACT
             </p>
             <ul className="space-y-2 text-amber-100">

@@ -10,6 +10,15 @@ export default {
   theme: {
     extend: {
       colors: {
+        "bts-BrownOne":"hsl(24, 69%, 86%)",
+        "bts-BrownTwo":"hsl(18, 71%, 95%)",
+        "bts-BrownThree":"hsl(40, 47%, 48%)",
+        "bts-BrownFour":"hsl(40, 44%, 46%)",
+        "bts-BrownFive":"hsl(21, 39%, 79%)",
+        "bts-GreenOne":"hsl(188, 34%, 17%)",
+
+
+        
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

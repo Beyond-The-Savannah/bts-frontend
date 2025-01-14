@@ -17,7 +17,8 @@ export default function HeroSection() {
           <Link href="/#services">
             <Button
               size="lg"
-              className="my-8 font-semibold text-black bg-amber-400 hover:bg-amber-500 hover:scale-105 transition duration-500 text-base"
+              // className="my-8 font-semibold text-black bg-amber-400 hover:bg-amber-500 hover:scale-105 transition duration-500 text-base"
+              className="my-8 font-semibold text-black bg-bts-BrownFour hover:bg-bts-BrownThree hover:text-white hover:scale-105 transition duration-500 text-base"
             >
               View our Services
             </Button>
@@ -26,7 +27,7 @@ export default function HeroSection() {
         <div className="">
           
           <DisplayImageFromNextCloudinary
-            src="Beyond_The_Savannah_Home_Hero_negua0"
+            src="Beyond_The_Savannah_Hero_2_oulhy1"
             height={800}
             width={800}
             alt="Lorraine founder of beyond the savannah"

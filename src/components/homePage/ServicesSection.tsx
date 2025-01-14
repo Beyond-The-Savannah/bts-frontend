@@ -16,10 +16,10 @@ import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 export default function ServicesSection() {
   return (
     <>
-      <section id="services" className="pt-40 pb-20 bg-amber-50 ">
+      <section id="services" className="pt-40 pb-20 bg-bts-BrownTwo ">
         <div className="container mx-auto px-4">
           <h2 className="text-xl">Our Services</h2>
-          <div className="border-2 rounded-md border-stone-500 w-36"></div>
+          <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
           <p className="capitalize text-3xl font-bold  mt-2">
             How we can help you
           </p>
@@ -27,7 +27,8 @@ export default function ServicesSection() {
             {servicesList.map((service) => (
               <div
                 key={service.id}
-                className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[27vw] hover:shadow-amber-300 hover:shadow-md duration-700"
+                // className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[27vw] hover:shadow-amber-300 hover:shadow-md duration-700"
+                className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[27vw] hover:shadow-bts-BrownFour hover:shadow-md duration-700"
               >
                 <div className="grid content-between h-full lg:h-full pb-4">
                   <DisplayImageFromNextCloudinary
@@ -47,7 +48,8 @@ export default function ServicesSection() {
                     <p className="c">{service.valueProposal}</p>
                   </div>
                   <Dialog>
-                    <DialogTrigger className=" border border-amber-300 py-1 px-2  rounded-lg text-base w-24 hover:shadow-amber-300 hover:shadow-md hover:bg-amber-200 duration-700 mx-8">
+                    {/* <DialogTrigger className=" border border-amber-300 py-1 px-2  rounded-lg text-base w-24 hover:shadow-amber-300 hover:shadow-md hover:bg-amber-200 duration-700 mx-8"> */}
+                    <DialogTrigger className=" border border-bts-BrownThree py-1 px-2  rounded-lg text-base w-24 hover:shadow-bts-BrownFour hover:text-white hover:shadow-md hover:bg-bts-BrownThree duration-700 mx-8">
                       Preview
                     </DialogTrigger>
                     <DialogHeader>
@@ -76,7 +78,8 @@ export default function ServicesSection() {
                             <Link href={`service/${service.titleSlug}`}>
                               <Button
                                 size="lg"
-                                className="border border-amber-400 bg-amber-400 text-black hover:text-white   rounded-lg text-base  hover:bg-amber-600 hover:scale-105 transition duration-500  my-4"
+                                // className="border border-amber-400 bg-amber-400 text-black hover:text-white   rounded-lg text-base  hover:bg-amber-600 hover:scale-105 transition duration-500  my-4"
+                                className="border border-bts-BrownThree bg-bts-BrownThree text-black hover:text-white   rounded-lg text-base  hover:bg-bts-BrownThree hover:scale-105 transition duration-500  my-4"
                               >
                                 Get This Service
                               </Button>
@@ -86,7 +89,8 @@ export default function ServicesSection() {
                             <p className="text-3xl">
                               What&apos;s in this service
                             </p>
-                            <div className="border-2 rounded-md border-amber-200 w-72 mb-4"></div>
+                            {/* <div className="border-2 rounded-md border-amber-200 w-72 mb-4"></div> */}
+                            <div className="border-2 rounded-md border-bts-BrownThree w-72 mb-4"></div>
                             {service.benefits.map((benefit, index) => (
                               <div
                                 key={index}
@@ -94,7 +98,8 @@ export default function ServicesSection() {
                               >
                                 <span>
                                   <CircleCheck
-                                    className="text-green-400"
+                                    // className="text-green-400"
+                                    className="text-bts-BrownFive"
                                     size={24}
                                   />
                                 </span>
