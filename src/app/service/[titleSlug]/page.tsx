@@ -11,7 +11,28 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { servicesList } from "@/staticData/services";
+import { ParamsProps } from "@/types/nextJSBasedParams";
 import { CircleCheck } from "lucide-react";
+import { Metadata, ResolvingMetadata } from "next";
+
+export async function generateMetadata(
+  {params}:ParamsProps,
+  parent:ResolvingMetadata
+):Promise<Metadata>{
+
+  const titleSlug= (await params).titleSlug
+  const metaSpecificService = servicesList.find(
+    (service) => service.titleSlug == titleSlug
+  );
+  const previousImage=(await parent).openGraph?.images || []
+  return{
+    title:metaSpecificService?.title,
+    description:metaSpecificService?.details,
+    openGraph:{
+      images:[`${metaSpecificService?.img}`,...previousImage]
+    }
+  }
+}
 
 export default async function ServicePage({
   params,
