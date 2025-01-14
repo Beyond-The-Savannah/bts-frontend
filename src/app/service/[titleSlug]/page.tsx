@@ -14,6 +14,7 @@ import { servicesList } from "@/staticData/services";
 import { ParamsProps } from "@/types/nextJSBasedParams";
 import { CircleCheck } from "lucide-react";
 import { Metadata, ResolvingMetadata } from "next";
+import { getCldImageUrl } from "next-cloudinary";
 
 export async function generateMetadata(
   {params}:ParamsProps,
@@ -24,12 +25,21 @@ export async function generateMetadata(
   const metaSpecificService = servicesList.find(
     (service) => service.titleSlug == titleSlug
   );
+  const url= getCldImageUrl({
+    src:`${metaSpecificService?.openGraphImg}`
+  })
   const previousImage=(await parent).openGraph?.images || []
+  console.log(previousImage)
   return{
     title:metaSpecificService?.title,
     description:metaSpecificService?.details,
     openGraph:{
-      images:[`${metaSpecificService?.img}`,...previousImage]
+      // images:[`${metaSpecificService?.img}`,...previousImage]
+      images:[{
+        width:1200,
+        height:627,
+        url
+      }]
     }
   }
 }
