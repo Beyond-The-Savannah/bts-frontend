@@ -44,7 +44,7 @@ export default function JobsPage(props: {
       <section className="container mx-auto min-h-screen px-4">
         <div className="pt-40 mb-10">
           <h2 className="text-xl">Global Open Roles</h2>
-          <div className="border-2 rounded-md border-stone-500 w-36"></div>
+          <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
           <p className="capitalize text-3xl font-bold  mt-2">
             Remote Opportunities
           </p>
@@ -86,7 +86,8 @@ export default function JobsPage(props: {
                       variant="outline"
                       size="sm"
                       // className="hover:bg-amber-200 hover:border-amber-200"
-                      className="border-bts-BrownTwo border hover:bg-bts-BrownOne hover:border-bts-BrownTwo"
+                      // 
+                      className="border-bts-BrownTwo hover:bg-bts-BrownTwo hover:text-black hover:scale-105 transition duration-500"
                     >
                       View Position
                     </Button>
