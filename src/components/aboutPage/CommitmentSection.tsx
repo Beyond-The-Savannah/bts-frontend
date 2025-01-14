@@ -23,9 +23,11 @@ export default function CommitmentSection() {
             <Link href="/find-jobs">
               <Button
                 size="lg"
-                className="text-base border-amber-100 bg-amber-100 text-black  hover:bg-amber-50 hover:scale-105 transition duration-500"
+                // className="text-base border-amber-100 bg-amber-100 text-black  hover:bg-amber-50 hover:scale-105 transition duration-500"
+                className="text-base border-bts-BrownTwo bg-bts-BrownTwo text-black  hover:bg-bts-BrownFive hover:scale-105 transition duration-500"
               >
-                View Remote Opennings
+                {/* View Remote Opennings */}
+                 View Remote Opportunities
               </Button>
             </Link>
           </div>
@@ -34,7 +36,8 @@ export default function CommitmentSection() {
             <Link href="/#services">
               <Button
                 size="lg"
-                className="text-base border-amber-400 bg-amber-400 text-black hover:bg-amber-300 hover:scale-105 transition duration-500"
+                // className="text-base border-amber-400 bg-amber-400 text-black hover:bg-amber-300 hover:scale-105 transition duration-500"
+                className="text-base border-bts-BrownThree bg-bts-BrownThree text-black hover:bg-bts-BrownFour hover:text-white hover:scale-105 transition duration-500"
               >
                 Try Our Services
               </Button>
