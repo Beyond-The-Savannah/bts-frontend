@@ -205,37 +205,37 @@ export default function SinglJobListingPage({
                     title={`Job Role : ${filteredRemoteJob.jobName}`}
                     url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
                   >
-                    <XIcon className="size-8 rounded-lg" />
+                    <XIcon className="size-8 rounded-lg  hover:scale-110 transition duration-500" />
                   </TwitterShareButton>
                   <LinkedinShareButton
                     title={`Job Role : ${filteredRemoteJob.jobName}`}
                     url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
                   >
-                    <LinkedinIcon className="size-8 rounded-lg" />
+                    <LinkedinIcon className="size-8 rounded-lg hover:scale-110 transition duration-500" />
                   </LinkedinShareButton>
                   <FacebookShareButton
                     title={`Job Role : ${filteredRemoteJob.jobName}`}
                     url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
                   >
-                    <FacebookIcon className="size-8 rounded-lg" />
+                    <FacebookIcon className="size-8 rounded-lg hover:scale-110 transition duration-500" />
                   </FacebookShareButton>
                   <WhatsappShareButton
                     title={`Job Role : ${filteredRemoteJob.jobName}`}
                     url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
                   >
-                    <WhatsappIcon className="size-8 rounded-md" />
+                    <WhatsappIcon className="size-8 rounded-lg hover:scale-110 transition duration-500" />
                   </WhatsappShareButton>
                   <TelegramShareButton
                     title={`Job Role : ${filteredRemoteJob.jobName}`}
                     url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
                   >
-                    <TelegramIcon className="size-8 rounded-md" />
+                    <TelegramIcon className="size-8 rounded-lg hover:scale-110 transition duration-500" />
                   </TelegramShareButton>
                   <EmailShareButton
                     title={`Job Role : ${filteredRemoteJob.jobName}`}
                     url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
                   >
-                    <EmailIcon className="size-8 rounded-md" />
+                    <EmailIcon className="size-8 rounded-lg hover:scale-110 transition duration-500" />
                   </EmailShareButton>
                 </div>
               )}
