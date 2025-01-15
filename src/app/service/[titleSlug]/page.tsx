@@ -55,8 +55,8 @@ export default async function ServicePage({
   );
   return (
     <>
-      <section className="container mx-auto space-y-12 px-4 pt-52 pb-40">
-        <div className="min-h-[50vh] grid grid-cols-1 md:grid-cols-12 items-start gap-4">
+      <section className="container mx-auto space-y-12 px-4 pt-48 pb-40">
+        <div className="min-h-[50vh] grid grid-cols-1 md:grid-cols-12 items-start justify-between gap-4">
           <div className="col-span-12 md:col-span-5 lg:col-span-4">
             {specificService && (
               <DisplayImageFromNextCloudinary
@@ -65,7 +65,7 @@ export default async function ServicePage({
                 width={800}
                 prioty
                 alt={`beyond the savannah, ${specificService.title} service image`}
-                classname="object-cover w-[40rem] bg-bts-BrownOne h-72 rounded-xl"
+                classname="object-cover w-[40rem] bg-bts-BrownOne h-[40vh] rounded-xl"
               />
             )}
           </div>
@@ -77,17 +77,17 @@ export default async function ServicePage({
               {" "}
               KES <span className="text-2xl">{specificService?.priceString}</span>
             </p>
-            <p className="text-2xl font-medium lg:text-xl w-full lg:w-4/5">
+            <p className="text-2xl font-medium lg:text-xl w-full xl:w-4/5">
               {specificService?.subheading}
             </p>
-            <p className="text-lg w-full lg:w-4/5">
+            <p className="text-lg w-full xl:w-4/5">
               {specificService?.details}
             </p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-12 items-start  gap-y-8 md:gap-12 xl:gap-x-32">
-          <div className="col-span-7  ">
+          <div className="col-span-6 ">
             <div className="flex items-center justify-between ">
               <div className="c">
                 <h6 className="text-3xl ">What&apos;s in this service</h6>
