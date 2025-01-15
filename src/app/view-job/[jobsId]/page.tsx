@@ -178,7 +178,7 @@ export default function SinglJobListingPage({
                 {singleJob.map((listing) => (
                   <article
                     key={listing.id}
-                    className=" border-bts-BrownTwo/5 border-4   bg-bts-BrownTwo/70 rounded-lg py-4  px-8"
+                    className=" border-bts-BrownTwo border-4   rounded-lg py-4  px-8"
                   >
                     <h3 className="text-xl font-semibold">
                       {listing.sectionName}
