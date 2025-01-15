@@ -3,30 +3,33 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import NavigationSection from "@/components/NavigationSection";
 import FooterSection from "@/components/FooterSection";
-import { ViewTransitions } from 'next-view-transitions'
+import { ViewTransitions } from "next-view-transitions";
 import TanstackQueryProvider from "@/lib/tanstack";
 import { getCldOgImageUrl } from "next-cloudinary";
+import { PostHogProvider } from "@/lib/postHogProvider";
+
 
 const montserrat = Montserrat({
   subsets: ["latin"],
 });
 
-const url=getCldOgImageUrl({
-  src:"Beyond_the_Savannah_OG-Image_pwe3xv"
-})
+const url = getCldOgImageUrl({
+  src: "Beyond_the_Savannah_OG-Image_pwe3xv",
+});
 
 export const metadata: Metadata = {
-  openGraph:{
-    images:[
+  openGraph: {
+    images: [
       {
-        width:1200,
-        height:627,
-        url
-      }
-    ]
+        width: 1200,
+        height: 627,
+        url,
+      },
+    ],
   },
   title: "Beyond The Savannah",
-  description: "Your unique experience is your Career accessory to landing a remote job. Level up your career with Beyond The Savannah",
+  description:
+    "Your unique experience is your Career accessory to landing a remote job. Level up your career with Beyond The Savannah",
 };
 
 export default function RootLayout({
@@ -42,9 +45,11 @@ export default function RootLayout({
       >
         <TanstackQueryProvider>
           <ViewTransitions>
-            <NavigationSection/>
-            {children}
-            <FooterSection/>
+            <PostHogProvider>
+              <NavigationSection />
+              {children}
+              <FooterSection />
+            </PostHogProvider>
           </ViewTransitions>
         </TanstackQueryProvider>
       </body>
