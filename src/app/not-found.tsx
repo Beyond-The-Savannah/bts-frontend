@@ -15,10 +15,10 @@ export default function NotFoundPage() {
                         src="https://lottie.host/9b548843-5e51-4ab7-955d-7ec92d367c3c/Eqo17iXW8n.lottie"
                         loop
                         autoplay
-                        className='size-auto'
+                        className='size-9/12 mx-auto'
                     />
                 </div>
-                <p className="text-lg">
+                <p className="text-lg font-medium">
                     Looks like we can&apos;t find that page    
                 </p>
                 {/* <p className="c"> lets take you back or head home</p> */}
