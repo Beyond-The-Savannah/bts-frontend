@@ -65,7 +65,7 @@ export default async function ServicePage({
                 width={800}
                 prioty
                 alt={`beyond the savannah, ${specificService.title} service image`}
-                classname="object-cover w-[40rem] bg-gray-200 h-72 rounded"
+                classname="object-cover w-[40rem] bg-bts-BrownOne h-72 rounded-xl"
               />
             )}
           </div>
