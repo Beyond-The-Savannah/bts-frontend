@@ -22,7 +22,7 @@ export default function FooterSection() {
             <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               BEYOND THE SAVANNAH
             </p>
-            <p className="text-sm text-amber-100">
+            <p className="text-xs xl:text-sm text-amber-100">
               Seamless connections, soaring carrers, elevate yours with beyond
               the savannah!
             </p>
@@ -47,7 +47,7 @@ export default function FooterSection() {
                 <li key={service.id}>
                   <Link
                     href={`/service/${service.titleSlug}`}
-                    className="text-sm flex hover:scale-105 transition ease-in"
+                    className="text-xs xl:text-sm flex hover:scale-105 transition ease-in"
                   >
                     {service.title}
                   </Link>
@@ -60,7 +60,7 @@ export default function FooterSection() {
             <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               USEFUL LINKS
             </p>
-            <ul className="space-y-2 text-sm text-amber-100">
+            <ul className="space-y-2 text-xs xl:text-sm text-amber-100">
               <li>
                 <a
                   href="https://www.tiktok.com/@beyond.the.savannah"
