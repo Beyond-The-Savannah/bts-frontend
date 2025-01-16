@@ -14,7 +14,7 @@ const montserrat = Montserrat({
 });
 
 const url = getCldOgImageUrl({
-  src: "Beyond_the_Savannah_OG-Image_pwe3xv",
+  src: "home_openGraph_jigtwd",
 });
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  title: "Beyond The Savannah",
+  title: "Home - Beyond The Savannah",
   description:
     "Your unique experience is your Career accessory to landing a remote job. Level up your career with Beyond The Savannah",
 };

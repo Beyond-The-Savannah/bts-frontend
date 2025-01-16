@@ -7,7 +7,7 @@ import { getCldImageUrl } from "next-cloudinary";
 
 
 const url= getCldImageUrl({
-  src:"about_-_beyond_the_savannah_zxeekw"
+  src:"about_openGraph_hk6rfb"
 })
 
 export const metadata:Metadata={
@@ -20,7 +20,7 @@ export const metadata:Metadata={
       }
     ]
   },
-  title:"About Beyond The Savannah",
+  title:"About - Beyond The Savannah",
   description:"Discover your potential at Beyond the Savannah, where we connect talented professionals with rewarding remote job opportunities. Embrace the future of work and achieve a fulfilling career from anywhere in the world."
 }
 

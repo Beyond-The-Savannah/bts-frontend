@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import { getCldImageUrl } from "next-cloudinary";
 
 const url = getCldImageUrl({
-  src:"find_jobs_-_beyond_the_savannah_fr5eli"
+  src:"find-job_openGraph_hhbgtj"
 })
 
 export const metadata:Metadata={

@@ -31,7 +31,7 @@ export async function generateMetadata(
   const previousImage=(await parent).openGraph?.images || []
   console.log(previousImage)
   return{
-    title:metaSpecificService?.title,
+    title:`${metaSpecificService?.title} - Beyond The Savannah`,
     description:metaSpecificService?.details,
     openGraph:{
       // images:[`${metaSpecificService?.img}`,...previousImage]

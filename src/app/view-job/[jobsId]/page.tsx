@@ -12,21 +12,20 @@ export async function generateMetadata(
   const metaJob = await (
     await fetchRemoteJobsList()
   ).find((job) => job.jobsId == parseInt(metaJobsId));
-  console.log("METAJOBID ", metaJobsId);
-  console.log("METAJOB ", metaJob);
 
   const url = getCldImageUrl({
-    src: `${metaJob?.imageUrl}`,
+    // src: `${metaJob?.imageUrl}`,
+    src: `view-job_openGraph_xgfhqm`,
   });
   const previousImage = (await parent).openGraph?.images || [];
   console.log(previousImage);
 
   return {
-    title: `View Job - Beyond The Savannah`,
-    description: ``,
+    // title: `View Job - Beyond The Savannah`,
+    // description: ``,
+    title: `${metaJob?.jobName} - Beyond The Savannah`,
+    description: `${metaJob?.companyName} has an remote opportunity under this department ${metaJob?.jobSubCategory}`,
     openGraph: {
-      title: `${metaJob?.jobName} `,
-      description: `${metaJob?.companyName} has an remote opportunity under this department ${metaJob?.jobSubCategory}`,
       images: [
         {
           width: 1200,
