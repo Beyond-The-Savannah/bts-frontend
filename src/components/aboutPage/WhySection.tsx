@@ -10,7 +10,7 @@ export default function WhySection() {
         <div className="">
           <h2 className="text-xl">Our Unique Factor</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <p className="capitalize text-3xl font-bold  mt-2">Who We Are</p>
+          <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">Who We Are</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-12 items-center justify-center space-y-8 pb-20 pt-0 md:pt-20">
           <div className="col-span-12 md:col-start-2 col-end-8">

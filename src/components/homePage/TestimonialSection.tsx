@@ -16,7 +16,7 @@ export default function TestimonialSection() {
         <div className="">
           <h2 className="text-xl">Testimonials</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <p className="capitalize text-3xl font-bold  mt-2">
+          <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
             What are people saying
           </p>
         </div>

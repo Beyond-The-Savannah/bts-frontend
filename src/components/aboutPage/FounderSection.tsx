@@ -9,7 +9,7 @@ export default function FounderSection() {
         <div className="py-10">
           <h2 className="text-xl">Meet The Founder</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <p className="capitalize text-5xl font-bold  mt-2">
+          <p className="capitalize text-5xl font-bold text-bts-GreenOne mt-2">
             Hi, I&apos;m Loarraine
           </p>
         </div>

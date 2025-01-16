@@ -73,7 +73,7 @@ export default async function ServicePage({
             )}
           </div>
           <div className=" col-span-12 md:col-span-6 lg:col-span-8 space-y-4   capitalize md:ml-12 lg:ml-24 ">
-            <h1 className=" text-2xl xl:text-3xl lg:text-5xl text-balance font-bold">
+            <h1 className=" text-2xl xl:text-3xl lg:text-5xl text-balance text-bts-GreenOne font-bold">
               {specificService?.title}
             </h1>
             <p className="bg-amber-100 rounded-lg py-2 px-6 w-48 text">

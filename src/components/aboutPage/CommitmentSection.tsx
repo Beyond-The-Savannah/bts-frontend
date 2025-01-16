@@ -8,7 +8,7 @@ export default function CommitmentSection() {
         <div className="">
           <h2 className="text-xl">Our Goal</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <p className="capitalize text-3xl font-bold  mt-2">
+          <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
             Our Committment To You
           </p>
         </div>

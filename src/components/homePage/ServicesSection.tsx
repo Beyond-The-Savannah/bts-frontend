@@ -20,7 +20,7 @@ export default function ServicesSection() {
         <div className="container mx-auto px-4">
           <h2 className="text-xl">Our Services</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <p className="capitalize text-3xl font-bold  mt-2">
+          <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
             How we can help you
           </p>
           <div className="flex flex-wrap justify-center gap-9 my-8 ">
@@ -40,8 +40,8 @@ export default function ServicesSection() {
                   />
                   <div className="space-y-2 py-4 px-8">
                     <div className="flex gap-1 items-center justify-between">
-                      <p className="text-sm  font-semibold">{service.title}</p>
-                      <p className="bg-amber-100 rounded-lg py-2 px-6 w-36 text-xs">
+                      <p className="text-sm  font-semibold text-bts-GreenOne">{service.title}</p>
+                      <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 text-xs">
                         KES <span className="text-xl">{service.priceString}</span>
                       </p>
                     </div>
@@ -60,7 +60,7 @@ export default function ServicesSection() {
                       <ScrollArea className="max-h-[70vh] w-full px-8 overflow-y-auto">
                         <div className="max-w-6xl mx-autom ">
                           <div className="text-center text-balance mb-4">
-                            <p className="font-semibold text-2xl md:text-4xl ">
+                            <p className="font-semibold text-2xl md:text-4xl text-bts-GreenOne">
                               {service.title}
                             </p>
                             <p className="c">{service.subheading}</p>
