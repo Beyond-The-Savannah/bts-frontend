@@ -6,7 +6,7 @@ export default function FounderSection() {
   return (
     <section className="bg-bts-BrownTwo">
       <div className="container mx-auto px-4 min-h-[100vh] flex flex-col justify-center">
-        <div className="">
+        <div className="py-10">
           <h2 className="text-xl">Meet The Founder</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
           <p className="capitalize text-5xl font-bold  mt-2">

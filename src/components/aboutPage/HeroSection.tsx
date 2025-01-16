@@ -5,7 +5,7 @@ import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 export default function HeroSection() {
   return (
     <>
-      <section className="container mx-auto pt-10 lg:pt-40 mb-20 px-4 h-[100vh] flex flex-col justify-center">
+      <section className="container mx-auto -mt-10 lg:pt-40 lg:mb-20 px-4 min-h-[100vh] flex flex-col justify-center">
         <div className=" text-balance space-y-4  max-w-7xl mx-auto">
           <h1 className="capitalize text-center text-3xl lg:text-5xl text-balance font-bold ">
             Beyond the Savannah

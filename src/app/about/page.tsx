@@ -3,7 +3,7 @@ import FounderSection from "@/components/aboutPage/FounderSection";
 import HeroSection from "@/components/aboutPage/HeroSection";
 import { Metadata } from "next";
 import { getCldImageUrl } from "next-cloudinary";
-// import WhySection from "@/components/aboutPage/WhySection";
+import WhySection from "@/components/aboutPage/WhySection";
 
 
 const url= getCldImageUrl({
@@ -28,7 +28,7 @@ export default function AboutPage() {
   return (
     <div className="pt-12">
     <HeroSection/>
-    {/* <WhySection/> */}
+    <WhySection/>
     <FounderSection/>
     <CommitmentSection/>
     </div>
