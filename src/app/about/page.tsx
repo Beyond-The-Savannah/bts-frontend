@@ -4,6 +4,7 @@ import HeroSection from "@/components/aboutPage/HeroSection";
 import { Metadata } from "next";
 import { getCldImageUrl } from "next-cloudinary";
 import WhySection from "@/components/aboutPage/WhySection";
+import PostHogClient from "@/lib/postHogServerPage";
 
 
 const url= getCldImageUrl({
@@ -24,7 +25,9 @@ export const metadata:Metadata={
   description:"Discover your potential at Beyond the Savannah, where we connect talented professionals with rewarding remote job opportunities. Embrace the future of work and achieve a fulfilling career from anywhere in the world."
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const posthog =PostHogClient()
+    await posthog?.shutdown()
   return (
     <div className="pt-12">
     <HeroSection/>

@@ -1,4 +1,5 @@
 import ViewJob from "@/components/viewJobPage/ViewJob";
+import PostHogClient from "@/lib/postHogServerPage";
 import { fetchRemoteJobsList } from "@/remoteData/getData";
 import { Metadata, ResolvingMetadata } from "next";
 import { getCldImageUrl } from "next-cloudinary";
@@ -43,6 +44,9 @@ export default async function SinglJobListingPage({
   params: Promise<{ jobsId: string }>;
 }) {
   const jobsId = (await params).jobsId;
+
+  const posthog =PostHogClient()
+    await posthog?.shutdown()
 
   return (
     <>

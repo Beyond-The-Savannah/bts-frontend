@@ -10,6 +10,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import PostHogClient from "@/lib/postHogServerPage";
 import { servicesList } from "@/staticData/services";
 import { ParamsProps } from "@/types/nextJSBasedParams";
 import { CircleCheck } from "lucide-react";
@@ -53,6 +54,8 @@ export default async function ServicePage({
   const specificService = servicesList.find(
     (service) => service.titleSlug == serviceTitleSlug
   );
+  const posthog =PostHogClient()
+    await posthog?.shutdown()
   return (
     <>
       <section className="container mx-auto space-y-12 px-4 pt-48 pb-40">
