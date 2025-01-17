@@ -18,31 +18,31 @@ import { Metadata, ResolvingMetadata } from "next";
 import { getCldImageUrl } from "next-cloudinary";
 
 export async function generateMetadata(
-  {params}:ParamsProps,
-  parent:ResolvingMetadata
-):Promise<Metadata>{
-
-  const titleSlug= (await params).titleSlug
+  { params }: ParamsProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const titleSlug = (await params).titleSlug;
   const metaSpecificService = servicesList.find(
     (service) => service.titleSlug == titleSlug
   );
-  const url= getCldImageUrl({
-    src:`${metaSpecificService?.openGraphImg}`
-  })
-  const previousImage=(await parent).openGraph?.images || []
-  console.log(previousImage)
-  return{
-    title:`${metaSpecificService?.title} - Beyond The Savannah`,
-    description:metaSpecificService?.details,
-    openGraph:{
-      // images:[`${metaSpecificService?.img}`,...previousImage]
-      images:[{
-        width:1200,
-        height:627,
-        url
-      }]
-    }
-  }
+  const url = getCldImageUrl({
+    src: `${metaSpecificService?.openGraphImg}`,
+  });
+  const previousImage = (await parent).openGraph?.images || [];
+  console.log(previousImage);
+  return {
+    title: `${metaSpecificService?.title} - Beyond The Savannah`,
+    description: metaSpecificService?.details,
+    openGraph: {
+      images: [
+        {
+          width: 1200,
+          height: 627,
+          url,
+        },
+      ],
+    },
+  };
 }
 
 export default async function ServicePage({
@@ -54,13 +54,13 @@ export default async function ServicePage({
   const specificService = servicesList.find(
     (service) => service.titleSlug == serviceTitleSlug
   );
-  const posthog =PostHogClient()
-    await posthog?.shutdown()
+  const posthog = PostHogClient();
+  await posthog?.shutdown();
   return (
     <>
-      <section className="container mx-auto space-y-12 px-4 pt-48 pb-40">
-        <div className="min-h-[50vh] grid grid-cols-1 md:grid-cols-12 items-start justify-between gap-4">
-          <div className="col-span-12 md:col-span-5 lg:col-span-4">
+      <section className="container mx-auto space-y-16 px-4 pt-48 pb-40">
+        <div className="min-h-[50vh]  flex flex-wrap justify-around gap-y-12 lg:gap-x-8">
+          <div className="w-[85vw] md:w-[45vw] lg:max-w-[34vw] ">
             {specificService && (
               <DisplayImageFromNextCloudinary
                 src={specificService.img}
@@ -72,25 +72,24 @@ export default async function ServicePage({
               />
             )}
           </div>
-          <div className=" col-span-12 md:col-span-6 lg:col-span-8 space-y-4   capitalize md:ml-12 lg:ml-24 ">
-            <h1 className=" text-2xl xl:text-3xl lg:text-5xl text-balance text-bts-GreenOne font-bold">
+          <div className=" w-[85vw] md:w-[44vw] lg:w-[48vw] space-y-4 text-balancee">
+            <h1 className=" text-2xl xl:text-3xl lg:text-5xl  text-bts-GreenOne font-bold">
               {specificService?.title}
             </h1>
             <p className="bg-amber-100 rounded-lg py-2 px-6 w-48 text">
               {" "}
-              KES <span className="text-2xl">{specificService?.priceString}</span>
+              KES{" "}
+              <span className="text-2xl">{specificService?.priceString}</span>
             </p>
-            <p className="text-2xl font-medium lg:text-xl w-full xl:w-4/5">
+            <p className="text-2xl font-medium lg:text-xl w-full">
               {specificService?.subheading}
             </p>
-            <p className="text-base w-full xl:w-4/5">
-              {specificService?.details}
-            </p>
+            <p className="text-base w-full ">{specificService?.details}</p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 items-start  gap-y-8 md:gap-12 xl:gap-x-32">
-          <div className="col-span-6 ">
+        <div className="min-h-[50vh]  flex flex-wrap justify-around gap-y-12">
+          <div className="w-[85vw] md:max-w-[50vw] ">
             <div className="flex items-center justify-between ">
               <div className="c">
                 <h6 className="text-3xl ">What&apos;s in this service</h6>
@@ -130,12 +129,9 @@ export default async function ServicePage({
               />
             </div>
           </div>
-          <div className="col-span-4  space-y-4">
-            <p className="text-base">
-              {specificService?.valueProposal}
-            </p>
+          <div className="w-[85vw] md:w-[27vw]   space-y-4 ">
+            <p className="text-base">{specificService?.valueProposal}</p>
             <Drawer>
-              {/* <DrawerTrigger className="px-4 py-2 rounded-lg w-full text-white bg-green-600 hover:bg-green-700 hover:shadow-amber-300 hover:shadow-md duration-700"> */}
               <DrawerTrigger className="px-4 py-2 rounded-lg w-full text-white bg-bts-GreenOne hover:bg-green-700 hover:shadow-bts-BrownThree hover:shadow-md duration-700">
                 Purchase
               </DrawerTrigger>
