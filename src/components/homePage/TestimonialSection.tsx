@@ -41,7 +41,7 @@ export default function TestimonialSection() {
                     </div>
                     <div className="w-full md:w-[55rem]">
                       <QuoteIcon className="rotate-180" size={28} />
-                      <p className="ml-6 lg:ml-12 text-balance text-md">
+                      <p className="ml-6 lg:ml-12 text-balance text leading-7">
                         {testimonial.details}
                       </p>
                       <QuoteIcon className=" w-full ml-auto" size={28} />

@@ -40,12 +40,12 @@ export default function ServicesSection() {
                   />
                   <div className="space-y-2 py-4 px-8">
                     <div className="flex gap-1 items-center justify-between">
-                      <p className="text-sm  font-semibold text-bts-GreenOne">{service.title}</p>
+                      <p className="text-base  font-semibold text-bts-GreenOne">{service.title}</p>
                       <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 text-xs">
-                        KES <span className="text-xl">{service.priceString}</span>
+                        KES <span className="text-sm">{service.priceString}</span>
                       </p>
                     </div>
-                    <p className="text-sm">{service.valueProposal}</p>
+                    <p className="text-sm leading-6">{service.valueProposal}</p>
                   </div>
                   <Dialog>
                     {/* <DialogTrigger className=" border border-amber-300 py-1 px-2  rounded-lg text-base w-24 hover:shadow-amber-300 hover:shadow-md hover:bg-amber-200 duration-700 mx-8"> */}
