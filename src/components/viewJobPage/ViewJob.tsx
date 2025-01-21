@@ -2,7 +2,7 @@
 import SingleJobLoadingErrorUI from "@/components/SingleJobLoadingErrorUI";
 import SingleJobLoadingUI from "@/components/SingleJobLoadingUI";
 import { Button } from "@/components/ui/button";
-import { DateFormatter } from "@/lib/utils";
+import { correctedParsedHTML, DateFormatter } from "@/lib/utils";
 import {
   useGetRemoteListingJobsUsingTanstack,
   useGetSingleRemiteListingUsingTanstack,
@@ -38,27 +38,6 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
     (job) => job.jobsId == parseInt(`${jobsId}`)
   );
 
-  const fixedHTML = (htmlString: string) => {
-    return (
-      htmlString
-        // .replace(</\/g,"")
-        .replace(/ul>/g, "<ul>")
-        .replace(/li>/g, "<li>") // Fix list item tags
-        .replace(/<b>/g, "<strong>") // Replace <b> with <strong>
-        .replace(/<\/b>/g, "</strong>") // Replace closing <b>
-        .replace(/<i>/g, "<em>") // Replace <i> with <em>
-        .replace(/<\/i>/g, "</em>") // Replace closing <i>
-        .replace(/<h1>/g, "<h1>") // Ensure <h1> tags are correct
-        .replace(/<\/h1>/g, "</h1>") // Ensure closing <h1>
-        .replace(/<h2>/g, "<h2>") // Ensure <h2> tags are correct
-        .replace(/<\/h2>/g, "</h2>") // Ensure closing <h2>
-        .replace(/p>/g, "<p>") // Ensure <p> tags are correct
-        .replace(/<\/p>/g, "</p>") // Ensure closing <p>
-        .replace(/<\/?ul>/g, "<ul>") // Ensure <ul> tags are correct
-        .replace(/<\/?ol>/g, "<ol>") // Ensure <ol> tags are correct
-        .replace(/<\/?br>/g, "<br>")
-    );
-  };
   return (
     <>
       <section className="container mx-auto  min-h-screen pt-40 px-4">
@@ -165,7 +144,8 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                     <div
                       className="prose"
                       dangerouslySetInnerHTML={{
-                        __html: fixedHTML(listing.sectionDescription),
+                        // __html: fixedHTML(listing.sectionDescription),
+                        __html: correctedParsedHTML(listing.sectionDescription),
                       }}
                     ></div>
                   </article>
