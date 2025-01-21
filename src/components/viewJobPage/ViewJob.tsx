@@ -3,9 +3,10 @@ import SingleJobLoadingErrorUI from "@/components/SingleJobLoadingErrorUI";
 import SingleJobLoadingUI from "@/components/SingleJobLoadingUI";
 import { Button } from "@/components/ui/button";
 import { DateFormatter } from "@/lib/utils";
-import { fetchRemoteJobsList } from "@/remoteData/getData";
-import { SingleRemoteJob } from "@/types/remoteJobsListing";
-import { useQuery } from "@tanstack/react-query";
+import {
+  useGetRemoteListingJobsUsingTanstack,
+  useGetSingleRemiteListingUsingTanstack,
+} from "@/remoteData/getData";
 import { ArrowUpRight, CalendarPlus, CalendarX } from "lucide-react";
 import {
   EmailIcon,
@@ -26,29 +27,17 @@ import Image from "next/image";
 import clsx from "clsx";
 
 export default function ViewJob({ jobsId }: { jobsId: string }) {
-  async function fetchSingleRemoteList(): Promise<SingleRemoteJob[]> {
-    const result = fetch(
-      `https://efmsapi.azurewebsites.net/api/Jobs/getAllJobsSections?jobId=${jobsId}`
-    ).then((res) => res.json());
-    return result;
-  }
-
   const {
     data: singleJob,
     isLoading,
     isError,
-  } = useQuery({
-    queryKey: ["singeleJob"],
-    queryFn: () => fetchSingleRemoteList(),
-  });
+  } = useGetSingleRemiteListingUsingTanstack(jobsId);
+  const { data: remoteJobs } = useGetRemoteListingJobsUsingTanstack();
 
-  const { data: remoteJobs } = useQuery({
-    queryKey: ["allRemoteJobs"],
-    queryFn: fetchRemoteJobsList,
-  });
   const filteredRemoteJob = remoteJobs?.find(
     (job) => job.jobsId == parseInt(`${jobsId}`)
   );
+
   const fixedHTML = (htmlString: string) => {
     return (
       htmlString
@@ -87,9 +76,7 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
         <div className="py-10 flex flex-row-reverse flex-wrap md:flex-nowrap justify-center w-full lg:w-[80vw] mx-auto  px-4 gap-4">
           <div className="w-full ">
             {filteredRemoteJob && (
-              // <div className="    flex items-center justify-between gap-4 border rounded-lg py-4  px-8 mb-12">
               <div className="  gap-4 rounded-lg py-4 px-8 mb-12">
-                {/* <div className="w-[60vw] lg:w-[30vw]"> */}
                 <div className="">
                   <div className="flex flex-wrap lg:flex-nowrap items-center gap-4">
                     <Image
@@ -98,7 +85,6 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                       width={400}
                       alt={`${filteredRemoteJob.companyName} image`}
                       className="object-contain  size-12 md:size-32 border rounded-md"
-                      // className="object-cover  h-32 w-32  border rounded-md"
                     />
                     <h3 className="text-3xl">
                       {filteredRemoteJob?.companyName}
@@ -145,7 +131,6 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                   <Button
                     variant="outline"
                     size="lg"
-                    // className="w-72 bg-slate-200 hover:shadow-amber-300 hover:shadow-md duration-700"
                     className={clsx(
                       "w-72 my-8 flex text-black border-bts-BrownFour bg-bts-BrownFour hover:bg-bts-BrownThree hover:text-white hover:scale-105 transition duration-500 text-base",
                       filteredRemoteJob.companyName == "Beyond the Savannah" &&

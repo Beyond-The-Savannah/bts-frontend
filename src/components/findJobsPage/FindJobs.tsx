@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import RemoteJobListingErrorUI from "@/components/RemoteJobListingErrorUI";
 import RemoteJobListingsLoadingUI from "@/components/RemoteJobListingsLoadingUI";
 import { Button } from "@/components/ui/button";
@@ -12,9 +12,11 @@ import { useTransitionRouter } from "next-view-transitions";
 import { use } from "react";
 import clsx from "clsx";
 
-export default function FindJobs(props:{ params: Params;
-    searchParams: SearchParams;}) {
-    const router = useTransitionRouter();
+export default function FindJobs(props: {
+  params: Params;
+  searchParams: SearchParams;
+}) {
+  const router = useTransitionRouter();
   const searchParams = use(props.searchParams);
 
   const page = searchParams["page"] ?? "1";
@@ -38,7 +40,7 @@ export default function FindJobs(props:{ params: Params;
   console.log("PGD=>", paginatedRemoteJobs);
   return (
     <>
-        <section className="container mx-auto min-h-screen px-4">
+      <section className="container mx-auto min-h-screen px-4">
         <div className="pt-40 mb-10">
           <h2 className="text-xl">Global Open Roles</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
@@ -49,11 +51,9 @@ export default function FindJobs(props:{ params: Params;
         {isLoading && <RemoteJobListingsLoadingUI />}
         {isError && <RemoteJobListingErrorUI />}
         <div className="flex flex-wrap lg:justify-center  mb-20 gap-8 md:gap-2 md:gap-y-8 lg:gap-8">
-          {/* {remoteJobs?.map((job, index) => ( */}
           {paginatedRemoteJobs?.map((job, index) => (
             <div
               key={index}
-              // className="border rounded-xl w-full md:w-[22rem] lg:w-5/12 bg-slate-100 hover:shadow-amber-300 hover:shadow-md hover:bg-slate-200 duration-700 px-8 py-4"
               className=" border-bts-BrownTwo/50 border-2 rounded-xl w-full md:w-[22rem] lg:w-5/12 bg-bts-BrownTwo/50 hover:shadow-bts-BrownFour hover:shadow-md hover:bg-bts-BrownFive/50 duration-700 px-8 py-4"
             >
               <div className="flex items-center gap-2">
@@ -66,7 +66,6 @@ export default function FindJobs(props:{ params: Params;
                 />
                 <div className="flex items-center justify-between w-full">
                   <p className="">{job.companyName}</p>
-                  {/* <p className="capitalize text-sm rounded-xl bg-slate-300 w-24 text-center"> */}
                   <p className="capitalize text-sm rounded-xl bg-bts-BrownOne text-black w-24 text-center">
                     {DateFormatter(`${job.dateCreated}`)}
                   </p>
@@ -82,8 +81,6 @@ export default function FindJobs(props:{ params: Params;
                     <Button
                       variant="outline"
                       size="sm"
-                      // className="hover:bg-amber-200 hover:border-amber-200"
-                      // 
                       className="border-bts-BrownTwo hover:bg-bts-BrownTwo hover:text-black hover:scale-105 transition duration-500"
                     >
                       View Position
@@ -108,9 +105,6 @@ export default function FindJobs(props:{ params: Params;
               >
                 previous
               </Button>
-              {/* <p>
-                {page} of {Math.ceil(remoteJobs?.length / Number(per_page))}
-              </p> */}
               <ul className="flex flex-wrap gap-2 items-center">
                 {[
                   ...new Array(Math.ceil(remoteJobs.length / Number(per_page))),
@@ -121,10 +115,12 @@ export default function FindJobs(props:{ params: Params;
                       key={index}
                       type="button"
                       size="sm"
-                      // variant={
-                      //   pageNavigation == Number(page) ? "default" : "outline"
-                      // }
-                      className={clsx('hover:bg-bts-BrownOne', pageNavigation==Number(page)?"bg-bts-BrownFive":"bg-transparent text-black")}
+                      className={clsx(
+                        "hover:bg-bts-BrownOne",
+                        pageNavigation == Number(page)
+                          ? "bg-bts-BrownFive"
+                          : "bg-transparent text-black"
+                      )}
                       onClick={() => {
                         router.push(
                           `find-jobs/?page=${pageNavigation}&per_page=${per_page}`
@@ -152,5 +148,5 @@ export default function FindJobs(props:{ params: Params;
         )}
       </section>
     </>
-  )
+  );
 }
