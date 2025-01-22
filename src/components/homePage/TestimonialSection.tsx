@@ -12,7 +12,7 @@ import { QuoteIcon } from "lucide-react";
 export default function TestimonialSection() {
   return (
     <>
-      <section className="container mx-auto px-4 mt-64 h-[40vh] flex flex-col justify-center">
+      <section className="container mx-auto px-4 mt-64 min-h-[40vh] flex flex-col justify-center">
         <div className="">
           <h2 className="text-xl">Testimonials</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
@@ -24,8 +24,7 @@ export default function TestimonialSection() {
           <Carousel className="mx-8">
             <CarouselContent>
               {clientTestimonials.map((testimonial) => (
-                <CarouselItem key={testimonial.id} className="basis-10/12 lg:basis-2/3">
-                  {/* <div className="bg-slate-100 rounded-lg px-8 py-4 h-full lg:h-96 flex flex-col md:flex-row gap-4 items-center"> */}
+                <CarouselItem key={testimonial.id} className="basis-11/12 lg:basis-2/3">
                   <div className="bg-bts-BrownTwo rounded-lg px-8 py-4 h-full lg:h-96 flex flex-col md:flex-row gap-4 items-center">
                     <div className="w-full md:w-[25rem] grid place-content-center">
                       <Image
