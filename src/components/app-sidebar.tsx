@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { Home, Inbox,} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -24,21 +24,7 @@ const items = [
       url: "/Admin/JobListing",
       icon: Inbox,
     },
-    {
-      title: "Calendar",
-      url: "#",
-      icon: Calendar,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: Search,
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings,
-    },
+    
   ]
 
 export default function AppSidebar() {
