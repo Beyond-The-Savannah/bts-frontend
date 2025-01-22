@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import "../globals.css";
-import NavigationSection from "@/components/NavigationSection";
-import FooterSection from "@/components/FooterSection";
-// import { ViewTransitions } from "next-view-transitions";
-// import TanstackQueryProvider from "@/lib/tanstack";
+import "./globals.css";
+// import NavigationSection from "@/components/NavigationSection";
+// import FooterSection from "@/components/FooterSection";
+import { ViewTransitions } from "next-view-transitions";
+import TanstackQueryProvider from "@/lib/tanstack";
 import { getCldOgImageUrl } from "next-cloudinary";
-// import { PostHogProvider } from "@/lib/postHogProvider";
+import { PostHogProvider } from "@/lib/postHogProvider";
 
 
 const montserrat = Montserrat({
@@ -42,15 +42,15 @@ export default function RootLayout({
       <body
         className={`${montserrat.className} antialiased`}
       >
-        {/* <TanstackQueryProvider>
+        <TanstackQueryProvider>
           <ViewTransitions>
-            <PostHogProvider> */}
-              <NavigationSection />
+            <PostHogProvider>
+              {/* <NavigationSection /> */}
               {children}
-              <FooterSection />
-            {/* </PostHogProvider>
+              {/* <FooterSection /> */}
+            </PostHogProvider>
           </ViewTransitions>
-        </TanstackQueryProvider> */}
+        </TanstackQueryProvider>
       </body>
     </html>
   );
