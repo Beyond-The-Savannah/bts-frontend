@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-// import NavigationSection from "@/components/NavigationSection";
-// import FooterSection from "@/components/FooterSection";
 import { ViewTransitions } from "next-view-transitions";
 import TanstackQueryProvider from "@/lib/tanstack";
 import { getCldOgImageUrl } from "next-cloudinary";
@@ -45,9 +43,7 @@ export default function RootLayout({
         <TanstackQueryProvider>
           <ViewTransitions>
             <PostHogProvider>
-              {/* <NavigationSection /> */}
               {children}
-              {/* <FooterSection /> */}
             </PostHogProvider>
           </ViewTransitions>
         </TanstackQueryProvider>

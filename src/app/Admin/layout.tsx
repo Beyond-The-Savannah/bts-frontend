@@ -18,7 +18,7 @@ export default function AdminLayout({
     <html lang="en">
       <body className={`${montserrat.className} antialiased`}>
       <ViewTransitions>
-        <section className=" bg-purple-300 ">
+        <section className=" ">
           <SidebarProvider>
             <AppSidebar />
             <main>
