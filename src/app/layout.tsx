@@ -14,7 +14,7 @@ const montserrat = Montserrat({
 });
 
 const url = getCldOgImageUrl({
-  src: "home_openGraph_jigtwd",
+  src: "BTS_Home_OpenGraph_3_lzxntd",
 });
 
 export const metadata: Metadata = {
