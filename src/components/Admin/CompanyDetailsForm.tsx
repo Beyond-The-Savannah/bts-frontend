@@ -16,7 +16,7 @@ import { Input } from "@/components//ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "../ui/textarea";
 
-export default function AddCompanyForm() {
+export default function CompanyDetailsForm() {
   const form = useForm<z.infer<typeof CompanyFormSchema>>({
     resolver: zodResolver(CompanyFormSchema),
     defaultValues: {
@@ -36,14 +36,13 @@ export default function AddCompanyForm() {
 
   return (
     <>
-    <div className="mb-20">
+      <div className="mt-10 mb-20">
         <h2 className="text-xl">Company Form</h2>
-            <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-            <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
-                Add The Company Details
-            </p>
-
-    </div>
+        <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
+        <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
+          Add The Company Details
+        </p>
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -54,7 +53,11 @@ export default function AddCompanyForm() {
                 <FormItem>
                   <FormLabel>Company Name</FormLabel>
                   <FormControl>
-                    <Input {...field} className="w-[90vw] md:w-[30vw] lg:w-[24vw]" required />
+                    <Input
+                      {...field}
+                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
+                      required
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -67,7 +70,11 @@ export default function AddCompanyForm() {
                 <FormItem>
                   <FormLabel>Company Headquaters</FormLabel>
                   <FormControl>
-                    <Input {...field} className="w-[90vw] md:w-[30vw] lg:w-[24vw]" required />
+                    <Input
+                      {...field}
+                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
+                      required
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -81,7 +88,11 @@ export default function AddCompanyForm() {
                 <FormItem>
                   <FormLabel>Company Contact Email</FormLabel>
                   <FormControl>
-                    <Input {...field} className="w-[90vw] md:w-[30vw] lg:w-[24vw]" required />
+                    <Input
+                      {...field}
+                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
+                      required
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -96,7 +107,11 @@ export default function AddCompanyForm() {
                 <FormItem>
                   <FormLabel>Location</FormLabel>
                   <FormControl>
-                    <Input {...field} className="w-[90vw] md:w-[30vw] lg:w-[24vw]" required />
+                    <Input
+                      {...field}
+                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
+                      required
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -109,7 +124,12 @@ export default function AddCompanyForm() {
                 <FormItem>
                   <FormLabel>Company Contact Phone</FormLabel>
                   <FormControl>
-                    <Input {...field} className="w-[90vw] md:w-[30vw] lg:w-[24vw]" required type='tel' />
+                    <Input
+                      {...field}
+                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
+                      required
+                      type="tel"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -122,7 +142,11 @@ export default function AddCompanyForm() {
                 <FormItem>
                   <FormLabel>Image Url</FormLabel>
                   <FormControl>
-                    <Input {...field} className="w-[90vw] md:w-[30vw] lg:w-[24vw]" required />
+                    <Input
+                      {...field}
+                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
+                      required
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -136,7 +160,7 @@ export default function AddCompanyForm() {
               <FormItem>
                 <FormLabel>Company Description</FormLabel>
                 <FormControl>
-                    <Textarea {...field} className="resize" rows={5}/>
+                  <Textarea {...field} className="resize" rows={5} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

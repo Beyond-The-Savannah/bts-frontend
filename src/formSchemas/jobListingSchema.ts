@@ -9,3 +9,14 @@ export const CompanyFormSchema= z.object({
     location:z.string().min(1,{message:"Comapny Location must be at least one character long"}),
     imageUrl:z.string().min(1,{message:"Comapny Image URL must be at least one character long"}),
 })
+
+export const JobFormSchema=z.object({
+    jobName:z.string({message:"Job's Name can only be a string"}),
+    jobUrl:z.string().url({message:"Invalid URL format"}),
+    jobCategory:z.string({message:"Job's Category can only be a string"}),
+    jobSubCategory:z.string({message:"Job's Sub Category can only be a string"}),
+    company:z.string({message:"Company Name can only be a string"}),
+    companyDescription:z.string({message:"Company's Description can only be a string"}),
+    // endDate:z.string().date(),
+    endDate:z.date(),
+})
