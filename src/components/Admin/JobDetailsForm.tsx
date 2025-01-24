@@ -50,7 +50,7 @@ export default function JobDetailsForm() {
         <h2 className="text-xl">Jobs Form</h2>
         <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
         <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
-          Add The Job Details
+          Job Details
         </p>
       </div>
 
@@ -209,7 +209,8 @@ export default function JobDetailsForm() {
                             mode="single"
                             selected={field.value}
                             onSelect={field.onChange}
-                            disabled={(date)=>(date > new Date() || date < new Date("1900-01-01 "))}
+                            // disabled={(date)=>(date > new Date() || date < new Date("1900-01-01 "))}
+                            disabled={(date)=>( date < new Date("1900-01-01 "))}
                             initialFocus
                         />
                     </PopoverContent>

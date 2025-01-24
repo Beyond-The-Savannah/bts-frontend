@@ -20,3 +20,14 @@ export const JobFormSchema=z.object({
     // endDate:z.string().date(),
     endDate:z.date(),
 })
+
+export const JobCategoryFormSchema=z.object({
+    categoryName:z.string({message:"This should be a string"}),
+    categoryDescription:z.string({message:"This should be string"})
+})
+
+export const JobSubCategoryFormSchema=z.object({
+    subCategoryName:z.string({message:"This should be a string"}),
+    subCategoryDescription:z.string({message:"This should be string"}),
+    jobCategory:z.string({message:"Job's Category can only be a string"}),
+})
