@@ -285,7 +285,7 @@ export default function JobDetailsForm() {
                   </div>
                   <div className="">
                     {index > 0 && (
-                      <Button variant="outline" onClick={() => remove(index)}>
+                      <Button type='button' variant="outline" onClick={() => remove(index)}>
                         Remove Section
                       </Button>
                     )}
@@ -294,7 +294,7 @@ export default function JobDetailsForm() {
               ))}
               <Button
                 variant="secondary"
-                type="submit"
+                type="button"
                 onClick={() =>
                   append({
                     jobSectionName: "",
