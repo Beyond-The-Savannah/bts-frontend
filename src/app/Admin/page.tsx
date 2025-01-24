@@ -10,7 +10,7 @@ export default function AdminDefaultpage() {
     <>
       <section className="px-4 space-y-6">
         <div className="grid place-content-center ">
-          <p className="text-center m">Admin Home Page</p>
+          
         </div>
         <div className="c">
           <Tabs defaultValue="companyDetails" className="w-full">

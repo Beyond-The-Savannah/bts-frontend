@@ -17,6 +17,10 @@ export const JobFormSchema=z.object({
     jobSubCategory:z.string({message:"Job's Sub Category can only be a string"}),
     company:z.string({message:"Company Name can only be a string"}),
     companyDescription:z.string({message:"Company's Description can only be a string"}),
+    jobSections:z.array(z.object({
+        jobSectionName:z.string(),
+        jobSectionDescription: z.string(),
+    })),
     // endDate:z.string().date(),
     endDate:z.date(),
 })
