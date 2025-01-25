@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
+// import { Textarea } from "../ui/textarea";
 import { JobSubCategoryFormSchema } from "@/formSchemas/jobListingSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -21,13 +21,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { useState } from "react";
+import Editor from "react-simple-wysiwyg";
 
 export default function JobSubCategoryForm() {
+
+  const [sCDValue] = useState("");
+
   const form = useForm<z.infer<typeof JobSubCategoryFormSchema>>({
     resolver: zodResolver(JobSubCategoryFormSchema),
     defaultValues: {
       subCategoryName: "",
-      subCategoryDescription: "",
+      subCategoryDescription: sCDValue,
       jobCategory: "",
     },
   });
@@ -102,11 +107,12 @@ export default function JobSubCategoryForm() {
               <FormItem>
                 <FormLabel>Sub Category Description</FormLabel>
                 <FormControl>
-                  <Textarea
+                <Editor value={field.value} onChange={field.onChange}  className="min-h-48"/>
+                  {/* <Textarea
                     {...field}
                     rows={5}
                     className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
-                  />
+                  /> */}
                 </FormControl>
                 <FormMessage />
               </FormItem>

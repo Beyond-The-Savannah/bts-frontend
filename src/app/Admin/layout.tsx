@@ -1,13 +1,13 @@
-import { Montserrat } from "next/font/google";
+// import { Montserrat } from "next/font/google";
 import "../globals.css";
 
 import AppSidebar from "@/components/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ViewTransitions } from "next-view-transitions";
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-});
+// const montserrat = Montserrat({
+//   subsets: ["latin"],
+// });
 
 export default function AdminLayout({
   children,
@@ -15,8 +15,8 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${montserrat.className} antialiased`}>
+    // <html lang="en">
+    //   <body className={`${montserrat.className} antialiased`}>
       <ViewTransitions>
         <section className=" ">
           <SidebarProvider>
@@ -28,7 +28,7 @@ export default function AdminLayout({
           </SidebarProvider>
         </section>
         </ViewTransitions>
-      </body>
-    </html>
+    //   </body>
+    // </html>
   );
 }

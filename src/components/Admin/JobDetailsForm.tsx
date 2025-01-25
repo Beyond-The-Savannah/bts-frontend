@@ -1,6 +1,7 @@
 "use client";
+// import dynamic from "next/dynamic";
 import { JobFormSchema } from "@/formSchemas/jobListingSchema";
-import React from "react";
+import React, { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import {
   Form,
@@ -26,9 +27,12 @@ import clsx from "clsx";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../ui/calendar";
-import { Textarea } from "../ui/textarea";
+import Editor from "react-simple-wysiwyg";
 
 export default function JobDetailsForm() {
+  const [jCDValue] = useState("");
+  const [jsDValue] = useState("");
+
   const form = useForm<z.infer<typeof JobFormSchema>>({
     resolver: zodResolver(JobFormSchema),
     defaultValues: {
@@ -37,11 +41,11 @@ export default function JobDetailsForm() {
       jobSubCategory: "",
       jobUrl: "",
       company: "",
-      companyDescription: "",
+      companyDescription: jCDValue,
       jobSections: [
         {
           jobSectionName: "",
-          jobSectionDescription: "",
+          jobSectionDescription: jsDValue,
         },
       ],
       endDate: undefined,
@@ -149,7 +153,7 @@ export default function JobDetailsForm() {
                   <FormLabel>Job URL</FormLabel>
                   <FormControl>
                     <Input
-                    type='url'
+                      type="url"
                       {...field}
                       className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
                     />
@@ -185,22 +189,7 @@ export default function JobDetailsForm() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="companyDescription"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Company Description</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
             <FormField
               control={form.control}
               name="endDate"
@@ -241,6 +230,19 @@ export default function JobDetailsForm() {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="companyDescription"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Company Description</FormLabel>
+                  <FormControl>
+                    <Editor value={field.value} onChange={field.onChange} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
 
           <section className="c">
@@ -271,21 +273,31 @@ export default function JobDetailsForm() {
                     <FormItem>
                       <FormLabel>Job Section Description</FormLabel>
                       <FormControl>
-                        <Textarea
+                        <Editor
+                          {...form.register(
+                            `jobSections.${index}.jobSectionDescription` as const
+                          )}
+                          defaultValue={field.jobSectionDescription}
+                        />
+                        {/* <Textarea
                           rows={5}
                           {...form.register(
                             `jobSections.${index}.jobSectionDescription` as const
                           )}
                           defaultValue={field.jobSectionDescription}
                           className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
-                        />
+                        /> */}
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   </div>
                   <div className="">
                     {index > 0 && (
-                      <Button type='button' variant="outline" onClick={() => remove(index)}>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => remove(index)}
+                      >
                         Remove Section
                       </Button>
                     )}
