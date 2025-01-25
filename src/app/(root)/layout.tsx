@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+// import { Montserrat } from "next/font/google";
 import "../globals.css";
 import NavigationSection from "@/components/NavigationSection";
 import FooterSection from "@/components/FooterSection";
@@ -9,9 +9,9 @@ import { getCldOgImageUrl } from "next-cloudinary";
 // import { PostHogProvider } from "@/lib/postHogProvider";
 
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-});
+// const montserrat = Montserrat({
+//   subsets: ["latin"],
+// });
 
 const url = getCldOgImageUrl({
   src: "BTS_Home_OpenGraph_3_lzxntd",
@@ -38,20 +38,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${montserrat.className} antialiased`}
-      >
-        {/* <TanstackQueryProvider>
-          <ViewTransitions>
-            <PostHogProvider> */}
-              <NavigationSection />
-              {children}
-              <FooterSection />
-            {/* </PostHogProvider>
-          </ViewTransitions>
-        </TanstackQueryProvider> */}
-      </body>
-    </html>
+    // <html lang="en">
+    //   <body
+    //     className={`${montserrat.className} antialiased`}
+    //   >
+    <>
+    {/* <TanstackQueryProvider>
+      <ViewTransitions>
+        <PostHogProvider> */}
+          <NavigationSection />
+          {children}
+          <FooterSection />
+        {/* </PostHogProvider>
+      </ViewTransitions>
+    </TanstackQueryProvider> */}
+    
+    </>
+    //   </body>
+    // </html>
   );
 }

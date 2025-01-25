@@ -12,16 +12,20 @@ import {
 import { useForm } from "react-hook-form";
 import { JobCategoryFormSchema } from "@/formSchemas/jobListingSchema";
 import { z } from "zod";
-import { Textarea } from "../ui/textarea";
+// import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { useState } from "react";
+import  Editor from "react-simple-wysiwyg";
 
 export default function JobCategoryForm() {
+
+  const [cDValue] = useState("");
   const form = useForm<z.infer<typeof JobCategoryFormSchema>>({
     resolver: zodResolver(JobCategoryFormSchema),
     defaultValues: {
       categoryName: "",
-      categoryDescription: "",
+      categoryDescription: cDValue,
     },
   });
 
@@ -65,7 +69,8 @@ export default function JobCategoryForm() {
                 <FormItem>
                   <FormLabel>Category Description</FormLabel>
                   <FormControl>
-                    <Textarea {...field} rows={5} className="w-[90vw] md:w-[30vw] lg:w-[34vw]" />
+                    {/* <Textarea {...field} rows={5} className="w-[90vw] md:w-[30vw] lg:w-[34vw]" /> */}
+                    <Editor value={field.value} onChange={field.onChange} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

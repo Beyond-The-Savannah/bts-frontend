@@ -14,9 +14,13 @@ import { CompanyFormSchema } from "@/formSchemas/jobListingSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components//ui/input";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "../ui/textarea";
+// import { Textarea } from "../ui/textarea";
+import { useState } from "react";
+import Editor from "react-simple-wysiwyg";
 
 export default function CompanyDetailsForm() {
+
+  const [cDValue] = useState("");
   const form = useForm<z.infer<typeof CompanyFormSchema>>({
     resolver: zodResolver(CompanyFormSchema),
     defaultValues: {
@@ -24,7 +28,7 @@ export default function CompanyDetailsForm() {
       companyHeadQuaters: "",
       companyContactEmail: "",
       companyContactPhone: "",
-      companyDescription: "",
+      companyDescription: cDValue,
       location: "",
       imageUrl: "",
     },
@@ -160,7 +164,8 @@ export default function CompanyDetailsForm() {
               <FormItem>
                 <FormLabel>Company Description</FormLabel>
                 <FormControl>
-                  <Textarea {...field} className="resize" rows={5} />
+                <Editor value={field.value} onChange={field.onChange} />
+                  {/* <Textarea {...field} className="resize" rows={5} /> */}
                 </FormControl>
                 <FormMessage />
               </FormItem>
