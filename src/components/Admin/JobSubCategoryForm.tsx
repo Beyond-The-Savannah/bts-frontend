@@ -21,8 +21,13 @@ import {
   SelectValue,
 } from "../ui/select";
 import { useState } from "react";
-import ReactQuill from "react-quill-new";
+// import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill-new"), {
+  ssr: false,
+  loading: () => <p>Loading text editor...</p>,
+});
 
 export default function JobSubCategoryForm() {
   const [sCDValue] = useState("");

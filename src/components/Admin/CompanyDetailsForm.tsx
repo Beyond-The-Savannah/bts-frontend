@@ -15,10 +15,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components//ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import ReactQuill from "react-quill-new";
+// import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill-new"), {
+  ssr: false,
+  loading: () => <p>Loading text editor...</p>,
+});
 
 export default function CompanyDetailsForm() {
+
+
   const [cDValue] = useState("");
   const form = useForm<z.infer<typeof CompanyFormSchema>>({
     resolver: zodResolver(CompanyFormSchema),
