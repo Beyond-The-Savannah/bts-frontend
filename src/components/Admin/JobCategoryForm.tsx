@@ -12,14 +12,14 @@ import {
 import { useForm } from "react-hook-form";
 import { JobCategoryFormSchema } from "@/formSchemas/jobListingSchema";
 import { z } from "zod";
-// import { Textarea } from "../ui/textarea";
+
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useState } from "react";
-import  Editor from "react-simple-wysiwyg";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 
 export default function JobCategoryForm() {
-
   const [cDValue] = useState("");
   const form = useForm<z.infer<typeof JobCategoryFormSchema>>({
     resolver: zodResolver(JobCategoryFormSchema),
@@ -49,7 +49,7 @@ export default function JobCategoryForm() {
             <FormField
               control={form.control}
               name="categoryName"
-              render={({field}) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Category Name</FormLabel>
                   <FormControl>
@@ -65,12 +65,15 @@ export default function JobCategoryForm() {
             <FormField
               control={form.control}
               name="categoryDescription"
-              render={({field}) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Category Description</FormLabel>
                   <FormControl>
-                    {/* <Textarea {...field} rows={5} className="w-[90vw] md:w-[30vw] lg:w-[34vw]" /> */}
-                    <Editor value={field.value} onChange={field.onChange} />
+                    <ReactQuill
+                      theme="snow"
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
