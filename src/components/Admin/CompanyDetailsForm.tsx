@@ -14,12 +14,11 @@ import { CompanyFormSchema } from "@/formSchemas/jobListingSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components//ui/input";
 import { Button } from "@/components/ui/button";
-// import { Textarea } from "../ui/textarea";
 import { useState } from "react";
-import Editor from "react-simple-wysiwyg";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 
 export default function CompanyDetailsForm() {
-
   const [cDValue] = useState("");
   const form = useForm<z.infer<typeof CompanyFormSchema>>({
     resolver: zodResolver(CompanyFormSchema),
@@ -164,8 +163,11 @@ export default function CompanyDetailsForm() {
               <FormItem>
                 <FormLabel>Company Description</FormLabel>
                 <FormControl>
-                <Editor value={field.value} onChange={field.onChange} />
-                  {/* <Textarea {...field} className="resize" rows={5} /> */}
+                  <ReactQuill
+                    theme="snow"
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

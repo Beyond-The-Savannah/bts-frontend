@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import {
@@ -10,7 +10,6 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-// import { Textarea } from "../ui/textarea";
 import { JobSubCategoryFormSchema } from "@/formSchemas/jobListingSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -22,10 +21,10 @@ import {
   SelectValue,
 } from "../ui/select";
 import { useState } from "react";
-import Editor from "react-simple-wysiwyg";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 
 export default function JobSubCategoryForm() {
-
   const [sCDValue] = useState("");
 
   const form = useForm<z.infer<typeof JobSubCategoryFormSchema>>({
@@ -107,12 +106,11 @@ export default function JobSubCategoryForm() {
               <FormItem>
                 <FormLabel>Sub Category Description</FormLabel>
                 <FormControl>
-                <Editor value={field.value} onChange={field.onChange}  className="min-h-48"/>
-                  {/* <Textarea
-                    {...field}
-                    rows={5}
-                    className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
-                  /> */}
+                  <ReactQuill
+                    theme="snow"
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

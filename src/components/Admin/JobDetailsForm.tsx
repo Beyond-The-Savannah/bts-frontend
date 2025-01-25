@@ -27,7 +27,8 @@ import clsx from "clsx";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../ui/calendar";
-import Editor from "react-simple-wysiwyg";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 
 export default function JobDetailsForm() {
   const [jCDValue] = useState("");
@@ -237,7 +238,11 @@ export default function JobDetailsForm() {
                 <FormItem>
                   <FormLabel>Company Description</FormLabel>
                   <FormControl>
-                    <Editor value={field.value} onChange={field.onChange} />
+                    <ReactQuill
+                      theme="snow"
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -273,12 +278,22 @@ export default function JobDetailsForm() {
                     <FormItem>
                       <FormLabel>Job Section Description</FormLabel>
                       <FormControl>
-                        <Editor
-                          {...form.register(
-                            `jobSections.${index}.jobSectionDescription` as const
-                          )}
+                        <ReactQuill
+                          theme="snow"
                           defaultValue={field.jobSectionDescription}
+                          onChange={(value) =>
+                            form.setValue(
+                              `jobSections.${index}.jobSectionDescription`,
+                              value
+                            )
+                          }
+                          onBlur={() =>
+                            form.trigger(
+                              `jobSections.${index}.jobSectionDescription`
+                            )
+                          }
                         />
+
                         {/* <Textarea
                           rows={5}
                           {...form.register(
