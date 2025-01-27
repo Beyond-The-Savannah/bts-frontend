@@ -32,7 +32,7 @@ export default function AppSidebar() {
     
   return (
     <Sidebar >
-      <SidebarHeader className="bg-bts-BrownThree" />
+      {/* <SidebarHeader className="bg-bts-BrownThree" /> */}
       <SidebarContent className="bg-bts-GreenOne text-white">
         <SidebarGroup>
             <SidebarGroupLabel></SidebarGroupLabel>
@@ -61,7 +61,7 @@ export default function AppSidebar() {
             </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="bg-bts-BrownThree" />
+      {/* <SidebarFooter className="bg-bts-BrownThree" /> */}
     </Sidebar>
   );
 }
