@@ -12,9 +12,9 @@ export default function AdminDefaultpage() {
         <div className="grid place-content-center ">
           
         </div>
-        <div className="c">
-          <Tabs defaultValue="companyDetails" className="w-full">
-            <TabsList className="space-x-4 transition duration-700 ease-in">
+        <div className=" ">
+          <Tabs defaultValue="companyDetails" className="">
+            <TabsList className="w-[80vw] mx-auto space-x-4 transition bg-bts-BrownTwo duration-700 ease-in">
               <TabsTrigger value="companyDetails">Company Details</TabsTrigger>
               <TabsTrigger value="jobDetails">Job Details</TabsTrigger>
               <TabsTrigger value="jobCategory">Job Category</TabsTrigger>

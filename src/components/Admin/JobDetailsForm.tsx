@@ -71,10 +71,10 @@ export default function JobDetailsForm() {
     <>
       <div className="mt-10 mb-20">
         <h2 className="text-xl">Jobs Form</h2>
-        <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-        <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
+        <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
+        {/* <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
           Job Details
-        </p>
+        </p> */}
       </div>
 
       <Form {...form}>

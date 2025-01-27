@@ -18,6 +18,7 @@ import { useState } from "react";
 // import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import dynamic from "next/dynamic";
+import { imageFormat, imageModule } from "@/lib/reactQuilSettings";
 const ReactQuill = dynamic(() => import("react-quill-new"), {
   ssr: false,
   loading: () => <p>Loading text editor...</p>,
@@ -48,10 +49,10 @@ export default function CompanyDetailsForm() {
     <>
       <div className="mt-10 mb-20">
         <h2 className="text-xl">Company Form</h2>
-        <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-        <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
+        <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
+        {/* <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
           Company Details
-        </p>
+        </p> */}
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
@@ -145,25 +146,9 @@ export default function CompanyDetailsForm() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="imageUrl"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Image Url</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
-                      required
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           </div>
-          <FormField
+        <div className="flex flex-col-reverse md:flex-row gap-2 justify-center">
+        <FormField
             control={form.control}
             name="companyDescription"
             render={({ field }) => (
@@ -174,12 +159,37 @@ export default function CompanyDetailsForm() {
                     theme="snow"
                     value={field.value}
                     onChange={field.onChange}
+                    // style={{width:"90%"}}
+                    className="w-[50vw]"
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+            <FormField
+              control={form.control}
+              name="imageUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Image Url</FormLabel>
+                  <FormControl>
+                    <ReactQuill
+                      theme="snow"
+                      value={field.value}
+                      onChange={field.onChange}
+                      modules={imageModule}
+                      formats={imageFormat}
+                      style={{width:"15vw", borderRadius:"200rem", height:"vh"}}
+                    />
+                    
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+        </div>
+         
 
           <Button
             type="submit"

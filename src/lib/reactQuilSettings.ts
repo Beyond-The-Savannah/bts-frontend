@@ -31,3 +31,13 @@ export const modules = {
     "image",
     "clean",
   ];
+
+  export const imageModule={
+    toolbar:[
+      ["image"]
+    ]
+  }
+
+  export const imageFormat=[
+    "image"
+  ]
