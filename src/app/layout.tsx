@@ -5,7 +5,7 @@ import { ViewTransitions } from "next-view-transitions";
 import TanstackQueryProvider from "@/lib/tanstack";
 import { getCldOgImageUrl } from "next-cloudinary";
 import { PostHogProvider } from "@/lib/postHogProvider";
-
+import {ClerkProvider} from '@clerk/nextjs'
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -36,18 +36,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${montserrat.className} antialiased`}
-      >
-        <TanstackQueryProvider>
-          <ViewTransitions>
-            <PostHogProvider>
-              {children}
-            </PostHogProvider>
-          </ViewTransitions>
-        </TanstackQueryProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={`${montserrat.className} antialiased`}
+        >
+          <TanstackQueryProvider>
+            <ViewTransitions>
+              <PostHogProvider>
+                {children}
+              </PostHogProvider>
+            </ViewTransitions>
+          </TanstackQueryProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
