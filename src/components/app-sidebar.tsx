@@ -2,11 +2,9 @@ import { Home, Inbox,} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -32,12 +30,11 @@ export default function AppSidebar() {
     
   return (
     <Sidebar >
-      {/* <SidebarHeader className="bg-bts-BrownThree" /> */}
       <SidebarContent className="bg-bts-GreenOne text-white">
         <SidebarGroup>
             <SidebarGroupLabel></SidebarGroupLabel>
             <SidebarGroupContent className="flex flex-col justify-between h-[90vh]">
-                <SidebarMenu>
+                <SidebarMenu className="space-y-2">
                     {items.map((item)=>(
                         <SidebarMenuItem key={item.title}>
                             <SidebarMenuButton asChild>
@@ -53,7 +50,7 @@ export default function AppSidebar() {
                   <SignedIn>
                     {/* <div className="flex items-center gap-1"> */}
                     <div className="bg-bts-BrownThree/5 p-1 rounded-2xl flex gap-1 items-center">
-                    <p>Authenticated as </p>
+                    <p>Signed In as </p>
                     <UserButton/>
                     </div>
                   </SignedIn>
@@ -61,7 +58,7 @@ export default function AppSidebar() {
             </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      {/* <SidebarFooter className="bg-bts-BrownThree" /> */}
+    
     </Sidebar>
   );
 }

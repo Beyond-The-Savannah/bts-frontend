@@ -35,7 +35,6 @@ const ReactQuill = dynamic(() => import("react-quill-new"), {
   loading: () => <p>Loading text editor...</p>,
 });
 
-
 export default function JobDetailsForm() {
   const [jCDValue] = useState("");
   const [jsDValue] = useState("");
@@ -78,7 +77,7 @@ export default function JobDetailsForm() {
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12 mb-20">
           <div className="flex flex-wrap items-center justify-center gap-6">
             <FormField
               control={form.control}
@@ -151,7 +150,7 @@ export default function JobDetailsForm() {
               )}
             />
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-12">
             <FormField
               control={form.control}
               name="jobUrl"
@@ -257,14 +256,14 @@ export default function JobDetailsForm() {
           </div>
 
           <section className="c">
-            <p className="font-semibold">Sections For Extra Job Information </p>
-            <div className="">
+            <p className="font-semibold pb-12">Sections For Extra Job Information </p>
+            <div className="space-y-4 ">
               {fields.map((field, index) => (
                 <div
                   key={field.id}
-                  className="flex flex-wrap items-center justify-start ml-12 gap-6 space-y-12"
+                  className="border rounded-xl p-4 flex items-center  justify-around "
                 >
-                  <div className="mt-12">
+                  <section className="flex flex-col  justify-start  space-y-12">
                     <FormItem>
                       <FormLabel>Job Section Name</FormLabel>
                       <FormControl>
@@ -278,14 +277,13 @@ export default function JobDetailsForm() {
                       </FormControl>
                       <FormMessage />
                     </FormItem>
-                  </div>
-
-                  <div className="">
+                    {/* <div className=""> */}
                     <FormItem>
                       <FormLabel>Job Section Description</FormLabel>
                       <FormControl>
                         <ReactQuill
                           theme="snow"
+                          style={{ width: "40vw" }}
                           defaultValue={field.jobSectionDescription}
                           onChange={(value) =>
                             form.setValue(
@@ -299,19 +297,12 @@ export default function JobDetailsForm() {
                             )
                           }
                         />
-
-                        {/* <Textarea
-                          rows={5}
-                          {...form.register(
-                            `jobSections.${index}.jobSectionDescription` as const
-                          )}
-                          defaultValue={field.jobSectionDescription}
-                          className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
-                        /> */}
                       </FormControl>
                       <FormMessage />
                     </FormItem>
-                  </div>
+                    {/* </div> */}
+                  </section>
+
                   <div className="">
                     {index > 0 && (
                       <Button
