@@ -15,13 +15,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components//ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-// import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import dynamic from "next/dynamic";
-// import { imageFormat, imageModule } from "@/lib/reactQuilSettings";
-// import { useAddCompanyDetails } from "@/remoteData/mutateData";
 import { toast } from "sonner";
-import { CldUploadWidget, CldUploadWidgetInfo} from "next-cloudinary";
+import { CldUploadWidget } from "next-cloudinary";
+import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
+import { axiosInstance } from "@/remoteData/mutateData";
+import axios from "axios";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), {
   ssr: false,
@@ -29,7 +29,7 @@ const ReactQuill = dynamic(() => import("react-quill-new"), {
 });
 
 export default function CompanyDetailsForm() {
-  const baseUrl = "https://efmsapi.azurewebsites.net";
+  
 
   const [cDValue] = useState("");
   const [cImage, setCImage] = useState("");
@@ -44,41 +44,51 @@ export default function CompanyDetailsForm() {
       companyContactPhone: "",
       companyDescription: cDValue,
       location: "",
-      // imageUrl: "",
-      imageUrl: cImage,
+      // imageUrl: cImage,
+      imageUrl: "",
     },
   });
 
-  function Submit(data: z.infer<typeof CompanyFormSchema>) {
-    // alert(JSON.stringify(data));
+   function Submit(data: z.infer<typeof CompanyFormSchema>) {
 
-    // const response = await fetch(`${baseUrl}/api/Companies/addCompanies`, {
-    fetch(`${baseUrl}/api/Companies/addCompanies`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: data.companyName,
-        description: data.companyDescription,
-        phoneNumber: data.companyContactPhone,
-        headQuarters: data.companyHeadQuaters,
-        attachmentName: "",
-        imageUrl: data.imageUrl,
-        attachment: "",
-        email: data.companyContactEmail,
-        location: data.location,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return toast(data);
-      });
+    const postRequest= async()=>{
 
-    // const result = await response.json();
-    // return result;
-    // const mutataion= useAddCompanyDetails(data)
-    // if(mutataion.isPending){return toast.info('processing')}
-    // if(mutataion.isSuccess){return toast.success('Company Details added')}
-    // if(mutataion.isError){return toast.info('Company Details not added')}
+      try {
+        const response = await axiosInstance.post(`/api/Companies/addCompanies`, {
+          name: data.companyName,
+          description: data.companyDescription,
+          phoneNumber: data.companyContactPhone,
+          headQuarters: data.companyHeadQuaters,
+          attachmentName: "",
+          imageUrl: data.imageUrl,
+          email: data.companyContactEmail,
+          location: data.location,
+        });
+        if (response.data == 200) {
+          console.log(response)
+          
+          return response.data
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          throw new Error(error.message)
+        }
+      }
+    }
+    toast.promise(
+      postRequest(),
+      {
+        loading:"Adding...",
+        success:()=>{
+          form.reset()
+          setCImage("")
+          // console.log("DATA",data)
+          return `Company Details Added`
+        },
+        error:"Error, try again later"
+      }
+    )
+
   }
 
   return (
@@ -86,9 +96,6 @@ export default function CompanyDetailsForm() {
       <div className="mt-10 mb-20">
         <h2 className="text-xl">Company Form</h2>
         <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
-        {/* <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
-          Company Details
-        </p> */}
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(Submit)} className="space-y-12">
@@ -183,8 +190,7 @@ export default function CompanyDetailsForm() {
               )}
             />
           </div>
-          {/* <div className="flex flex-col-reverse md:flex-row gap-2 justify-center"> */}
-          <div className="flex flex-col-reverse md:flex-row gap-12  items-center justify-evenly">
+          <div className="flex flex-col-reverse md:flex-row flex-wrap gap-12  items-center justify-evenly">
             <FormField
               control={form.control}
               name="companyDescription"
@@ -204,51 +210,60 @@ export default function CompanyDetailsForm() {
                 </FormItem>
               )}
             />
-            <div className="">
-              <p>Company Image</p>
-              <Button asChild variant="default">
-                <CldUploadWidget
-                  uploadPreset="btsUpload1"
-                  onSuccess={(results) => {
-                    const info= results.info as CldUploadWidgetInfo
-                    setCImage(info.secure_url);
-                  }}
-                >
-                  {({ open }) => {
-                    return (
-                      <Button onClick={() => open()} className="">
-                        Upload Company Logo
-                      </Button>
-                    );
-                  }}
-                </CldUploadWidget>
-              </Button>
-            </div>
-            {/* <FormField
+            <FormField
               control={form.control}
               name="imageUrl"
-              render={({ field }) => (
+              render={({}) => (
                 <FormItem>
-                  <FormLabel>Image Url</FormLabel>
                   <FormControl>
-                    <ReactQuill
-                      theme="snow"
-                      value={field.value}
-                      onChange={field.onChange}
-                      modules={imageModule}
-                      formats={imageFormat}
-                      style={{width:"15vw", borderRadius:"200rem", height:"vh"}}
-                    />
-                    
+                    <div className="flex gap-4 items-center">
+                      {
+                        <CldUploadWidget
+                          uploadPreset="btsUpload1"
+                          onSuccess={(result) => {
+                            if (
+                              result?.info &&
+                              typeof result.info === "object" &&
+                              "secure_url"
+                            ) {
+                              setCImage(result.info.secure_url);
+                              form.setValue("imageUrl", result.info.secure_url);
+                            }
+                          }}
+                        >
+                          {({ open }) => {
+                            return (
+                              <Button
+                                type="button"
+                                variant="secondary"
+                                onClick={() => open()}
+                                className=""
+                              >
+                                Upload Company Logo
+                              </Button>
+                            );
+                          }}
+                        </CldUploadWidget>
+                      }
+                      {cImage !== "" && (
+                        <DisplayImageFromNextCloudinary
+                          src={cImage}
+                          height={200}
+                          width={200}
+                          alt="company image"
+                          classname="object-cover size-24 rounded-lg"
+                        />
+                      )}
+                    </div>
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
-            /> */}
+            />
           </div>
 
           <Button
             type="submit"
+            disabled={form.formState.isSubmitting}
             className="bg-bts-BrownThree hover:bg-green-800"
           >
             Add Company

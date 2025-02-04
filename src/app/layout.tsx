@@ -45,7 +45,7 @@ export default function RootLayout({
             <ViewTransitions>
               <PostHogProvider>
                 {children}
-                <Toaster position='top-center'/>
+                <Toaster position='top-center' richColors />
               </PostHogProvider>
             </ViewTransitions>
           </TanstackQueryProvider>
