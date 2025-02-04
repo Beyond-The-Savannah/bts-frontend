@@ -15,19 +15,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components//ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-// import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import dynamic from "next/dynamic";
-import { imageFormat, imageModule } from "@/lib/reactQuilSettings";
+import { toast } from "sonner";
+import { CldUploadWidget } from "next-cloudinary";
+import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
+import { axiosInstance } from "@/remoteData/mutateData";
+import axios from "axios";
+
 const ReactQuill = dynamic(() => import("react-quill-new"), {
   ssr: false,
   loading: () => <p>Loading text editor...</p>,
 });
 
 export default function CompanyDetailsForm() {
-
+  
 
   const [cDValue] = useState("");
+  const [cImage, setCImage] = useState("");
+  // const [cImage2]=useState("")
+
   const form = useForm<z.infer<typeof CompanyFormSchema>>({
     resolver: zodResolver(CompanyFormSchema),
     defaultValues: {
@@ -37,12 +44,51 @@ export default function CompanyDetailsForm() {
       companyContactPhone: "",
       companyDescription: cDValue,
       location: "",
+      // imageUrl: cImage,
       imageUrl: "",
     },
   });
 
-  function onSubmit(data: z.infer<typeof CompanyFormSchema>) {
-    alert(JSON.stringify(data));
+   function Submit(data: z.infer<typeof CompanyFormSchema>) {
+
+    const postRequest= async()=>{
+
+      try {
+        const response = await axiosInstance.post(`/api/Companies/addCompanies`, {
+          name: data.companyName,
+          description: data.companyDescription,
+          phoneNumber: data.companyContactPhone,
+          headQuarters: data.companyHeadQuaters,
+          attachmentName: "",
+          imageUrl: data.imageUrl,
+          email: data.companyContactEmail,
+          location: data.location,
+        });
+        if (response.data == 200) {
+          console.log(response)
+          
+          return response.data
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          throw new Error(error.message)
+        }
+      }
+    }
+    toast.promise(
+      postRequest(),
+      {
+        loading:"Adding...",
+        success:()=>{
+          form.reset()
+          setCImage("")
+          // console.log("DATA",data)
+          return `Company Details Added`
+        },
+        error:"Error, try again later"
+      }
+    )
+
   }
 
   return (
@@ -50,12 +96,9 @@ export default function CompanyDetailsForm() {
       <div className="mt-10 mb-20">
         <h2 className="text-xl">Company Form</h2>
         <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
-        {/* <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
-          Company Details
-        </p> */}
       </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
+        <form onSubmit={form.handleSubmit(Submit)} className="space-y-12">
           <div className="flex flex-wrap items-center justify-center gap-6">
             <FormField
               control={form.control}
@@ -147,52 +190,80 @@ export default function CompanyDetailsForm() {
               )}
             />
           </div>
-        <div className="flex flex-col-reverse md:flex-row gap-2 justify-center">
-        <FormField
-            control={form.control}
-            name="companyDescription"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Company Description</FormLabel>
-                <FormControl>
-                  <ReactQuill
-                    theme="snow"
-                    value={field.value}
-                    onChange={field.onChange}
-                    // style={{width:"90%"}}
-                    className="w-[50vw]"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="flex flex-col-reverse md:flex-row flex-wrap gap-12  items-center justify-evenly">
             <FormField
               control={form.control}
-              name="imageUrl"
+              name="companyDescription"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Image Url</FormLabel>
+                  <FormLabel>Company Description</FormLabel>
                   <FormControl>
                     <ReactQuill
                       theme="snow"
                       value={field.value}
                       onChange={field.onChange}
-                      modules={imageModule}
-                      formats={imageFormat}
-                      style={{width:"15vw", borderRadius:"200rem", height:"vh"}}
+                      // style={{width:"90%"}}
+                      className="w-[50vw]"
                     />
-                    
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-        </div>
-         
+            <FormField
+              control={form.control}
+              name="imageUrl"
+              render={({}) => (
+                <FormItem>
+                  <FormControl>
+                    <div className="flex gap-4 items-center">
+                      {
+                        <CldUploadWidget
+                          uploadPreset="btsUpload1"
+                          onSuccess={(result) => {
+                            if (
+                              result?.info &&
+                              typeof result.info === "object" &&
+                              "secure_url"
+                            ) {
+                              setCImage(result.info.secure_url);
+                              form.setValue("imageUrl", result.info.secure_url);
+                            }
+                          }}
+                        >
+                          {({ open }) => {
+                            return (
+                              <Button
+                                type="button"
+                                variant="secondary"
+                                onClick={() => open()}
+                                className=""
+                              >
+                                Upload Company Logo
+                              </Button>
+                            );
+                          }}
+                        </CldUploadWidget>
+                      }
+                      {cImage !== "" && (
+                        <DisplayImageFromNextCloudinary
+                          src={cImage}
+                          height={200}
+                          width={200}
+                          alt="company image"
+                          classname="object-cover size-24 rounded-lg"
+                        />
+                      )}
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </div>
 
           <Button
             type="submit"
+            disabled={form.formState.isSubmitting}
             className="bg-bts-BrownThree hover:bg-green-800"
           >
             Add Company

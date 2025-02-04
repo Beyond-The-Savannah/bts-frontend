@@ -7,8 +7,10 @@ export const CompanyFormSchema= z.object({
     companyContactPhone:z.string().min(1,{message:"Invalid, needs to numbers "}),
     companyDescription:z.string().min(1,{message:"Comapny Description must be at least one character long"}).trim(),
     location:z.string().min(1,{message:"Comapny Location must be at least one character long"}),
-    imageUrl:z.string().min(1,{message:"Comapny Image URL must be at least one character long"}),
+    imageUrl:z.string(),
+    // imageUrl:z.string().min(1,{message:"Comapny Image URL must be at least one character long"}),
 })
+
 
 export const JobFormSchema=z.object({
     jobName:z.string({message:"Job's Name can only be a string"}),
