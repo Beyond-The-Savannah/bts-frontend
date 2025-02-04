@@ -6,7 +6,7 @@ import TanstackQueryProvider from "@/lib/tanstack";
 import { getCldOgImageUrl } from "next-cloudinary";
 import { PostHogProvider } from "@/lib/postHogProvider";
 import {ClerkProvider} from '@clerk/nextjs'
-
+import { Toaster } from 'sonner'
 const montserrat = Montserrat({
   subsets: ["latin"],
 });
@@ -45,6 +45,7 @@ export default function RootLayout({
             <ViewTransitions>
               <PostHogProvider>
                 {children}
+                <Toaster position='top-center'/>
               </PostHogProvider>
             </ViewTransitions>
           </TanstackQueryProvider>
