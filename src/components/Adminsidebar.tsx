@@ -23,6 +23,11 @@ const items = [
       url: "/Admin/JobListing",
       icon: Inbox,
     },
+    {
+      title: "Company Listing",
+      url: "/Admin/companyListing",
+      icon: Inbox,
+    },
     
   ]
 
