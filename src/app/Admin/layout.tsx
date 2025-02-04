@@ -1,7 +1,7 @@
 // import { Montserrat } from "next/font/google";
 import "../globals.css";
 
-import AppSidebar from "@/components/app-sidebar";
+import AppSidebar from "@/components/Adminsidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ViewTransitions } from "next-view-transitions";
 
