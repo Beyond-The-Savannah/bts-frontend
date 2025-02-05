@@ -1,4 +1,4 @@
-import { CompanyProps, ListingRemoteJobs, SingleRemoteJob } from "@/types/remoteJobsListing";
+import { CompanyProps, jobSubCategoryProps, ListingRemoteJobs, SingleRemoteJob } from "@/types/remoteJobsListing";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "./mutateData";
 
@@ -40,5 +40,17 @@ export const useGetRemoteListingJobsUsingTanstack=()=>{
     return useQuery({
       queryKey:["allCompanies"],
       queryFn:()=>fetchAllCompaies()
+    })
+  }
+  
+  async function fetchAllJobCategories():Promise<jobSubCategoryProps[]>{
+    const result= await  axiosInstance.get<jobSubCategoryProps[]>('/api/JobsCategory/getAllJobsCategories')
+    return result.data
+  }
+
+  export const useGetAllJobsCategories=()=>{
+    return useQuery({
+      queryKey:["allJobCategories"],
+      queryFn:()=>fetchAllJobCategories()
     })
   }

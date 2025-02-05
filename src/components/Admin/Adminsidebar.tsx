@@ -18,11 +18,7 @@ const items = [
     url: "/Admin/",
     icon: Home,
   },
-  {
-    title: "JobListing",
-    url: "/Admin/JobListing",
-    icon: Inbox,
-  },
+  
   {
     title: "Company Listing",
     url: "/Admin/companyListing",
@@ -31,6 +27,11 @@ const items = [
   {
     title: "Job Listings",
     url: "/Admin/jobsListing",
+    icon: Inbox,
+  },
+  {
+    title: "Job Category Listings",
+    url: "/Admin/jobsCategoryListing",
     icon: Inbox,
   },
 ];

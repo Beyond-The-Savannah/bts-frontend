@@ -12,13 +12,14 @@ import {
 import { useForm } from "react-hook-form";
 import { JobCategoryFormSchema } from "@/formSchemas/jobListingSchema";
 import { z } from "zod";
-
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useState } from "react";
-// import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import dynamic from "next/dynamic";
+import axios from "axios";
+import { axiosInstance } from "@/remoteData/mutateData";
+import { toast } from "sonner";
 const ReactQuill = dynamic(() => import("react-quill-new"), {
   ssr: false,
   loading: () => <p>Loading text editor...</p>,
@@ -35,7 +36,32 @@ export default function JobCategoryForm() {
   });
 
   function onSubmit(data: z.infer<typeof JobCategoryFormSchema>) {
-    alert(JSON.stringify(data));
+    // alert(JSON.stringify(data));
+    const jobsCategortyPostRequest= async()=>{
+      try {
+        const response= await axiosInstance.post(`/api/JobsCategory/addJobsCategories`,{
+          name: data.categoryName,
+          description: data.categoryDescription,
+          createdBy: ``,
+          modifiedBy: ``,
+        })
+        if(response.data==200){
+          console.log(response)
+        }
+        return response.data
+      } catch (error) {
+        if (axios.isAxiosError(error)){
+          throw new Error(error.message)
+        }
+      }
+    }
+    toast.promise(jobsCategortyPostRequest(),{
+      loading:"Adding...",
+      success:()=>{
+        return "Job's Sub Catgegory Added"
+      },
+      error:"Error, cannot add jobs sub catgegory, try again later"
+    })
   }
 
   return (
