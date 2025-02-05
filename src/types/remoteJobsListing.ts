@@ -80,8 +80,17 @@ export interface JobDeatilsProps {
   ];
 }
 
-export interface jobSubCategoryProps{
+export interface jobCategoryProps {
   id: number;
+  name: string;
+  description: string;
+  createdBy: string;
+  modifiedBy: string;
+}
+
+export interface jobSubCategoryProps {
+  id: number;
+  jobCategoryId: number;
   name: string;
   description: string;
   createdBy: string;

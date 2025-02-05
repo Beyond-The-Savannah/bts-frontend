@@ -1,4 +1,4 @@
-import { CompanyProps, jobSubCategoryProps, ListingRemoteJobs, SingleRemoteJob } from "@/types/remoteJobsListing";
+import { CompanyProps, jobCategoryProps, jobSubCategoryProps, ListingRemoteJobs, SingleRemoteJob } from "@/types/remoteJobsListing";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "./mutateData";
 
@@ -43,8 +43,8 @@ export const useGetRemoteListingJobsUsingTanstack=()=>{
     })
   }
   
-  async function fetchAllJobCategories():Promise<jobSubCategoryProps[]>{
-    const result= await  axiosInstance.get<jobSubCategoryProps[]>('/api/JobsCategory/getAllJobsCategories')
+  async function fetchAllJobCategories():Promise<jobCategoryProps[]>{
+    const result= await  axiosInstance.get<jobCategoryProps[]>('/api/JobsCategory/getAllJobsCategories')
     return result.data
   }
 
@@ -52,5 +52,16 @@ export const useGetRemoteListingJobsUsingTanstack=()=>{
     return useQuery({
       queryKey:["allJobCategories"],
       queryFn:()=>fetchAllJobCategories()
+    })
+  }
+  async function fetchAllJobSubCategories():Promise<jobSubCategoryProps[]>{
+    const result= await  axiosInstance.get<jobSubCategoryProps[]>('/api/JobSubCategory/getAllJobSubCategories')
+    return result.data
+  }
+
+  export const useGetAllJobSubCategories=()=>{
+    return useQuery({
+      queryKey:["allJobSubCategories"],
+      queryFn:()=>fetchAllJobSubCategories()
     })
   }

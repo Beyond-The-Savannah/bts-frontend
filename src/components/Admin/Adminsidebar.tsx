@@ -34,6 +34,11 @@ const items = [
     url: "/Admin/jobsCategoryListing",
     icon: Inbox,
   },
+  {
+    title: "Job Sub Category Listings",
+    url: "/Admin/jobsSubCategoryListing",
+    icon: Inbox,
+  },
 ];
 
 export default function AppSidebar() {
