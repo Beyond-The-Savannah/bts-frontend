@@ -79,3 +79,11 @@ export interface JobDeatilsProps {
     }
   ];
 }
+
+export interface jobSubCategoryProps{
+  id: number;
+  name: string;
+  description: string;
+  createdBy: string;
+  modifiedBy: string;
+}
