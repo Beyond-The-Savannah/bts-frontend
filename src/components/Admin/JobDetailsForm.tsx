@@ -30,6 +30,10 @@ import { Calendar } from "../ui/calendar";
 // import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import dynamic from "next/dynamic";
+import { axiosInstance } from "@/remoteData/mutateData";
+import axios from "axios";
+import { toast } from "sonner";
+
 const ReactQuill = dynamic(() => import("react-quill-new"), {
   ssr: false,
   loading: () => <p>Loading text editor...</p>,
@@ -65,6 +69,50 @@ export default function JobDetailsForm() {
 
   function onSubmit(data: z.infer<typeof JobFormSchema>) {
     alert(JSON.stringify(data));
+    const jobDetailsPostRequest = async () => {
+      try {
+        const response = await axiosInstance.post(`/api/Jobs/addJobs`, {
+          jobs: {
+            endDate: data.endDate,
+            jobName: data.jobName,
+            jobDescription: data.companyDescription,
+            companyId: data.company,
+            language: "string",
+            jobUrl: data.jobUrl,
+            salary: 0,
+            jobCategoriesId: 0,
+            jobSubCategoryId: 0,
+          },
+          createdBy: "string",
+          jobsAndSections: [
+            {
+              id: 0,
+              sectionName: "string",
+              sectionDescription: "string",
+              jobTypesId: 0,
+              createdBy: "string",
+              modifiedBy: "string",
+            },
+          ],
+        });
+        if (response.data == 200) {
+          console.log(response);
+          return response.data;
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          throw new Error(error.message);
+        }
+      }
+    };
+    toast.promise(jobDetailsPostRequest(), {
+      loading: "Adding...",
+      success: () => {
+        form.reset();
+        return `Job Details Added`;
+      },
+      error: "Error, cannot add the jobs details, try again alter",
+    });
   }
   return (
     <>
@@ -77,7 +125,10 @@ export default function JobDetailsForm() {
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12 mb-20">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-12 mb-20"
+        >
           <div className="flex flex-wrap items-center justify-center gap-6">
             <FormField
               control={form.control}
@@ -256,7 +307,9 @@ export default function JobDetailsForm() {
           </div>
 
           <section className="c">
-            <p className="font-semibold pb-12">Sections For Extra Job Information </p>
+            <p className="font-semibold pb-12">
+              Sections For Extra Job Information{" "}
+            </p>
             <div className="space-y-4 ">
               {fields.map((field, index) => (
                 <div
