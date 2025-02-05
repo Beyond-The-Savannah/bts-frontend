@@ -1,7 +1,7 @@
 // import { Montserrat } from "next/font/google";
 import "../globals.css";
 
-import AppSidebar from "@/components/Adminsidebar";
+import AppSidebar from "@/components/Admin/Adminsidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ViewTransitions } from "next-view-transitions";
 
@@ -17,17 +17,17 @@ export default function AdminLayout({
   return (
     // <html lang="en">
     //   <body className={`${montserrat.className} antialiased`}>
-      <ViewTransitions>
-        <section className=" ">
-          <SidebarProvider>
-            <AppSidebar />
-            <main>
-              <SidebarTrigger />
-              {children}
-            </main>
-          </SidebarProvider>
-        </section>
-        </ViewTransitions>
+    <ViewTransitions>
+      <section className=" ">
+        <SidebarProvider>
+          <AppSidebar />
+          <main>
+            <SidebarTrigger />
+            {children}
+          </main>
+        </SidebarProvider>
+      </section>
+    </ViewTransitions>
     //   </body>
     // </html>
   );

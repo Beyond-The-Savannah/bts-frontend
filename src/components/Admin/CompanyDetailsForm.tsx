@@ -18,8 +18,8 @@ import { useState } from "react";
 import "react-quill-new/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 import { toast } from "sonner";
-import { CldUploadWidget } from "next-cloudinary";
-import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
+// import { CldUploadWidget } from "next-cloudinary";
+// import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import { axiosInstance } from "@/remoteData/mutateData";
 import axios from "axios";
 
@@ -32,7 +32,7 @@ export default function CompanyDetailsForm() {
   
 
   const [cDValue] = useState("");
-  const [cImage, setCImage] = useState("");
+  // const [cImage, setCImage] = useState("");
   // const [cImage2]=useState("")
 
   const form = useForm<z.infer<typeof CompanyFormSchema>>({
@@ -50,7 +50,7 @@ export default function CompanyDetailsForm() {
   });
 
    function Submit(data: z.infer<typeof CompanyFormSchema>) {
-
+    // alert(JSON.stringify(data))
     const postRequest= async()=>{
 
       try {
@@ -81,7 +81,7 @@ export default function CompanyDetailsForm() {
         loading:"Adding...",
         success:()=>{
           form.reset()
-          setCImage("")
+          // setCImage("")
           // console.log("DATA",data)
           return `Company Details Added`
         },
@@ -189,6 +189,43 @@ export default function CompanyDetailsForm() {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="companyContactPhone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Company Contact Phone</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
+                      required
+                      type="tel"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="imageUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Company Logo</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      // className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
+                      className=""
+                      required
+                      type="file"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
           <div className="flex flex-col-reverse md:flex-row flex-wrap gap-12  items-center justify-evenly">
             <FormField
@@ -210,7 +247,7 @@ export default function CompanyDetailsForm() {
                 </FormItem>
               )}
             />
-            <FormField
+            {/* <FormField
               control={form.control}
               name="imageUrl"
               render={({}) => (
@@ -258,7 +295,7 @@ export default function CompanyDetailsForm() {
                   </FormControl>
                 </FormItem>
               )}
-            />
+            /> */}
           </div>
 
           <Button

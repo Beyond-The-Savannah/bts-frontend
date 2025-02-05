@@ -7,12 +7,15 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetAllComapanies } from "@/remoteData/getData";
 import { axiosInstance } from "@/remoteData/mutateData";
 import axios from "axios";
-import { revalidatePath } from "next/cache";
+// import { revalidatePath } from "next/cache";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "sonner";
 
 export default function CompanyListingAmdinPage() {
+
+  const router = useRouter();
   const { data, isLoading, isError } = useGetAllComapanies();
   console.log(data);
 
@@ -32,7 +35,8 @@ export default function CompanyListingAmdinPage() {
     toast.promise(softDeleteCompany(), {
       loading: "Removing...",
       success: ()=>{
-        revalidatePath("/Admin/companyListing")
+        // revalidatePath(`/Admin/companyListing`)
+        router.refresh()
         return "Company Removed"
       },
       error: "Error, removal failed ",
