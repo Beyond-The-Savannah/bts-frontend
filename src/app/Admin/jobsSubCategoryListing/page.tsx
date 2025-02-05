@@ -1,19 +1,20 @@
 "use client";
+
 import RemoteJobListingErrorUI from "@/components/RemoteJobListingErrorUI";
 import RemoteJobListingsLoadingUI from "@/components/RemoteJobListingsLoadingUI";
 import { Button } from "@/components/ui/button";
-import { useGetAllJobsCategories } from "@/remoteData/getData";
+import {useGetAllJobSubCategories } from "@/remoteData/getData";
 import { axiosInstance } from "@/remoteData/mutateData";
 import axios from "axios";
 import { toast } from "sonner";
 
-export default function JobsCategoryListingAdminPage() {
-  const { data, isLoading, isError } = useGetAllJobsCategories();
-  function removeJobCategory(id: number) {
-    const softDeleteJobCategory = async () => {
+export default function JobsSubCategoryAdminPage() {
+  const { data, isLoading, isError } = useGetAllJobSubCategories();
+  function removeJobSubCategory(id: number) {
+    const softDeleteJobSubCategory = async () => {
       try {
         const response = await axiosInstance.put(
-          `api/JobsCategory/deleteJobsCategory/?id=${id}`
+          `/api/JobSubCategory/deleteJobSubCategory?id=${id}`
         );
         return response;
       } catch (error) {
@@ -22,43 +23,49 @@ export default function JobsCategoryListingAdminPage() {
         }
       }
     };
-    toast.promise(softDeleteJobCategory(), {
+    toast.promise(softDeleteJobSubCategory(), {
       loading: "Removing",
       success: () => {
-        return "Job Category Removed";
+        return "Job Sub Category Removed";
       },
-      error: "Error, cannot remove job category, try again later",
+      error: "Error, cannot remove job sub category, try again later",
     });
   }
   return (
     <>
       <section className="mt-20 px-4">
-        <h2 className="text-xl">Job Category Listing</h2>
+        <h2 className="text-xl">Job Sub Category Listing</h2>
         <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
         <div className="grid place-content-center mt-2">
           {isLoading && <RemoteJobListingsLoadingUI />}
           {isError && <RemoteJobListingErrorUI />}
         </div>
         <div className=" space-y-4 flex flex-wrap gap-4 items-center">
-          {data?.map((jobCategory) => (
+          {data?.map((jobSubCategory) => (
             <div
-              key={jobCategory.id}
+              key={jobSubCategory.id}
               className="border rounded-lg px-12 py-6 w-[40vw] flex items-center justify-between"
             >
               <div>
                 <p className="text-base flex flex-col">
-                  <span className="text-xs block -ml-4">Job Catgeory Name</span>
-                  {jobCategory.name}
+                  <span className="text-xs block -ml-4">Job Sub Catgeory Name</span>
+                  {jobSubCategory.name}
+                </p>
+                <p className="text-base flex flex-col">
+                  <span className="text-xs block -ml-4">
+                    Job Sub Catgeory ID
+                  </span>
+                  {jobSubCategory.jobCategoryId}
                 </p>
                 <p className="text-base flex flex-col">
                   <span className="text-xs block -ml-4">
                     Job Catgeory Description
                   </span>
-                  {jobCategory.description}
+                  {jobSubCategory.description}
                 </p>
               </div>
               <Button
-                onClick={() => removeJobCategory(jobCategory.id)}
+                onClick={() => removeJobSubCategory(jobSubCategory.id)}
                 size="sm"
                 variant="destructive"
               >
