@@ -27,7 +27,8 @@ export default function HeroSection() {
         <div className="">
           
           <DisplayImageFromNextCloudinary
-            src="Loarraine_Laptop_Hero_Image_d9mk1t"
+            // src="Loarraine_Laptop_Hero_Image_d9mk1t"
+            src="hero-img_f9cfrb"
             height={800}
             width={800}
             alt="Lorraine founder of beyond the savannah"
