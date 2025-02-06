@@ -47,7 +47,7 @@ export default function EmailTemplate() {
               </Text>
               <Button
                 style={button}
-                href={`https://calendly.com/beyondthesavannah-info/coaching-session`}
+                href={`https://calendly.com/beyondthesavannah-info`}
               >
                 Calendly Link
               </Button>
