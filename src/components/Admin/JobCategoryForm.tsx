@@ -16,14 +16,16 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import "react-quill-new/dist/quill.snow.css";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 import axios from "axios";
 import { axiosInstance } from "@/remoteData/mutateData";
 import { toast } from "sonner";
-const ReactQuill = dynamic(() => import("react-quill-new"), {
-  ssr: false,
-  loading: () => <p>Loading text editor...</p>,
-});
+import { Textarea } from "../ui/textarea";
+
+// const ReactQuill = dynamic(() => import("react-quill-new"), {
+//   ssr: false,
+//   loading: () => <p>Loading text editor...</p>,
+// });
 
 export default function JobCategoryForm() {
   const [cDValue] = useState("");
@@ -66,6 +68,7 @@ export default function JobCategoryForm() {
 
   return (
     <>
+    <div className="w-[80vw] mx-auto"></div>
       <div className="mt-10 mb-20">
         <h2 className="text-xl">Jobs Category Form</h2>
         <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
@@ -76,7 +79,7 @@ export default function JobCategoryForm() {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
-          <div className="flex flex-wrap items-center justify-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-6 ">
             <FormField
               control={form.control}
               name="categoryName"
@@ -100,11 +103,12 @@ export default function JobCategoryForm() {
                 <FormItem>
                   <FormLabel>Category Description</FormLabel>
                   <FormControl>
-                    <ReactQuill
+                    <Textarea {...field} className="w-[90vw] md:w-[30vw] lg:w-[24vw]" />
+                    {/* <ReactQuill
                       theme="snow"
                       value={field.value}
                       onChange={field.onChange}
-                    />
+                    /> */}
                   </FormControl>
                   <FormMessage />
                 </FormItem>

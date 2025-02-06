@@ -75,6 +75,7 @@ export default function JobSubCategoryForm() {
 
   return (
     <>
+    <div className="w-[80vw] mx-auto"></div>
       <div className="mt-10 mb-20">
         <h2 className="text-xl">Jobs SubCategory Form</h2>
         <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
