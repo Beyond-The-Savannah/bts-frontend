@@ -1,4 +1,5 @@
 import CheckoutForm from "@/components/CheckoutForm";
+// import CheckoutForm2 from "@/components/CheckoutForm2";
 import DisplayImageFromNextCloudinary from "@/components/DisplayImageFromNextCloudinary";
 import {
   Drawer,
@@ -146,6 +147,7 @@ export default async function ServicePage({
                 <div className=" max-w-md mx-auto py-4 px-8">
                   {specificService?.price && (
                     <CheckoutForm amount={specificService?.price} />
+                    // <CheckoutForm2 amount={specificService?.price} />
                   )}
                 </div>
                 <DrawerFooter>
