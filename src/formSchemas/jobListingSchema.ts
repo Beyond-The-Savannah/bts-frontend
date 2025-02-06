@@ -7,6 +7,8 @@ export const CompanyFormSchema= z.object({
     companyContactPhone:z.string().min(1,{message:"Invalid, needs to numbers "}),
     companyDescription:z.string().min(1,{message:"Comapny Description must be at least one character long"}).trim(),
     location:z.string().min(1,{message:"Comapny Location must be at least one character long"}),
+    // imageUrl:z.union([z.instanceof(File, {message:"Image is required"}),z.string().optional()]),
+    // imageUrl:z.instanceof(File, {message:"Image is required"}),
     imageUrl:z.string(),
     // imageUrl:z.string().min(1,{message:"Comapny Image URL must be at least one character long"}),
 })

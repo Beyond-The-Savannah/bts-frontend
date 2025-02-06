@@ -191,24 +191,6 @@ export default function CompanyDetailsForm() {
             />
             <FormField
               control={form.control}
-              name="companyContactPhone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Company Contact Phone</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
-                      required
-                      type="tel"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name="imageUrl"
               render={({ field }) => (
                 <FormItem>
