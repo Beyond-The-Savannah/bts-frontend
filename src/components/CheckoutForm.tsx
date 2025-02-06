@@ -6,12 +6,17 @@ import { Input } from "./ui/input"
 import { Button } from "./ui/button"
 import {zodResolver} from "@hookform/resolvers/zod"
 import {z} from "zod"
+import axios from "axios"
+import { toast } from "sonner"
 
 
 
 
 const checkOutFormSchema=z.object({
-    email:z.string().trim().email({ message:"Invalid Email"})
+    email:z.string().trim().email({ message:"Invalid Email"}),
+    firstName:z.string().trim(),
+    lastName:z.string().trim(),
+    
 })
 
 
@@ -24,7 +29,9 @@ export default function CheckoutForm(amount:{amount:number}) {
     const form =useForm<z.infer<typeof checkOutFormSchema>>({
         resolver:zodResolver(checkOutFormSchema),
         defaultValues:{
-            email:""
+            email:"",
+            firstName:"",
+            lastName:"",
         }
     })
     const {watch} =form
@@ -37,13 +44,18 @@ export default function CheckoutForm(amount:{amount:number}) {
         publicKey:payStackKey,
     };
 
-      const onClose = () => {
-        console.log('closed')
+    
+      const onSuccess = async() => {
+        await axios.get(`/api/send`)
+        toast.info(`Please check your email, "${email}" for more instructions`,{duration:16000})
       }
+    //   const onClose = () => {
+    //     console.log('closed')
+    //   }
       const initializePayment = usePaystackPayment(config);
 
     function onSumbit(values: z.infer<typeof checkOutFormSchema>){
-        initializePayment({onClose})
+        initializePayment({onSuccess})
         console.log(values)
         console.log(amountInCents)
     }
@@ -61,6 +73,30 @@ export default function CheckoutForm(amount:{amount:number}) {
                             <FormLabel>Email Address </FormLabel>
                             <FormControl>
                                 <Input placeholder="email@mail.com" {...field} required/></FormControl>
+                            <FormMessage/>
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="firstName"
+                    render={({field})=>(
+                        <FormItem>
+                            <FormLabel>First Name </FormLabel>
+                            <FormControl>
+                                <Input placeholder="Imani" {...field} required/></FormControl>
+                            <FormMessage/>
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="lastName"
+                    render={({field})=>(
+                        <FormItem>
+                            <FormLabel>Last Name </FormLabel>
+                            <FormControl>
+                                <Input placeholder="Lulu" {...field} required/></FormControl>
                             <FormMessage/>
                         </FormItem>
                     )}
