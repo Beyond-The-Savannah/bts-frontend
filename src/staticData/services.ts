@@ -3,7 +3,7 @@ export const servicesList=[
         id:1,
         title:"LinkedIn Optimization",
         titleSlug:"linkedin-optimization",
-        subheading:"Elevate Your Professional Brand with a 45-Minute LinkedIn Profile Optimization Session",
+        subheading:"Elevate Your Professional Brand with a 15-Minute LinkedIn Profile Optimization Session",
         img:"linkedin_website_view_1_kz1qml",
         openGraphImg:"LinkedIn_Optimization_openGraph_egoqgl",
         details:"Your LinkedIn profile is your digital business card, and it has the power to make a lasting impression on potential employers, clients, and professional connections. Join us for a focused 45-minute virtual consultation designed to revamp and optimize your LinkedIn profile for success.",
@@ -46,7 +46,7 @@ export const servicesList=[
         benefits:[
             "ATS-Compliant CV: We'll create a CV that passes through ATS filters with ease, ensuring your qualifications and experience are properly recognized by employers.",
             "ATS-Compliant Cover Letter: Craft a cover letter that complements your CV and grabs the attention of hiring managers. We'll make sure it meets ATS standards and showcases your motivation.",
-            "Bonus: As a special bonus, we're offering insights into three job openings currently available, giving you a head start in your job search.",
+            
         ],
         valueProposal:"This is the boost your career needs. Take action today to increase your chances of landing your dream job. Book our ATS CV revamp and cover letter package now!",
         price:8000,

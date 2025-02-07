@@ -64,7 +64,7 @@ export default function CheckoutForm(amount:{amount:number}) {
   return (
     <>
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSumbit)} className="space-y-4">
+            <form onSubmit={form.handleSubmit(onSumbit)} className="space-y-6">
                 <FormField
                     control={form.control}
                     name="email"
@@ -77,6 +77,7 @@ export default function CheckoutForm(amount:{amount:number}) {
                         </FormItem>
                     )}
                 />
+                <div className="flex gap-4 items-center">
                 <FormField
                     control={form.control}
                     name="firstName"
@@ -101,6 +102,8 @@ export default function CheckoutForm(amount:{amount:number}) {
                         </FormItem>
                     )}
                 />
+
+                </div>
                 <Button type='submit' size='lg' 
                     // className="w-full bg-green-400 hover:bg-green-500"
                     className="w-full bg-bts-GreenOne hover:bg-green-500"
