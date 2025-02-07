@@ -8,7 +8,7 @@ export const servicesList = [
     img: "linkedin_website_view_1_kz1qml",
     openGraphImg: "LinkedIn_Optimization_openGraph_egoqgl",
     details:
-      "Your LinkedIn profile is your digital business card, and it has the power to make a lasting impression on potential employers, clients, and professional connections. Join us for a focused 45-minute virtual consultation designed to revamp and optimize your LinkedIn profile for success.",
+      "Your LinkedIn profile is your digital business card, and it has the power to make a lasting impression on potential employers, clients, and professional connections. Join us for a focused 15-minute virtual consultation designed to revamp and optimize your LinkedIn profile for success.",
     benefits: [
       "Tailored Recommendations: Receive personalized insights and recommendations from an experienced professional.",
       "Profile Enhancements: Discover strategies to boost your visibility and credibility on the world's largest professional network.",
@@ -180,7 +180,7 @@ export const servicesCalendlyLinks = [
     id: 2,
     service: "Students Package",
     amount: 500000,
-    link: "",
+    link: "https://calendly.com/beyondthesavannah-info/students-package",
   },
   {
     id: 3,
