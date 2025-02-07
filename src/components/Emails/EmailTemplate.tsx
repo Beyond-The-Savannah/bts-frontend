@@ -12,9 +12,14 @@ import {
   Text,
 } from "@react-email/components";
 import { EmailProps } from "@/types/email";
+import { servicesCalendlyLinks } from "@/staticData/services";
 
 
-export default function EmailTemplate({firstName}:EmailProps) {
+export default function EmailTemplate({firstName,amount}:EmailProps) {
+  // let specificCalendlyLink=""
+  const specificCalendlyLink  =servicesCalendlyLinks.find((service)=>{return service.amount==amount})
+  // servicesCalendlyLinks=service?.link
+  
   return (
     <>
       <Html>
@@ -47,7 +52,8 @@ export default function EmailTemplate({firstName}:EmailProps) {
               </Text>
               <Button
                 style={button}
-                href={`https://calendly.com/beyondthesavannah-info`}
+                href={`${specificCalendlyLink?.link}`}
+                // href={`https://calendly.com/beyondthesavannah-info`}
               >
                 Calendly Link
               </Button>

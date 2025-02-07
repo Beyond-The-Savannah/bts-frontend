@@ -66,21 +66,19 @@ export default function CheckoutForm(amount: { amount: number }) {
   const onSuccess = async () => {
     await axios.post(`/api/send`, {
       email: config.email,
-      firstName:config.metadata.custom_fields[0].value
+      firstName:config.metadata.custom_fields[0].value,
+      amount:amountInCents
     });
     toast.info(`Please check your email, "${email}" for more instructions`, {
       duration: 16000,
     });
   };
-  //   const onClose = () => {
-  //     console.log('closed')
-  //   }
+  
   const initializePayment = usePaystackPayment(config);
 
   function onSumbit(values: z.infer<typeof checkOutFormSchema>) {
     initializePayment({ onSuccess });
     console.log(values);
-    console.log(amountInCents);
   }
 
   return (
