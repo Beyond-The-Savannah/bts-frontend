@@ -3,18 +3,18 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function GET() {
+export async function POST(request: Request) {
   try {
+    const { email } = await request.json();
     const { data, error } = await resend.emails.send({
-      // from: `Acme <onboarding@resend.dev>`,
       from: `info@beyondthesavannah.co.ke`,
-      to: [`gitoshmbae@gmail.com`, `gitonga1993@gmail.com`, `michaelgitonga588@gmail.com`],
+      to: [email],
       subject: `Beyond The Savannah Service Link`,
-      react: EmailTemplate(
-    //     {
-    //     email: "test@mail.com",
-    //   }
-    ),
+      react:
+        EmailTemplate(),
+        //     {
+        //     email: "test@mail.com",
+        //   }
     });
     if (error) {
       return Response.json({ error }, { status: 500 });
