@@ -38,17 +38,35 @@ export default function CheckoutForm(amount: { amount: number }) {
   });
   const { watch } = form;
   const email = watch("email");
+  const firstName = watch("firstName");
+  const lastName = watch("lastName");
+
   const config = {
     reference: new Date().getTime().toString(),
     email,
     amount: amountInCents,
     currency: "KES",
     publicKey: payStackKey,
+    metadata: {
+      custom_fields: [
+        {
+          display_name: "First Name",
+          variable_name: "first_name",
+          value: firstName,
+        },
+        {
+          display_name: "Last Name",
+          variable_name: "last_name",
+          value: lastName,
+        },
+      ],
+    },
   };
 
   const onSuccess = async () => {
     await axios.post(`/api/send`, {
       email: config.email,
+      firstName:config.metadata.custom_fields[0].value
     });
     toast.info(`Please check your email, "${email}" for more instructions`, {
       duration: 16000,

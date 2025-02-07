@@ -1,3 +1,4 @@
 export interface EmailProps {
-  email: string;
+  email?: string;
+  firstName:string;
 }

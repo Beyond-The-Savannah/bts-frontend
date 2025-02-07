@@ -11,10 +11,10 @@ import {
   Section,
   Text,
 } from "@react-email/components";
-// import { EmailProps } from "@/types/email";
+import { EmailProps } from "@/types/email";
 
-// export default function EmailTemplate({ email }: EmailProps) {
-export default function EmailTemplate() {
+
+export default function EmailTemplate({firstName}:EmailProps) {
   return (
     <>
       <Html>
@@ -31,8 +31,8 @@ export default function EmailTemplate() {
               />
             </Section>
             <Section>
-              {/* <Text style={text}>Hi {email},</Text> */}
-              <Text style={text}>Dear Client,</Text>
+              <Text style={text}>Hi {firstName},</Text>
+              {/* <Text style={text}>Dear Client,</Text> */}
               <Text style={text}>
                 Thank you once again for choosing Beyond the Savannah for your
                 service(s). We&apos;re excited to begin working with you.
@@ -54,7 +54,7 @@ export default function EmailTemplate() {
               <Text style={text}>
                 Once scheduled, you&apos;ll receive a confirmation email with
                 all the details.If you have any questions or need further
-                assistance, please don&apos;t hesitate to reach out to us the
+                assistance, please don&apos;t hesitate to reach out to us through the
                 email : info@beyondthesavannah.co.ke
               </Text>
               <Text style={text}>
