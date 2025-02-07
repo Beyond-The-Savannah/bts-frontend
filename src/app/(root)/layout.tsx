@@ -14,7 +14,7 @@ import { getCldOgImageUrl } from "next-cloudinary";
 // });
 
 const url = getCldOgImageUrl({
-  src: "BTS_Home_OpenGraph_3_lzxntd",
+  src: "bts-og-img-2_t90ove",
 });
 
 export const metadata: Metadata = {
