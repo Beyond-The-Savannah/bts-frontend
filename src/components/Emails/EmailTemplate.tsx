@@ -102,7 +102,7 @@ const text = {
 };
 
 const button = {
-  backgroundColor: "#007ee6",
+  backgroundColor: "hsl(188, 34%, 17%)",
   borderRadius: "4px",
   color: "#fff",
   fontFamily: "'Open Sans', 'Helvetica Neue', Arial",
