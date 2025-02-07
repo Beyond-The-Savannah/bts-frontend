@@ -7,7 +7,7 @@ export async function GET() {
   try {
     const { data, error } = await resend.emails.send({
       // from: `Acme <onboarding@resend.dev>`,
-      from: `info@info@beyondthesavannah.co.ke`,
+      from: `info@beyondthesavannah.co.ke`,
       to: [`gitoshmbae@gmail.com`, `gitonga1993@gmail.com`, `michaelgitonga588@gmail.com`],
       subject: `Beyond The Savannah Service Link`,
       react: EmailTemplate(
