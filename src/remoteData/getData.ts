@@ -2,16 +2,25 @@ import { CompanyProps, jobCategoryProps, jobSubCategoryProps, ListingRemoteJobs,
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "./mutateData";
 
-export async function fetchRemoteJobsList(): Promise<ListingRemoteJobs[]> {
-    const result =
-      fetch(`https://efmsapi.azurewebsites.net/api/Jobs/getAllJobsByCompany?name=&jobCategoryId=0
-  `).then((res) => res.json());
-    return result;
+// export async function fetchRemoteJobsList(jobName:string): Promise<ListingRemoteJobs[]> {
+//     const result =
+//       // fetch(`https://efmsapi.azurewebsites.net/api/Jobs/getAllJobsByCompany?name=&jobCategoryId=0
+//       fetch(`https://efmsapi.azurewebsites.net/api/Jobs/getAllJobsByName/?name=${jobName}
+// `).then((res) => res.json());
+//     return result;
+//   }
+
+  export async function fetchRemoteJobsList(name?:string){
+    const url = '/api/Jobs/getAllJobsByName/';
+    const urlUpdated = name ? `${url}?name=${name}` : url;
+    const result= await axiosInstance.get<ListingRemoteJobs[]>(urlUpdated)
+    return result.data
+
   }
-export const useGetRemoteListingJobsUsingTanstack=()=>{
+export const useGetRemoteListingJobsUsingTanstack=(name?:string)=>{
   return useQuery({
-    queryKey:["allRemoteJobs"],
-    queryFn:fetchRemoteJobsList
+    queryKey:["allRemoteJobs", name],
+    queryFn:()=>fetchRemoteJobsList(name)
   })
 }
 
