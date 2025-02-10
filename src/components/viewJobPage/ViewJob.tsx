@@ -40,7 +40,7 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
 
   return (
     <>
-      <section className="container mx-auto  min-h-screen pt-40 px-4">
+      <section className="container mx-auto  min-h-screen pt-24 md:pt-40 px-4">
         <div className="">
           <h2 className="text-xl">Global Open Roles</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
