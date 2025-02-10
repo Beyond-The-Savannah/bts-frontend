@@ -11,6 +11,7 @@ import { useTransitionRouter } from "next-view-transitions";
 
 import { use } from "react";
 import clsx from "clsx";
+import FilterJobsByName from "./FilterJobsByJobName";
 
 export default function FindJobs(props: {
   params: Params;
@@ -21,6 +22,7 @@ export default function FindJobs(props: {
 
   const page = searchParams["page"] ?? "1";
   const per_page = searchParams["per_page"] ?? "10";
+  const name= searchParams['name'] as string ?? ''
 
   const lastRemoteJobListingIndex = Number(page) * Number(per_page);
   const firstRemoteJobListingIndex =
@@ -30,18 +32,18 @@ export default function FindJobs(props: {
     data: remoteJobs,
     isLoading,
     isError,
-  } = useGetRemoteListingJobsUsingTanstack();
+  } = useGetRemoteListingJobsUsingTanstack(name);
 
   const paginatedRemoteJobs = remoteJobs?.slice(
     firstRemoteJobListingIndex,
     lastRemoteJobListingIndex
   );
 
-  console.log("PGD=>", paginatedRemoteJobs);
+
   return (
     <>
       <section className="container mx-auto min-h-screen px-4">
-        <div className="pt-40 mb-10">
+        <div className="pt-44 mb-10">
           <h2 className="text-xl">Global Open Roles</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
           <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
@@ -50,6 +52,9 @@ export default function FindJobs(props: {
         </div>
         {isLoading && <RemoteJobListingsLoadingUI />}
         {isError && <RemoteJobListingErrorUI />}
+        <div className="my-4">
+          {remoteJobs && <FilterJobsByName remoteData={remoteJobs}/>}
+        </div>
         <div className="flex flex-wrap lg:justify-center  mb-20 gap-8 md:gap-2 md:gap-y-8 lg:gap-8">
           {paginatedRemoteJobs?.map((job, index) => (
             <div
