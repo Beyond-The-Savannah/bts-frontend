@@ -17,7 +17,7 @@ export const servicesList = [
       "Actionable Steps: Walk away with actionable steps and a clearer understanding of how to leverage LinkedIn effectively.",
     ],
     valueProposal:
-      "Invest in your professional growth and make the most out of your LinkedIn presence. Book your 45-minute LinkedIn profile optimization session today and watch your online brand thrive!",
+      "Invest in your professional growth and make the most out of your LinkedIn presence. Book your 15-minute LinkedIn profile optimization session today and watch your online brand thrive!",
     price: 15000,
     priceString: "15,000",
   },

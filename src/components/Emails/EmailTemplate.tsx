@@ -16,9 +16,8 @@ import { servicesCalendlyLinks } from "@/staticData/services";
 
 
 export default function EmailTemplate({firstName,amount}:EmailProps) {
-  // let specificCalendlyLink=""
   const specificCalendlyLink  =servicesCalendlyLinks.find((service)=>{return service.amount==amount})
-  // servicesCalendlyLinks=service?.link
+  
   
   return (
     <>
@@ -32,15 +31,14 @@ export default function EmailTemplate({firstName,amount}:EmailProps) {
                 src={`https://res.cloudinary.com/dh8qlzbzk/image/upload/v1736518541/BTS_Logo_xa2iht.webp`}
                 width="114"
                 //   height="33"
-                alt="Dropbox"
+                alt="Beyond The Savannah Logo"
               />
             </Section>
             <Section>
               <Text style={text}>Hi {firstName},</Text>
-              {/* <Text style={text}>Dear Client,</Text> */}
               <Text style={text}>
                 Thank you once again for choosing Beyond the Savannah for your
-                service(s). We&apos;re excited to begin working with you.
+                services. We&apos;re excited to begin working with you.
               </Text>
               <Text style={text}>
                 To make it as convenient as possible, please go ahead and select
@@ -53,7 +51,6 @@ export default function EmailTemplate({firstName,amount}:EmailProps) {
               <Button
                 style={button}
                 href={`${specificCalendlyLink?.link}`}
-                // href={`https://calendly.com/beyondthesavannah-info`}
               >
                 Calendly Link
               </Button>
@@ -93,7 +90,6 @@ const logo = {
   display: "flex",
   justifyContent: "center",
   alingItems: "center",
-//   padding: 30,
   width: "580px",
   margin: "0 auto",
 };
