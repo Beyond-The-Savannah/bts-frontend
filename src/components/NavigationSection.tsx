@@ -37,7 +37,7 @@ export default function NavigationSection() {
                   width={800}
                   prioty
                   alt="square shapes"
-                  classname="object-contain size-24 md:size-32 rounded-lg absolute"
+                  classname="object-contain size-16 -mt-8 md:size-32 rounded-lg absolute"
                 />
               </Link>
             </NavigationMenuItem>

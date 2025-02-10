@@ -43,7 +43,7 @@ export default function FindJobs(props: {
   return (
     <>
       <section className="container mx-auto min-h-screen px-4">
-        <div className="pt-44 mb-10">
+        <div className="pt-24 md:pt-44 mb-10">
           <h2 className="text-xl">Global Open Roles</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
           <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">

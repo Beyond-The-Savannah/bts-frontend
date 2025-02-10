@@ -34,7 +34,7 @@ export default function FilterJobsByName({
 
   return (
     <>
-      <div className="flex gap-4 items-end">
+      <div className="flex  gap-4 items-end">
         <div className="">
           <p>Filter by Name</p>
           <Popover open={open} onOpenChange={setOpen}>
@@ -43,7 +43,7 @@ export default function FilterJobsByName({
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
-                className="min-w-[380px] justify-between"
+                className="w-full md:min-w-[380px] justify-between"
               >
                 {value
                   ? remoteData?.find((data) => data.jobName == value)?.jobName

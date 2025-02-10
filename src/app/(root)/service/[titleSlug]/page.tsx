@@ -59,7 +59,7 @@ export default async function ServicePage({
   await posthog?.shutdown();
   return (
     <>
-      <section className="container mx-auto space-y-16 px-4 pt-48 pb-40">
+      <section className="container mx-auto space-y-16 px-4 pt-24 md:pt-48 pb-40">
         <div className="min-h-[50vh]  flex flex-wrap justify-around gap-y-12 lg:gap-x-8">
           <div className="w-[85vw] md:w-[45vw] lg:max-w-[34vw] ">
             {specificService && (
