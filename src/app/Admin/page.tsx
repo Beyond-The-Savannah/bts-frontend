@@ -1,4 +1,5 @@
 import CompanyDetailsForm from "@/components/Admin/CompanyDetailsForm";
+// import CompanyDetailsForm2 from "@/components/Admin/CompanyDetailsForm2";
 import JobCategoryForm from "@/components/Admin/JobCategoryForm";
 import JobDetailsForm from "@/components/Admin/JobDetailsForm";
 import JobSubCategoryForm from "@/components/Admin/JobSubCategoryForm";
@@ -22,6 +23,7 @@ export default function AdminDefaultpage() {
             </TabsList>
             <TabsContent value="companyDetails">
               <CompanyDetailsForm />
+              {/* <CompanyDetailsForm2/> */}
             </TabsContent>
             <TabsContent value="jobDetails">
               <JobDetailsForm/>
