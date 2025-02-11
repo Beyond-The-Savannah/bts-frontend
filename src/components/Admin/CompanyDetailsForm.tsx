@@ -22,6 +22,7 @@ import { toast } from "sonner";
 // import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import { axiosInstance } from "@/remoteData/mutateData";
 import axios from "axios";
+import Image from "next/image";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), {
   ssr: false,
@@ -29,11 +30,12 @@ const ReactQuill = dynamic(() => import("react-quill-new"), {
 });
 
 export default function CompanyDetailsForm() {
-  
-
   const [cDValue] = useState("");
-  // const [cImage, setCImage] = useState("");
-  // const [cImage2]=useState("")
+  const [logoPreview, setLogoPreview] = useState<string | ArrayBuffer | null>(
+    null
+  );
+  const [logo, setLogo] = useState("");
+  const [logoName, setLogoName] = useState("");
 
   const form = useForm<z.infer<typeof CompanyFormSchema>>({
     resolver: zodResolver(CompanyFormSchema),
@@ -44,51 +46,65 @@ export default function CompanyDetailsForm() {
       companyContactPhone: "",
       companyDescription: cDValue,
       location: "",
-      // imageUrl: cImage,
       imageUrl: "",
     },
   });
 
-   function Submit(data: z.infer<typeof CompanyFormSchema>) {
-    // alert(JSON.stringify(data))
-    const postRequest= async()=>{
+  function handleLogo(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.files) {
+      const data = new FileReader();
+      data.addEventListener("load", () => {
+        if (typeof data.result === "string") {
+          setLogoPreview(data.result);
+          const commaIndex = data.result.indexOf(",");
+          const base64String = data.result.slice(commaIndex + 1);
+          setLogo(base64String);
+        }
+      });
+      data.readAsDataURL(e.target.files[0]);
+      setLogoName(e.target.files[0].name);
+    }
+  }
 
+  function Submit(data: z.infer<typeof CompanyFormSchema>) {
+    // alert(JSON.stringify(data))
+    const postRequest = async () => {
       try {
-        const response = await axiosInstance.post(`/api/Companies/addCompanies`, {
-          name: data.companyName,
-          description: data.companyDescription,
-          phoneNumber: data.companyContactPhone,
-          headQuarters: data.companyHeadQuaters,
-          attachmentName: "",
-          imageUrl: data.imageUrl,
-          email: data.companyContactEmail,
-          location: data.location,
-        });
+        const response = await axiosInstance.post(
+          `/api/Companies/addCompanies`,
+          {
+            name: data.companyName,
+            description: data.companyDescription,
+            phoneNumber: data.companyContactPhone,
+            headQuarters: data.companyHeadQuaters,
+            attachmentName: logoName,
+            attachment: logo,
+            email: data.companyContactEmail,
+            imageUrl: "",
+            location: data.location,
+            createdBy: "",
+            modifiedBy: "",
+          }
+        );
         if (response.data == 200) {
-          console.log(response)
-          
-          return response.data
+          console.log(response);
+
+          return response.data;
         }
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          throw new Error(error.message)
+          throw new Error(error.message);
         }
       }
-    }
-    toast.promise(
-      postRequest(),
-      {
-        loading:"Adding...",
-        success:()=>{
-          form.reset()
-          // setCImage("")
-          // console.log("DATA",data)
-          return `Company Details Added`
-        },
-        error:"Error, try again later"
-      }
-    )
-
+    };
+    toast.promise(postRequest(), {
+      loading: "Adding...",
+      success: () => {
+        form.reset();
+        return `Company Details Added`;
+      },
+      error: "Error, try again later",
+    });
   }
 
   return (
@@ -192,22 +208,35 @@ export default function CompanyDetailsForm() {
             <FormField
               control={form.control}
               name="imageUrl"
-              render={({ field }) => (
+              render={() => (
                 <FormItem>
                   <FormLabel>Company Logo</FormLabel>
                   <FormControl>
                     <Input
-                      {...field}
+                      // {...field}
                       // className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
                       className=""
                       required
                       type="file"
+                      accept="image/*"
+                      onChange={handleLogo}
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+            <div>
+              {typeof logoPreview == "string" && (
+                <Image
+                  src={logoPreview}
+                  height={200}
+                  width={200}
+                  alt="logo preview"
+                  className="size-24 rounded-lg"
+                />
+              )}
+            </div>
           </div>
           <div className="flex flex-col-reverse md:flex-row flex-wrap gap-12  items-center justify-evenly">
             <FormField
