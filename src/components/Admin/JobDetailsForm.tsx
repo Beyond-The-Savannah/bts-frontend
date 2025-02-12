@@ -78,8 +78,6 @@ export default function JobDetailsForm() {
   });
 
   function onSubmit(data: z.infer<typeof JobFormSchema>) {
-    console.log("Form submitted", data);
-    alert(JSON.stringify(data));
     const jobDetailsPostRequest = async () => {
       try {
         const response = await axiosInstance.post(`/api/Jobs/addJobs`, {
@@ -107,19 +105,19 @@ export default function JobDetailsForm() {
           ),
         });
         if (response.status === 200) {
-          console.log(response);
+          // console.log(response);
           return true;
         } else {
-          console.error("Request failed with status:", response.status);
+          // console.error("Request failed with status:", response.status);
           return false;
         }
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          console.error("Axios error:", error.message);
+          // console.error("Axios error:", error.message);
           throw new Error(error.message);
         } else {
-          console.error("An unexpected error occurred:", error);
-          throw new Error("An unexpected error occurred"); // Or a more generic message
+          // console.error("An unexpected error occurred:", error);
+          throw new Error("An unexpected error occurred");
         }
       }
     };
