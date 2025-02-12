@@ -57,8 +57,8 @@ export interface CompanyProps {
 }
 
 export interface JobDeatilsProps {
-  jobs: {
-    endDate: string;
+  // jobs: {
+    endDate: Date;
     jobName: string;
     jobDescription: string;
     companyId: number;
@@ -67,7 +67,7 @@ export interface JobDeatilsProps {
     salary: number;
     jobCategoriesId: number;
     jobSubCategoryId: number;
-  };
+  // };
   createdBy: string;
   jobsAndSections: [
     {
@@ -77,10 +77,18 @@ export interface JobDeatilsProps {
       jobTypesId: number;
       createdBy: string;
       modifiedBy: string;
-    }
+    },
   ];
 }
 
+export interface JobsAndSectionProps{
+  id: number;
+  sectionName: string;
+  sectionDescription: string;
+  jobTypesId: number;
+  createdBy: string;
+  modifiedBy: string;
+}
 export interface jobCategoryProps {
   id: number;
   name: string;
@@ -96,4 +104,9 @@ export interface jobSubCategoryProps {
   description: string;
   createdBy: string;
   modifiedBy: string;
+}
+
+export interface DropDownListProps {
+  value: number;
+  label: string;
 }
