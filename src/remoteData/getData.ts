@@ -1,4 +1,5 @@
 import {
+  DropDownListProps,
   CompanyProps,
   jobCategoryProps,
   jobSubCategoryProps,
@@ -50,6 +51,45 @@ export const useGetAllComapanies = () => {
     queryFn: () => fetchAllCompaies(),
   });
 };
+async function fetchCompaiesDropDownList(): Promise<DropDownListProps[]> {
+  const result = await axiosInstance.get<DropDownListProps[]>(
+    "/api/Companies/getCompaniesDropDown"
+  );
+  return result.data;
+}
+
+export const useGetCompaniesDropDownList = () => {
+  return useQuery({
+    queryKey: ["companiesDropDownList"],
+    queryFn: () => fetchCompaiesDropDownList(),
+  });
+};
+async function fetchJobCategoryDropDownList(): Promise<DropDownListProps[]> {
+  const result = await axiosInstance.get<DropDownListProps[]>(
+    "/api/JobsCategory/getJobsCategoriesDropDown"
+  );
+  return result.data;
+}
+
+export const useGetJobCategoryDropDownList = () => {
+  return useQuery({
+    queryKey: ["jobCategoryDropDownList"],
+    queryFn: () => fetchJobCategoryDropDownList(),
+  });
+};
+async function fetchJobSubCategoryDropDownList(): Promise<DropDownListProps[]> {
+  const result = await axiosInstance.get<DropDownListProps[]>(
+    "/api/JobSubCategory/getJobsCategoriesDropDown"
+  );
+  return result.data;
+}
+
+export const useGetJobSubCategoryDropDownList = () => {
+  return useQuery({
+    queryKey: ["jobSubCategoryDropDownList"],
+    queryFn: () => fetchJobSubCategoryDropDownList(),
+  });
+};
 
 async function fetchAllJobCategories(): Promise<jobCategoryProps[]> {
   const result = await axiosInstance.get<jobCategoryProps[]>(
@@ -77,3 +117,4 @@ export const useGetAllJobSubCategories = () => {
     queryFn: () => fetchAllJobSubCategories(),
   });
 };
+

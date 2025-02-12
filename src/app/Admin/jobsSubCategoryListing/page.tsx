@@ -3,13 +3,14 @@
 import RemoteJobListingErrorUI from "@/components/RemoteJobListingErrorUI";
 import RemoteJobListingsLoadingUI from "@/components/RemoteJobListingsLoadingUI";
 import { Button } from "@/components/ui/button";
-import {useGetAllJobSubCategories } from "@/remoteData/getData";
+import { useGetAllJobSubCategories } from "@/remoteData/getData";
 import { axiosInstance } from "@/remoteData/mutateData";
 import axios from "axios";
 import { toast } from "sonner";
 
 export default function JobsSubCategoryAdminPage() {
   const { data, isLoading, isError } = useGetAllJobSubCategories();
+
   function removeJobSubCategory(id: number) {
     const softDeleteJobSubCategory = async () => {
       try {
@@ -44,11 +45,13 @@ export default function JobsSubCategoryAdminPage() {
           {data?.map((jobSubCategory) => (
             <div
               key={jobSubCategory.id}
-              className="border rounded-lg px-12 py-6 w-[40vw] flex items-center justify-between"
+              className="border rounded-lg px-12 py-6 w-3/4 md:w-4/12 lg:w-[18vw] flex flex-col gap-4 items-center justify-start"
             >
               <div>
                 <p className="text-base flex flex-col">
-                  <span className="text-xs block -ml-4">Job Sub Catgeory Name</span>
+                  <span className="text-xs block -ml-4">
+                    Job Sub Catgeory Name
+                  </span>
                   {jobSubCategory.name}
                 </p>
                 <p className="text-base flex flex-col">

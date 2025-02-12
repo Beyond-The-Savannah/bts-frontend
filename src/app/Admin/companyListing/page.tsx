@@ -17,7 +17,7 @@ export default function CompanyListingAmdinPage() {
 
   const router = useRouter();
   const { data, isLoading, isError } = useGetAllComapanies();
-  console.log(data);
+  // console.log(data);
 
   function removeCompany(id: number) {
     const softDeleteCompany = async () => {
@@ -56,7 +56,7 @@ export default function CompanyListingAmdinPage() {
             {data?.map((company) => (
               <div
                 key={company.id}
-                className="px-4 py-6 rounded-lg border  border-bts-BrownThree w-[30vw] space-y-2"
+                className="px-4 py-6 rounded-lg border  border-bts-BrownThree w-[20vw] space-y-2"
               >
                 <div className="flex gap-4 items-center">
                   {/* {company.imageUrl !== "" && (

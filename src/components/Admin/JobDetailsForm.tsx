@@ -27,12 +27,16 @@ import clsx from "clsx";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../ui/calendar";
-// import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 import { axiosInstance } from "@/remoteData/mutateData";
 import axios from "axios";
 import { toast } from "sonner";
+import {
+  useGetCompaniesDropDownList,
+  useGetJobCategoryDropDownList,
+  useGetJobSubCategoryDropDownList,
+} from "@/remoteData/getData";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), {
   ssr: false,
@@ -43,31 +47,38 @@ export default function JobDetailsForm() {
   const [jCDValue] = useState("");
   const [jsDValue] = useState("");
 
+  const { data: companies } = useGetCompaniesDropDownList();
+  const { data: jobCategories } = useGetJobCategoryDropDownList();
+  const { data: jobSubCategories } = useGetJobSubCategoryDropDownList();
+
   const form = useForm<z.infer<typeof JobFormSchema>>({
     resolver: zodResolver(JobFormSchema),
     defaultValues: {
+      endDate: undefined,
       jobName: "",
-      jobCategory: "",
-      jobSubCategory: "",
+      jobDescription: jCDValue,
+      companyId: "0",
+      language: "",
       jobUrl: "",
-      company: "",
-      companyDescription: jCDValue,
-      jobSections: [
+      salary: 0,
+      jobCategoriesId: "0",
+      jobSubCategoryId: "0",
+      jobsAndSections: [
         {
-          jobSectionName: "",
-          jobSectionDescription: jsDValue,
+          sectionName: "",
+          sectionDescription: jsDValue,
         },
       ],
-      endDate: undefined,
     },
   });
 
   const { fields, append, remove } = useFieldArray({
-    name: "jobSections",
+    name: "jobsAndSections",
     control: form.control,
   });
 
   function onSubmit(data: z.infer<typeof JobFormSchema>) {
+    console.log("Form submitted", data);
     alert(JSON.stringify(data));
     const jobDetailsPostRequest = async () => {
       try {
@@ -75,33 +86,40 @@ export default function JobDetailsForm() {
           jobs: {
             endDate: data.endDate,
             jobName: data.jobName,
-            jobDescription: data.companyDescription,
-            companyId: data.company,
+            jobDescription: data.jobDescription,
+            companyId: Number(data.companyId),
             language: "string",
             jobUrl: data.jobUrl,
             salary: 0,
-            jobCategoriesId: 0,
-            jobSubCategoryId: 0,
+            jobCategoriesId: Number(data.jobSubCategoryId),
+            jobSubCategoryId: Number(data.jobSubCategoryId),
           },
-          createdBy: "string",
-          jobsAndSections: [
-            {
-              id: 0,
-              sectionName: "string",
-              sectionDescription: "string",
-              jobTypesId: 0,
-              createdBy: "string",
-              modifiedBy: "string",
-            },
-          ],
+          createdBy: "user",
+          jobsAndSections: data.jobsAndSections.map(
+            (section, index: number) => ({
+              id: index,
+              sectionName: section.sectionName,
+              sectionDescription: section.sectionDescription,
+              jobTypesId: 1,
+              createdBy: "",
+              modifiedBy: "",
+            })
+          ),
         });
-        if (response.data == 200) {
+        if (response.status === 200) {
           console.log(response);
-          return response.data;
+          return true;
+        } else {
+          console.error("Request failed with status:", response.status);
+          return false;
         }
       } catch (error) {
         if (axios.isAxiosError(error)) {
+          console.error("Axios error:", error.message);
           throw new Error(error.message);
+        } else {
+          console.error("An unexpected error occurred:", error);
+          throw new Error("An unexpected error occurred"); // Or a more generic message
         }
       }
     };
@@ -126,7 +144,9 @@ export default function JobDetailsForm() {
 
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(onSubmit, (errors) =>
+            console.log("Form Errors", errors)
+          )}
           className="space-y-12 mb-20"
         >
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -148,12 +168,14 @@ export default function JobDetailsForm() {
             />
             <FormField
               control={form.control}
-              name="jobCategory"
+              name="jobCategoriesId"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Job Category</FormLabel>
                   <Select
                     onValueChange={field.onChange}
+                    // onValueChange={(value)=> field.onChange(Number(value))}
+                    // defaultValue={String(field.value)}
                     defaultValue={field.value}
                   >
                     <FormControl>
@@ -162,9 +184,12 @@ export default function JobDetailsForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {["a", "b", "c", "d"].map((letter) => (
-                        <SelectItem key={letter} value={letter}>
-                          {letter}
+                      {jobCategories?.map((jobCategory) => (
+                        <SelectItem
+                          key={jobCategory.value}
+                          value={String(jobCategory.value)}
+                        >
+                          {jobCategory.label}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -175,7 +200,7 @@ export default function JobDetailsForm() {
             />
             <FormField
               control={form.control}
-              name="jobSubCategory"
+              name="jobSubCategoryId"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Job SubCategory</FormLabel>
@@ -189,9 +214,12 @@ export default function JobDetailsForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {["e", "f", "g", "h"].map((letter) => (
-                        <SelectItem key={letter} value={letter}>
-                          {letter}
+                      {jobSubCategories?.map((jobSubCategory) => (
+                        <SelectItem
+                          key={jobSubCategory.value}
+                          value={String(jobSubCategory.value)}
+                        >
+                          {jobSubCategory.label}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -221,7 +249,7 @@ export default function JobDetailsForm() {
             />
             <FormField
               control={form.control}
-              name="company"
+              name="companyId"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Job Company</FormLabel>
@@ -235,9 +263,12 @@ export default function JobDetailsForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {["i", "j", "k", "l"].map((letter) => (
-                        <SelectItem key={letter} value={letter}>
-                          {letter}
+                      {companies?.map((companies) => (
+                        <SelectItem
+                          key={companies.value}
+                          value={String(companies.value)}
+                        >
+                          {companies.label}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -289,7 +320,7 @@ export default function JobDetailsForm() {
             />
             <FormField
               control={form.control}
-              name="companyDescription"
+              name="jobDescription"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Company Description</FormLabel>
@@ -322,9 +353,9 @@ export default function JobDetailsForm() {
                       <FormControl>
                         <Input
                           {...form.register(
-                            `jobSections.${index}.jobSectionName` as const
+                            `jobsAndSections.${index}.sectionName` as const
                           )}
-                          defaultValue={field.jobSectionName}
+                          defaultValue={field.sectionName}
                           className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
                         />
                       </FormControl>
@@ -337,16 +368,16 @@ export default function JobDetailsForm() {
                         <ReactQuill
                           theme="snow"
                           style={{ width: "40vw" }}
-                          defaultValue={field.jobSectionDescription}
+                          defaultValue={field.sectionDescription}
                           onChange={(value) =>
                             form.setValue(
-                              `jobSections.${index}.jobSectionDescription`,
+                              `jobsAndSections.${index}.sectionDescription`,
                               value
                             )
                           }
                           onBlur={() =>
                             form.trigger(
-                              `jobSections.${index}.jobSectionDescription`
+                              `jobsAndSections.${index}.sectionDescription`
                             )
                           }
                         />
@@ -374,8 +405,8 @@ export default function JobDetailsForm() {
                 type="button"
                 onClick={() =>
                   append({
-                    jobSectionName: "",
-                    jobSectionDescription: "",
+                    sectionName: "",
+                    sectionDescription: "",
                   })
                 }
               >

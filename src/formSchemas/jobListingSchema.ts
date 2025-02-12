@@ -13,20 +13,25 @@ export const CompanyFormSchema= z.object({
     // imageUrl:z.string().min(1,{message:"Comapny Image URL must be at least one character long"}),
 })
 
-
 export const JobFormSchema=z.object({
-    jobName:z.string({message:"Job's Name can only be a string"}),
-    jobUrl:z.string().url({message:"Invalid URL format"}),
-    jobCategory:z.string({message:"Job's Category can only be a string"}),
-    jobSubCategory:z.string({message:"Job's Sub Category can only be a string"}),
-    company:z.string({message:"Company Name can only be a string"}),
-    companyDescription:z.string({message:"Company's Description can only be a string"}).trim(),
-    jobSections:z.array(z.object({
-        jobSectionName:z.string(),
-        jobSectionDescription: z.string().trim(),
-    })),
-    // endDate:z.string().date(),
     endDate:z.date(),
+    jobName:z.string({message:"Job's Name can only be a string"}),
+    jobDescription:z.string({message:"Company's Description can only be a string"}).trim(),
+    companyId:z.string(),
+    language:z.string(),
+    jobUrl:z.string().url({message:"Invalid URL format"}),
+    salary:z.number(),
+    jobCategoriesId:z.string(),
+    jobSubCategoryId:z.string(),
+    createdBy:z.string().optional(),
+    jobsAndSections:z.array(z.object({
+        id:z.number().optional(),
+        sectionName:z.string(),
+        sectionDescription: z.string().trim(),
+        jobTypesId: z.number().optional(),
+        createdBy: z.string().optional(),
+        modifiedBy: z.string().optional(),
+    })),
 })
 
 export const JobCategoryFormSchema=z.object({
