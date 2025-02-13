@@ -35,13 +35,14 @@ export default function JobsListingAdminPage() {
   }
   return (
     <>
-      <section className="mt-20 px-4">
+      <section className="mt-10 px-4">
         <h2 className="text-xl">Job Listing</h2>
-        <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
+        <div className="border-2 rounded-md border-bts-GreenOne w-36 mb-8"></div>
         <div className="grid place-content-center mt-2">
           {isLoading && <RemoteJobListingsLoadingUI />}
           {isError && <RemoteJobListingErrorUI />}
         </div>
+        <p className="flex justify-end text-xs mb-2">total jobs listed {data?.length}</p>
         <div className="flex flex-wrap lg:justify-center  mb-20 gap-8 md:gap-2 md:gap-y-8 lg:gap-8">
           {data?.map((job, index) => (
             <div

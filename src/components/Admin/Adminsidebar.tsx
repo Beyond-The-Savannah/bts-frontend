@@ -1,4 +1,4 @@
-import { Home, Inbox } from "lucide-react";
+import { Briefcase, Building2, FolderPlus, Layers, Layers2 } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -14,30 +14,30 @@ import { SignedIn, UserButton } from "@clerk/nextjs";
 
 const items = [
   {
-    title: "Home",
+    title: "Forms",
     url: "/Admin/",
-    icon: Home,
+    icon: FolderPlus,
   },
   
   {
-    title: "Company Listing",
+    title: "Companies",
     url: "/Admin/companyListing",
-    icon: Inbox,
+    icon: Building2,
   },
   {
-    title: "Job Listings",
+    title: "Jobs",
     url: "/Admin/jobsListing",
-    icon: Inbox,
+    icon: Briefcase,
   },
   {
-    title: "Job Category Listings",
+    title: "Job Categories",
     url: "/Admin/jobsCategoryListing",
-    icon: Inbox,
+    icon: Layers2,
   },
   {
-    title: "Job Sub Category Listings",
+    title: "Job Sub-Categories",
     url: "/Admin/jobsSubCategoryListing",
-    icon: Inbox,
+    icon: Layers,
   },
 ];
 
@@ -62,7 +62,6 @@ export default function AppSidebar() {
             </SidebarMenu>
             <SidebarMenu>
               <SignedIn>
-                {/* <div className="flex items-center gap-1"> */}
                 <div className="bg-bts-BrownThree/5 p-1 rounded-2xl flex gap-1 items-center">
                   <p>Signed In as </p>
                   <UserButton />

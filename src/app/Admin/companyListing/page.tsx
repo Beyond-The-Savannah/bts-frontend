@@ -44,45 +44,38 @@ export default function CompanyListingAmdinPage() {
   }
   return (
     <>
-      <section className="mt-20 px-4">
+      <section className="mt-10 px-4">
         <h2 className="text-xl">Company Listing</h2>
-        <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
+        <div className="border-2 rounded-md border-bts-GreenOne w-36 mb-8"></div>
         <div className="grid place-content-center mt-2">
           {isLoading && <RemoteJobListingsLoadingUI />}
           {isError && <RemoteJobListingErrorUI />}
         </div>
-        <ScrollArea className=" border space-y-4 px-20 h-[80vh] w-[80vw]">
-          <div className=" space-y-4 flex flex-wrap gap-4 items-center">
+
+        <p className="flex justify-end text-xs mb-2">total companies listed {data?.length}</p>
+        <ScrollArea className=" border space-y-4 px-4 h-[80vh] w-full rounded-lg">
+          <div className=" space-y-4 flex flex-wrap gap-4 items-end">
             {data?.map((company) => (
               <div
                 key={company.id}
-                className="px-4 py-6 rounded-lg border  border-bts-BrownThree w-[20vw] space-y-2"
+                className="px-4 py-6 rounded-lg bg-bts-BrownTwo border border-bts-BrownThree w-full sm:w-[40vw] lg:w-[18vw] space-y-2 "
               >
-                <div className="flex gap-4 items-center">
-                  {/* {company.imageUrl !== "" && (
-                    <DisplayImageFromNextCloudinary
-                      src={company.imageUrl}
-                      height={200}
-                      width={200}
-                      alt="company logo"
-                      classname="object-cover size-28 rounded-lg border-2"
-                    />
-                  )} */}
+                <div className="flex flex-wrap lg:flex-nowrap gap-4 items-center">
                   {company.imageUrl !== "" && (
                     <Image
                       src={company.imageUrl}
                       height={200}
                       width={200}
                       alt="company image"
-                      className="object-contain size-28 rounded-lg border-2"
+                      className="object-contain size-28 rounded-lg "
                     />
                   )}
                   <p className="font-medium text-xl">{company.name}</p>
                 </div>
-                <p className="text-sm">
+                {/* <p className="text-sm">
                   <span className="text-xs">company ID: </span>
                   {company.id}
-                </p>
+                </p> */}
                 <p className="text-sm">
                   <span className="text-xs">comapny Description: </span>
                   {company.description}
@@ -105,6 +98,7 @@ export default function CompanyListingAmdinPage() {
                 </p>
                 <Button
                   variant="destructive"
+                  size='sm'
                   onClick={() => removeCompany(company.id)}
                 >
                   Remove
