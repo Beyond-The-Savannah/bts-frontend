@@ -17,6 +17,8 @@ export default function CompanyListingAmdinPage() {
 
   const router = useRouter();
   const { data, isLoading, isError } = useGetAllComapanies();
+
+  const dataInDescendingOrder = data ? [...data].sort((a, b) => b.id - a.id) : [];
   // console.log(data);
 
   function removeCompany(id: number) {
@@ -53,9 +55,9 @@ export default function CompanyListingAmdinPage() {
         </div>
 
         <p className="flex justify-end text-xs mb-2">total companies listed {data?.length}</p>
-        <ScrollArea className=" border space-y-4 px-4 h-[80vh] w-full rounded-lg">
-          <div className=" space-y-4 flex flex-wrap gap-4 items-end">
-            {data?.map((company) => (
+        <ScrollArea className=" border space-y-4 px-4 pb-20 h-[80vh] w-full rounded-lg">
+          <div className=" space-y-4 flex flex-wrap gap-4 items-end ">
+            {dataInDescendingOrder?.map((company) => (
               <div
                 key={company.id}
                 className="px-4 py-6 rounded-lg bg-bts-BrownTwo border border-bts-BrownThree w-full sm:w-[40vw] lg:w-[18vw] space-y-2 "

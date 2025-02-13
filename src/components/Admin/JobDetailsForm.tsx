@@ -37,6 +37,7 @@ import {
   useGetJobCategoryDropDownList,
   useGetJobSubCategoryDropDownList,
 } from "@/remoteData/getData";
+import { formats2, modules2 } from "@/lib/reactQuilSettings";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), {
   ssr: false,
@@ -344,9 +345,8 @@ export default function JobDetailsForm() {
               {fields.map((field, index) => (
                 <div
                   key={field.id}
-                  className="border rounded-xl p-4 flex items-center  justify-around "
+                  className="border rounded-xl p-4 flex items-center  justify-start gap-4 "
                 >
-                  {/* <section className="flex flex-col  justify-start  space-y-12"> */}
                   <section className="flex flex-wrap items-end  justify-evenly gap-4  space-y-12">
                     <FormItem>
                       <FormLabel>Job Section Name</FormLabel>
@@ -367,6 +367,7 @@ export default function JobDetailsForm() {
                       <FormControl>
                         <ReactQuill
                           theme="snow"
+                          
                           style={{ width: "40vw" }}
                           defaultValue={field.sectionDescription}
                           onChange={(value) =>
@@ -380,6 +381,8 @@ export default function JobDetailsForm() {
                               `jobsAndSections.${index}.sectionDescription`
                             )
                           }
+                          modules={modules2}
+                          formats={formats2}
                         />
                       </FormControl>
                       <FormMessage />

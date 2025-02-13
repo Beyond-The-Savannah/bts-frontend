@@ -9,7 +9,12 @@ import axios from "axios";
 import { toast } from "sonner";
 
 export default function JobsSubCategoryAdminPage() {
+  
+
   const { data, isLoading, isError } = useGetAllJobSubCategories();
+  const dataInDescendingOrder = data
+    ? [...data].sort((a, b) => b.id - a.id)
+    : [];
 
   function removeJobSubCategory(id: number) {
     const softDeleteJobSubCategory = async () => {
@@ -41,9 +46,11 @@ export default function JobsSubCategoryAdminPage() {
           {isLoading && <RemoteJobListingsLoadingUI />}
           {isError && <RemoteJobListingErrorUI />}
         </div>
-        <p className="flex justify-end text-xs mb-2">total sub categories listed {data?.length}</p>
+        <p className="flex justify-end text-xs mb-2">
+          total sub categories listed {data?.length}
+        </p>
         <div className=" space-y-4 flex flex-wrap gap-4 items-end justify-center mb-10">
-          {data?.map((jobSubCategory) => (
+          {dataInDescendingOrder?.map((jobSubCategory) => (
             <div
               key={jobSubCategory.id}
               className="border rounded-lg px-12 py-6 w-3/4 md:w-4/12 lg:w-[20vw] flex flex-col gap-4 items-center justify-start bg-bts-BrownTwo"
@@ -55,25 +62,13 @@ export default function JobsSubCategoryAdminPage() {
                   </span>
                   {jobSubCategory.name}
                 </p>
-                {/* <p className="text-base flex flex-col">
-                  <span className="text-xs block -ml-4">
-                    Job Sub Catgeory ID
-                  </span>
-                  {jobSubCategory.jobCategoryId}
-                </p>
-                <p className="text-base flex flex-col">
-                  <span className="text-xs block -ml-4">
-                    Job Catgeory Description
-                  </span>
-                  {jobSubCategory.description}
-                </p> */}
               </div>
               <Button
                 onClick={() => removeJobSubCategory(jobSubCategory.id)}
                 size="sm"
                 variant="destructive"
               >
-                Remove 
+                Remove
               </Button>
             </div>
           ))}

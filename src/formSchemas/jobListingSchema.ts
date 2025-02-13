@@ -2,11 +2,11 @@ import { z } from "zod";
 
 export const CompanyFormSchema= z.object({
     companyName:z.string().min(1,{message:"Comapny Name must be at least one character long"}),
-    companyHeadQuaters:z.string().min(1,{message:"Comapny HeadQuaters must be at least one character long"}),
-    companyContactEmail:z.string().email({message:"Email is Invalid"}),
-    companyContactPhone:z.string().min(1,{message:"Invalid, needs to numbers "}),
-    companyDescription:z.string().min(1,{message:"Comapny Description must be at least one character long"}).trim(),
-    location:z.string().min(1,{message:"Comapny Location must be at least one character long"}),
+    companyHeadQuaters:z.string(),
+    companyContactEmail:z.string().optional(),
+    companyContactPhone:z.string(),
+    companyDescription:z.string(),
+    location:z.string(),
     imageUrl:z.string(),
 })
 

@@ -26,7 +26,7 @@ export function correctedParsedHTML(htmlString: string){
     .replace(/p>/g, "<p>")
     .replace(/<\/p>/g, "</p>")
     .replace(/<\/?ul>/g, "<ul>")
-    .replace(/<\/?ol>/g, "<ol>")
+    .replace(/<\/?ol>/g, "<ul>")
     .replace(/<\/?br>/g, "<br>")
   )
 }

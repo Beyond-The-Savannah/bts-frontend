@@ -144,7 +144,7 @@ export default function CompanyDetailsForm() {
                     <Input
                       {...field}
                       className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
-                      required
+                      
                     />
                   </FormControl>
                   <FormMessage />
@@ -162,7 +162,7 @@ export default function CompanyDetailsForm() {
                     <Input
                       {...field}
                       className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
-                      required
+                      
                     />
                   </FormControl>
                   <FormMessage />
@@ -181,7 +181,7 @@ export default function CompanyDetailsForm() {
                     <Input
                       {...field}
                       className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
-                      required
+                      
                     />
                   </FormControl>
                   <FormMessage />
@@ -198,7 +198,7 @@ export default function CompanyDetailsForm() {
                     <Input
                       {...field}
                       className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
-                      required
+                      
                       type="tel"
                     />
                   </FormControl>

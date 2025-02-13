@@ -3,7 +3,7 @@ export const modules = {
       [{ header: [1, 2, 3, 4, 5, false] }],
       ["bold", "italic", "underline", "strike", "blockquote", "code-block"],
       [
-        { list: "orderd" },
+        { list: "ordered" },
         { list: "bullet" },
         { indent: "-1" },
         { indent: "+1" },
@@ -22,14 +22,32 @@ export const modules = {
     "blockquote",
     "code-block",
     "list",
-    "bullet",
     "indent",
     "script",
     "color",
     "background",
     "link",
     "image",
-    "clean",
+    // "clean",
+  ];
+export const modules2 = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote", "code-block"],
+      // [{ list: "bullet" }],
+      [{ list: "bullet" }],
+    ],
+  };
+  export const formats2= [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "code-block",
+    // "list",
+    "list",
   ];
 
   export const imageModule={
