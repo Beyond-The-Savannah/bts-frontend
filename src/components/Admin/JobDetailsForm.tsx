@@ -132,6 +132,7 @@ export default function JobDetailsForm() {
   }
   return (
     <>
+    {/* <div className="w-full lg:w-[70vw] mx-auto"></div> */}
       <div className="mt-10 mb-20">
         <h2 className="text-xl">Jobs Form</h2>
         <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
@@ -345,7 +346,8 @@ export default function JobDetailsForm() {
                   key={field.id}
                   className="border rounded-xl p-4 flex items-center  justify-around "
                 >
-                  <section className="flex flex-col  justify-start  space-y-12">
+                  {/* <section className="flex flex-col  justify-start  space-y-12"> */}
+                  <section className="flex flex-wrap items-end  justify-evenly gap-4  space-y-12">
                     <FormItem>
                       <FormLabel>Job Section Name</FormLabel>
                       <FormControl>
@@ -389,6 +391,7 @@ export default function JobDetailsForm() {
                     {index > 0 && (
                       <Button
                         type="button"
+                        size='sm'
                         variant="outline"
                         onClick={() => remove(index)}
                       >
@@ -417,7 +420,7 @@ export default function JobDetailsForm() {
             type="submit"
             className="bg-bts-BrownThree hover:bg-green-800"
           >
-            Add Company
+            Add Job
           </Button>
         </form>
       </Form>

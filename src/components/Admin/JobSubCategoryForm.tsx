@@ -22,16 +22,19 @@ import {
 } from "../ui/select";
 import { useState } from "react";
 import "react-quill-new/dist/quill.snow.css";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 import axios from "axios";
 import { toast } from "sonner";
 import { axiosInstance } from "@/remoteData/mutateData";
-const ReactQuill = dynamic(() => import("react-quill-new"), {
-  ssr: false,
-  loading: () => <p>Loading text editor...</p>,
-});
+import { Textarea } from "../ui/textarea";
+import { useGetJobCategoryDropDownList } from "@/remoteData/getData";
+// const ReactQuill = dynamic(() => import("react-quill-new"), {
+//   ssr: false,
+//   loading: () => <p>Loading text editor...</p>,
+// });
 
 export default function JobSubCategoryForm() {
+  const { data: jobCategories } = useGetJobCategoryDropDownList();
   const [sCDValue] = useState("");
 
   const form = useForm<z.infer<typeof JobSubCategoryFormSchema>>({
@@ -45,43 +48,43 @@ export default function JobSubCategoryForm() {
 
   function onSubmit(data: z.infer<typeof JobSubCategoryFormSchema>) {
     // alert(JSON.stringify(data));
-    const jobsCategortyPostRequest= async()=>{
+    const jobsCategortyPostRequest = async () => {
       try {
-        const response= await axiosInstance.post(`/api/JobSubCategory/addJobsCategories`,{
-          name: data.subCategoryName,
-          description: data.subCategoryDescription,
-          jobCategoryId:2,
-          createdBy: ``,
-          modifiedBy: ``,
-        })
-        if(response.data==200){
-          console.log(response)
+        const response = await axiosInstance.post(
+          `/api/JobSubCategory/addJobsCategories`,
+          {
+            name: data.subCategoryName,
+            description: data.subCategoryDescription,
+            jobCategoryId: 2,
+            createdBy: ``,
+            modifiedBy: ``,
+          }
+        );
+        if (response.data == 200) {
+          console.log(response);
         }
-        return response.data
+        return response.data;
       } catch (error) {
-        if (axios.isAxiosError(error)){
-          throw new Error(error.message)
+        if (axios.isAxiosError(error)) {
+          throw new Error(error.message);
         }
       }
-    }
-    toast.promise(jobsCategortyPostRequest(),{
-      loading:"Adding...",
-      success:()=>{
-        return "Job's Sub Catgegory Added"
+    };
+    toast.promise(jobsCategortyPostRequest(), {
+      loading: "Adding...",
+      success: () => {
+        return "Job's Sub Catgegory Added";
       },
-      error:"Error, cannot add jobs sub catgegory, try again later"
-    })
+      error: "Error, cannot add jobs sub catgegory, try again later",
+    });
   }
 
   return (
     <>
-    <div className="w-[80vw] mx-auto"></div>
+      {/* <div className="w-full lg:w-[70vw] mx-auto"></div> */}
       <div className="mt-10 mb-20">
         <h2 className="text-xl">Jobs SubCategory Form</h2>
         <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
-        {/* <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
-          Job SubCategory Details
-        </p> */}
       </div>
 
       <Form {...form}>
@@ -120,9 +123,12 @@ export default function JobSubCategoryForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {["a", "b", "c", "d"].map((letter) => (
-                        <SelectItem key={letter} value={letter}>
-                          {letter}
+                      {jobCategories?.map((jobCategory) => (
+                        <SelectItem
+                          key={jobCategory.value}
+                          value={String(jobCategory.value)}
+                        >
+                          {jobCategory.label}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -131,25 +137,29 @@ export default function JobSubCategoryForm() {
                 </FormItem>
               )}
             />
-          </div>
-
-          <FormField
-            control={form.control}
-            name="subCategoryDescription"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Sub Category Description</FormLabel>
-                <FormControl>
-                  <ReactQuill
+            <FormField
+              control={form.control}
+              name="subCategoryDescription"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Sub Category Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      {...field}
+                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
+                    />
+                    {/* <ReactQuill
                     theme="snow"
                     value={field.value}
                     onChange={field.onChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  /> */}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
           <Button
             type="submit"
             className="bg-bts-BrownThree hover:bg-green-800"

@@ -34,18 +34,19 @@ export default function JobsSubCategoryAdminPage() {
   }
   return (
     <>
-      <section className="mt-20 px-4">
+      <section className="mt-10 px-4">
         <h2 className="text-xl">Job Sub Category Listing</h2>
-        <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
+        <div className="border-2 rounded-md border-bts-GreenOne w-36 mb-8"></div>
         <div className="grid place-content-center mt-2">
           {isLoading && <RemoteJobListingsLoadingUI />}
           {isError && <RemoteJobListingErrorUI />}
         </div>
-        <div className=" space-y-4 flex flex-wrap gap-4 items-center">
+        <p className="flex justify-end text-xs mb-2">total sub categories listed {data?.length}</p>
+        <div className=" space-y-4 flex flex-wrap gap-4 items-end justify-center mb-10">
           {data?.map((jobSubCategory) => (
             <div
               key={jobSubCategory.id}
-              className="border rounded-lg px-12 py-6 w-3/4 md:w-4/12 lg:w-[18vw] flex flex-col gap-4 items-center justify-start"
+              className="border rounded-lg px-12 py-6 w-3/4 md:w-4/12 lg:w-[20vw] flex flex-col gap-4 items-center justify-start bg-bts-BrownTwo"
             >
               <div>
                 <p className="text-base flex flex-col">
@@ -54,7 +55,7 @@ export default function JobsSubCategoryAdminPage() {
                   </span>
                   {jobSubCategory.name}
                 </p>
-                <p className="text-base flex flex-col">
+                {/* <p className="text-base flex flex-col">
                   <span className="text-xs block -ml-4">
                     Job Sub Catgeory ID
                   </span>
@@ -65,14 +66,14 @@ export default function JobsSubCategoryAdminPage() {
                     Job Catgeory Description
                   </span>
                   {jobSubCategory.description}
-                </p>
+                </p> */}
               </div>
               <Button
                 onClick={() => removeJobSubCategory(jobSubCategory.id)}
                 size="sm"
                 variant="destructive"
               >
-                Remove category
+                Remove 
               </Button>
             </div>
           ))}

@@ -32,9 +32,9 @@ export default function JobsCategoryListingAdminPage() {
   }
   return (
     <>
-      <section className="mt-20 px-4">
+      <section className="mt-10 px-4">
         <h2 className="text-xl">Job Category Listing</h2>
-        <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
+        <div className="border-2 rounded-md border-bts-GreenOne w-36 mb-8"></div>
         <div className="grid place-content-center mt-2">
           {isLoading && <RemoteJobListingsLoadingUI />}
           {isError && <RemoteJobListingErrorUI />}
@@ -43,7 +43,7 @@ export default function JobsCategoryListingAdminPage() {
           {data?.map((jobCategory) => (
             <div
               key={jobCategory.id}
-              className="border rounded-lg px-12 py-6 w-[40vw] flex items-center justify-between"
+              className="border rounded-lg px-12 py-6 w-[40vw] flex items-center justify-between bg-bts-BrownTwo"
             >
               <div>
                 <p className="text-base flex flex-col">

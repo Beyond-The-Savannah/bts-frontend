@@ -15,7 +15,7 @@ export default function AdminDefaultpage() {
         </div>
         <div className=" ">
           <Tabs defaultValue="companyDetails" className="">
-            <TabsList className="max-w-[80vw] mx-auto h-auto flex flex-wrap space-x-4 transition bg-bts-BrownTwo duration-700 ease-in">
+            <TabsList className="w-[77vw] mx-auto h-auto flex flex-wrap space-x-4 transition bg-bts-BrownTwo duration-700 ease-in">
               <TabsTrigger value="companyDetails">Company Details</TabsTrigger>
               <TabsTrigger value="jobDetails">Job Details</TabsTrigger>
               <TabsTrigger value="jobCategory">Job Category</TabsTrigger>

@@ -109,7 +109,8 @@ export default function CompanyDetailsForm() {
 
   return (
     <>
-      <div className="mt-10 mb-20">
+    {/* <div className="w-full lg:w-[70vw] mx-auto"></div> */}
+      <div className="mt-10 mb-20 ">
         <h2 className="text-xl">Company Form</h2>
         <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
       </div>
@@ -205,7 +206,10 @@ export default function CompanyDetailsForm() {
                 </FormItem>
               )}
             />
-            <FormField
+            
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-6">
+          <FormField
               control={form.control}
               name="imageUrl"
               render={() => (
@@ -213,8 +217,6 @@ export default function CompanyDetailsForm() {
                   <FormLabel>Company Logo</FormLabel>
                   <FormControl>
                     <Input
-                      // {...field}
-                      // className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
                       className=""
                       required
                       type="file"
@@ -233,7 +235,7 @@ export default function CompanyDetailsForm() {
                   height={200}
                   width={200}
                   alt="logo preview"
-                  className="size-24 rounded-lg"
+                  className="size-24 rounded-lg object-cover border-2"
                 />
               )}
             </div>
