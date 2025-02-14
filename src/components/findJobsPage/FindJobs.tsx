@@ -76,12 +76,13 @@ export default function FindJobs(props: {
                   </p>
                 </div>
               </div>
-              <div className="flex items-end justify-between mt-4 ">
-                <div className="space-y-2 ml-12">
+              {/* <div className="flex items-end justify-between mt-4 "> */}
+              <div className="flex flex-col lg:flex-row items-start lg:items-end  lg:justify-between mt-4 ">
+                <div className="space-y-2 ml-4 lg:ml-12 w-full">
                   <p className="capitalize font-semibold">{job.jobName}</p>
                   <p className="capitalize text-sm">{job.jobSubCategory}</p>
                 </div>
-                <div className="c">
+                <div className="flex  justify-end w-full">
                   <Link href={`view-job/${job.jobsId}`}>
                     <Button
                       variant="outline"

@@ -27,7 +27,6 @@ export default function ServicesSection() {
             {servicesList.map((service) => (
               <div
                 key={service.id}
-                // className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[27vw] hover:shadow-amber-300 hover:shadow-md duration-700"
                 className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[27vw] hover:shadow-bts-BrownFour hover:shadow-md duration-700"
               >
                 <div className="grid content-between h-full lg:h-full pb-4">
@@ -40,15 +39,17 @@ export default function ServicesSection() {
                   />
                   <div className="space-y-2 py-4 px-8">
                     <div className="flex gap-1 items-center justify-between">
-                      <p className="text-base  font-semibold text-bts-GreenOne">{service.title}</p>
+                      <p className="text-base  font-semibold text-bts-GreenOne">
+                        {service.title}
+                      </p>
                       <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 text-xs">
-                        KES <span className="text-sm">{service.priceString}</span>
+                        KES{" "}
+                        <span className="text-sm">{service.priceString}</span>
                       </p>
                     </div>
                     <p className="text-sm leading-6">{service.valueProposal}</p>
                   </div>
                   <Dialog>
-                    {/* <DialogTrigger className=" border border-amber-300 py-1 px-2  rounded-lg text-base w-24 hover:shadow-amber-300 hover:shadow-md hover:bg-amber-200 duration-700 mx-8"> */}
                     <DialogTrigger className=" border border-bts-BrownThree py-1 px-2  rounded-lg text-base w-24 hover:shadow-bts-BrownFour hover:text-white hover:shadow-md hover:bg-bts-BrownThree duration-700 mx-8">
                       Preview
                     </DialogTrigger>
@@ -78,7 +79,6 @@ export default function ServicesSection() {
                             <Link href={`service/${service.titleSlug}`}>
                               <Button
                                 size="lg"
-                                // className="border border-amber-400 bg-amber-400 text-black hover:text-white   rounded-lg text-base  hover:bg-amber-600 hover:scale-105 transition duration-500  my-4"
                                 className="border border-bts-BrownThree bg-bts-BrownThree text-black hover:text-white   rounded-lg text-base  hover:bg-bts-BrownThree hover:scale-105 transition duration-500  my-4"
                               >
                                 Get This Service
@@ -89,7 +89,7 @@ export default function ServicesSection() {
                             <p className="text-3xl">
                               What&apos;s in this service
                             </p>
-                            {/* <div className="border-2 rounded-md border-amber-200 w-72 mb-4"></div> */}
+
                             <div className="border-2 rounded-md border-bts-BrownThree w-72 mb-4"></div>
                             {service.benefits.map((benefit, index) => (
                               <div
@@ -98,7 +98,6 @@ export default function ServicesSection() {
                               >
                                 <span>
                                   <CircleCheck
-                                    // className="text-green-400"
                                     className="text-bts-BrownFive"
                                     size={24}
                                   />
