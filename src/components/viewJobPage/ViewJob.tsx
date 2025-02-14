@@ -135,14 +135,14 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                 {singleJob.map((listing) => (
                   <article
                     key={listing.id}
-                    className=" border-bts-BrownTwo border-4   rounded-lg py-4  px-8"
+                    className=" border-bts-BrownTwo border-4   rounded-lg py-4  px-2 md:px-8"
                   >
                     <h3 className="text-xl font-semibold">
                       {listing.sectionName}
                     </h3>
 
                     <div
-                      className="prose"
+                      className="prose prose-sm md:prose-base"
                       dangerouslySetInnerHTML={{
                         // __html: fixedHTML(listing.sectionDescription),
                         __html: correctedParsedHTML(listing.sectionDescription),
