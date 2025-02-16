@@ -62,7 +62,7 @@ export default function AppSidebar() {
             </SidebarMenu>
             <SidebarMenu>
               <SignedIn>
-                <div className="bg-bts-BrownThree/5 p-1 rounded-2xl flex gap-1 items-center">
+                <div className="bg-bts-BrownThree p-1 rounded-2xl flex gap-1 items-center">
                   <p>Signed In as </p>
                   <UserButton />
                 </div>
