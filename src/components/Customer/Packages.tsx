@@ -2,27 +2,48 @@
 import { SubscriptionPackages } from "@/staticData/packages";
 import { Button } from "../ui/button";
 import { Link } from "next-view-transitions";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
+import { toast } from "sonner";
+import { useUser } from "@clerk/nextjs";
 
 export interface subScriptionProps {
   email: string;
   amount: string;
   plan: string;
+  name: string;
+  firstName:string;
 }
-export default function Packages({email}:{email:string}) {
+export default function Packages({ email }: { email: string }) {
   const pathName = usePathname();
+  const router = useRouter();
+  const user=useUser()
+  const userFirstName=user.user?.firstName as string
+  console.log(router);
 
   async function handlePurchasePackage(subscriptionOptions: subScriptionProps) {
     // alert(JSON.stringify(subscriptionOptions));
     try {
-        await axios.post(`/transaction/initialize`,{
-          email:subscriptionOptions.email,
-          amount:subscriptionOptions.amount,
-          plan:subscriptionOptions.plan
-        })
+      const response = await axios.post(`/api/subscriptions`, {
+        email: subscriptionOptions.email,
+        amount: subscriptionOptions.amount,
+        plan: subscriptionOptions.plan,
+        name: subscriptionOptions.name,
+        firstName:user.user?.firstName,
+      });
+      // window.location.href = response.data.authorization_url;
+      const authorizationUrl = response.data?.data?.authorization_url;
+
+      if (!authorizationUrl) {
+        console.error("Authorization URL is missing!", response.data);
+        return;
+      }
+      if(authorizationUrl){
+        toast.info(`Check your email ${email}`)
+      }
+      router.push(authorizationUrl);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
   return (
@@ -53,18 +74,22 @@ export default function Packages({email}:{email:string}) {
                     <Link href={sub.link}>Get Package</Link>
                   </Button>
                 )}
-                <Button
-                  onClick={() =>
-                    handlePurchasePackage({
-                      email: email,
-                      amount: sub.packagePrice,
-                      plan: sub.packagePlanCode,
-                    })
-                  }
-                  className="bg-bts-GreenOne hover:bg-green-900"
-                >
-                  Purchase
-                </Button>
+                {pathName != "/packages" && (
+                  <Button
+                    onClick={() =>
+                      handlePurchasePackage({
+                        email: email,
+                        amount: sub.packagePrice,
+                        plan: sub.packagePlanCode,
+                        name: sub.packageName,
+                        firstName:userFirstName
+                      })
+                    }
+                    className="bg-bts-GreenOne hover:bg-green-900"
+                  >
+                    Purchase
+                  </Button>
+                )}
               </div>
             </div>
           </div>

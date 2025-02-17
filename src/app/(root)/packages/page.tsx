@@ -9,7 +9,6 @@ export default function page() {
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
           <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
           Advance Your Career with Our Packages
-            
           </p>
         </div>
         <div className="min-h-[70vh] grid place-content-center">
