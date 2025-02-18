@@ -9,16 +9,28 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "./mutateData";
 
-export async function fetchRemoteJobsList(name?: string) {
-  const url = "/api/Jobs/getAllJobsByName/";
-  const urlUpdated = name ? `${url}?name=${name}` : url;
+export async function fetchRemoteJobsList(name?: string, jobSubCategoryId?:number) {
+  // const url = "/api/Jobs/getAllJobsByName/";
+  const url = "api/Jobs/getAllJobsByCompany/";
+  // const urlUpdated = name ? `${url}?name=${name}` : url;
+  const queryParams = new URLSearchParams();
+
+  if (name) {
+    queryParams.append("name", name);
+  }
+
+  if (jobSubCategoryId) {
+    queryParams.append("jobSubCategoryId", jobSubCategoryId.toString());
+  }
+
+  const urlUpdated = queryParams.toString() ? `${url}?${queryParams.toString()}` : url;
   const result = await axiosInstance.get<ListingRemoteJobs[]>(urlUpdated);
   return result.data;
 }
-export const useGetRemoteListingJobsUsingTanstack = (name?: string) => {
+export const useGetRemoteListingJobsUsingTanstack = (name?: string, jobSubCategoryId?:number) => {
   return useQuery({
-    queryKey: ["allRemoteJobs", name],
-    queryFn: () => fetchRemoteJobsList(name),
+    queryKey: ["allRemoteJobs", name, jobSubCategoryId],
+    queryFn: () => fetchRemoteJobsList(name, jobSubCategoryId),
   });
 };
 

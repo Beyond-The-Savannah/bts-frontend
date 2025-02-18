@@ -3,7 +3,10 @@ import RemoteJobListingErrorUI from "@/components/RemoteJobListingErrorUI";
 import RemoteJobListingsLoadingUI from "@/components/RemoteJobListingsLoadingUI";
 import { Button } from "@/components/ui/button";
 import { DateFormatter } from "@/lib/utils";
-import { useGetRemoteListingJobsUsingTanstack } from "@/remoteData/getData";
+import {
+  // useGetJobSubCategoryDropDownList,
+  useGetRemoteListingJobsUsingTanstack,
+} from "@/remoteData/getData";
 import { Params, SearchParams } from "@/types/remoteJobsListing";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
@@ -12,6 +15,7 @@ import { useTransitionRouter } from "next-view-transitions";
 import { use } from "react";
 import clsx from "clsx";
 import FilterJobsByName from "./FilterJobsByJobName";
+// import FilterJobsByDepartment from "./FilterJobsByDepartment";
 
 export default function FindJobs(props: {
   params: Params;
@@ -22,7 +26,7 @@ export default function FindJobs(props: {
 
   const page = searchParams["page"] ?? "1";
   const per_page = searchParams["per_page"] ?? "10";
-  const name= searchParams['name'] as string ?? ''
+  const name = (searchParams["name"] as string) ?? "";
 
   const lastRemoteJobListingIndex = Number(page) * Number(per_page);
   const firstRemoteJobListingIndex =
@@ -33,12 +37,12 @@ export default function FindJobs(props: {
     isLoading,
     isError,
   } = useGetRemoteListingJobsUsingTanstack(name);
-
+  // const { data: jobDepartments } = useGetJobSubCategoryDropDownList();
+  
   const paginatedRemoteJobs = remoteJobs?.slice(
     firstRemoteJobListingIndex,
     lastRemoteJobListingIndex
   );
-
 
   return (
     <>
@@ -52,8 +56,11 @@ export default function FindJobs(props: {
         </div>
         {isLoading && <RemoteJobListingsLoadingUI />}
         {isError && <RemoteJobListingErrorUI />}
-        <div className="my-4">
-          {remoteJobs && <FilterJobsByName remoteData={remoteJobs}/>}
+        <div className="my-4 flex flex-wrap gap-2">
+          {remoteJobs && <FilterJobsByName remoteData={remoteJobs} />}
+          {/* {jobDepartments && (
+            <FilterJobsByDepartment remoteData={jobDepartments} />
+          )} */}
         </div>
         <div className="flex flex-wrap lg:justify-center  mb-20 gap-8 md:gap-2 md:gap-y-8 lg:gap-8">
           {paginatedRemoteJobs?.map((job, index) => (
