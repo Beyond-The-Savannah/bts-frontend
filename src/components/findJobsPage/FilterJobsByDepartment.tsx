@@ -32,7 +32,7 @@ export default function FilterJobsByDepartment({
   }
   return (
     <>
-      <div className="flex  gap-4 items-end">
+      <div className="flex  flex-wrap gap-4 items-end">
         <div className="">
           <p>Filter by Department</p>
           <Popover open={open} onOpenChange={setOpen}>
@@ -87,16 +87,18 @@ export default function FilterJobsByDepartment({
           </Popover>
         </div>
         <div className="c">
-          {jobSubCategoryId != "undefined" && jobSubCategoryId != "NaN" && jobSubCategoryId != "" && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handleClearFilter()}
-              className="hover:bg-bts-BrownFour"
-            >
-              Clear Department Filter
-            </Button>
-          )}
+          {jobSubCategoryId != "undefined" &&
+            jobSubCategoryId != "NaN" &&
+            jobSubCategoryId != "" && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleClearFilter()}
+                className="hover:bg-bts-BrownFour"
+              >
+                Clear Department Filter
+              </Button>
+            )}
         </div>
       </div>
     </>

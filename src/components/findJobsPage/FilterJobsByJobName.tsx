@@ -34,7 +34,7 @@ export default function FilterJobsByName({
 
   return (
     <>
-      <div className="flex  gap-4 items-end">
+      <div className="flex flex-wrap gap-4 items-end">
         <div className="">
           <p>Filter by Name</p>
           <Popover open={open} onOpenChange={setOpen}>
