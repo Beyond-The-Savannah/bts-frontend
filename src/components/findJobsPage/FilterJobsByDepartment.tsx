@@ -87,7 +87,7 @@ export default function FilterJobsByDepartment({
           </Popover>
         </div>
         <div className="c">
-          {jobSubCategoryId != "" && (
+          {jobSubCategoryId != "undefined" && jobSubCategoryId != "NaN" && jobSubCategoryId != "" && (
             <Button
               variant="outline"
               size="sm"

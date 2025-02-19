@@ -17,8 +17,16 @@ import clsx from "clsx";
 import FilterJobsByName from "./FilterJobsByJobName";
 import FilterJobsByDepartment from "./FilterJobsByDepartment";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function FindJobs() {
+export default function FindJobsWrapper() {
+  return (
+    <Suspense fallback={<RemoteJobListingsLoadingUI/>}>
+      <FindJobs />
+    </Suspense>
+  );
+}
+export  function FindJobs() {
   const router = useTransitionRouter();
   // const searchParams = use(props.searchParams);
   const searchParams = useSearchParams();
