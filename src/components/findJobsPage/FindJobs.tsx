@@ -4,30 +4,33 @@ import RemoteJobListingsLoadingUI from "@/components/RemoteJobListingsLoadingUI"
 import { Button } from "@/components/ui/button";
 import { DateFormatter } from "@/lib/utils";
 import {
-  // useGetJobSubCategoryDropDownList,
+  useGetJobSubCategoryDropDownList,
   useGetRemoteListingJobsUsingTanstack,
 } from "@/remoteData/getData";
-import { Params, SearchParams } from "@/types/remoteJobsListing";
+// import { Params, SearchParams } from "@/types/remoteJobsListing";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 import { useTransitionRouter } from "next-view-transitions";
 
-import { use } from "react";
+// import { use } from "react";
 import clsx from "clsx";
 import FilterJobsByName from "./FilterJobsByJobName";
-// import FilterJobsByDepartment from "./FilterJobsByDepartment";
+import FilterJobsByDepartment from "./FilterJobsByDepartment";
+import { useSearchParams } from "next/navigation";
 
-export default function FindJobs(props: {
-  params: Params;
-  searchParams: SearchParams;
-}) {
+export default function FindJobs() {
   const router = useTransitionRouter();
-  const searchParams = use(props.searchParams);
+  // const searchParams = use(props.searchParams);
+  const searchParams = useSearchParams();
 
-  const page = searchParams["page"] ?? "1";
-  const per_page = searchParams["per_page"] ?? "10";
-  const name = (searchParams["name"] as string) ?? "";
+  const page = searchParams.get("page") ?? "1";
+  const per_page = searchParams.get("per_page") ?? "10";
+  const name = searchParams.get("name") ?? "";
+  const jobSubCategoryId = searchParams.get("jobSubCategoryId")
+    ? Number(searchParams.get("jobSubCategoryId"))
+    : undefined;
 
+  console.log("Parsed jobSubCategoryId:", jobSubCategoryId);
   const lastRemoteJobListingIndex = Number(page) * Number(per_page);
   const firstRemoteJobListingIndex =
     lastRemoteJobListingIndex - Number(per_page);
@@ -36,9 +39,9 @@ export default function FindJobs(props: {
     data: remoteJobs,
     isLoading,
     isError,
-  } = useGetRemoteListingJobsUsingTanstack(name);
-  // const { data: jobDepartments } = useGetJobSubCategoryDropDownList();
-  
+  } = useGetRemoteListingJobsUsingTanstack(name, jobSubCategoryId);
+  const { data: jobDepartments } = useGetJobSubCategoryDropDownList();
+
   const paginatedRemoteJobs = remoteJobs?.slice(
     firstRemoteJobListingIndex,
     lastRemoteJobListingIndex
@@ -58,9 +61,9 @@ export default function FindJobs(props: {
         {isError && <RemoteJobListingErrorUI />}
         <div className="my-4 flex flex-wrap gap-2">
           {remoteJobs && <FilterJobsByName remoteData={remoteJobs} />}
-          {/* {jobDepartments && (
+          {isLoading || jobDepartments && (
             <FilterJobsByDepartment remoteData={jobDepartments} />
-          )} */}
+          )}
         </div>
         <div className="flex flex-wrap lg:justify-center  mb-20 gap-8 md:gap-2 md:gap-y-8 lg:gap-8">
           {paginatedRemoteJobs?.map((job, index) => (
@@ -111,7 +114,7 @@ export default function FindJobs(props: {
                 variant="outline"
                 onClick={() => {
                   router.push(
-                    `find-jobs/?page=${Number(page) - 1}&per_page=${per_page}`
+                    `find-jobs/?jobSubCategoryId=${jobSubCategoryId}&page=${Number(page) - 1}&per_page=${per_page}`
                   );
                 }}
                 disabled={Number(page) <= 1}
@@ -136,7 +139,7 @@ export default function FindJobs(props: {
                       )}
                       onClick={() => {
                         router.push(
-                          `find-jobs/?page=${pageNavigation}&per_page=${per_page}`
+                          `find-jobs/?jobSubCategoryId=${jobSubCategoryId}&page=${pageNavigation}&per_page=${per_page}`
                         );
                       }}
                     >
@@ -149,7 +152,8 @@ export default function FindJobs(props: {
                 variant="outline"
                 onClick={() => {
                   router.push(
-                    `find-jobs/?page=${Number(page) + 1}&per_page=${per_page}`
+                    // `find-jobs/?page=${Number(page) + 1}&per_page=${per_page}`
+                    `find-jobs/?jobSubCategoryId=${jobSubCategoryId}&page=${Number(page) + 1}&per_page=${per_page}`
                   );
                 }}
                 disabled={lastRemoteJobListingIndex > remoteJobs.length}

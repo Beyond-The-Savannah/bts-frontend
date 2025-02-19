@@ -47,7 +47,7 @@ export default function FilterJobsByName({
               >
                 {value
                   ? remoteData?.find((data) => data.jobName == value)?.jobName
-                  : "Select Job Name..."}
+                  : "Type & Select Job Name..."}
                 <ChevronsUpDown className="opacity-50 " />
               </Button>
             </PopoverTrigger>
@@ -81,6 +81,7 @@ export default function FilterJobsByName({
             </PopoverContent>
           </Popover>
         </div>
+        
         <div className="c">
           {name != "" && (
             <Button
@@ -89,7 +90,7 @@ export default function FilterJobsByName({
               onClick={() => handleClearFilter()}
               className="hover:bg-bts-BrownFour"
             >
-              Clear Filter
+              Clear Job Name Filter
             </Button>
           )}
         </div>
