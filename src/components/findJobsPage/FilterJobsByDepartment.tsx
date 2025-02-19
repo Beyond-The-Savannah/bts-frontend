@@ -15,23 +15,21 @@ import {
 import clsx from "clsx";
 import { DropDownListProps } from "@/types/remoteJobsListing";
 import { useTransitionRouter } from "next-view-transitions";
-// import { useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
-export default function FilterJobsByDepartment({remoteData}:{remoteData:DropDownListProps[]}) {
-
-const router = useTransitionRouter();
-//   const searchParams = useSearchParams();
-//   const name = searchParams.get("name") || "";
+export default function FilterJobsByDepartment({
+  remoteData,
+}: {
+  remoteData: DropDownListProps[];
+}) {
+  const router = useTransitionRouter();
+  const searchParams = useSearchParams();
+  const jobSubCategoryId = searchParams.get("jobSubCategoryId") || "";
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
-
-//   function handleClearFilter({
-//     remoteData,
-//   }: {
-//     remoteData: ListingRemoteJobs[];
-//   }) {
-//     router.push(`/find-jobs`);
-//   }
+  const [value, setValue] = useState<number | null>(null);
+  function handleClearFilter() {
+    router.push(`/find-jobs`);
+  }
   return (
     <>
       <div className="flex  gap-4 items-end">
@@ -45,9 +43,9 @@ const router = useTransitionRouter();
                 aria-expanded={open}
                 className="w-full md:min-w-[380px] justify-between"
               >
-                {value
-                  ? remoteData?.find((data) => data.label == value)?.label
-                  : "Select Job Name..."}
+                {value !== null
+                  ? remoteData.find((data) => data.value === value)?.label
+                  : "Type & Select Department Name..."}
                 <ChevronsUpDown className="opacity-50 " />
               </Button>
             </PopoverTrigger>
@@ -61,17 +59,22 @@ const router = useTransitionRouter();
                       <CommandItem
                         key={index}
                         value={job.label}
-                        onSelect={(currentValue) => {
-                          setValue(currentValue == value ? "" : currentValue);
-                        //   router.push(`find-jobs/?name=${currentValue}`);
-                        // ?jobSubCategoryId=10&companyId=0&jobCategoryId=0
-                          router.push(`find-jobs/?jobSubCategoryId=${currentValue}&companyId=0&jobCategoryId=0`);
+                        onSelect={(selectedLabel) => {
+                          const selectedDepartment = remoteData.find(
+                            (data) => data.label == selectedLabel
+                          );
+                          setValue(
+                            selectedDepartment ? selectedDepartment.value : null
+                          );
+                          router.push(
+                            `find-jobs/?jobSubCategoryId=${selectedDepartment?.value ?? 0}`
+                          );
                           setOpen(false);
                         }}
                       >
                         <Check
                           className={clsx(
-                            value == job.label ? "opacity-100" : "opacity-0"
+                            value == job.value ? "opacity-100" : "opacity-0"
                           )}
                         />
                         {job.label}
@@ -83,18 +86,18 @@ const router = useTransitionRouter();
             </PopoverContent>
           </Popover>
         </div>
-        {/* <div className="c">
-          {name != "" && (
+        <div className="c">
+          {jobSubCategoryId != "undefined" && jobSubCategoryId != "NaN" && jobSubCategoryId != "" && (
             <Button
               variant="outline"
               size="sm"
               onClick={() => handleClearFilter()}
               className="hover:bg-bts-BrownFour"
             >
-              Clear Filter
+              Clear Department Filter
             </Button>
           )}
-        </div> */}
+        </div>
       </div>
     </>
   );

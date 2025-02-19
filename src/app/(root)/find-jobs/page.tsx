@@ -1,6 +1,6 @@
 import FindJobs from "@/components/findJobsPage/FindJobs";
 import PostHogClient from "@/lib/postHogServerPage";
-import { Params, SearchParams } from "@/types/remoteJobsListing";
+// import { Params, SearchParams } from "@/types/remoteJobsListing";
 import { Metadata } from "next";
 import { getCldImageUrl } from "next-cloudinary";
 
@@ -22,15 +22,14 @@ export const metadata:Metadata={
   description:"Looking for remote work? Beyond the Savannah offers a wealth of job openings that break geographical barriers. Explore our site now to connect with opportunities that fit your lifestyle and career goals."
 }
 
-export default async function JobsPage(props: {
-  params: Params;
-  searchParams: SearchParams;
-}) {
+export default async function JobsPage() {
+  // console.log("find-jobs page",props)
   const posthog =PostHogClient()
     await posthog?.shutdown()
   return (
     <>
-      <FindJobs params={props.params} searchParams={props.searchParams} />
+      {/* <FindJobs params={props.params} searchParams={props.searchParams} /> */}
+      <FindJobs  />
     </>
   );
 }
