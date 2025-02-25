@@ -1,6 +1,8 @@
 ("");
+// import ManageSubscription from "@/components/Customer/ManageSubscription";
 import { Button } from "@/components/ui/button";
 import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 export default async function page() {
   const user = await currentUser();
@@ -23,14 +25,31 @@ export default async function page() {
     const response2 = await response.json();
     console.log(response2);
   }
+  async function handleManageSubscription() {
+    "use server";
+    const response = await fetch(
+      `http://localhost:3000/api/manage-subscriptions`,
+      {
+        method: "GET",
+        // headers: { "Content-Type": "appplication/json" },
+        // body: JSON.stringify({
+        //   code: responseData.data[0].plan.subscription_code,
+        //   // token: responseData.data[0].email_token,
+        // }),
+      }
+    );
+    const response2=await response.json()
+    redirect(response2)
+  }
+
   return (
     <>
-      <section className="pt-40 pb-20">
+      <section className="pt-4 pb-20">
         <div className="container mx-auto px-4">
           <h2 className="text-xl">Hi {user?.firstName}</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
           <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
-            Account information details
+            Subscription details
             {/* Hi {user?.firstName} */}
           </p>
           <div className="min-h-[70vh] mt-20">
@@ -63,7 +82,7 @@ export default async function page() {
                 <p>
                   Subscription Card Number:{" "}
                   <span className="font-semibold ml-1">
-                    {responseData.data[0].authorization.last4}
+                    XXXX XXXX {responseData.data[0].authorization.last4}
                   </span>
                 </p>
                 <div className="c">
@@ -72,6 +91,12 @@ export default async function page() {
                       Cancel Subscrption
                     </Button>
                   </form>
+                  <form action={handleManageSubscription}>
+                    <Button variant="outline" size="sm" type="submit">
+                      Manage your Subscrption
+                    </Button>
+                  </form>
+                  
                 </div>
               </div>
             )}
