@@ -8,38 +8,53 @@ export default async function page() {
   const user = await currentUser();
   const response = await fetch(`http://localhost:3000/api/subscriptions`);
   const responseData = await response.json();
-  console.log(responseData);
-  // console.log(responseData.data[0].customer)
-  // console.log(responseData.data[0].plan)
+  // console.log(responseData);
+  const subscriptionCode = responseData.data[0]?.subscription_code;
 
-  async function handleCancelSubscription() {
-    "use server";
-    const response = await fetch(`http://localhost:3000/api/subscriptions`, {
-      method: "POST",
-      headers: { "Content-Type": "appplication/json" },
-      body: JSON.stringify({
-        code: responseData.data[0].plan.subscription_code,
-        token: responseData.data[0].email_token,
-      }),
-    });
-    const response2 = await response.json();
-    console.log(response2);
+  if (!subscriptionCode) {
+    console.error("Subscription code is not defined.");
+    return;
   }
+  console.log("Subscription Code:", subscriptionCode);
+
+  // async function handleCancelSubscription() {
+  //   "use server";
+  //   const response = await fetch(`http://localhost:3000/api/subscriptions`, {
+  //     method: "POST",
+  //     headers: { "Content-Type": "appplication/json" },
+  //     body: JSON.stringify({
+  //       code: responseData.data[0].plan.subscription_code,
+  //       token: responseData.data[0].email_token,
+  //     }),
+  //   });
+  //   const response2 = await response.json();
+  //   console.log(response2);
+  // }
   async function handleManageSubscription() {
     "use server";
-    const response = await fetch(
-      `http://localhost:3000/api/manage-subscriptions`,
-      {
-        method: "GET",
-        // headers: { "Content-Type": "appplication/json" },
-        // body: JSON.stringify({
-        //   code: responseData.data[0].plan.subscription_code,
-        //   // token: responseData.data[0].email_token,
-        // }),
+    let paystackManageUrl=""
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/manage-subscriptions?code=${subscriptionCode}`,
+        {
+          method: "GET",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    );
-    const response2=await response.json()
-    redirect(response2)
+
+      const responseUrl = await response.json();
+      console.log("MANAGE SUBS",responseUrl)
+      paystackManageUrl=responseUrl
+      // return redirect(paystackManageUrl);
+    } catch (error) {
+      console.error("Error managing subscription:", error);
+    }
+    if(paystackManageUrl!=""){
+      redirect(paystackManageUrl)
+    }
   }
 
   return (
@@ -86,17 +101,16 @@ export default async function page() {
                   </span>
                 </p>
                 <div className="c">
-                  <form action={handleCancelSubscription}>
+                  {/* <form action={handleCancelSubscription}>
                     <Button variant="destructive" size="sm" type="submit">
                       Cancel Subscrption
                     </Button>
-                  </form>
+                  </form> */}
                   <form action={handleManageSubscription}>
                     <Button variant="outline" size="sm" type="submit">
                       Manage your Subscrption
                     </Button>
                   </form>
-                  
                 </div>
               </div>
             )}
