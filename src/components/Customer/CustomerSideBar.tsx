@@ -1,4 +1,4 @@
-import { Briefcase, Building2, FolderPlus, } from "lucide-react";
+import {Building2, FolderPlus, } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -10,6 +10,7 @@ import {
   SidebarMenuItem,
 } from "../ui/sidebar";
 import { Link } from "next-view-transitions";
+import { SignedIn, UserButton } from "@clerk/nextjs";
 const items = [
     {
       title: "Home",
@@ -19,14 +20,10 @@ const items = [
     
     {
       title: "Subscribtions",
-      url: "/Customer/subscriptions",
+      url: "/Customer/customerpage",
       icon: Building2,
     },
-    {
-      title: "Jobs",
-      url: "/Customer/jobsListing",
-      icon: Briefcase,
-    },
+    
     
   ];
 export default function CustomerSideBar() {
@@ -49,12 +46,12 @@ export default function CustomerSideBar() {
             ))}
           </SidebarMenu>
           <SidebarMenu>
-            {/* <SignedIn>
+            <SignedIn>
               <div className="bg-bts-BrownThree/5 p-1 rounded-2xl flex gap-1 items-center">
                 <p>Signed In as </p>
                 <UserButton />
               </div>
-            </SignedIn> */}
+            </SignedIn>
           </SidebarMenu>
         </SidebarGroupContent>
       </SidebarGroup>

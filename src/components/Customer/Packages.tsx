@@ -50,7 +50,7 @@ export default function Packages({ email }: { email: string }) {
     <>
       <div className="flex gap-4 items-center justify-evenly">
         {SubscriptionPackages.map((sub) => (
-          <div key={sub.id} className="border rounded-lg space-y-4 px-4 py-6">
+          <div key={sub.id} className="border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6">
             <div className="flex flex-wrap gap-4 items-center justify-evenly">
               <p>{sub.packageName}</p>
               <p>

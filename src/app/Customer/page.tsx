@@ -9,7 +9,7 @@ export default async function CustomerDefaultPage() {
   
   return (
     <section className="px-4">
-      <div className="grid place-content-center min-h-[60vh] w-screen text-black">
+      <div className="grid place-content-center min-h-[60vh] w-full text-black">
         <div className="flex justify-end w-full">
           <SignedIn>
             <div className="bg-bts-BrownThree/5 p-1 rounded-2xl flex gap-1 items-center">
@@ -30,6 +30,7 @@ export default async function CustomerDefaultPage() {
           </p>
         </div>
         <Packages email={userEmail }/>
+        
       </div>
     </section>
   );

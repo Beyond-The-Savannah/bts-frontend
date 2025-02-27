@@ -15,7 +15,7 @@ console.log(paystackInstance);
 
 export async function POST(request: Request) {
   try {
-    const { email, amount, plan, firstName,code,token } = await request.json();
+    const { email, amount, plan, firstName } = await request.json();
     const amountInCents = amount * 100;
     // const reference=`ref_${Date.now()}`
     const initialResponse = await paystackInstance.transaction.initialize({
@@ -32,17 +32,13 @@ export async function POST(request: Request) {
         firstName: firstName,
       }),
     });
-    const response=await paystackInstance.subscription.disable({
-        code,
-        token
-    })
     if (error) {
       return Response.json({ error }, { status: 500 });
     }
-    console.log(data);
+    console.log(data?.id);
     console.log(initialResponse);
 
-    return Response.json({initialResponse, response});
+    return Response.json({initialResponse});
   } catch (error) {
     return Response.json({ error }, { status: 500 });
   }
