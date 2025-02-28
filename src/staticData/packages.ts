@@ -12,7 +12,7 @@ export const SubscriptionPackages = [
     packageName: "Most Popular",
     packagePrice: "750",
     packagePlanCode:"PLN_c5f5wxnmq801g0n",
-    packageGoods: ["NewsLetter", "Limited Private Email Coaching"],
+    packageGoods: ["NewsLetter", "Curated Job Search Alerts Cost","Limited Private Email Coaching"],
     link:"/Customer",
   },
   {
@@ -20,7 +20,7 @@ export const SubscriptionPackages = [
     packageName: "Advance",
     packagePrice: "1100",
     packagePlanCode:"PLN_dfckl8ypbw5f67z",
-    packageGoods: ["NewsLetter", "Umlimited Private Email Coaching"],
+    packageGoods: ["NewsLetter","Curated Job Search Alerts Cost", "Umlimited Private Email Coaching"],
     link:"/Customer",
   },
   {
@@ -28,7 +28,7 @@ export const SubscriptionPackages = [
     packageName: "Premium",
     packagePrice: "1500",
     packagePlanCode:"PLN_8hrdfu9sjb6fnkb",
-    packageGoods: ["NewsLetter", "Access To Job Search Accountability Partner"],
+    packageGoods: ["NewsLetter","Curated Job Search Alerts Cost", "Access To Job Search Accountability Partner"],
     link:"/Customer",
   },
 ];
