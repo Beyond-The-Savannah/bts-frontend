@@ -31,4 +31,12 @@ export const SubscriptionPackages = [
     packageGoods: ["NewsLetter","Curated Job Search Alerts Cost", "Access To Job Search Accountability Partner"],
     link:"/Customer",
   },
+  {
+    id: 5,
+    packageName: "Test 1",
+    packagePrice: "300",
+    packagePlanCode:"PLN_h8gh0augbsbo5zv",
+    packageGoods: ["Testing purpses"],
+    link:"/Customer",
+  },
 ];

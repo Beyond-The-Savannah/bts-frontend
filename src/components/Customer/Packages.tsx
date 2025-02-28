@@ -19,36 +19,43 @@ export default function Packages({ email }: { email: string }) {
   const router = useRouter();
   const user = useUser();
   const userFirstName = user.user?.firstName as string;
-  console.log(router);
+  // console.log(router);
 
   async function handlePurchasePackage(subscriptionOptions: subScriptionProps) {
-    // alert(JSON.stringify(subscriptionOptions));
-    try {
-      const response = await axios.post(`/api/subscriptions`, {
-        email: subscriptionOptions.email,
-        amount: subscriptionOptions.amount,
-        plan: subscriptionOptions.plan,
-        name: subscriptionOptions.name,
-        firstName: user.user?.firstName,
-      });
-      // window.location.href = response.data.authorization_url;
-      const authorizationUrl = response.data?.data?.authorization_url;
+    const handleSubscription = async () => {
+      try {
+        const response = await axios.post(`/api/subscriptions`, {
+          email: subscriptionOptions.email,
+          amount: subscriptionOptions.amount,
+          plan: subscriptionOptions.plan,
+          name: subscriptionOptions.name,
+          firstName: user.user?.firstName,
+        });
+        const authorizationUrl =
+          response.data?.initialResponse.data?.authorization_url;
+        console.log("CREATE SUB RESPONSE->", response);
 
-      if (!authorizationUrl) {
-        console.error("Authorization URL is missing!", response.data);
-        return;
+        if (!authorizationUrl) {
+          console.error("Authorization URL is missing!", response.data);
+          return;
+        }
+        return { authorizationUrl };
+      } catch (error) {
+        console.log(error);
       }
-      if (authorizationUrl) {
-        toast.info(`Check your email ${email}`);
-      }
-      router.push(authorizationUrl);
-    } catch (error) {
-      console.log(error);
-    }
+    };
+    toast.promise(handleSubscription, {
+      loading: "Processing...",
+      success: (data) => {
+        router.push(data?.authorizationUrl);
+        return `Redirecting to paystack`;
+      },
+      error: "Error, please try again later",
+    });
   }
   return (
     <>
-      <div className="flex gap-4 items-center justify-evenly">
+      <div className="flex flex-wrap gap-4 items-center justify-evenly">
         {SubscriptionPackages.map((sub) => (
           <div
             key={sub.id}
