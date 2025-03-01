@@ -1,6 +1,7 @@
 ("");
 // import ManageSubscription from "@/components/Customer/ManageSubscription";
 import { Button } from "@/components/ui/button";
+import { SubscriptionProps } from "@/types/subscriptions";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -10,7 +11,7 @@ export default async function page() {
   const responseData = await response.json();
   const userEmailAddress = user?.emailAddresses[0].emailAddress;
   
-  const userSubscriptionInformation = responseData.data.find((data)=>data.customer.email==userEmailAddress)
+  const userSubscriptionInformation = responseData.data.find((data:SubscriptionProps)=>data.customer.email==userEmailAddress)
   // console.log(responseData);
   // const subscriptionCode = responseData.data[0]?.subscription_code;
   const subscriptionCode = userSubscriptionInformation.subscription_code

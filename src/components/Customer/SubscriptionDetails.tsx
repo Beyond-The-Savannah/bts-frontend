@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { SubscriptionProps } from "@/types/subscriptions";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -7,21 +8,22 @@ export default async function SubscriptionDetails() {
   const response = await fetch(`http://localhost:3000/api/subscriptions`);
   const responseData = await response.json();
   const userEmailAddress = user?.emailAddresses[0].emailAddress;
-  
-  const userSubscriptionInformation = responseData.data.find((data)=>data.customer.email==userEmailAddress)
+
+  const userSubscriptionInformation = responseData.data.find(
+    (data: SubscriptionProps) => data.customer.email == userEmailAddress
+  );
   // console.log("FILTERED DATA->",userSubscriptionInformation)
 
-
-  // console.log("SUBS DATA", responseData.data[0].customer);
+  // console.log("SUBS DATA", responseData);
   // console.log("SUBS DATA",responseData.data[0].customer.email);
   // const subscriptionCode = responseData.data[0]?.subscription_code;
-  const subscriptionCode = userSubscriptionInformation.subscription_code
+  const subscriptionCode = userSubscriptionInformation.subscription_code;
 
   if (!subscriptionCode) {
     console.error("Subscription code is not defined.");
     return;
   }
-  //   console.log("Subscription Code:", subscriptionCode);
+  console.log("Subscription Code:", subscriptionCode);
 
   async function handleManageSubscription() {
     "use server";
