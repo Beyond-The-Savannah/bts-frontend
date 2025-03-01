@@ -15,12 +15,12 @@ import PostHogClient from "@/lib/postHogServerPage";
 import { servicesList } from "@/staticData/services";
 import { ParamsProps } from "@/types/nextJSBasedParams";
 import { CircleCheck } from "lucide-react";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata, } from "next";
 import { getCldImageUrl } from "next-cloudinary";
 
 export async function generateMetadata(
   { params }: ParamsProps,
-  parent: ResolvingMetadata
+  // parent: ResolvingMetadata
 ): Promise<Metadata> {
   const titleSlug = (await params).titleSlug;
   const metaSpecificService = servicesList.find(
@@ -29,8 +29,8 @@ export async function generateMetadata(
   const url = getCldImageUrl({
     src: `${metaSpecificService?.openGraphImg}`,
   });
-  const previousImage = (await parent).openGraph?.images || [];
-  console.log(previousImage);
+  // const previousImage = (await parent).openGraph?.images || [];
+  
   return {
     title: `${metaSpecificService?.title} - Beyond The Savannah`,
     description: metaSpecificService?.details,
