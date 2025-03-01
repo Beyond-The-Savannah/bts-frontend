@@ -17,7 +17,7 @@ export default async function CustomerDefaultPage() {
 
   return (
     <>
-      {subscriptionData.status === true && subscriptionData.data[0].customer.email!=userEmail ? (
+      {subscriptionData.status != true && subscriptionData.data[0].customer.email!=userEmail ? (
         <PackageOptionSection />
       ) : (
         <SubscriptionDetails />

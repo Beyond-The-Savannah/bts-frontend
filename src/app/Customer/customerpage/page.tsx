@@ -8,8 +8,12 @@ export default async function page() {
   const user = await currentUser();
   const response = await fetch(`http://localhost:3000/api/subscriptions`);
   const responseData = await response.json();
+  const userEmailAddress = user?.emailAddresses[0].emailAddress;
+  
+  const userSubscriptionInformation = responseData.data.find((data)=>data.customer.email==userEmailAddress)
   // console.log(responseData);
-  const subscriptionCode = responseData.data[0]?.subscription_code;
+  // const subscriptionCode = responseData.data[0]?.subscription_code;
+  const subscriptionCode = userSubscriptionInformation.subscription_code
 
   if (!subscriptionCode) {
     console.error("Subscription code is not defined.");
@@ -41,9 +45,9 @@ export default async function page() {
         }
       );
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      // if (!response.ok) {
+      //   throw new Error(`HTTP error! status: ${response.status}`);
+      // }
 
       const responseUrl = await response.json();
       console.log("MANAGE SUBS",responseUrl)
