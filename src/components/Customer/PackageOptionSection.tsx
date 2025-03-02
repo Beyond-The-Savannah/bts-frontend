@@ -5,9 +5,6 @@ import { currentUser } from "@clerk/nextjs/server";
 export default async function PackageOptionSection() {
   const user = await currentUser();
   const userEmail = user?.emailAddresses[0].emailAddress as string;
-  // const response = await fetch(`http://localhost:3000/api/subscriptions`);
-  // const subscriptionData = await response.json();
-  // console.log("CHECKSUB", subscriptionData);
   return (
     <>
       <section className="px-4">
