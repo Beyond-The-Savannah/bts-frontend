@@ -11,13 +11,12 @@ if (!PAYSTACK_SECRET_KEY) {
 const paystackInstance = new Paystack(PAYSTACK_SECRET_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-console.log(paystackInstance);
+// console.log(paystackInstance);
 
 export async function POST(request: Request) {
   try {
     const { email, amount, plan, firstName } = await request.json();
     const amountInCents = amount * 100;
-    // const reference=`ref_${Date.now()}`
     const initialResponse = await paystackInstance.transaction.initialize({
       email: email,
       amount: String(amountInCents),
@@ -36,7 +35,7 @@ export async function POST(request: Request) {
       return Response.json({ error }, { status: 500 });
     }
     console.log(data?.id);
-    console.log(initialResponse);
+    // console.log(initialResponse);
 
     return Response.json({initialResponse});
   } catch (error) {
