@@ -237,4 +237,10 @@ export const servicesCalendlyLinks = [
     amount: 300000,
     link: "https://calendly.com/beyondthesavannah-info/introductory-video",
   },
+  {
+    id: 9,
+    service: "Remote Work Starter Bundle",
+    amount: 2300000,
+    link: "",
+  },
 ];
