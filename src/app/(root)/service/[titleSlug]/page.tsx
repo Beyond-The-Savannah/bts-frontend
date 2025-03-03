@@ -14,7 +14,7 @@ import {
 import PostHogClient from "@/lib/postHogServerPage";
 import { servicesList } from "@/staticData/services";
 import { ParamsProps } from "@/types/nextJSBasedParams";
-import { CircleCheck } from "lucide-react";
+import { AlertCircle, CircleCheck } from "lucide-react";
 import { Metadata, } from "next";
 import { getCldImageUrl } from "next-cloudinary";
 
@@ -132,6 +132,7 @@ export default async function ServicePage({
           </div>
           <div className="w-[85vw] md:w-[27vw]   space-y-4 ">
             <p className="text-base">{specificService?.valueProposal}</p>
+
             <Drawer>
               <DrawerTrigger className="px-4 py-2 rounded-lg w-full text-white bg-bts-GreenOne hover:bg-green-700 hover:shadow-bts-BrownThree hover:shadow-md duration-700">
                 Purchase
@@ -157,6 +158,11 @@ export default async function ServicePage({
                 </DrawerFooter>
               </DrawerContent>
             </Drawer>
+            <div className="c rounded-lg bg-amber-50 px-3 py-6 flex flex-col gap-4 items-start">
+              <AlertCircle className="size-4"/>
+              {/* <p className="text-xs">Please note, no refunds are made once a service is paid for</p> */}
+              <p className="text-xs">Please note that all payments for services are non-refundable once processed</p>
+            </div>
           </div>
         </div>
       </section>
