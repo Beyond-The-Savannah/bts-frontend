@@ -58,47 +58,77 @@ export default async function SubscriptionDetails() {
           <h2 className="text-xl">Hi {user?.firstName}</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
           <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
-            Subscription details
+            {/* Subscription details */}
             {/* Hi {user?.firstName} */}
           </p>
           <div className="min-h-[70vh] mt-20">
-            <div className="space-y-4">
-              <p>
-                Subscription Email Address:{" "}
-                <span className="font-semibold ml-1">
-                  {userSubscriptionInformation.customer.email}
-                </span>
-              </p>
-              <p>
-                Current Subscription Plan:{" "}
-                <span className="font-semibold ml-1">
-                  {userSubscriptionInformation.plan.name}
-                </span>
-              </p>
-              <p>
-                Current Subscription Status:{" "}
-                <span className="font-semibold ml-1">
-                  {userSubscriptionInformation.status}
-                </span>
-              </p>
-              <p>
-                Next Subscription Payment Date:{" "}
-                <span className="font-semibold ml-1">
-                  {userSubscriptionInformation.next_payment_date}
-                </span>
-              </p>
-              <p>
-                Subscription Card Number:{" "}
-                <span className="font-semibold ml-1">
-                  XXXX XXXX {userSubscriptionInformation.authorization.last4}
-                </span>
-              </p>
-              <div className="c">
-                <form action={handleManageSubscription}>
-                  <Button variant="outline" size="sm" type="submit">
-                    Manage your Subscrption
-                  </Button>
-                </form>
+            <div className="flex flex-wrap lg:flex-nowrap gap-8 justify-evenly">
+              <div className="space-y-4 rounded-lg bg-slate-200 px-6 py-12">
+                <p className="font-semibold text-xl">Subscription details</p>
+                <p>
+                  <span className="text-xs">Subscription Email Address: </span>
+                  <span className="font-semibold ml-1">
+                    {userSubscriptionInformation.customer.email}
+                  </span>
+                </p>
+                <p>
+                  <span className="text-xs">Current Subscription Plan: </span>
+                  <span className="font-semibold ml-1">
+                    {userSubscriptionInformation.plan.name}
+                  </span>
+                </p>
+                <p>
+                  <span className="text-xs">Current Subscription Status: </span>
+                  <span className="font-semibold ml-1">
+                    {userSubscriptionInformation.status}
+                  </span>
+                </p>
+                <p>
+                  <span className="text-xs">
+                    Next Subscription Payment Date:{" "}
+                  </span>
+                  <span className="font-semibold ml-1">
+                    {userSubscriptionInformation.next_payment_date}
+                  </span>
+                </p>
+                <p>
+                  <span className="text-xs">Subscription Card Number: </span>
+                  <span className="font-semibold ml-1">
+                    XXXX XXXX {userSubscriptionInformation.authorization.last4}
+                  </span>
+                </p>
+                {/* <div className="c">
+                  <form action={handleManageSubscription}>
+                    <Button variant="outline" size="sm" type="submit">
+                      Manage your Subscrption
+                    </Button>
+                  </form>
+                </div> */}
+              </div>
+              <div className="space-y-4 rounded-lg bg-slate-100 pr-6 py-12">
+                <p className="font-semibold text-xl px-9">Subscription guide</p>
+                <div className="border-l-[1.5rem] border-amber-200 px-4 py-2 rounded-l">
+                  <p>
+                    To change card details you can use the Manage your
+                    Subscrption button
+                  </p>
+                </div>
+                <div className="border-l-[1.5rem] border-red-200 px-4 py-2 rounded-l">
+                  <p>
+                    To cancel your subscrption can use the Manage your
+                    Subscrption button
+                  </p>
+                </div>
+                {/* <div className="border-l-[1.5rem] border-yellow-200 px-4 py-2 rounded-l">
+                  <p>To change your plan you can</p>
+                </div> */}
+                <div className="px-8">
+                  <form action={handleManageSubscription}>
+                    <Button variant="outline" size="sm" type="submit">
+                      Manage your Subscrption
+                    </Button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
