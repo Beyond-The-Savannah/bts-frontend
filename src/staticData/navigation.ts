@@ -30,7 +30,7 @@ export const NonSimpleNavigationMenuItems = [
         link: "/service/students-package",
       },
       {
-        title: "ATS CV REVAMP",
+        title: "ATS CV Revamp",
         link: "/service/ats-cv-revamp",
       },
       {

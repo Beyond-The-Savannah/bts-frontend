@@ -43,7 +43,7 @@ export const servicesList = [
   },
   {
     id: 3,
-    title: "ATS CV REVAMP",
+    title: "ATS CV Revamp",
     titleSlug: "ats-cv-revamp",
     subheading: "",
     img: "avs_cv_ymup2h",
@@ -203,7 +203,7 @@ export const servicesCalendlyLinks = [
   },
   {
     id: 3,
-    service: "ATS CV REVAMP",
+    service: "ATS CV Revamp",
     amount: 800000,
     link: "https://calendly.com/beyondthesavannah-info/cv-revamp",
   },
