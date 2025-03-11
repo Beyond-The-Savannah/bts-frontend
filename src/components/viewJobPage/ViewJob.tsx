@@ -25,6 +25,9 @@ import {
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 import clsx from "clsx";
+import { useUser } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
+import handler from "../../../pages/api/generate-expiration-link";
 
 export default function ViewJob({ jobsId }: { jobsId: string }) {
   const {
@@ -38,6 +41,33 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
     (job) => job.jobsId == parseInt(`${jobsId}`)
   );
 
+  // useEffect(() => {
+  //   handler()
+  // },[])
+
+  const { user } = useUser();
+
+  console.log("user1", user)
+
+  const [expiringLink, setExpiringLink] = useState('');
+
+  const generateLink = async () => {
+    const response = await fetch('/api/generate-expiration-link', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId: '12345' }), // Replace with dynamic user ID
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      setExpiringLink(data.expiringLink);
+    } else {
+      console.error(data.error);
+    }
+  };
+
   return (
     <>
       <section className="container mx-auto  min-h-screen pt-40 px-4">
@@ -48,6 +78,15 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
             Remote Opportunity
           </p>
         </div>
+
+        <div>
+      <button onClick={generateLink}>Generate Expiring Link</button>
+      {expiringLink && (
+        <p>
+          Expiring Link: <a href={expiringLink}>{expiringLink}</a>
+        </p>
+      )}
+    </div>
 
         {isLoading && <SingleJobLoadingUI />}
         {isError && <SingleJobLoadingErrorUI />}
