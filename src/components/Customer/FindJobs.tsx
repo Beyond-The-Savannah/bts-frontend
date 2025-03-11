@@ -18,10 +18,10 @@ export default function FindJobs() {
   // const searchParams = use(props.searchParams);
   const searchParams = useSearchParams();
 
-  const page = searchParams.get("page") ?? "1";
-  const per_page = searchParams.get("per_page") ?? "10";
-  const name = searchParams.get("name") ?? "";
-  const jobSubCategoryId = searchParams.get("jobSubCategoryId")
+  const page = searchParams?.get("page") ?? "1";
+  const per_page = searchParams?.get("per_page") ?? "10";
+  const name = searchParams?.get("name") ?? "";
+  const jobSubCategoryId = searchParams?.get("jobSubCategoryId")
     ? Number(searchParams.get("jobSubCategoryId"))
     : undefined;
 

@@ -25,9 +25,6 @@ import {
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 import clsx from "clsx";
-import { useUser } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
-import handler from "../../../pages/api/generate-expiration-link";
 
 export default function ViewJob({ jobsId }: { jobsId: string }) {
   const {
