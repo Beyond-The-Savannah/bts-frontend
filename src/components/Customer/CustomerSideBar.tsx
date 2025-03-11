@@ -11,8 +11,10 @@ import {
 } from "../ui/sidebar";
 import { Link } from "next-view-transitions";
 import { SignedIn, UserButton } from "@clerk/nextjs";
+import { SubscriptionProps } from "@/types/subscriptions";
+import { currentUser } from "@clerk/nextjs/server";
 
-import { GetUserSubscriptionInformation } from "./UserSubscriptionInformation";
+// import { GetUserSubscriptionInformation } from "./UserSubscriptionInformation";
 const items = [
   {
     title: "Home",
@@ -32,7 +34,16 @@ const items = [
   },
 ];
 export default async function CustomerSideBar() {
-  const userSubscriptionInformation = await GetUserSubscriptionInformation();
+  // const userSubscriptionInformation = await GetUserSubscriptionInformation();
+  //  const user = await currentUser();
+  //   const response = await fetch(`http://localhost:3000/api/subscriptions`);
+  //   const allSubscriptionData = await response.json();
+  //   const userEmailAddress = user?.emailAddresses[0].emailAddress;
+  
+  //   const userSubscriptionInformation: SubscriptionProps =
+  //     allSubscriptionData.data.find(
+  //       (data: SubscriptionProps) => data.customer.email == userEmailAddress
+  //     );
   return (
     <Sidebar>
       <SidebarContent className="bg-bts-GreenOne text-white">
@@ -40,11 +51,11 @@ export default async function CustomerSideBar() {
           <SidebarGroupLabel></SidebarGroupLabel>
           <SidebarGroupContent className="flex flex-col justify-between h-[90vh]">
             <SidebarMenu className="space-y-2">
-              {userSubscriptionInformation.status == "active" ||
+              {/* {userSubscriptionInformation.status == "active" ||
               userSubscriptionInformation.status == "attention" ||
               userSubscriptionInformation.status == "non-renewing" ? (
                 <>
-                  {" "}
+                  {" "} */}
                   {items.map((item) => (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton asChild>
@@ -55,8 +66,8 @@ export default async function CustomerSideBar() {
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   ))}
-                </>
-              ) : null}
+                {/* </>
+              ) : null} */}
             </SidebarMenu>
             <SidebarMenu>
               <SignedIn>

@@ -11,13 +11,37 @@ import {
   Section,
   Text,
 } from "@react-email/components";
+import { currentUser } from "@clerk/nextjs/server";
 
-export default function WhatsAppsEmailTemplate({
+export default async function WhatsAppsEmailTemplate({
   firstName,
 }: {
   firstName: string;
 }) {
-  
+
+  const user = await currentUser();
+
+  let expiringLink = ""
+
+  const generateLink = async () => {
+    const response = await fetch('/api/generate-expiration-link', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId: user?.id }), // Replace with dynamic user ID
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      expiringLink = data.expiringLink;
+    } else {
+      console.error(data.error);
+    }
+  };
+
+  generateLink()
+
   return (
     <>
       <Html>
@@ -50,7 +74,7 @@ export default function WhatsAppsEmailTemplate({
               </Text>
               <Button
                 style={button} 
-                href={`https://chat.whatsapp.com/FZfMyOHTuAdHoP06PErcFX`}
+                href={expiringLink}
               >
                 Whats Link
               </Button>
