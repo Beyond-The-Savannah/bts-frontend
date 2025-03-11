@@ -1,6 +1,8 @@
 import FindJobs from "@/components/Customer/FindJobs";
+import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
 
-export default function page() {
+export default async function page() {
+  const userSubscriptionInformation = await GetUserSubscriptionInformation();
   return (
     <section className="pt-4 pb-20">
       <div className="c">
@@ -11,7 +13,11 @@ export default function page() {
         </p>
       </div>
       <div className="">
-        <FindJobs/>
+        {userSubscriptionInformation.status != "cancelled" ? (
+          <>
+            <FindJobs />
+          </>
+        ) : null}
       </div>
     </section>
   );
