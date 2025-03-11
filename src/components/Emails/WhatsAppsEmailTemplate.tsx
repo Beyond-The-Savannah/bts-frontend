@@ -17,6 +17,7 @@ export default function WhatsAppsEmailTemplate({
 }: {
   firstName: string;
 }) {
+  
   return (
     <>
       <Html>

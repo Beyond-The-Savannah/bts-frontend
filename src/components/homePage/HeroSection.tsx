@@ -3,6 +3,7 @@ import { Link } from "next-view-transitions";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 
 export default function HeroSection() {
+
   return (
     <>
       <section className="container mx-auto px-4 min-h-[99vh] grid grid-cols-1 md:grid-cols-2  md:pt-0  gap-4">
