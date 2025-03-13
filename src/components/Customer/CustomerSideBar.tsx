@@ -1,4 +1,4 @@
-import { Building2, FileStack, FolderPlus } from "lucide-react";
+import { FileStack, FolderPlus } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -22,11 +22,11 @@ const items = [
     icon: FolderPlus,
   },
 
-  {
-    title: "Subscribtions",
-    url: "/Customer/customerpage",
-    icon: Building2,
-  },
+  // {
+  //   title: "Subscribtions",
+  //   url: "/Customer/customerpage",
+  //   icon: Building2,
+  // },
   {
     title: "jobs",
     url: "/Customer/find-jobs",

@@ -38,7 +38,7 @@ export  function FindJobs() {
     ? Number(searchParams.get("jobSubCategoryId"))
     : undefined;
 
-  console.log("Parsed jobSubCategoryId:", jobSubCategoryId);
+  // console.log("Parsed jobSubCategoryId:", jobSubCategoryId);
   const lastRemoteJobListingIndex = Number(page) * Number(per_page);
   const firstRemoteJobListingIndex =
     lastRemoteJobListingIndex - Number(per_page);

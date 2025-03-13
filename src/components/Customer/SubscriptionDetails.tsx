@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { SubscriptionProps } from "@/types/subscriptions";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import CareerSelection from "./CareerSelection";
 
 export default async function SubscriptionDetails() {
   const user = await currentUser();
@@ -17,6 +18,9 @@ export default async function SubscriptionDetails() {
 
   // console.log("SUBS DATA", responseData);
   const subscriptionCode = userSubscriptionInformation.subscription_code;
+  const date=new Date(userSubscriptionInformation?.next_payment_date ?? "")
+  const dateFormat=new Intl.DateTimeFormat("en-US", {dateStyle:"full",timeStyle:"short"})
+  const convertedNextSubscriptionDate=dateFormat.format(date)
 
   if (!subscriptionCode) {
     console.error("Subscription code is not defined.");
@@ -63,65 +67,57 @@ export default async function SubscriptionDetails() {
           </p>
           <div className="min-h-[70vh] mt-20">
             <div className="flex flex-wrap lg:flex-nowrap gap-8 justify-evenly">
-              <div className="space-y-4 rounded-lg bg-slate-200 px-6 py-12">
+              <div className="space-y-4 rounded-lg bg-slate-100 px-6 py-12 w-full lg:w-10/12">
                 <p className="font-semibold text-xl">Subscription details</p>
-                <p>
+                <p className="flex flex-col">
                   <span className="text-xs">Subscription Email Address: </span>
                   <span className="font-semibold ml-1">
                     {userSubscriptionInformation.customer.email}
                   </span>
                 </p>
-                <p>
+                <p className="flex flex-col">
                   <span className="text-xs">Current Subscription Plan: </span>
                   <span className="font-semibold ml-1">
                     {userSubscriptionInformation.plan.name}
                   </span>
                 </p>
-                <p>
+                <p className="flex flex-col">
                   <span className="text-xs">Current Subscription Status: </span>
                   <span className="font-semibold ml-1">
                     {userSubscriptionInformation.status}
                   </span>
                 </p>
-                <p>
+                <p className="flex flex-col">
                   <span className="text-xs">
                     Next Subscription Payment Date:{" "}
                   </span>
                   <span className="font-semibold ml-1">
-                    {userSubscriptionInformation.next_payment_date}
+
+                    { convertedNextSubscriptionDate}
                   </span>
                 </p>
-                <p>
+                <p className="flex flex-col">
                   <span className="text-xs">Subscription Card Number: </span>
                   <span className="font-semibold ml-1">
                     XXXX XXXX {userSubscriptionInformation.authorization.last4}
                   </span>
                 </p>
-                {/* <div className="c">
-                  <form action={handleManageSubscription}>
-                    <Button variant="outline" size="sm" type="submit">
-                      Manage your Subscrption
-                    </Button>
-                  </form>
-                </div> */}
+               
               </div>
-              <div className="space-y-4 rounded-lg bg-slate-100 pr-6 py-12">
+              <div className="space-y-4 rounded-lg bg-slate-100 pr-6 py-12 w-full lg:w-10/12">
                 <p className="font-semibold text-xl px-9">Subscription guide</p>
-                <div className="border-l-[1.5rem] border-blue-400 px-4 py-2 rounded-l">
+                <div className="border-l-[1.5rem] border-blue-400 bg-blue-100 px-4 py-2 rounded-l text-sm">
                   <p>
-                    To change card details you can use the Manage your
+                    To change your card details you can use the Manage your
                     Subscrption button
                   </p>
                 </div>
-                <div className="border-l-[1.5rem] border-red-400 px-4 py-2 rounded-l">
+                <div className="border-l-[1.5rem] border-red-400 bg-red-100 px-4 py-2 rounded-l text-sm">
                   <p>
                     To cancel your subscrption can use the Manage your
                     Subscrption button
                   </p>
                 </div>
-                {/* <div className="border-l-[1.5rem] border-yellow-200 px-4 py-2 rounded-l">
-                  <p>To change your plan you can</p>
-                </div> */}
                 <div className="px-8">
                   <form action={handleManageSubscription}>
                     <Button variant="outline" size="sm" type="submit">
@@ -131,6 +127,7 @@ export default async function SubscriptionDetails() {
                 </div>
               </div>
             </div>
+              <CareerSelection/>
           </div>
         </div>
       </section>

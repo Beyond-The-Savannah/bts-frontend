@@ -1,8 +1,12 @@
-import FindJobs from "@/components/Customer/FindJobs";
+import JobsListingByDepartmentCareer from "@/components/Customer/JobsListingByDepartmentCareer";
 import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
+// import { LucideFileWarning } from "lucide-react";
 
 export default async function page() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
+  // const selectedCareerDepartmentValue = localStorage.getItem(
+  //   "CareerDeparmentValue"
+  // );
   return (
     <section className="pt-4 pb-20">
       <div className="c">
@@ -15,7 +19,16 @@ export default async function page() {
       <div className="">
         {userSubscriptionInformation.status != "cancelled" ? (
           <>
-            <FindJobs />
+            {/* {selectedCareerDepartmentValue ? ( */}
+              <JobsListingByDepartmentCareer />
+            {/* ) : (
+              <>
+                <div className="bg-yellow-200 rounded-lg">
+                  <LucideFileWarning />
+                  <p>Please select your carrer in door to view a job</p>
+                </div>
+              </>
+            )} */}
           </>
         ) : null}
       </div>
