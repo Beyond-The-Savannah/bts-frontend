@@ -1,4 +1,5 @@
 ("");
+import CareerSelection from "@/components/Customer/CareerSelection";
 // import ManageSubscription from "@/components/Customer/ManageSubscription";
 import { Button } from "@/components/ui/button";
 import { SubscriptionProps } from "@/types/subscriptions";
@@ -139,6 +140,7 @@ export default async function page() {
                 </div> */}
               </div>
             </div>
+              <CareerSelection/>
           </div>
         </div>
       </section>

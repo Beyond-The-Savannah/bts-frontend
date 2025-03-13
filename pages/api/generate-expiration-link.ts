@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 // Simulating a token database (this should be replaced with your actual database logic)
 export const tokenDatabase: Record<string, { userId: string; expiresAt: Date; used: boolean }> = {};
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function handler(req: any, res: any) {
   if (req.method === 'POST') {
     const { userId } = req.body;

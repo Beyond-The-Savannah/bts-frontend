@@ -24,7 +24,7 @@ export default function FilterJobsByDepartment({
 }) {
   const router = useTransitionRouter();
   const searchParams = useSearchParams();
-  const jobSubCategoryId = searchParams.get("jobSubCategoryId") || "";
+  const jobSubCategoryId = searchParams?.get("jobSubCategoryId") || "";
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<number | null>(null);
   function handleClearFilter() {
