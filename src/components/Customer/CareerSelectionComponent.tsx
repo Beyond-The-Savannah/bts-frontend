@@ -26,7 +26,7 @@ export default function CareerSelectionComponent() {
   }
   const selectedCareerDepartmentValue = localStorage.getItem(
     "CareerDeparmentValue"
-  );
+  ) ?? "";
   const selectedCareer = jobDepartments?.find(
     (department) => department.value == Number(selectedCareerDepartmentValue)
   );
