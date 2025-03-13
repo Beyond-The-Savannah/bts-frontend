@@ -24,7 +24,7 @@ export default function FilterJobsByName({
 }) {
   const router = useTransitionRouter();
   const searchParams = useSearchParams();
-  const name = searchParams.get("name") || "";
+  const name = searchParams?.get("name") || "";
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
