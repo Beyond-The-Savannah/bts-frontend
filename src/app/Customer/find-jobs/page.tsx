@@ -17,7 +17,7 @@ export default async function page() {
         </p>
       </div>
       <div className="">
-        {userSubscriptionInformation.status != "cancelled" ? (
+        {userSubscriptionInformation?.status != "cancelled" ? (
           <>
             {/* {selectedCareerDepartmentValue ? ( */}
               <JobsListingByDepartmentCareer />

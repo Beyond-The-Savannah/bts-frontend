@@ -1,16 +1,24 @@
 import { SubscriptionProps } from "@/types/subscriptions";
 import { currentUser } from "@clerk/nextjs/server";
 
+const PUBLIC_BASE_URL=process.env.PUBLIC_BASE_URL
+
  export async function GetUserSubscriptionInformation(){
-      const user = await currentUser();
-      const response = await fetch(`http://localhost:3000/api/subscriptions`);
-      const allSubscriptionData = await response.json();
-      const userEmailAddress = user?.emailAddresses[0].emailAddress;
+  try {
+    const user = await currentUser();
+    const response = await fetch(`${PUBLIC_BASE_URL}/api/subscriptions`);
+    // const response = await fetch(`/api/subscriptions`);
+    const allSubscriptionData = await response.json();
+    const userEmailAddress = user?.emailAddresses[0].emailAddress;
+  
+    const userSubscriptionInformation: SubscriptionProps =
+      allSubscriptionData.data.find(
+        (data: SubscriptionProps) => data.customer.email == userEmailAddress
+      );
+    // console.log("SUBINFO", userSubscriptionInformation);
+    return userSubscriptionInformation
     
-      const userSubscriptionInformation: SubscriptionProps =
-        allSubscriptionData.data.find(
-          (data: SubscriptionProps) => data.customer.email == userEmailAddress
-        );
-      // console.log("SUBINFO", userSubscriptionInformation);
-      return userSubscriptionInformation
+  } catch (error) {
+  console.log("Error Getting userSubscriptionInformation",error)    
+  }
  }

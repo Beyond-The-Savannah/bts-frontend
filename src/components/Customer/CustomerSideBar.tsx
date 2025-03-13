@@ -43,9 +43,9 @@ export default async function CustomerSideBar() {
           <SidebarGroupLabel></SidebarGroupLabel>
           <SidebarGroupContent className="flex flex-col justify-between h-[90vh]">
             <SidebarMenu className="space-y-2">
-              {userSubscriptionInformation.status == "active" ||
-              userSubscriptionInformation.status == "attention" ||
-              userSubscriptionInformation.status == "non-renewing" ? (
+              {userSubscriptionInformation?.status == "active" ||
+              userSubscriptionInformation?.status == "attention" ||
+              userSubscriptionInformation?.status == "non-renewing" ? (
                 <>
                   {" "}
                   {items.map((item) => (
