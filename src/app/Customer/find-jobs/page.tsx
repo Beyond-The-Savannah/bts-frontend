@@ -1,12 +1,11 @@
+export const dynamic = 'force-dynamic'; // Add this at the top of your file
+
 import JobsListingByDepartmentCareer from "@/components/Customer/JobsListingByDepartmentCareer";
 import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
-// import { LucideFileWarning } from "lucide-react";
 
 export default async function page() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
-  // const selectedCareerDepartmentValue = localStorage.getItem(
-  //   "CareerDeparmentValue"
-  // );
+
   return (
     <section className="pt-4 pb-20">
       <div className="c">
@@ -18,18 +17,7 @@ export default async function page() {
       </div>
       <div className="">
         {userSubscriptionInformation?.status != "cancelled" ? (
-          <>
-            {/* {selectedCareerDepartmentValue ? ( */}
-              <JobsListingByDepartmentCareer />
-            {/* ) : (
-              <>
-                <div className="bg-yellow-200 rounded-lg">
-                  <LucideFileWarning />
-                  <p>Please select your carrer in door to view a job</p>
-                </div>
-              </>
-            )} */}
-          </>
+          <JobsListingByDepartmentCareer />
         ) : null}
       </div>
     </section>

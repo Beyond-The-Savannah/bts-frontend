@@ -10,6 +10,7 @@ import { Link, useTransitionRouter } from "next-view-transitions";
 import { useSearchParams } from "next/navigation";
 import clsx from "clsx";
 import { CircleAlert } from "lucide-react";
+import { Suspense } from "react";
 
 export default function JobsListingByDepartmentCareer() {
   const router = useTransitionRouter();
@@ -35,6 +36,8 @@ export default function JobsListingByDepartmentCareer() {
   );
   return (
     <>
+    <Suspense>
+
       {jobSubCategoryId == undefined ? (
         <div className="bg-yellow-100 rounded-lg px-4 py-8 my-20">
           <CircleAlert />
@@ -146,6 +149,7 @@ export default function JobsListingByDepartmentCareer() {
           )}
         </section>
       )}
+    </Suspense>
     </>
   );
 }
