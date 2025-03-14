@@ -62,7 +62,7 @@ export default function Packages({ email }: { email: string }) {
   
         const authorizationUrl =
           response.data?.initialResponse.data?.authorization_url;
-        console.log("CREATE SUB RESPONSE->", response);
+        // console.log("CREATE SUB RESPONSE->", response);
   
         if (!authorizationUrl) {
           console.error("Authorization URL is missing!", response.data);
@@ -87,17 +87,16 @@ export default function Packages({ email }: { email: string }) {
 
   return (
     <>
-      <div className="flex flex-wrap gap-4 items-center justify-evenly">
+      <div className="flex flex-wrap gap-x-2 gap-y-4 items-center justify-evenly pt-12">
         {SubscriptionPackages.map((sub) => (
           <div
             key={sub.id}
-            className="min-h-96 border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
+            className="min-h-96 w-64 border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
           >
             <div className="flex flex-wrap gap-4 items-center  justify-evenly">
-              <p>{sub.packageName}</p>
-              <p>
-                {" "}
-                <span className="text-xs mr-1">KSH</span>
+              <p className="font-semibold">{sub.packageName}</p>
+              <p className="font-semibold">
+                <span className="text-xs mr-1 ">KSH</span>
                 {sub.packagePrice}
               </p>
             </div>
