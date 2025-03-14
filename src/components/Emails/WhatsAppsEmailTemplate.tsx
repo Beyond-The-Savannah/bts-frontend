@@ -1,7 +1,6 @@
 import * as React from "react";
 import {
   Body,
-  Button,
   Container,
   Head,
   Html,
@@ -11,7 +10,6 @@ import {
   Section,
   Text,
 } from "@react-email/components";
-import { currentUser } from "@clerk/nextjs/server";
 
 export default async function WhatsAppsEmailTemplate({
   firstName, whatsAppExpiringLink
@@ -19,29 +17,6 @@ export default async function WhatsAppsEmailTemplate({
   firstName: string;
   whatsAppExpiringLink: string;
 }) {
-
-  const user = await currentUser();
-
-  let expiringLink = ""
-
-  const generateLink = async () => {
-    const response = await fetch('/api/generate-expiration-link', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ userId: user?.id }), // Replace with dynamic user ID
-    });
-
-    const data = await response.json();
-    if (response.ok) {
-      expiringLink = data.expiringLink;
-    } else {
-      console.error(data.error);
-    }
-  };
-
-  generateLink()
 
   return (
     <>

@@ -6,7 +6,6 @@ import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "sonner";
 import { useUser } from "@clerk/nextjs";
-import { useState } from "react";
 // import { currentUser } from "@clerk/nextjs/server";
 
 export interface subScriptionProps {
