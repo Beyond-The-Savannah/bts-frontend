@@ -19,7 +19,8 @@ export default function CareerSelectionComponent() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<number | null>(null);
   const [selectedCareerDepartmentValue, setSelectedCareerDepartmentValue] =
-    useState<string>("");
+    useState<string|null>(null);
+
   const { data: jobDepartments } = useGetJobSubCategoryDropDownList();
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export default function CareerSelectionComponent() {
   }, [value]);
 
   useEffect(() => {
-    if (typeof window == "undefined") {
+    if (typeof window !== "undefined") {
       const storedValue = localStorage.getItem("CareerDeparmentValue") ?? "";
       setSelectedCareerDepartmentValue(storedValue);
     }
@@ -41,7 +42,7 @@ export default function CareerSelectionComponent() {
   );
   return (
     <>
-      {selectedCareerDepartmentValue != "" ? (
+      {selectedCareerDepartmentValue ? (
         <>
           <p className="text-xs">
             Selected Career:
@@ -52,6 +53,7 @@ export default function CareerSelectionComponent() {
         </>
       ) : (
         <div className="space-y-4">
+          
           <p className="text-">
             Please select a career category that best matches your career
           </p>
