@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Check, ChevronsUpDown, TriangleAlertIcon } from "lucide-react";
@@ -18,23 +18,31 @@ import clsx from "clsx";
 export default function CareerSelectionComponent() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<number | null>(null);
+  const [selectedCareerDepartmentValue, setSelectedCareerDepartmentValue] =
+    useState<string>("");
   const { data: jobDepartments } = useGetJobSubCategoryDropDownList();
 
-  if (value !== null) {
-    const stringValue = value.toString();
-    localStorage.setItem("CareerDeparmentValue", stringValue);
-  }
-  const selectedCareerDepartmentValue = localStorage.getItem(
-    "CareerDeparmentValue"
-  ) ?? "";
+  useEffect(() => {
+    if (value !== null) {
+      const stringValue = value.toString();
+      localStorage.setItem("CareerDeparmentValue", stringValue);
+    }
+  }, [value]);
+
+  useEffect(() => {
+    if (typeof window == "undefined") {
+      const storedValue = localStorage.getItem("CareerDeparmentValue") ?? "";
+      setSelectedCareerDepartmentValue(storedValue);
+    }
+  }, []);
+
   const selectedCareer = jobDepartments?.find(
     (department) => department.value == Number(selectedCareerDepartmentValue)
   );
   return (
     <>
-      {selectedCareerDepartmentValue != null ? (
+      {selectedCareerDepartmentValue != "" ? (
         <>
-          {/* <p>Selected Career Value is {selectedCareerDepartmentValue}</p> */}
           <p className="text-xs">
             Selected Career:
             <span className="font-semibold text-base pl-2">
@@ -47,7 +55,7 @@ export default function CareerSelectionComponent() {
           <p className="text-">
             Please select a career category that best matches your career
           </p>
-          <div className="bg-gray-300 px-4 py-4 max-w-lg text-sm flex items-center rounded-lg">
+          <div className="bg-gray-300 px-4 py-4 max-w-lg text-sm flex items-center gap-1 rounded-lg">
             <TriangleAlertIcon /> You can only select your career once, hence
             select carefully
           </div>

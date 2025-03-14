@@ -39,9 +39,9 @@ export default function JobsListingByDepartmentCareer() {
     <Suspense>
 
       {jobSubCategoryId == undefined ? (
-        <div className="bg-yellow-100 rounded-lg px-4 py-8 my-20">
+        <div className="bg-yellow-100 rounded-lg px-4 py-8 my-20 w-full flex gap-3">
           <CircleAlert />
-          <p>Please head over to the &ldquo;Career Selection&ldquo; <br />select your career category  in order to view a job</p>
+          <p>Please head over to the &ldquo;Career Selection&ldquo; and select your career category  in order to view a job</p>
         </div>
       ) : (
         <section className="container mx-auto min-h-screen px-4">
