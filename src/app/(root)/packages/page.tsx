@@ -11,7 +11,8 @@ export default function page() {
           Advance Your Career with Our Packages
           </p>
         </div>
-        <div className="min-h-[70vh] grid place-content-center px-12">
+        {/* <div className="min-h-[70vh] grid place-content-center px-12"> */}
+        <div className="min-h-[70vh] w-full px-4 xl:px-12 pt-10">
             <Packages email=""/>
         </div>
       </section>
