@@ -12,7 +12,7 @@ if (!PAYSTACK_SECRET_KEY) {
 const paystackInstance = new Paystack(PAYSTACK_SECRET_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// console.log(paystackInstance);
+console.log("PAYSTACK INSTANCE",paystackInstance);
 
 export async function POST(request: Request) {
   try {
@@ -22,22 +22,25 @@ export async function POST(request: Request) {
       email: email,
       amount: String(amountInCents),
       plan: plan,
-      // callback_url: "http://localhost:3000/Customer",
       callback_url: `${PUBLIC_BASE_URL}/Customer`,
     });
-    const { data, error } = await resend.emails.send({
-      from: `info@beyondthesavannah.co.ke`,
-      to: [email],
-      subject: `Beyond The Savannah`,
-      react: WhatsAppsEmailTemplate({
-        firstName: firstName,
-        whatsAppExpiringLink: whatsAppExpiringLink
-      }),
-    });
-    if (error) {
-      return Response.json({ error }, { status: 500 });
+    
+    if(initialResponse?.status==true && amountInCents==150000){
+
+      const { data, error } = await resend.emails.send({
+        from: `info@beyondthesavannah.co.ke`,
+        to: [email],
+        subject: `Beyond The Savannah`,
+        react: WhatsAppsEmailTemplate({
+          firstName: firstName,
+          whatsAppExpiringLink: whatsAppExpiringLink
+        }),
+      });
+      if (error) {
+        return Response.json({ error }, { status: 500 });
+      }
+      console.log(data?.id);
     }
-    console.log(data?.id);
     // console.log(initialResponse);
 
     return Response.json({initialResponse});
