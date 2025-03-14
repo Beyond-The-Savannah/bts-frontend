@@ -6,6 +6,8 @@ import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "sonner";
 import { useUser } from "@clerk/nextjs";
+import { useState } from "react";
+// import { currentUser } from "@clerk/nextjs/server";
 
 export interface subScriptionProps {
   email: string;
@@ -19,22 +21,50 @@ export default function Packages({ email }: { email: string }) {
   const router = useRouter();
   const user = useUser();
   const userFirstName = user.user?.firstName as string;
-  // console.log(router);
+
 
   async function handlePurchasePackage(subscriptionOptions: subScriptionProps) {
+    const generateLink = async () => {
+      try {
+        const response = await fetch("/api/generate-expiration-link", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: user?.user?.id }),
+        });
+  
+        const data = await response.json();
+        if (response.ok) {
+          localStorage.setItem("expiringLink", data.expiringLink);
+          return data.expiringLink; 
+        } else {
+          console.error(data.error);
+          return null; 
+        }
+      } catch (error) {
+        console.error("Error generating expiration link:", error);
+        return null;
+      }
+    };
+  
     const handleSubscription = async () => {
       try {
+        const expiringLink = await generateLink(); 
+  
         const response = await axios.post(`/api/subscriptions`, {
           email: subscriptionOptions.email,
           amount: subscriptionOptions.amount,
           plan: subscriptionOptions.plan,
           name: subscriptionOptions.name,
           firstName: user.user?.firstName,
+          whatsAppExpiringLink: expiringLink, 
         });
+  
         const authorizationUrl =
           response.data?.initialResponse.data?.authorization_url;
         console.log("CREATE SUB RESPONSE->", response);
-
+  
         if (!authorizationUrl) {
           console.error("Authorization URL is missing!", response.data);
           return;
@@ -44,15 +74,18 @@ export default function Packages({ email }: { email: string }) {
         console.log(error);
       }
     };
+  
     toast.promise(handleSubscription, {
       loading: "Processing...",
       success: (data) => {
         router.push(data?.authorizationUrl);
-        return `Redirecting to paystack`;
+        return `Redirecting to Paystack`;
       },
       error: "Error, please try again later",
     });
   }
+  
+
   return (
     <>
       <div className="flex flex-wrap gap-4 items-center justify-evenly">

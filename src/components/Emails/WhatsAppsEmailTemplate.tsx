@@ -14,9 +14,10 @@ import {
 import { currentUser } from "@clerk/nextjs/server";
 
 export default async function WhatsAppsEmailTemplate({
-  firstName,
+  firstName, whatsAppExpiringLink
 }: {
   firstName: string;
+  whatsAppExpiringLink: string;
 }) {
 
   const user = await currentUser();
@@ -72,12 +73,12 @@ export default async function WhatsAppsEmailTemplate({
                 Click the link below to join our WhatsApp group and stay
                 connected:
               </Text>
-              <Button
+              <Link
                 style={button} 
-                href={expiringLink}
+                href={whatsAppExpiringLink}
               >
                 Whats Link
-              </Button>
+              </Link>
 
               <Text style={text}>
                 We can&apos;t wait to connect with you!
