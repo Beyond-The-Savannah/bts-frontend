@@ -12,7 +12,12 @@ export const simpleNavigationMenuItems = [
   {
     id: 3,
     title: "Find Jobs",
-    link: "/find-jobs",
+    link: "/find-job",
+  },
+  {
+    id: 4,
+    title: "Packages",
+    link: "/packages",
   },
 ];
 
