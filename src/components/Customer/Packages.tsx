@@ -87,11 +87,11 @@ export default function Packages({ email }: { email: string }) {
 
   return (
     <>
-      <div className="flex flex-wrap gap-x-2 gap-y-4 items-center justify-evenly pt-12">
+      <div className="flex flex-wrap lg:flex-nowrap gap-x-2 gap-y-4 items-center justify-evenly pt-12">
         {SubscriptionPackages.map((sub) => (
           <div
             key={sub.id}
-            className="min-h-96 w-64 border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
+            className="min-h-96 w-64 lg:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
           >
             <div className="flex flex-wrap gap-4 items-center  justify-evenly">
               <p className="font-semibold">{sub.packageName}</p>
