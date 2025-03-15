@@ -1,4 +1,4 @@
-import FindJobs from "@/components/findJobsPage/FindJobs";
+// import FindJobs from "@/components/findJobsPage/FindJobs";
 import PostHogClient from "@/lib/postHogServerPage";
 // import { Params, SearchParams } from "@/types/remoteJobsListing";
 import { Metadata } from "next";
@@ -28,8 +28,11 @@ export default async function JobsPage() {
     await posthog?.shutdown()
   return (
     <>
+    <section className="h-screen">
+
       {/* <FindJobs params={props.params} searchParams={props.searchParams} /> */}
-      <FindJobs  />
+      {/* <FindJobs  /> */}
+    </section>
     </>
   );
 }
