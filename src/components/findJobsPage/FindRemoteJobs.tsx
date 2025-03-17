@@ -90,7 +90,7 @@ export function FindRemoteJobs() {
           ))}
         </div>
         {remoteJobs && (
-          <div className="grid place-content-center">
+          <div className="grid place-content-center ">
             <div className=" max-w-5xl mx-auto mb-20 flex flex-wrap gap-2 items-center">
               <Button
                 variant="outline"
@@ -103,7 +103,7 @@ export function FindRemoteJobs() {
               >
                 previous
               </Button>
-              <ul className="flex flex-wrap gap-2 items-center">
+              <ul className="flex flex-wrap lg:flex-nowrap gap-2 items-center  overflow-x-auto  scrollbar-thin pb-3 mx-4  max-w-3xl">
                 {[
                   ...new Array(Math.ceil(remoteJobs.length / Number(per_page))),
                 ].map((_, index) => {
