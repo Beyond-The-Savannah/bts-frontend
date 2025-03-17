@@ -12,7 +12,7 @@ if (!PAYSTACK_SECRET_KEY) {
 const paystackInstance = new Paystack(PAYSTACK_SECRET_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-console.log("PAYSTACK INSTANCE",paystackInstance);
+// console.log("PAYSTACK INSTANCE",paystackInstance);
 
 export async function POST(request: Request) {
   try {

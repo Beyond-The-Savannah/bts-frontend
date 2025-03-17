@@ -17,7 +17,12 @@ import { SignedIn, UserButton } from "@clerk/nextjs";
 import { GetUserSubscriptionInformation } from "./UserSubscriptionInformation";
 const items = [
   {
-    title: "Home",
+    title: "Jobs",
+    url: "/Customer/find-jobs",
+    icon: FileStack,
+  },
+  {
+    title: "Subscription",
     url: "/Customer/",
     icon: FolderPlus,
   },
@@ -27,11 +32,6 @@ const items = [
   //   url: "/Customer/customerpage",
   //   icon: Building2,
   // },
-  {
-    title: "jobs",
-    url: "/Customer/find-jobs",
-    icon: FileStack,
-  },
 ];
 export default async function CustomerSideBar() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();

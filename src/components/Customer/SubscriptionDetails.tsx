@@ -66,7 +66,7 @@ export default async function SubscriptionDetails() {
           </p>
           <div className="min-h-[70vh] mt-20">
             <div className="flex flex-wrap lg:flex-nowrap gap-8 justify-evenly">
-              <div className="space-y-4 rounded-lg bg-slate-100 px-6 py-12 w-full lg:w-[32rem]">
+              <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 px-6 py-12 w-full lg:w-[32rem]">
                 <p className="font-semibold text-xl">Subscription details</p>
                 <p className="flex flex-col">
                   <span className="text-xs">Subscription Email Address: </span>
@@ -101,7 +101,7 @@ export default async function SubscriptionDetails() {
                   </span>
                 </p>
               </div>
-              <div className="space-y-4 rounded-lg bg-slate-100 pr-6 py-12 w-full lg:w-[32rem]">
+              <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 pr-6 py-12 w-full lg:w-[32rem]">
                 <p className="font-semibold text-xl px-9">Subscription guide</p>
                 {userSubscriptionInformation?.status == "non-renewing" ? (
                   <>
