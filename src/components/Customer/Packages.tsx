@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "sonner";
 import { useUser } from "@clerk/nextjs";
+import { Check, } from "lucide-react";
 // import { currentUser } from "@clerk/nextjs/server";
 
 export interface subScriptionProps {
@@ -103,7 +104,8 @@ export default function Packages({ email }: { email: string }) {
             <div>
               <div className="flex flex-col items-start min-h-40 gap-4  mt-1  px-4">
                 {sub.packageGoods.map((good, index) => (
-                  <ul key={index} className="list-disc">
+                  <ul key={index} className="flex gap-1 items-center text-sm">
+                    <Check className="size-4"/>
                     <li>{good}</li>
                   </ul>
                 ))}

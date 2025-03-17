@@ -30,7 +30,7 @@ export const SubscriptionPackages = [
     packageGoods: [
       "NewsLetter",
       "Curated Job Search Alerts",
-      "Umlimited Private Email Coaching",
+      "Unlimited Private Email Coaching",
     ],
     link: "/Customer",
   },
@@ -43,8 +43,8 @@ export const SubscriptionPackages = [
     packageGoods: [
       "NewsLetter",
       "Curated Job Search Alerts",
-      "Umlimited Private Email Coaching",
-      // "Access To A Community",
+      "Unlimited Private Email Coaching",
+      // "Access To A Whatsapp Community",
       "Access To A Job Search Accountability Partner",
     ],
     link: "/Customer",
