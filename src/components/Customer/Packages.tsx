@@ -99,6 +99,7 @@ export default function Packages({ email }: { email: string }) {
               <p className="font-semibold">
                 <span className="text-xs mr-1 ">KSH</span>
                 {sub.packagePrice}
+                <span className="font-normal"> / month</span>
               </p>
             </div>
             <div>
