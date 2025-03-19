@@ -3,6 +3,7 @@ export const SubscriptionPackages = [
     id: 1,
     packageName: "Basic",
     packagePrice: "450",
+    packageFigure:450,
     // packagePlanCode:"PLN_t75r4ruqwbnm67g",
     packagePlanCode: "PLN_w760t4s5krneblt",
     packageGoods: ["NewsLetter", "Curated Job Search Alerts"],
@@ -12,6 +13,7 @@ export const SubscriptionPackages = [
     id: 2,
     packageName: "Most Popular",
     packagePrice: "750",
+    packageFigure:750,
     // packagePlanCode:"PLN_c5f5wxnmq801g0n",
     packagePlanCode: "PLN_j90oifa99gcsgch",
     packageGoods: [
@@ -24,7 +26,8 @@ export const SubscriptionPackages = [
   {
     id: 3,
     packageName: "Advanced",
-    packagePrice: "1100",
+    packagePrice: "1,100",
+    packageFigure:1100,
     // packagePlanCode:"PLN_dfckl8ypbw5f67z",
     packagePlanCode: "PLN_hrl8wr3ugbxgzpf",
     packageGoods: [
@@ -37,7 +40,8 @@ export const SubscriptionPackages = [
   {
     id: 4,
     packageName: "Premium",
-    packagePrice: "1500",
+    packagePrice: "1,500",
+    packageFigure:1500,
     // packagePlanCode:"PLN_8hrdfu9sjb6fnkb",
     packagePlanCode: "PLN_bc18wio85ryfm5i",
     packageGoods: [
@@ -53,9 +57,78 @@ export const SubscriptionPackages = [
   //   id: 5,
   //   packageName: "Test 1",
   //   packagePrice: "300",
+  //   packageFigure:300,
   //   // packagePlanCode:"PLN_h8gh0augbsbo5zv",
   //   packagePlanCode:"PLN_h8gh0augbsbo5zv",
-  //   packageGoods: ["Testing purpses"],
+  //   packageGoods: ["Testing purposes"],
   //   link:"/Customer",
   // },
 ];
+
+export const AnualSubscriptionPackages=[
+  {
+    id: 1,
+    packageName: "Basic",
+    packagePrice: "5,400",
+    packageFigure:5400,
+    packagePlanCode:"PLN_ykdu7h1w83po8m7",
+    // packagePlanCode: "",
+    packageGoods: ["NewsLetter", "Curated Job Search Alerts"],
+    link: "/Customer",
+  },
+  {
+    id: 2,
+    packageName: "Most Popular",
+    packagePrice: "9,000",
+    packageFigure:9000,
+    packagePlanCode:"PLN_hifghlw9f0xki70",
+    // packagePlanCode: "",
+    packageGoods: [
+      "NewsLetter",
+      "Curated Job Search Alerts",
+      "Limited Private Email Coaching",
+    ],
+    link: "/Customer",
+  },
+  {
+    id: 3,
+    packageName: "Advanced",
+    packagePrice: "13,200",
+    packageFigure:13200,
+    packagePlanCode:"PLN_uvknfyy0suvh4n1",
+    // packagePlanCode: "",
+    packageGoods: [
+      "NewsLetter",
+      "Curated Job Search Alerts",
+      "Unlimited Private Email Coaching",
+    ],
+    link: "/Customer",
+  },
+  {
+    id: 4,
+    packageName: "Premium",
+    packagePrice: "18,000",
+    packageFigure:18000,
+    packagePlanCode:"PLN_ls6nq8avfnl8z11",
+    // packagePlanCode: "",
+    packageGoods: [
+      "NewsLetter",
+      "Curated Job Search Alerts",
+      "Unlimited Private Email Coaching",
+      // "Access To A Whatsapp Community",
+      "Access To A Job Search Accountability Partner",
+    ],
+    link: "/Customer",
+  },
+  // {
+  //   id: 5,
+  //   packageName: "Test 1",
+  //   packagePrice: "3,600",
+  //   packageFigure:3600,
+  //   packagePlanCode:"PLN_tjts2u0n8ibayrj",
+  //   // packagePlanCode:"PLN_h8gh0augbsbo5zv",
+  //   packageGoods: ["Testing purposes"],
+  //   link:"/Customer",
+  // },
+
+]
