@@ -1,9 +1,10 @@
 import WhatsAppsEmailTemplate from "@/components/Emails/WhatsAppsEmailTemplate";
+import { AddSubscriberEmailToMailerLite } from "@/lib/mailerLite";
 import { Paystack } from "paystack-sdk";
 import { Resend } from "resend";
 
 const PAYSTACK_SECRET_KEY = process.env.PAYSTACK__SECRET_KEY;
-const PUBLIC_BASE_URL=process.env.PUBLIC_BASE_URL
+const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 
 if (!PAYSTACK_SECRET_KEY) {
   throw new Error("Paystack API Key is missing.");
@@ -16,7 +17,8 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
-    const { email, amount, plan, firstName, whatsAppExpiringLink } = await request.json();
+    const { email, amount, plan, firstName, whatsAppExpiringLink } =
+      await request.json();
     const amountInCents = amount * 100;
     const initialResponse = await paystackInstance.transaction.initialize({
       email: email,
@@ -24,16 +26,15 @@ export async function POST(request: Request) {
       plan: plan,
       callback_url: `${PUBLIC_BASE_URL}/Customer`,
     });
-    
-    if(initialResponse?.status==true && amountInCents==150000){
 
+    if (initialResponse?.status == true && amountInCents == 150000) {
       const { data, error } = await resend.emails.send({
         from: `info@beyondthesavannah.co.ke`,
         to: [email],
         subject: `Beyond The Savannah`,
         react: WhatsAppsEmailTemplate({
           firstName: firstName,
-          whatsAppExpiringLink: whatsAppExpiringLink
+          whatsAppExpiringLink: whatsAppExpiringLink,
         }),
       });
       if (error) {
@@ -41,9 +42,14 @@ export async function POST(request: Request) {
       }
       console.log(data?.id);
     }
+    if (initialResponse?.status == true) {
+      await AddSubscriberEmailToMailerLite({
+        email
+      })
+    }
     // console.log(initialResponse);
 
-    return Response.json({initialResponse});
+    return Response.json({ initialResponse });
   } catch (error) {
     return Response.json({ error }, { status: 500 });
   }
