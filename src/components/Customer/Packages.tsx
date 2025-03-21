@@ -97,7 +97,7 @@ export default function Packages({ email }: { email: string }) {
     <>
     <div className="w-full flex items-center justify-end gap-1 ">
     Annual charges
-    <Switch checked={anual} onCheckedChange={()=>setAnual(!anual)} className="accent-emerald-400" disabled/>
+    <Switch checked={anual} onCheckedChange={()=>setAnual(!anual)} className="accent-emerald-400"/>
     </div>
       {anual ? (
         <>
@@ -117,7 +117,7 @@ export default function Packages({ email }: { email: string }) {
                   </p>
                 </div>
                 <div>
-                  <div className="flex flex-col items-start min-h-40 gap-4  mt-1  px-4">
+                  <div className="flex flex-col items-start min-h-40 gap-4  mt-1 ">
                     {sub.packageGoods.map((good, index) => (
                       <ul
                         key={index}
@@ -175,7 +175,7 @@ export default function Packages({ email }: { email: string }) {
                   </p>
                 </div>
                 <div>
-                  <div className="flex flex-col items-start min-h-40 gap-4  mt-1  px-">
+                  <div className="flex flex-col items-start min-h-40 gap-4  mt-1  ">
                     {sub.packageGoods.map((good, index) => (
                       <ul
                         key={index}
