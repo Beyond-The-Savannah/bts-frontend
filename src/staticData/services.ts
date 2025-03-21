@@ -186,6 +186,25 @@ export const servicesList = [
     price: 23000,
     priceString: "23,000",
   },
+  {
+    id: 10,
+    title: "Beyond the Savannah WhatsApp Community",
+    titleSlug: "beyond-the-savannah-whatsApp-community",
+    subheading: "",
+    img: "whatsapp_community_img_uwcvhd",
+    openGraphImg: "whatsapp_community_img_uwcvhd",
+    details:
+      "Struggling to navigate the tough job market? You're not alone. Join our exclusive paid WhatsApp community—a safe space for job seekers and professionals looking for support, motivation, and expert guidance on securing remote jobs. ",
+    benefits: [
+      "Encouragement & Accountability - Stay motivated with daily insights and success stories.",
+      "Networking & Community - Connect with like-minded professionals and expand your opportunities.",
+      "Q&A with Experts - Get answers to your job-related questions from seasoned professionals.",
+    ],
+    valueProposal:
+      "Don't struggle in silence— let's navigate this journey together! Ready to invest in your career success? ",
+    price: 6000,
+    priceString: "6,000",
+  },
 ];
 
 export const servicesCalendlyLinks = [

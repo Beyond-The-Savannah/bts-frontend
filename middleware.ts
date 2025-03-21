@@ -3,6 +3,7 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 const isPublicRoute = createRouteMatcher([
   "/Admin",
   "/Customer",
+  "/Customer/whatsappService",
   // '/(root)/(.*)',
   // '/sign-in(.*)',
   // '/sign-up(.*)',
