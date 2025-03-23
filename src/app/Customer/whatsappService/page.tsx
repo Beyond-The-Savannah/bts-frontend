@@ -3,13 +3,14 @@ import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscr
 import WhatsappSubscriptionService from "@/components/Customer/WhatsappSubscriptionService";
 import { currentUser } from "@clerk/nextjs/server";
 
-export type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+export type SearchParams = Promise<{
+  [key: string]: string | string[] | undefined;
+}>;
 
 export default async function page(props: { searchParams: SearchParams }) {
   const user = await currentUser();
   const userEmail = user?.emailAddresses[0].emailAddress as string;
   const searcHParams = await props.searchParams;
-  
 
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
 
@@ -17,29 +18,35 @@ export default async function page(props: { searchParams: SearchParams }) {
     <>
       {searcHParams.source == "whatsapp-service" ? (
         <>
-          {/* <p>{JSON.stringify(searcHParams)}</p>
-          <p>{searcHParams.source}</p>
-          <p className="text-3xl">WhatsApp Service Please</p> */}
-          <div className=" w-full xl:w-[75vw] space-y-6 mx-auto flex flex-col justify-center bg-purple-3000 py-10">
+          <div className=" w-full lg:w-[70vw] mx-auto overflow-y-hidden space-y-6 py-10 ">
             <div className="text-center space-y-6">
               <p className="text-2xl md:text-3xl font-semibold">
                 Beyond the Savannah WhatsApp Community{" "}
               </p>
-              <p className="c max-w-2xl mx-auto">
-                Struggling to navigate the tough job market? You&apos;re not
-                alone. Join our exclusive paid WhatsApp community—a safe space
-                for job seekers and professionals looking for support,
-                motivation, and expert guidance on securing remote jobs.
-              </p>
             </div>
             {userSubscriptionInformation == null ||
-            userSubscriptionInformation.status == "cancelled" ? (
-              <div className="max-w-lg mx-auto">
+            userSubscriptionInformation.status == "cancelled" ||
+            userSubscriptionInformation?.plan.amount != 600000 ? (
+              <div className=" space-y-4">
+                <p className=" max-w-2xl mx-auto">
+                  Struggling to navigate the tough job market? You&apos;re not
+                  alone. Join our exclusive paid WhatsApp community—a safe space
+                  for job seekers and professionals looking for support,
+                  motivation, and expert guidance on securing remote jobs.
+                </p>
+                <div className="max-w-sm mx-auto">
                 <WhatsappSubscriptionService email={userEmail} />
+                </div>
               </div>
             ) : (
-              <div className="max-w-4xl mx-auto">
-                <SubscriptionDetails  source={searcHParams.source}/>
+              <div className="max-w-4xl mx-auto px-4">
+                <SubscriptionDetails />
+                <div className="bg-bts-BrownOne rounded-md px-4 py-8 max-w-xl mx-auto xl:-mt-40">
+                  <p className=" text-center text-balance">
+                    Please check your Subscription Email Address, for an email
+                    containing the whatsapp community link{" "}
+                  </p>
+                </div>
               </div>
             )}
           </div>

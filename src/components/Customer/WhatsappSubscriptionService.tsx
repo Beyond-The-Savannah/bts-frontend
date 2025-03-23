@@ -82,7 +82,7 @@ export default function WhatsappSubscriptionService({email}:{email:string}) {
       {AnnualServicesPackages.map((sub) => (
         <div
           key={sub.id}
-          className="min-h-96 w-64 lg:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
+          className="min-h-96 w-64 lg:w-full mx-auto border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
         >
           {/* <div className="flex flex-wrap gap-4 items-center  justify-evenly"> */}
           <div className="flex flex-col gap-4 items-center justify-center text-center">

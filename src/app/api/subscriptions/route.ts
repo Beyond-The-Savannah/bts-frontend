@@ -20,11 +20,20 @@ export async function POST(request: Request) {
     const { email, amount, plan, firstName, whatsAppExpiringLink } =
       await request.json();
     const amountInCents = amount * 100;
+
+    let callback_url_value = "";
+
+    if (amountInCents == 600000) {
+      callback_url_value = `${PUBLIC_BASE_URL}/Customer/whatsappService?source=whatsapp-service`;
+    } else {
+      callback_url_value = `${PUBLIC_BASE_URL}/Customer`;
+    }
+
     const initialResponse = await paystackInstance.transaction.initialize({
       email: email,
       amount: String(amountInCents),
       plan: plan,
-      callback_url: `${PUBLIC_BASE_URL}/Customer`,
+      callback_url: callback_url_value,
     });
 
     if (initialResponse?.status == true && amountInCents == 150000) {
@@ -42,10 +51,27 @@ export async function POST(request: Request) {
       }
       console.log(data?.id);
     }
-    if (initialResponse?.status == true) {
+
+    if (initialResponse?.status == true && amountInCents == 600000) {
+      const { data, error } = await resend.emails.send({
+        from: `info@beyondthesavannah.co.ke`,
+        to: [email],
+        subject: `Beyond The Savannah`,
+        react: WhatsAppsEmailTemplate({
+          firstName: firstName,
+          whatsAppExpiringLink: "https://chat.whatsapp.com/LDHAh18I4kZ208gGig8jMV",
+        }),
+      });
+      if (error) {
+        return Response.json({ error }, { status: 500 });
+      }
+      console.log(data?.id);
+    }
+    
+    if (initialResponse?.status == true && amountInCents != 600000) {
       await AddSubscriberEmailToMailerLite({
-        email
-      })
+        email,
+      });
     }
     // console.log(initialResponse);
 

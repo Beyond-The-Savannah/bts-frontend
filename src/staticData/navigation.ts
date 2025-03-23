@@ -62,6 +62,10 @@ export const NonSimpleNavigationMenuItems = [
         title: "Remote Work Starter Bundle",
         link: "/service/remote-work-starter-bundle",
       },
+      {
+        title: "Beyond the Savannah WhatsApp Community",
+        link: "/service/beyond-the-savannah-whatsApp-community",
+      },
     ],
   },
 ];

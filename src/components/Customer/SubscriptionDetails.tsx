@@ -7,11 +7,7 @@ import { CircleAlert } from "lucide-react";
 
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 
-export default async function SubscriptionDetails({
-  source,
-}: {
-  source?: string;
-}) {
+export default async function SubscriptionDetails() {
   const user = await currentUser();
 
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
@@ -27,28 +23,21 @@ export default async function SubscriptionDetails({
     console.error("Subscription code is not defined.");
     return;
   }
-  // console.log("Subscription Code:", subscriptionCode);
+  // console.log("SUB DETAILS:", userSubscriptionInformation);
 
   async function handleManageSubscription() {
     "use server";
     let paystackManageUrl = "";
     try {
       const response = await fetch(
-        // `http://localhost:3000/api/manage-subscriptions?code=${subscriptionCode}`,
         `${PUBLIC_BASE_URL}/api/manage-subscriptions?code=${subscriptionCode}`,
         {
           method: "GET",
         }
       );
 
-      // if (!response.ok) {
-      //   throw new Error(`HTTP error! status: ${response.status}`);
-      // }
-
       const responseUrl = await response.json();
-      // console.log("MANAGE SUBS", responseUrl);
       paystackManageUrl = responseUrl;
-      // return redirect(paystackManageUrl);
     } catch (error) {
       console.error("Error managing subscription:", error);
     }
@@ -60,7 +49,6 @@ export default async function SubscriptionDetails({
   return (
     <>
       <section className="pt-4 pb-20">
-        {/* <div className="container mx-auto px-4"> */}
         <div className="w-full mx-auto px-4">
           <h2 className="text-xl">Hi {user?.firstName}</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
@@ -69,7 +57,7 @@ export default async function SubscriptionDetails({
             {/* Hi {user?.firstName} */}
           </p>
           <div className="min-h-[70vh] mt-20">
-            <div className="flex flex-wrap lg:flex-nowrap gap-8 justify-evenly">
+            <div className="flex flex-wrap xl:flex-nowrap gap-8 justify-evenly">
               <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 px-6 py-12 w-full lg:w-[32rem]">
                 <p className="font-semibold text-xl">Subscription details</p>
                 <p className="flex flex-col">
@@ -141,7 +129,9 @@ export default async function SubscriptionDetails({
                 </div>
               </div>
             </div>
-            {source !== "whatsapp-service" ? <CareerSelection /> : null}
+            {userSubscriptionInformation.plan.amount !== 600000 ? (
+              <CareerSelection />
+            ) : null}
           </div>
         </div>
       </section>
