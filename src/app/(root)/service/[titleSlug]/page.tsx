@@ -1,6 +1,6 @@
 import CheckoutForm from "@/components/CheckoutForm";
-// import CheckoutForm2 from "@/components/CheckoutForm2";
 import DisplayImageFromNextCloudinary from "@/components/DisplayImageFromNextCloudinary";
+import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerClose,
@@ -15,11 +15,12 @@ import PostHogClient from "@/lib/postHogServerPage";
 import { servicesList } from "@/staticData/services";
 import { ParamsProps } from "@/types/nextJSBasedParams";
 import { AlertCircle, CircleCheck } from "lucide-react";
-import { Metadata, } from "next";
+import { Metadata } from "next";
 import { getCldImageUrl } from "next-cloudinary";
+import { Link } from "next-view-transitions";
 
 export async function generateMetadata(
-  { params }: ParamsProps,
+  { params }: ParamsProps
   // parent: ResolvingMetadata
 ): Promise<Metadata> {
   const titleSlug = (await params).titleSlug;
@@ -30,7 +31,7 @@ export async function generateMetadata(
     src: `${metaSpecificService?.openGraphImg}`,
   });
   // const previousImage = (await parent).openGraph?.images || [];
-  
+
   return {
     title: `${metaSpecificService?.title} - Beyond The Savannah`,
     description: metaSpecificService?.details,
@@ -81,6 +82,11 @@ export default async function ServicePage({
               {" "}
               KES{" "}
               <span className="text-2xl">{specificService?.priceString}</span>
+              {serviceTitleSlug == "beyond-the-savannah-whatsApp-community" ? (
+                <>
+                  <span>/annually</span>
+                </>
+              ) : null}
             </p>
             <p className="text-2xl font-medium lg:text-xl w-full">
               {specificService?.subheading}
@@ -110,11 +116,7 @@ export default async function ServicePage({
             {specificService?.benefits.map((benefit, index) => (
               <div key={index} className="flex items-center gap-4 mb-8">
                 <span>
-                  <CircleCheck
-                    // className="text-green-400"
-                    className="text-bts-BrownFive"
-                    size={24}
-                  />
+                  <CircleCheck className="text-bts-BrownFive" size={24} />
                 </span>
                 <p className="text-base">{benefit}</p>
               </div>
@@ -132,36 +134,51 @@ export default async function ServicePage({
           </div>
           <div className="w-[85vw] md:w-[27vw]   space-y-4 ">
             <p className="text-base">{specificService?.valueProposal}</p>
+            {serviceTitleSlug == "beyond-the-savannah-whatsApp-community" ? (
+              <>
+                <Button
+                  asChild
+                  className="px-4 py-2 rounded-lg w-full text-white bg-bts-GreenOne hover:bg-green-700 hover:shadow-bts-BrownThree hover:shadow-md duration-700"
+                >
+                  <Link href={`/Customer/whatsappService?source=whatsapp-service`}>Get Service</Link>
+                </Button>
+              </>
+            ) : (
+              <>
+                <Drawer>
+                  <DrawerTrigger className="px-4 py-2 rounded-lg w-full text-white bg-bts-GreenOne hover:bg-green-700 hover:shadow-bts-BrownThree hover:shadow-md duration-700">
+                    Purchase
+                  </DrawerTrigger>
+                  <DrawerContent className="max-w-xl mx-auto">
+                    <DrawerHeader>
+                      <DrawerTitle>Checkout Session</DrawerTitle>
+                      <DrawerDescription>
+                        Please enter the following details, and choose your
+                        preffered payment method to complete the service
+                        purchase
+                      </DrawerDescription>
+                    </DrawerHeader>
+                    <div className=" max-w-md mx-auto py-4 px-8">
+                      {specificService?.price && (
+                        <CheckoutForm amount={specificService?.price} />
+                      )}
+                    </div>
+                    <DrawerFooter>
+                      <DrawerClose>
+                        <p>Close</p>
+                      </DrawerClose>
+                    </DrawerFooter>
+                  </DrawerContent>
+                </Drawer>
+              </>
+            )}
 
-            <Drawer>
-              <DrawerTrigger className="px-4 py-2 rounded-lg w-full text-white bg-bts-GreenOne hover:bg-green-700 hover:shadow-bts-BrownThree hover:shadow-md duration-700">
-                Purchase
-              </DrawerTrigger>
-              <DrawerContent className="max-w-xl mx-auto">
-                <DrawerHeader>
-                  <DrawerTitle>Checkout Session</DrawerTitle>
-                  <DrawerDescription>
-                    Please enter the following details, and choose your
-                    preffered payment method to complete the service purchase
-                  </DrawerDescription>
-                </DrawerHeader>
-                <div className=" max-w-md mx-auto py-4 px-8">
-                  {specificService?.price && (
-                    <CheckoutForm amount={specificService?.price} />
-                    // <CheckoutForm2 amount={specificService?.price} />
-                  )}
-                </div>
-                <DrawerFooter>
-                  <DrawerClose>
-                    <p>Close</p>
-                  </DrawerClose>
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
             <div className="c rounded-lg bg-amber-50 px-3 py-6 flex flex-col gap-4 items-start">
-              <AlertCircle className="size-4"/>
-              {/* <p className="text-xs">Please note, no refunds are made once a service is paid for</p> */}
-              <p className="text-xs">Please note that all payments for services are non-refundable once processed</p>
+              <AlertCircle className="size-4" />
+              <p className="text-xs">
+                Please note that all payments for services are non-refundable
+                once processed
+              </p>
             </div>
           </div>
         </div>

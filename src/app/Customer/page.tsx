@@ -8,7 +8,8 @@ export default async function CustomerDefaultPage() {
   return (
     <>
       {userSubscriptionInformation == null ||
-      userSubscriptionInformation?.status == "cancelled" ? (
+      userSubscriptionInformation?.status == "cancelled" ||
+      userSubscriptionInformation?.plan.amount == 600000 ? (
         <PackageOptionSection />
       ) : (
         <SubscriptionDetails />

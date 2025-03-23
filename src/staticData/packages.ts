@@ -132,3 +132,17 @@ export const AnualSubscriptionPackages=[
   // },
 
 ]
+
+export const AnnualServicesPackages=[
+  {
+
+  id: 1,
+  packageName: "Whatsapp Community",
+  packagePrice: "6,000",
+  packageFigure:6000,
+  // packagePlanCode:"PLN_oojfrfqovsuvbke",
+  packagePlanCode: "PLN_3uu6qivfxwr4vq1",
+  packageGoods: ["Encouragement & Accountability", "Networking & Community","Q&A with Experts -"],
+  link: "/Customer/whatsappService",
+},
+]

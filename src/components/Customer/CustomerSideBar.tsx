@@ -11,8 +11,6 @@ import {
 } from "../ui/sidebar";
 import { Link } from "next-view-transitions";
 import { SignedIn, UserButton } from "@clerk/nextjs";
-// import { SubscriptionProps } from "@/types/subscriptions";
-// import { currentUser } from "@clerk/nextjs/server";
 
 import { GetUserSubscriptionInformation } from "./UserSubscriptionInformation";
 const items = [
@@ -26,15 +24,17 @@ const items = [
     url: "/Customer/",
     icon: FolderPlus,
   },
-
-  // {
-  //   title: "Subscribtions",
-  //   url: "/Customer/customerpage",
-  //   icon: Building2,
-  // },
+];
+const items2 = [
+  {
+    title: "Whatsapp Subscription",
+    url: "/Customer/whatsappService?source=whatsapp-service",
+    icon: FolderPlus,
+  },
 ];
 export default async function CustomerSideBar() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
+  // console.log("USEINFO SIDEBAR", userSubscriptionInformation);
 
   return (
     <Sidebar>
@@ -43,12 +43,33 @@ export default async function CustomerSideBar() {
           <SidebarGroupLabel></SidebarGroupLabel>
           <SidebarGroupContent className="flex flex-col justify-between h-[90vh]">
             <SidebarMenu className="space-y-2">
-              {userSubscriptionInformation?.status == "active" ||
+              {/* userSubscriptionInformation?.status == "active" ||
               userSubscriptionInformation?.status == "attention" ||
-              userSubscriptionInformation?.status == "non-renewing" ? (
+              userSubscriptionInformation?.status == "non-renewing" ||   */}
+              {["active", "attention", "non-renewing"].includes(
+                userSubscriptionInformation?.status as string
+              ) &&
+              (userSubscriptionInformation?.plan?.name as string) !=
+                "whatsapp community Annually" ? (
                 <>
                   {" "}
                   {items.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <Link href={item.url}>
+                          <item.icon />
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </>
+              ) : null}
+              {(["active", "attention", "non-renewing"].includes(
+                userSubscriptionInformation?.status as string
+              ) && userSubscriptionInformation?.plan?.amount != 600000 )? (
+                <>
+                  {items2.map((item) => (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton asChild>
                         <Link href={item.url}>
