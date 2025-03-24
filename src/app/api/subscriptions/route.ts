@@ -1,5 +1,4 @@
 import WhatsAppsEmailTemplate from "@/components/Emails/WhatsAppsEmailTemplate";
-import { AddSubscriberEmailToMailerLite } from "@/lib/mailerLite";
 import { Paystack } from "paystack-sdk";
 import { Resend } from "resend";
 
@@ -68,12 +67,7 @@ export async function POST(request: Request) {
       console.log(data?.id);
     }
     
-    if (initialResponse?.status == true && amountInCents != 600000) {
-      await AddSubscriberEmailToMailerLite({
-        email,
-      });
-    }
-    // console.log(initialResponse);
+    
 
     return Response.json({ initialResponse });
   } catch (error) {
