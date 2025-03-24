@@ -49,8 +49,7 @@ export default async function CustomerSideBar() {
               {["active", "attention", "non-renewing"].includes(
                 userSubscriptionInformation?.status as string
               ) &&
-              (userSubscriptionInformation?.plan?.name as string) !=
-                "whatsapp community Annually" ? (
+              (userSubscriptionInformation?.plan?.amount !=600000) ? (
                 <>
                   {" "}
                   {items.map((item) => (
@@ -67,7 +66,7 @@ export default async function CustomerSideBar() {
               ) : null}
               {(["active", "attention", "non-renewing"].includes(
                 userSubscriptionInformation?.status as string
-              ) && userSubscriptionInformation?.plan?.amount != 600000 )? (
+              ) && userSubscriptionInformation?.plan?.amount == 600000 )? (
                 <>
                   {items2.map((item) => (
                     <SidebarMenuItem key={item.title}>
