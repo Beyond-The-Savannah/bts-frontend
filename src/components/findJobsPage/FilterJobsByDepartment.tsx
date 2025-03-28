@@ -28,7 +28,8 @@ export default function FilterJobsByDepartment({
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<number | null>(null);
   function handleClearFilter() {
-    router.push(`/find-jobs`);
+    // router.push(`/find-jobs`);
+    router.push(`/Customer/find-jobs`);
   }
   return (
     <>

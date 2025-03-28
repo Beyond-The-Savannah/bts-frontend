@@ -67,7 +67,7 @@ export  function FindJobs() {
         </div>
         {isLoading && <RemoteJobListingsLoadingUI />}
         {isError && <RemoteJobListingErrorUI />}
-        <div className="my-4 flex flex-wrap gap-2">
+        <div className="my-4 flex flex-wrap gap-2 pb-10">
           {remoteJobs && <FilterJobsByName remoteData={remoteJobs} />}
           {isLoading || jobDepartments && (
             <FilterJobsByDepartment remoteData={jobDepartments} />
@@ -101,7 +101,8 @@ export  function FindJobs() {
                   <p className="capitalize text-sm">{job.jobSubCategory}</p>
                 </div>
                 <div className="flex  justify-end w-full">
-                  <Link href={`view-job/${job.jobsId}`}>
+                  {/* <Link href={`view-job/${job.jobsId}`}> */}
+                  <Link href={`find-jobs/${job.jobsId}`}>
                     <Button
                       variant="outline"
                       size="sm"
