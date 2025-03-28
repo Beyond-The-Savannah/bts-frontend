@@ -11,8 +11,8 @@ export default async function SingleJobListingAdminPage(
     const jobsId = (await params).jobsId;
     
   return (
-    <>
+    <div className="-mt-36">
     <ViewJob jobsId={jobsId} />
-    </>
+    </div>
   )
 }

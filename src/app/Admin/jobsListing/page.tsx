@@ -12,6 +12,12 @@ import { toast } from "sonner";
 export default function JobsListingAdminPage() {
   const { data, isLoading, isError } = useGetRemoteListingJobsUsingTanstack();
 
+  const sortedJobsByDate=data?.sort((a,b)=> {return new Date(b.dateCreated).getTime()- new Date(a.dateCreated).getTime()})
+
+  // console.log("ADMIN JOB LISTING",data)
+  // console.log("ADMIN JOB LISTING BY DATE",sortedJobsByDate)
+
+
   function removeJobDetails(id: number) {
     const softDelteJobDetails = async () => {
       try {
@@ -44,7 +50,7 @@ export default function JobsListingAdminPage() {
         </div>
         <p className="flex justify-end text-xs mb-2">total jobs listed {data?.length}</p>
         <div className="flex flex-wrap lg:justify-center  mb-20 gap-8 md:gap-2 md:gap-y-8 lg:gap-8">
-          {data?.map((job, index) => (
+          {sortedJobsByDate?.map((job, index) => (
             <div
               key={index}
               className=" border-bts-BrownTwo/50 border-2 rounded-xl w-full md:w-[22rem] lg:w-5/12 bg-bts-BrownTwo/50 hover:shadow-bts-BrownFour hover:shadow-md hover:bg-bts-BrownFive/50 duration-700 px-8 py-4"
