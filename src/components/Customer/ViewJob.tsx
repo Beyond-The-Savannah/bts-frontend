@@ -38,7 +38,7 @@ export default function ViewJob({jobsId}:{jobsId:string}) {
       );
   return (
     <>
-     <section className="container mx-auto  min-h-screen pt-2 md:pt-4 px-4">
+     <section className="container mx-auto   min-h-screen pt-2 md:pt-4 px-4">
         <div className="">
           <h2 className="text-xl">Global Open Roles</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
@@ -50,7 +50,8 @@ export default function ViewJob({jobsId}:{jobsId:string}) {
         {isLoading && <SingleJobLoadingUI />}
         {isError && <SingleJobLoadingErrorUI />}
 
-        <div className="py-10 flex flex-row-reverse flex-wrap md:flex-nowrap justify-center w-full lg:w-[80vw] mx-auto  px-4 gap-4 lg:gap-x-24">
+        {/* <div className="py-10 flex flex-row-reverse flex-wrap md:flex-nowrap justify-center w-full lg:w-[80vw] mx-auto  px-4 gap-4 lg:gap-x-24"> */}
+        <div className="py-10 flex flex-row-reverse flex-wrap md:flex-nowrap justify-center w-full  mx-auto  px-4 gap-4 lg:gap-x-24">
           <div className="w-full ">
             {filteredRemoteJob && (
               <div className="  gap-4 rounded-lg py-4 px-8 mb-12">
@@ -150,7 +151,7 @@ export default function ViewJob({jobsId}:{jobsId:string}) {
                 ))}
               </>
             )}
-            <div className="space-y-4">
+            <div className="space-y-4 hidden">
               <p className="">
                 Share this remote job opportunity with your friends and
                 colleagues

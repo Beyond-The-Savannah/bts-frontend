@@ -29,7 +29,8 @@ export default function FilterJobsByName({
   const [value, setValue] = useState("");
 
   function handleClearFilter() {
-    router.push(`/find-jobs`);
+    // router.push(`/find-jobs`);
+    router.push(`/Customer/find-jobs`);
   }
 
   return (
