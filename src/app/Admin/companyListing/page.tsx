@@ -55,12 +55,12 @@ export default function CompanyListingAmdinPage() {
         </div>
 
         <p className="flex justify-end text-xs mb-2">total companies listed {data?.length}</p>
-        <ScrollArea className=" border space-y-4 px-4 pb-20 h-[80vh] w-full rounded-lg">
+        <ScrollArea className=" border space-y-4 px-4 pb-10 mb-10 h-[80vh] w-full rounded-lg">
           <div className=" space-y-4 flex flex-wrap gap-4 items-end ">
             {dataInDescendingOrder?.map((company) => (
               <div
                 key={company.id}
-                className="px-4 py-6 rounded-lg bg-bts-BrownTwo border border-bts-BrownThree w-full sm:w-[40vw] lg:w-[18vw] space-y-2 "
+                className="px-4 py-6 rounded-lg bg-bts-BrownTwo border border-bts-BrownThree w-full sm:w-[40vw] lg:w-[22.5vw] space-y-2 "
               >
                 <div className="flex flex-wrap lg:flex-nowrap gap-4 items-center">
                   {company.imageUrl !== "" && (
@@ -72,7 +72,7 @@ export default function CompanyListingAmdinPage() {
                       className="object-contain size-28 rounded-lg "
                     />
                   )}
-                  <p className="font-medium text-xl">{company.name}</p>
+                  <p className="font-semibold">{company.name}</p>
                 </div>
                 {/* <p className="text-sm">
                   <span className="text-xs">company ID: </span>
