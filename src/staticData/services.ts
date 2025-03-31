@@ -167,25 +167,25 @@ export const servicesList = [
     price: 3000,
     priceString: "3,000",
   },
-  {
-    id: 9,
-    title: "Remote Work Starter Bundle",
-    titleSlug: "remote-work-starter-bundle",
-    subheading: "CV + LinkedIn + Intro video.",
-    img: "international_womens_day_vhc0iz",
-    openGraphImg: "open-graph-international-women-day_jdlmb0",
-    details:
-      "Ready to start your remote working journey? Purchase our discounted starter bundle at Kshs. 23,000 or $230 instead of Kshs. 26,000 or $260. ",
-    benefits: [
-      "CV revamped to ATS friendly + a cover letter + 30 minutes consultation call",
-      "LinkedIn profile optimized + 15 minutes consultation call",
-      "Introductory video ",
-    ],
-    valueProposal:
-      "This discount is running the whole of March in honour of International women's day!",
-    price: 23000,
-    priceString: "23,000",
-  },
+  // {
+  //   id: 9,
+  //   title: "Remote Work Starter Bundle",
+  //   titleSlug: "remote-work-starter-bundle",
+  //   subheading: "CV + LinkedIn + Intro video.",
+  //   img: "international_womens_day_vhc0iz",
+  //   openGraphImg: "open-graph-international-women-day_jdlmb0",
+  //   details:
+  //     "Ready to start your remote working journey? Purchase our discounted starter bundle at Kshs. 23,000 or $230 instead of Kshs. 26,000 or $260. ",
+  //   benefits: [
+  //     "CV revamped to ATS friendly + a cover letter + 30 minutes consultation call",
+  //     "LinkedIn profile optimized + 15 minutes consultation call",
+  //     "Introductory video ",
+  //   ],
+  //   valueProposal:
+  //     "This discount is running the whole of March in honour of International women's day!",
+  //   price: 23000,
+  //   priceString: "23,000",
+  // },
   {
     id: 10,
     title: "Beyond the Savannah WhatsApp Community",
