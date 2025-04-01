@@ -58,10 +58,10 @@ export const NonSimpleNavigationMenuItems = [
         title: "Introductory Video",
         link: "/service/introductory-video",
       },
-      // {
-      //   title: "Remote Work Starter Bundle",
-      //   link: "/service/remote-work-starter-bundle",
-      // },
+      {
+        title: "Remote Work Starter Bundle",
+        link: "/service/remote-work-starter-bundle",
+      },
       {
         title: "Beyond the Savannah WhatsApp Community",
         link: "/service/beyond-the-savannah-whatsApp-community",

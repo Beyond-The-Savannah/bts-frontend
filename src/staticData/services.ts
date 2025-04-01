@@ -167,25 +167,26 @@ export const servicesList = [
     price: 3000,
     priceString: "3,000",
   },
-  // {
-  //   id: 9,
-  //   title: "Remote Work Starter Bundle",
-  //   titleSlug: "remote-work-starter-bundle",
-  //   subheading: "CV + LinkedIn + Intro video.",
-  //   img: "international_womens_day_vhc0iz",
-  //   openGraphImg: "open-graph-international-women-day_jdlmb0",
-  //   details:
-  //     "Ready to start your remote working journey? Purchase our discounted starter bundle at Kshs. 23,000 or $230 instead of Kshs. 26,000 or $260. ",
-  //   benefits: [
-  //     "CV revamped to ATS friendly + a cover letter + 30 minutes consultation call",
-  //     "LinkedIn profile optimized + 15 minutes consultation call",
-  //     "Introductory video ",
-  //   ],
-  //   valueProposal:
-  //     "This discount is running the whole of March in honour of International women's day!",
-  //   price: 23000,
-  //   priceString: "23,000",
-  // },
+  {
+    id: 9,
+    title: "Remote Work Starter Bundle",
+    titleSlug: "remote-work-starter-bundle",
+    subheading: "CV Revamp + LinkedIn Optimization + Introductory Video .",
+    img: "remote_work_w658yv",
+    openGraphImg: "remote_work_w658yv",
+    details:
+      // "Ready to start your remote working journey? Purchase our discounted starter bundle at Kshs. 23,000 or $230 instead of Kshs. 26,000 or $260. ",
+      "Breaking into remote work can be challenging, but we've got you covered! Our Remote Work Starter Bundle is designed to position you for success in the global job market",
+    benefits: [
+      "CV Revamp - A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation callCV Revamp – A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation call",
+      "LinkedIn Optimization - We'll transform your LinkedIn profile into a magnet for job opportunities, ensuring it ranks higher in recruiter searches + 15 minutes consultation call",
+      "Introductory Video - Pointers on how to make a polished video to introduce yourself professionally, making you memorable to potential employers.",
+    ],
+    valueProposal:
+      "With our Remote Work Starter Bundle, you'll gain the edge you need to succeed in today's worldwide job landscape.",
+    price: 26000,
+    priceString: "26,000",
+  },
   {
     id: 10,
     title: "Beyond the Savannah WhatsApp Community",

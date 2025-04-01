@@ -37,9 +37,9 @@ export default function ServicesSection() {
                     alt={service.title}
                     classname="object-cover w-full h-48 rounded-t-md"
                   />
-                  <div className="space-y-2 py-4 px-8">
+                  <div className="space-y-2 py-4 px-8 md:min-h-52">
                     <div className="flex gap-1 items-center justify-between">
-                      <p className="text-base  font-semibold text-bts-GreenOne">
+                      <p className="text-base  font-semibold text-bts-GreenOne text-balance">
                         {service.title}
                       </p>
                       <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 text-xs">
