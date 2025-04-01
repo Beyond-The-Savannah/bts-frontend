@@ -175,10 +175,9 @@ export const servicesList = [
     img: "remote_work_w658yv",
     openGraphImg: "remote_work_w658yv",
     details:
-      // "Ready to start your remote working journey? Purchase our discounted starter bundle at Kshs. 23,000 or $230 instead of Kshs. 26,000 or $260. ",
       "Breaking into remote work can be challenging, but we've got you covered! Our Remote Work Starter Bundle is designed to position you for success in the global job market",
     benefits: [
-      "CV Revamp - A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation callCV Revamp – A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation call",
+      "CV Revamp - A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation callCV Revamp ",
       "LinkedIn Optimization - We'll transform your LinkedIn profile into a magnet for job opportunities, ensuring it ranks higher in recruiter searches + 15 minutes consultation call",
       "Introductory Video - Pointers on how to make a polished video to introduce yourself professionally, making you memorable to potential employers.",
     ],
