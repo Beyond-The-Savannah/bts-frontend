@@ -78,7 +78,7 @@ export default async function ServicePage({
             <h1 className=" text-2xl xl:text-3xl lg:text-5xl  text-bts-GreenOne font-bold">
               {specificService?.title}
             </h1>
-            <p className="bg-amber-100 rounded-lg py-2 px-6 w-48 text">
+            <p className="bg-amber-100 rounded-lg py-2 px-6 w-4/12 text">
               {" "}
               KES{" "}
               <span className="text-2xl">{specificService?.priceString}</span>
