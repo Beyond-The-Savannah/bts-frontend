@@ -8,13 +8,15 @@ const PUBLIC_BASE_URL=process.env.PUBLIC_BASE_URL
   try {
     const user = await currentUser();
     const response = await fetch(`${PUBLIC_BASE_URL}/api/subscriptions`);
-    // const response = await fetch(`/api/subscriptions`);
+    if(!response.ok){
+      throw new Error(`HTTP error! status:${response.status}`)
+    }
     const allSubscriptionData = await response.json();
-    const userEmailAddress = user?.emailAddresses[0].emailAddress;
+    const userEmailAddress = user?.emailAddresses[0].emailAddress.toLowerCase();
   
     const userSubscriptionInformation: SubscriptionProps =
       allSubscriptionData.data.find(
-        (data: SubscriptionProps) => data.customer.email == userEmailAddress
+        (data: SubscriptionProps) => data.customer.email.toLowerCase() == userEmailAddress
       );
     // console.log("SUBINFO", userSubscriptionInformation);
     if(userSubscriptionInformation.status=='active' && userEmailAddress !=undefined){
