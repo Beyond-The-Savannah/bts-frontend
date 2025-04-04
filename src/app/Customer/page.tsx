@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import PackageOptionSection from "@/components/Customer/PackageOptionSection";
 import SubscriptionDetails from "@/components/Customer/SubscriptionDetails";
 import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
