@@ -12,7 +12,7 @@ export default async function CustomerDefaultPage() {
   // const isValidSubscription=["active", "attenttion", "non-renewing"].includes(userSubscriptionInformation?.status as string)
   const isValidSubscription = userSubscriptionInformation?.status
     ? ["active", "attention", "non-renewing", "completed"].includes(
-        userSubscriptionInformation?.status
+        userSubscriptionInformation?.status.toLocaleLowerCase()
       )
     : false;
 
