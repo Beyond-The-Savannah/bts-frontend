@@ -46,7 +46,7 @@ export default async function CustomerSideBar() {
               {/* userSubscriptionInformation?.status == "active" ||
               userSubscriptionInformation?.status == "attention" ||
               userSubscriptionInformation?.status == "non-renewing" ||   */}
-              {["active", "attention", "non-renewing"].includes(
+              {["active", "attention", "non-renewing","completed"].includes(
                 userSubscriptionInformation?.status as string
               ) &&
               (userSubscriptionInformation?.plan?.amount !=600000) ? (
@@ -64,7 +64,7 @@ export default async function CustomerSideBar() {
                   ))}
                 </>
               ) : null}
-              {(["active", "attention", "non-renewing"].includes(
+              {(["active", "attention", "non-renewing","completed"].includes(
                 userSubscriptionInformation?.status as string
               ) && userSubscriptionInformation?.plan?.amount == 600000 )? (
                 <>
