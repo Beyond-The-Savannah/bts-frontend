@@ -1,19 +1,16 @@
 import { AddSubscriberEmailToMailerLite } from "@/lib/mailerLite";
 import { SubscriptionProps } from "@/types/subscriptions";
 import { currentUser } from "@clerk/nextjs/server";
+import axios from "axios";
 
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 
 export async function GetUserSubscriptionInformation() {
   try {
     const user = await currentUser();
-    const response = await fetch(`${PUBLIC_BASE_URL}/api/subscriptions`, {
-      headers: { "Cache-Control": "no-cache" },
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! status:${response.status}`);
-    }
-    const allSubscriptionData = await response.json();
+    const response1= await axios.get(`${PUBLIC_BASE_URL}/api/subscriptions`)
+    // console.log("AXOIS CALL", response1.data)
+    const allSubscriptionData = response1.data
     const userEmailAddress = user?.emailAddresses[0].emailAddress.toLowerCase();
 
     const userSubscriptionInformation: SubscriptionProps =
@@ -21,7 +18,7 @@ export async function GetUserSubscriptionInformation() {
         (data: SubscriptionProps) =>
           data.customer.email.toLowerCase() == userEmailAddress
       );
-    // console.log("SUBINFO", userSubscriptionInformation);
+    console.log("SUBINFO", userSubscriptionInformation);
     if (
       userSubscriptionInformation.status == "active" &&
       userEmailAddress != undefined
