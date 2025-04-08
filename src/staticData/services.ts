@@ -177,7 +177,7 @@ export const servicesList = [
     details:
       "Breaking into remote work can be challenging, but we've got you covered! Our Remote Work Starter Bundle is designed to position you for success in the global job market",
     benefits: [
-      "CV Revamp - A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation callCV Revamp ",
+      "CV Revamp - A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation call CV Revamp ",
       "LinkedIn Optimization - We'll transform your LinkedIn profile into a magnet for job opportunities, ensuring it ranks higher in recruiter searches + 15 minutes consultation call",
       "Introductory Video - Pointers on how to make a polished video to introduce yourself professionally, making you memorable to potential employers.",
     ],
