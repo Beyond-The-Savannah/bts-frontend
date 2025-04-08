@@ -23,7 +23,9 @@ export default function FooterSection() {
               BEYOND THE SAVANNAH
             </p>
             <p className="text-xs xl:text-sm text-amber-100">
-              Seamless connections, soaring carrers, elevate yours with beyond
+              {/* Seamless connections, soaring carrers, elevate yours with beyond
+              the savannah! */}
+              Seamless connections, vbe carrers, elevate yours with beyond
               the savannah!
             </p>
             <Link href="/">
