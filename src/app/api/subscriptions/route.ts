@@ -75,10 +75,44 @@ export async function POST(request: Request) {
   }
 }
 
+// export async function GET() {
+//   try {
+//     const response = await paystackInstance.subscription.list();
+//     return Response.json(response);
+//   } catch (error) {
+//     return Response.json({ error }, { status: 500 });
+//   }
+// }
 export async function GET() {
   try {
-    const response = await paystackInstance.subscription.list();
-    return Response.json(response);
+    let allSubscriptions: unknown[] = [];
+    let currentPage = 1;
+    let totalPages = 1;
+
+    do {
+      const response = await paystackInstance.subscription.list({
+        page: currentPage,
+        perPage: 50,
+      });
+      if ("data" in response) {
+        allSubscriptions = [...allSubscriptions, ...response.data];
+        totalPages = response.meta.pageCount;
+      } else {
+        throw new Error("BadRequest received from Paystack API");
+      }
+      currentPage++;
+    } while (currentPage <= totalPages);
+    
+    // return Response.json(response);
+    return Response.json({
+      status: true,
+      message: "All subscriptions retrieved",
+      data: allSubscriptions,
+      meta: {
+        total: allSubscriptions.length,
+        pageCount: totalPages,
+      },
+    });
   } catch (error) {
     return Response.json({ error }, { status: 500 });
   }
