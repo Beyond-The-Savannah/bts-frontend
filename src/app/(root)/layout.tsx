@@ -6,6 +6,7 @@ import FooterSection from "@/components/FooterSection";
 // import { ViewTransitions } from "next-view-transitions";
 // import TanstackQueryProvider from "@/lib/tanstack";
 import { getCldOgImageUrl } from "next-cloudinary";
+import RemoteWorkStarterBundleDiscountAlert from "@/components/discounts/RemoteWorkStarterBundleDiscountAlert";
 // import { PostHogProvider } from "@/lib/postHogProvider";
 
 
@@ -47,6 +48,7 @@ export default function RootLayout({
       <ViewTransitions>
         <PostHogProvider> */}
           <NavigationSection />
+          <RemoteWorkStarterBundleDiscountAlert/>
           {children}
           <FooterSection />
         {/* </PostHogProvider>

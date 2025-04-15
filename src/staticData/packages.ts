@@ -53,16 +53,16 @@ export const SubscriptionPackages = [
     ],
     link: "/Customer",
   },
-  // {
-  //   id: 5,
-  //   packageName: "Test 1",
-  //   packagePrice: "300",
-  //   packageFigure:300,
-  //   // packagePlanCode:"PLN_h8gh0augbsbo5zv",
-  //   packagePlanCode:"PLN_h8gh0augbsbo5zv",
-  //   packageGoods: ["Testing purposes"],
-  //   link:"/Customer",
-  // },
+  {
+    id: 5,
+    packageName: "Test 1",
+    packagePrice: "300",
+    packageFigure:300,
+    packagePlanCode:"PLN_h8gh0augbsbo5zv",
+    // packagePlanCode:"PLN_h8gh0augbsbo5zv",
+    packageGoods: ["Testing purposes"],
+    link:"/Customer",
+  },
 ];
 
 export const AnualSubscriptionPackages=[
