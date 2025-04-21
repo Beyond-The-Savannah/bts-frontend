@@ -43,3 +43,17 @@ export async function GetUserSubscriptionInformation() {
     console.log("Error Getting userSubscriptionInformation", error);
   }
 }
+
+export async function GetAllSubscribedUsers(){
+  try {
+    const response= await axios.get(`${PUBLIC_BASE_URL}/api/subscriptions`)
+    // console.log("All Subscribed Users",response.data)
+    const allSubscribedUsers=response.data
+    return allSubscribedUsers
+    
+
+  } catch (error) {
+    console.log("Error Getting AllSubscribedUsers", error)
+  }
+}
+
