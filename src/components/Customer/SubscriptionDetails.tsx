@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import CareerSelection from "./CareerSelection";
 import { GetUserSubscriptionInformation } from "./UserSubscriptionInformation";
 import { CircleAlert } from "lucide-react";
+// import axios from "axios";
 
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 
@@ -23,7 +24,31 @@ export default async function SubscriptionDetails() {
     console.error("Subscription code is not defined.");
     return;
   }
-  // console.log("SUB DETAILS:", userSubscriptionInformation);
+  
+  // if (userSubscriptionInformation != undefined) {
+  //   try {
+  //     const responseBTSDataBase = await axios.post(
+  //       `https://efmsapi-staging.azurewebsites.net/api/BydUsers/addUser`,
+  //       {
+  //         // id:userSubscriptionInformation.id,
+  //         status: userSubscriptionInformation.status,
+  //         subscriptionPlan: userSubscriptionInformation.plan.name,
+  //         career: 0,
+  //         email: userSubscriptionInformation.customer.email,
+  //         password: "none",
+  //         firstName: userSubscriptionInformation.customer.first_name,
+  //         lastName: userSubscriptionInformation.customer.last_name,
+  //         phoneNumber: userSubscriptionInformation.customer.phone,
+  //         isActive: false,
+  //         isDeleted: false,
+  //       }
+  //     );
+
+  //     console.log("ADDING USER TO BTS_DB", responseBTSDataBase.data);
+  //   } catch (error) {
+  //     console.log("Error Adding User to BTS_DB", error);
+  //   }
+  // }
 
   async function handleManageSubscription() {
     "use server";
