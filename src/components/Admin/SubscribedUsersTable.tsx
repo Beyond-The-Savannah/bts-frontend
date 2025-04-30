@@ -1,3 +1,4 @@
+import { UsersBTSDataBaseProp } from "@/types/subscribedUsers";
 import {
   Table,
   TableBody,
@@ -8,19 +9,7 @@ import {
 } from "../ui/table";
 import axios from "axios";
 
-interface UsersBTSDataBaseProp {
-  id: number;
-  status: string;
-  subscriptionPlan: string;
-  career: number | string;
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  isActive: boolean;
-  isDeleted: boolean;
-}
+
 
 export default async function SubscribedUsersTable() {
   const resp1 = await axios.get(
@@ -49,7 +38,7 @@ export default async function SubscribedUsersTable() {
               <TableRow key={user.id}>
                 <TableCell>{user.firstName}</TableCell>
                 <TableCell>{user.lastName}</TableCell>
-                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.emailAddress}</TableCell>
                 <TableCell>{user.phoneNumber}</TableCell>
                 <TableCell>{user.subscriptionPlan}</TableCell>
                 <TableCell>{user.status}</TableCell>
