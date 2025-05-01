@@ -32,6 +32,13 @@ const items2 = [
     icon: FolderPlus,
   },
 ];
+const items3 = [
+  {
+    title: "Kazina Assisant",
+    url: "/Customer/KazinaAIChat",
+    icon: FolderPlus,
+  },
+];
 export default async function CustomerSideBar() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
   // console.log("USEINFO SIDEBAR", userSubscriptionInformation);
@@ -80,6 +87,17 @@ export default async function CustomerSideBar() {
                   ))}
                 </>
               ) : null}
+              <>
+                {items3.map((item)=>(
+                  <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <Link href={item.url}>
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </>
             </SidebarMenu>
             <SidebarMenu>
               <SignedIn>
