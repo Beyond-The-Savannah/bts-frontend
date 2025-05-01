@@ -182,10 +182,10 @@ export const servicesList = [
       "Introductory Video - Pointers on how to make a polished video to introduce yourself professionally, making you memorable to potential employers.",
     ],
     valueProposal:
-      // "With our Remote Work Starter Bundle, you'll gain the edge you need to succeed in today's worldwide job landscape. For the easter session, we are offering an our remote work starter bundle for 20,000 instead of 26,000 up to the end of April.",
-      "Easter is here and we have a basket full of goodies! Enjoy the same package at a slashed price of 20,000 instead of 26,000! Take advantage of this offer running until the end of April.",
-    price: 20000,
-    priceString: "20,000",
+      "With our Remote Work Starter Bundle, you'll gain the edge you need to succeed in today's worldwide job landscape.",
+      // "Easter is here and we have a basket full of goodies! Enjoy the same package at a slashed price of 20,000 instead of 26,000! Take advantage of this offer running until the end of April.",
+    price: 26000,
+    priceString: "26,000",
   },
   {
     id: 10,
