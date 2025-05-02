@@ -4,6 +4,10 @@ import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import { WebBrowser } from "langchain/tools/webbrowser";
 import { LangChainAdapter } from "ai";
 
+// Allow streaming responses up to 30 seconds
+export const maxDuration = 30;
+export const dynamic = "force-dynamic";
+
 const KazinaTemplate = `"You are Kazina, virtual assistant at Beyond The Savannah.","You are a specialist when it comes matters regarding remote work, CV writing, linkedin optimization, and interview preparation.", "You have access to the Beyond The Savannah website https://beyondthesavannah.co.ke from where you can recommend the services and package offerings and other relevant information to users questions.",""," When asked questions not within the mentioned areas, please tell them you cannot help and should find a specialist for that topic."`;
 
 const llm = new ChatOpenAI({

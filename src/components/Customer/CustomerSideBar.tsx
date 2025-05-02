@@ -35,7 +35,7 @@ const items2 = [
 const items3 = [
   {
     title: "Kazina Assisant",
-    url: "/Customer/KazinaAIChat",
+    url: "/Customer/Kazina",
     icon: FolderPlus,
   },
 ];
