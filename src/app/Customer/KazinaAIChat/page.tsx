@@ -5,7 +5,7 @@ import React from "react";
 export default function page() {
   return (
     <>
-      <section className="pt-4 pb-20">
+      <section className="pt-4 px-4 pb-20">
         <div className="">
           <div className="flex items-center gap-1">
             {/* <h2 className="text-xl">Hi, Am Kazina &#128105; &#128075; </h2> */}
@@ -19,7 +19,7 @@ export default function page() {
             />
           </div>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
+          <p className="capitalize text-xl md:text-3xl font-bold text-bts-GreenOne mt-2">
             You remote work assisant
           </p>
         </div>

@@ -2,10 +2,13 @@
 
 import { useChat } from "@ai-sdk/react";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import ReactMarkDown from "react-markdown";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
+import { useEffect, useRef } from "react";
+import { Textarea } from "../ui/textarea";
 
 export default function KazinaChatUi() {
+  const chatContainer = useRef<HTMLDivElement>(null);
   const {
     messages,
     input,
@@ -18,27 +21,37 @@ export default function KazinaChatUi() {
   } = useChat({
     api: "/api/chat",
   });
+
+  useEffect(() => {
+    const chatDiv = chatContainer.current;
+    if (chatDiv) {
+      chatDiv.scrollTop = chatDiv.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <>
       <section className="h-full mt-10">
-        <div className=" w-[75vw] mx-auto flex flex-col justify-between items-center gap-4 bg- rounded-lg px-4 py-10">
-          <div className="w-10/12 h-[60vh] overflow-y-scroll bg-slate-500/30 rounded-lg px-4 py-8">
+        <div className="w-full lg:w-[75vw] mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-4 py-10">
+          <div
+            className="w-full lg:w-10/12 h-[50dvh] md:h-[60vh] overflow-y-auto bg-slate-500/3000 rounded-lg px-4 py-8"
+            ref={chatContainer}
+          >
             {messages.length > 0 ? (
               <>
                 {/* show kazina messages  */}
                 {messages.map((message) => (
                   <div
                     key={message.id}
-                    className="flex items-start gap-2 bg-stone-100 rounded-lg px-4 py-1 mb-4"
+                    className="flex items-start gap-2 bg-stone-100 rounded-lg px-1 md:px-4 py-1 mb-4"
                   >
                     <span className="text-xs rounded-lg bg-stone-200 px-4">
-                      {/* {message.role === "user" ? "you" : (<><p>&#128105;</p></>)} */}
                       {message.role === "user" ? (
-                        <div className="w-10 h-10 grid place-content-center text-center">
+                        <div className="w-5 md:w-10 h-5 md:h-10 grid place-content-center text-center">
                           you
                         </div>
                       ) : (
-                        <div className="w-10">
+                        <div className="w-5 md:w-10">
                           <DisplayImageFromNextCloudinary
                             src="kazina_upvlpf"
                             height={400}
@@ -49,24 +62,27 @@ export default function KazinaChatUi() {
                         </div>
                       )}
                     </span>
-                    <p className="text-sm leading-7">{message.content}</p>
+                    {/* <p className="text-sm leading-7">{message.content}</p> */}
+                    <div className="prose-sm">
+                      <ReactMarkDown>{message.content}</ReactMarkDown>
+                    </div>
                   </div>
                 ))}
               </>
             ) : (
               // show the default message to user about kazina when no message exist
               <>
-                <div className="bg-slate-300 px-4 py-8 rounded-lg">
-                  <p className="leading-8">
+                <div className="bg-slate-300 px-2 md:px-4 py-1 md:py-8 rounded-lg">
+                  <p className="text-sm text-center text-balance leading-7">
                     Ask any question you might have in regards to remote work
-                    and Beyond The Savannah website
+                    and Beyond The Savannah.
                   </p>
                 </div>
               </>
             )}
             {/* provide processing user input and provide means to interupt kazina response */}
             {(status === "submitted" || status === "streaming") && (
-              <div>
+              <div className="flex items-center gap-2">
                 {status == "submitted" && <p>processing...</p>}
                 <Button variant="outline" type="button" onClick={() => stop()}>
                   Stop
@@ -89,16 +105,19 @@ export default function KazinaChatUi() {
               </>
             )}
           </div>
-          <div className="w-8/12 mx-auto border border-stone-400 px-4 py-12 rounded-lg ">
+          <div className="w-full lg:w-8/12 mx-auto border border-stone-400 px-4 py-12 rounded-lg ">
             <form onSubmit={handleSubmit}>
-              <div className="flex justify-evenly items-center gap-2">
-                <Input
+              <div className="flex flex-wrap md:flex-nowrap justify-end md:justify-evenly items-center gap-2">
+                <Textarea
                   name="prompt"
                   value={input}
-                  placeholder="Ask me a question"
+                  placeholder="Type your question here."
                   onChange={handleInputChange}
                 />
-                <Button type="submit" className="">
+                <Button
+                  type="submit"
+                  className="bg-bts-BrownOne text-black hover:bg-bts-BrownFour hover:text-slate-100 hover:scale-105"
+                >
                   Submit
                 </Button>
               </div>
