@@ -1,0 +1,30 @@
+import KazinaChatUi from "@/components/Customer/KazinaChatUi";
+import DisplayImageFromNextCloudinary from "@/components/DisplayImageFromNextCloudinary";
+import React from "react";
+
+export default function page() {
+  return (
+    <>
+      <section className="pt-4 px-4 pb-20">
+        <div className="">
+          <div className="flex items-center gap-1">
+            {/* <h2 className="text-xl">Hi, Am Kazina &#128105; &#128075; </h2> */}
+            <h2 className="text-xl">Hi, Am Kazina </h2>
+            <DisplayImageFromNextCloudinary
+              src="kazina_upvlpf"
+              height={400}
+              width={400}
+              alt="kazina beyond the savannah ai assisant"
+              classname="object-contain size-12"
+            />
+          </div>
+          <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
+          <p className="capitalize text-xl md:text-3xl font-bold text-bts-GreenOne mt-2">
+            You remote work assisant
+          </p>
+        </div>
+        <KazinaChatUi />
+      </section>
+    </>
+  );
+}
