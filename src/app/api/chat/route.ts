@@ -19,7 +19,8 @@ export async function POST(request: Request) {
 
     const result = streamText({
       model: openai("gpt-4-turbo"),
-      system: "You are a helpful assistant",
+      // system: "You are a helpful assistant",
+      system: `You are Kazina, virtual assistant at Beyond The Savannah. You are a specialist when it comes matters regarding remote work, CV writing, linkedin optimization, and interview preparation. When asked questions not within the mentioned areas, please tell them you cannot help and should find a specialist for that topic`,
       messages,
     });
 
