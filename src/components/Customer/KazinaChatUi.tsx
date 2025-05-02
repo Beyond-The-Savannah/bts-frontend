@@ -19,7 +19,8 @@ export default function KazinaChatUi() {
     reload,
     handleSubmit,
   } = useChat({
-    api: "/api/chat",
+    // api: "/api/chat",
+    api: "/api/chat-with-lang-chain",
   });
 
   useEffect(() => {
@@ -72,7 +73,7 @@ export default function KazinaChatUi() {
             ) : (
               // show the default message to user about kazina when no message exist
               <>
-                <div className="bg-slate-300 px-2 md:px-4 py-1 md:py-8 rounded-lg">
+                <div className="bg-slate-50 px-2 md:px-4 py-1 md:py-8 rounded-lg">
                   <p className="text-sm text-center text-balance leading-7">
                     Ask any question you might have in regards to remote work
                     and Beyond The Savannah.
@@ -82,7 +83,7 @@ export default function KazinaChatUi() {
             )}
             {/* provide processing user input and provide means to interupt kazina response */}
             {(status === "submitted" || status === "streaming") && (
-              <div className="flex items-center gap-2">
+              <div className=" flex items-center gap-2 px-4">
                 {status == "submitted" && <p>processing...</p>}
                 <Button variant="outline" type="button" onClick={() => stop()}>
                   Stop
@@ -92,16 +93,17 @@ export default function KazinaChatUi() {
             {/* handle errors when they occur  */}
             {error && (
               <>
-                <div className=" bg-red-200 rounded-lg px-4 text-sm">
-                  An error occured
-                </div>
+                <div className=" max-w-lg mx-auto flex justify-between items-center gap-2 bg-red-200 rounded-lg px-4 py-1 text-xs">
+                 <p> An error occured</p>
                 <Button
                   variant="outline"
                   type="button"
+                  className="text-sm"
                   onClick={() => reload()}
                 >
                   Retry
                 </Button>
+                </div>
               </>
             )}
           </div>
