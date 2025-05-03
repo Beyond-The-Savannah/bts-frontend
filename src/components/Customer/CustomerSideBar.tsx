@@ -1,4 +1,4 @@
-import { FileStack, FolderPlus } from "lucide-react";
+import { FileStack, FolderPlus, MessagesSquare } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -36,7 +36,7 @@ const items3 = [
   {
     title: "Kazina Assisant",
     url: "/Customer/Kazina",
-    icon: FolderPlus,
+    icon: MessagesSquare,
   },
 ];
 export default async function CustomerSideBar() {
@@ -53,10 +53,9 @@ export default async function CustomerSideBar() {
               {/* userSubscriptionInformation?.status == "active" ||
               userSubscriptionInformation?.status == "attention" ||
               userSubscriptionInformation?.status == "non-renewing" ||   */}
-              {["active", "attention", "non-renewing","completed"].includes(
+              {["active", "attention", "non-renewing", "completed"].includes(
                 userSubscriptionInformation?.status as string
-              ) &&
-              (userSubscriptionInformation?.plan?.amount !=600000) ? (
+              ) && userSubscriptionInformation?.plan?.amount != 600000 ? (
                 <>
                   {" "}
                   {items.map((item) => (
@@ -71,9 +70,9 @@ export default async function CustomerSideBar() {
                   ))}
                 </>
               ) : null}
-              {(["active", "attention", "non-renewing","completed"].includes(
+              {["active", "attention", "non-renewing", "completed"].includes(
                 userSubscriptionInformation?.status as string
-              ) && userSubscriptionInformation?.plan?.amount == 600000 )? (
+              ) && userSubscriptionInformation?.plan?.amount == 600000 ? (
                 <>
                   {items2.map((item) => (
                     <SidebarMenuItem key={item.title}>
@@ -88,13 +87,14 @@ export default async function CustomerSideBar() {
                 </>
               ) : null}
               <>
-                {items3.map((item)=>(
+                {items3.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton asChild>
-                        <Link href={item.url}>
-                          <span>{item.title}</span>
-                        </Link>
-                      </SidebarMenuButton>
+                    <SidebarMenuButton asChild>
+                      <Link href={item.url}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
               </>
