@@ -33,9 +33,9 @@ export default function KazinaChatUi() {
   return (
     <>
       <section className="h-full mt-10">
-        <div className="w-full lg:w-[75vw] mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-4 py-10">
+        <div className="w-full lg:w-[70vw] mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-4 py-10">
           <div
-            className="w-full lg:w-10/12 h-[50dvh] md:h-[50dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-4 py-8"
+            className="w-full lg:w-10/12 h-[55dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-4 py-8"
             ref={chatContainer}
           >
             {messages.length > 0 ? (
