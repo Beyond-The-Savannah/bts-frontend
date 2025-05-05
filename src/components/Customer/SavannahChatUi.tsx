@@ -33,7 +33,7 @@ export default function SavannahChatUi() {
   return (
     <>
       <section className="h-full mt-10">
-        <div className="w-full lg:w-[70vw] mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-4 py-10">
+        <div className="w-full lg:w-[70vw] mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-1 md:px-4 py-10">
           <div
             className="w-full lg:w-10/12 h-[55dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-4 py-8"
             ref={chatContainer}
@@ -44,9 +44,9 @@ export default function SavannahChatUi() {
                 {messages.map((message) => (
                   <div
                     key={message.id}
-                    className="flex items-start gap-2 bg-stone-100 rounded-lg px-1 md:px-4 py-1 mb-4"
+                    className="flex flex-wrap md:flex-nowrap items-start gap-2 bg-stone-100 rounded-lg px-2 md:px-3 py-4 mb-4"
                   >
-                    <span className="text-xs rounded-lg bg-stone-200 px-4">
+                    <span className="text-xs rounded-lg bg-stone-200 px-1">
                       {message.role === "user" ? (
                         <div className="w-5 md:w-10 h-5 md:h-10 grid place-content-center text-center">
                           you

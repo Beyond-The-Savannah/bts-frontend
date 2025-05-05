@@ -9,7 +9,7 @@ export default function page() {
         <div className="">
           <div className="flex items-center gap-1">
             {/* <h2 className="text-xl">Hi, Am Kazina &#128105; &#128075; </h2> */}
-            <h2 className="text-xl">Hi, Am Savannah </h2>
+            <h2 className="text-xl">Hi, I&apos;Am Savannah </h2>
             <DisplayImageFromNextCloudinary
               src="kazina_upvlpf"
               height={400}
