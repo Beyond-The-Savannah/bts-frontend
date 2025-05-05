@@ -1,4 +1,4 @@
-import { Briefcase, Building2, FolderPlus, Layers, Layers2 } from "lucide-react";
+import { Briefcase, Building2, FolderPlus, Layers, Layers2, Users } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -38,6 +38,11 @@ const items = [
     title: "Job Sub-Categories",
     url: "/Admin/jobsSubCategoryListing",
     icon: Layers,
+  },
+  {
+    title: "Subscribed Users",
+    url: "/Admin/subscribedUsers",
+    icon: Users,
   },
 ];
 
