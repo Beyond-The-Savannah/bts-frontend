@@ -1,4 +1,4 @@
-import KazinaChatUi from "@/components/Customer/KazinaChatUi";
+import SavannahChatUi from "@/components/Customer/SavannahChatUi";
 import DisplayImageFromNextCloudinary from "@/components/DisplayImageFromNextCloudinary";
 import React from "react";
 
@@ -9,7 +9,7 @@ export default function page() {
         <div className="">
           <div className="flex items-center gap-1">
             {/* <h2 className="text-xl">Hi, Am Kazina &#128105; &#128075; </h2> */}
-            <h2 className="text-xl">Hi, Am Kazina </h2>
+            <h2 className="text-xl">Hi, Am Savannah </h2>
             <DisplayImageFromNextCloudinary
               src="kazina_upvlpf"
               height={400}
@@ -23,7 +23,8 @@ export default function page() {
             Your remote work assistant
           </p>
         </div>
-        <KazinaChatUi />
+
+        <SavannahChatUi />
       </section>
     </>
   );

@@ -34,8 +34,8 @@ const items2 = [
 ];
 const items3 = [
   {
-    title: "Kazina Assistant",
-    url: "/Customer/Kazina",
+    title: "Savannah Assistant",
+    url: "/Customer/Savannah",
     icon: MessagesSquare,
   },
 ];

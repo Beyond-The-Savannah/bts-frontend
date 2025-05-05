@@ -7,7 +7,7 @@ import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import { useEffect, useRef } from "react";
 import { Textarea } from "../ui/textarea";
 
-export default function KazinaChatUi() {
+export default function SavannahChatUi() {
   const chatContainer = useRef<HTMLDivElement>(null);
   const {
     messages,
