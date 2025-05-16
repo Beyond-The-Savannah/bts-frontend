@@ -1,4 +1,4 @@
-import { FileStack, FolderPlus, MessagesSquare } from "lucide-react";
+import { FileStack, FolderPlus, MessagesSquare, Server } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -33,6 +33,11 @@ const items2 = [
   },
 ];
 const items3 = [
+  {
+    title: "Services",
+    url: "/#services",
+    icon: Server,
+  },
   {
     title: "Savannah Assistant",
     url: "/Customer/Savannah",
