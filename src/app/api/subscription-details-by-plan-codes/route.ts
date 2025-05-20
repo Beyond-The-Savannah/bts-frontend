@@ -1,6 +1,11 @@
 import { Paystack } from "paystack-sdk"
 
-const paystackInstance=new Paystack("sk_live_9bceb82eb76399c6f2f20b74b4418f73f6501fa2")
+const PAYSTACK_SECRET_KEY = process.env.PAYSTACK__SECRET_KEY;
+
+if (!PAYSTACK_SECRET_KEY) {
+  throw new Error("Paystack API Key is missing.");
+}
+const paystackInstance=new Paystack(PAYSTACK_SECRET_KEY)
 
 export async function GET(){
 try {

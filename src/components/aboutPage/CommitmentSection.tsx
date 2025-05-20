@@ -22,7 +22,7 @@ export default function CommitmentSection() {
             </p>
           </div>
           <div className="col-span-12 md:col-start-2 lg:col-span-3 md:col-end-10 lg:col-end-12">
-            <Link href="/find-jobs">
+            <Link href="/find-job">
               <Button
                 size="lg"
                 className="text-base border-bts-BrownThree bg-bts-BrownThree text-black hover:bg-bts-BrownFour hover:text-white hover:scale-105 transition duration-500"
