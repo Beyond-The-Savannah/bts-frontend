@@ -113,6 +113,7 @@ export async function GET() {
         pageCount: totalPages,
       },
     });
+    
   } catch (error) {
     return Response.json({ error }, { status: 500 });
   }
