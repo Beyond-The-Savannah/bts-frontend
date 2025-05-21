@@ -141,7 +141,8 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="w-[70dvw] flex justify-between items-center py-4">
+      {/* pagination  */}
+      <div className="w-[70dvw] flex justify-between gap-4 items-center py-4">
         <Button
           variant="outline"
           size="sm"
@@ -150,6 +151,21 @@ export function DataTable<TData, TValue>({
         >
           Previous
         </Button>
+        <div className="bg-bts-BrownThreee rounded-lg px-4 py-1 flex gap-2 max-w-2xl mx-auto overflow-y-auto">
+          {Array.from({length:table.getPageCount()}).map((_,index)=>{
+            const isActive=table.getState().pagination.pageIndex===index
+            return(
+              <Button
+              key={index}
+              variant={isActive? "default":"outline"}
+              size="sm"
+              onClick={()=>table.setPageIndex(index)}
+              >
+                {index+1}
+              </Button>
+            )
+          })}
+        </div>
         <Button
           variant="outline"
           size="sm"
