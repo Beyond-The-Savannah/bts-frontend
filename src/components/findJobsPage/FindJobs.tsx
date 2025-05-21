@@ -119,7 +119,8 @@ export  function FindJobs() {
         </div>
         {remoteJobs && (
           <div className="grid place-content-center">
-            <div className=" mb-20 flex flex-wrap gap-2 items-center">
+            {/* <div className=" mb-20 flex flex-wrap gap-2 items-center"> */}
+            <div className=" mb-20 flex justify-between gap-4 px-4 ">
               <Button
                 variant="outline"
                 onClick={() => {
@@ -131,7 +132,7 @@ export  function FindJobs() {
               >
                 previous
               </Button>
-              <ul className="flex flex-wrap gap-2 items-center">
+              <ul className="flex  gap-4 items-center max-w-2xl mx-auto py-1 overflow-y-hidden">
                 {[
                   ...new Array(Math.ceil(remoteJobs.length / Number(per_page))),
                 ].map((_, index) => {
