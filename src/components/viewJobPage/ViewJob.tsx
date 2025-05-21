@@ -38,6 +38,8 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
     (job) => job.jobsId == parseInt(`${jobsId}`)
   );
 
+  console.log("SINGLE JOB", filteredRemoteJob)
+  console.log("SINGLE JOB Details", singleJob)
   return (
     <>
       <section className="container mx-auto  min-h-screen pt-24 md:pt-40 px-4">
