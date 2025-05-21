@@ -110,7 +110,7 @@ export default function CompanyDetailsForm() {
   return (
     <>
     {/* <div className="w-full lg:w-[70vw] mx-auto"></div> */}
-      <div className="mt-10 mb-20 ">
+      <div className="container mx-auto mt-10 mb-20 ">
         <h2 className="text-xl">Company Form</h2>
         <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
       </div>
@@ -126,7 +126,7 @@ export default function CompanyDetailsForm() {
                   <FormControl>
                     <Input
                       {...field}
-                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
+                      className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]"
                       required
                     />
                   </FormControl>
@@ -143,7 +143,7 @@ export default function CompanyDetailsForm() {
                   <FormControl>
                     <Input
                       {...field}
-                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
+                      className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]"
                       
                     />
                   </FormControl>
@@ -161,7 +161,7 @@ export default function CompanyDetailsForm() {
                   <FormControl>
                     <Input
                       {...field}
-                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
+                      className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]"
                       
                     />
                   </FormControl>
@@ -180,7 +180,7 @@ export default function CompanyDetailsForm() {
                   <FormControl>
                     <Input
                       {...field}
-                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
+                      className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]"
                       
                     />
                   </FormControl>
@@ -197,7 +197,7 @@ export default function CompanyDetailsForm() {
                   <FormControl>
                     <Input
                       {...field}
-                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
+                      className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]"
                       
                       type="tel"
                     />
@@ -253,7 +253,7 @@ export default function CompanyDetailsForm() {
                       value={field.value}
                       onChange={field.onChange}
                       // style={{width:"90%"}}
-                      className="w-[50vw]"
+                      className="w-[95dvw] md:w-[50dvw] rounded-lg border-2"
                     />
                   </FormControl>
                   <FormMessage />

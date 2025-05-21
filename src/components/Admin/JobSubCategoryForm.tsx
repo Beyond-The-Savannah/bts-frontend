@@ -82,14 +82,14 @@ export default function JobSubCategoryForm() {
   return (
     <>
       {/* <div className="w-full lg:w-[70vw] mx-auto"></div> */}
-      <div className="mt-10 mb-20">
+      <div className=" container mx-auto mt-10 mb-20">
         <h2 className="text-xl">Jobs SubCategory Form</h2>
         <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
       </div>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
-          <div className="flex flex-wrap items-center justify-center gap-6">
+          <div className="flex flex-wrap items-start justify-center gap-6">
             <FormField
               control={form.control}
               name="subCategoryName"
@@ -99,7 +99,7 @@ export default function JobSubCategoryForm() {
                   <FormControl>
                     <Input
                       {...field}
-                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
+                      className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]"
                     />
                   </FormControl>
                   <FormMessage />
@@ -118,7 +118,7 @@ export default function JobSubCategoryForm() {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger className="w-[90vw] md:w-[30vw] lg:w-[24vw]">
+                      <SelectTrigger className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]">
                         <SelectValue placeholder="Select Job Category" />
                       </SelectTrigger>
                     </FormControl>
@@ -146,7 +146,7 @@ export default function JobSubCategoryForm() {
                   <FormControl>
                     <Textarea
                       {...field}
-                      className="w-[90vw] md:w-[30vw] lg:w-[24vw]"
+                      className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]"
                     />
                     {/* <ReactQuill
                     theme="snow"
