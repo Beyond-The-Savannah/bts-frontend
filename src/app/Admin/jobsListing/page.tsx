@@ -1,6 +1,7 @@
 "use client";
 import RemoteJobListingErrorUI from "@/components/RemoteJobListingErrorUI";
 import RemoteJobListingsLoadingUI from "@/components/RemoteJobListingsLoadingUI";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { DateFormatter } from "@/lib/utils";
 import { useGetRemoteListingJobsUsingTanstack } from "@/remoteData/getData";
@@ -86,14 +87,30 @@ export default function JobsListingAdminPage() {
                     View Position
                   </Button>
                 </Link>
-                <Button
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="destructive" size="sm" className="border-bts-BrownTwo hover:bg-red-300 hover:text-black hover:scale-105 transition duration-500">Delete Job</Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent className="w-full grid place-content-center">
+                    <AlertDialogHeader className="text-center">
+                      <AlertDialogTitle>Please confirm Removal</AlertDialogTitle>
+                      <AlertDialogDescription>This will remove the job from the job listing</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className="w-12/12 mx-auto flex  justify-center items-center">
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction onClick={()=>removeJobDetails(job.jobsId)} className="bg-red-400 hover:bg-red-600" >Remove Job</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+
+                {/* <Button
                 onClick={()=>removeJobDetails(job.jobsId)}
                   variant="destructive"
                   size="sm"
                   className="border-bts-BrownTwo hover:bg-red-300 hover:text-black hover:scale-105 transition duration-500"
                 >
                   Remove job
-                </Button>
+                </Button> */}
               </div>
             </div>
           ))}
