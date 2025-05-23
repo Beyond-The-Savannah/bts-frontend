@@ -93,12 +93,12 @@ export default function JobsListingAdminPage() {
                   </AlertDialogTrigger>
                   <AlertDialogContent className="w-full grid place-content-center">
                     <AlertDialogHeader className="text-center">
-                      <AlertDialogTitle>Please confirm Removal</AlertDialogTitle>
-                      <AlertDialogDescription>This will remove the job from the job listing</AlertDialogDescription>
+                      <AlertDialogTitle className="text-center">Please confirm Removal</AlertDialogTitle>
+                      <AlertDialogDescription className="text-center">This will remove <span className="font-semibold"> {job.jobName} </span> from the job listing</AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter className="w-12/12 mx-auto flex  justify-center items-center">
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={()=>removeJobDetails(job.jobsId)} className="bg-red-400 hover:bg-red-600" >Remove Job</AlertDialogAction>
+                      <AlertDialogAction onClick={()=>removeJobDetails(job.jobsId)} className="bg-red-400 hover:bg-red-600" >Remove</AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>

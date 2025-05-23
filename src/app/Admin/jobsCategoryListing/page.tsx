@@ -1,6 +1,7 @@
 "use client";
 import RemoteJobListingErrorUI from "@/components/RemoteJobListingErrorUI";
 import RemoteJobListingsLoadingUI from "@/components/RemoteJobListingsLoadingUI";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { useGetAllJobsCategories } from "@/remoteData/getData";
 import { axiosInstance } from "@/remoteData/mutateData";
@@ -57,13 +58,28 @@ export default function JobsCategoryListingAdminPage() {
                   {jobCategory.description}
                 </p>
               </div>
-              <Button
+               <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="destructive" size="sm" className="hover:bg-red-300">Delete</Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent className="w-full grid place-content-center">
+                    <AlertDialogHeader >
+                      <AlertDialogTitle className="text-center">Please confirm Removal</AlertDialogTitle>
+                      <AlertDialogDescription className="text-center">This will remove <span className="font-semibold"> {jobCategory.name} </span> from the job category listing</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className="w-12/12 mx-auto flex  justify-center items-center">
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction onClick={()=>removeJobCategory(jobCategory.id)} className="bg-red-400 hover:bg-red-600">Remove</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              {/* <Button
                 onClick={() => removeJobCategory(jobCategory.id)}
                 size="sm"
                 variant="destructive"
               >
                 Remove category
-              </Button>
+              </Button> */}
             </div>
           ))}
         </div>

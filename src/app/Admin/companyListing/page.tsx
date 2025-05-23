@@ -2,6 +2,7 @@
 // import DisplayImageFromNextCloudinary from "@/components/DisplayImageFromNextCloudinary";
 import RemoteJobListingErrorUI from "@/components/RemoteJobListingErrorUI";
 import RemoteJobListingsLoadingUI from "@/components/RemoteJobListingsLoadingUI";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetAllComapanies } from "@/remoteData/getData";
@@ -98,13 +99,28 @@ export default function CompanyListingAmdinPage() {
                   <span className="text-xs">comapny phoneNumber: </span>
                   {company.phoneNumber}
                 </p>
-                <Button
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="destructive" size="sm" className="hover:bg-red-300">Delete</Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent className="w-full grid place-content-center">
+                    <AlertDialogHeader >
+                      <AlertDialogTitle className="text-center">Please confirm Removal</AlertDialogTitle>
+                      <AlertDialogDescription className="text-center">This will remove <span className="font-semibold"> {company.name} </span> from the company listing</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className="w-12/12 mx-auto flex  justify-center items-center">
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction onClick={()=>removeCompany(company.id)} className="bg-red-400 hover:bg-red-600">Remove</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+                {/* <Button
                   variant="destructive"
                   size='sm'
                   onClick={() => removeCompany(company.id)}
                 >
                   Remove
-                </Button>
+                </Button> */}
               </div>
             ))}
           </div>
