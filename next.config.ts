@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { hostname } from "os";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -21,6 +22,10 @@ module.exports={
       {
         protocol:'https',
         hostname:'julesdb.blob.core.windows.net',
+      },
+      {
+        protocol:'https',
+        hostname:'img.clerk.com',
       },
     ]
   }

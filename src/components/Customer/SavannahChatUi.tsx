@@ -3,12 +3,16 @@
 import { useChat } from "@ai-sdk/react";
 import { Button } from "../ui/button";
 import ReactMarkDown from "react-markdown";
+import remarkGfm from 'remark-gfm'
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import { useEffect, useRef } from "react";
 import { Textarea } from "../ui/textarea";
+import {useUser} from "@clerk/nextjs"
+import Image from "next/image";
 
 export default function SavannahChatUi() {
   const chatContainer = useRef<HTMLDivElement>(null);
+  const {user}=useUser()
   const {
     messages,
     input,
@@ -46,10 +50,17 @@ export default function SavannahChatUi() {
                     key={message.id}
                     className="flex flex-wrap md:flex-nowrap items-start gap-2 bg-stone-100 rounded-lg px-2 md:px-3 py-4 mb-4"
                   >
-                    <span className="text-xs rounded-lg bg-stone-200 px-1">
+                    <span className="text-xs rounded-lg bg-stone-200 p-1">
                       {message.role === "user" ? (
-                        <div className="w-5 md:w-10 h-5 md:h-10 grid place-content-center text-center">
-                          you
+                        <div className="w-5  md:w-10 h-5 md:h-10 grid place-content-center text-center">
+                          {/* you */}
+                          <Image
+                            src={user?.imageUrl || ""}
+                            height={400}
+                            width={400}
+                            alt="users image"
+                            className="object-contain rounded-lg"
+                          />
                         </div>
                       ) : (
                         <div className="w-5 md:w-10">
@@ -64,8 +75,8 @@ export default function SavannahChatUi() {
                       )}
                     </span>
                     {/* <p className="text-sm leading-7">{message.content}</p> */}
-                    <div className="prose-sm">
-                      <ReactMarkDown>{message.content}</ReactMarkDown>
+                    <div className="prose-sm prose-a:underline-offset-1 prose-a:text-blue-600">
+                      <ReactMarkDown remarkPlugins={[remarkGfm]}>{message.content}</ReactMarkDown>
                     </div>
                   </div>
                 ))}
