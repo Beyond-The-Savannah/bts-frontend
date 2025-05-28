@@ -6,9 +6,10 @@ import ReactMarkDown from "react-markdown";
 import remarkGfm from 'remark-gfm'
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import { useEffect, useRef } from "react";
-import { Textarea } from "../ui/textarea";
 import {useUser} from "@clerk/nextjs"
 import Image from "next/image";
+// import { Textarea } from "../ui/textarea";
+import { Input } from "../ui/input";
 
 export default function SavannahChatUi() {
   const chatContainer = useRef<HTMLDivElement>(null);
@@ -121,11 +122,18 @@ export default function SavannahChatUi() {
           <div className="w-full lg:w-8/12 mx-auto border border-stone-400 px-4 py-12 rounded-lg ">
             <form onSubmit={handleSubmit}>
               <div className="flex flex-wrap md:flex-nowrap justify-end md:justify-evenly items-center gap-2">
-                <Textarea
+                {/* <Textarea
                   name="prompt"
                   value={input}
                   placeholder="Type your question here."
                   onChange={handleInputChange}
+                /> */}
+                <Input
+                  name="prompt"
+                  value={input}
+                  placeholder="Type your question here"
+                  onChange={handleInputChange}
+                  className="min-h-12"
                 />
                 <Button
                   type="submit"
