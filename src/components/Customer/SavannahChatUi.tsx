@@ -23,8 +23,8 @@ export default function SavannahChatUi() {
     reload,
     handleSubmit,
   } = useChat({
-    // api: "/api/chat",
-    api: "/api/chat-with-lang-chain",
+    api: "/api/chat",
+    // api: "/api/chat-with-lang-chain",
   });
 
   useEffect(() => {
