@@ -3,17 +3,17 @@
 import { useChat } from "@ai-sdk/react";
 import { Button } from "../ui/button";
 import ReactMarkDown from "react-markdown";
-import remarkGfm from 'remark-gfm'
+import remarkGfm from "remark-gfm";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import { useEffect, useRef } from "react";
-import {useUser} from "@clerk/nextjs"
+import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 // import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
 
 export default function SavannahChatUi() {
   const chatContainer = useRef<HTMLDivElement>(null);
-  const {user}=useUser()
+  const { user } = useUser();
   const {
     messages,
     input,
@@ -24,7 +24,7 @@ export default function SavannahChatUi() {
     reload,
     handleSubmit,
   } = useChat({
-    api: "/api/chat",
+    api: "/api/chat-through-vercel-ai-sdk",
     // api: "/api/chat-with-lang-chain",
   });
 
@@ -77,7 +77,9 @@ export default function SavannahChatUi() {
                     </span>
                     {/* <p className="text-sm leading-7">{message.content}</p> */}
                     <div className="prose-sm prose-a:underline-offset-1 prose-a:text-blue-600">
-                      <ReactMarkDown remarkPlugins={[remarkGfm]}>{message.content}</ReactMarkDown>
+                      <ReactMarkDown remarkPlugins={[remarkGfm]}>
+                        {message.content}
+                      </ReactMarkDown>
                     </div>
                   </div>
                 ))}
@@ -96,7 +98,46 @@ export default function SavannahChatUi() {
             {/* provide processing user input and provide means to interupt kazina response */}
             {(status === "submitted" || status === "streaming") && (
               <div className=" flex items-center gap-2 px-4">
-                {status == "submitted" && <p>processing...</p>}
+                {status == "submitted" && (
+                  // <p className="animate-pulse">
+                  //   processing
+                  //   {[1, 2, 3].map((_, index) => (
+                  //     <span
+                  //       key={index}
+                  //       className="animate-ping h-10 w-5 rounded-full"
+                  //     >
+                  //       &middot;
+                  //     </span>
+                  //   ))}
+                  // </p>
+                <div className="flex items-center justify-center gap-2">
+                  <p>Processing</p>
+                  <svg
+                    className="text-gray-300 animate-spin"
+                    viewBox="0 0 64 64"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                  >
+                    <path
+                      d="M32 3C35.8083 3 39.5794 3.75011 43.0978 5.20749C46.6163 6.66488 49.8132 8.80101 52.5061 11.4939C55.199 14.1868 57.3351 17.3837 58.7925 20.9022C60.2499 24.4206 61 28.1917 61 32C61 35.8083 60.2499 39.5794 58.7925 43.0978C57.3351 46.6163 55.199 49.8132 52.5061 52.5061C49.8132 55.199 46.6163 57.3351 43.0978 58.7925C39.5794 60.2499 35.8083 61 32 61C28.1917 61 24.4206 60.2499 20.9022 58.7925C17.3837 57.3351 14.1868 55.199 11.4939 52.5061C8.801 49.8132 6.66487 46.6163 5.20749 43.0978C3.7501 39.5794 3 35.8083 3 32C3 28.1917 3.75011 24.4206 5.2075 20.9022C6.66489 17.3837 8.80101 14.1868 11.4939 11.4939C14.1868 8.80099 17.3838 6.66487 20.9022 5.20749C24.4206 3.7501 28.1917 3 32 3L32 3Z"
+                      stroke="currentColor"
+                      strokeWidth="5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M32 3C36.5778 3 41.0906 4.08374 45.1692 6.16256C49.2477 8.24138 52.7762 11.2562 55.466 14.9605C58.1558 18.6647 59.9304 22.9531 60.6448 27.4748C61.3591 31.9965 60.9928 36.6232 59.5759 40.9762"
+                      stroke="currentColor"
+                      strokeWidth="5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      className="text-bts-GreenOne"
+                    ></path>
+                  </svg>
+                </div>
+                )}
                 <Button variant="outline" type="button" onClick={() => stop()}>
                   Stop
                 </Button>
@@ -106,15 +147,15 @@ export default function SavannahChatUi() {
             {error && (
               <>
                 <div className=" max-w-lg mx-auto flex justify-between items-center gap-2 bg-red-200 rounded-lg px-4 py-1 text-xs">
-                 <p> An error occured</p>
-                <Button
-                  variant="outline"
-                  type="button"
-                  className="text-sm"
-                  onClick={() => reload()}
-                >
-                  Retry
-                </Button>
+                  <p> An error occured</p>
+                  <Button
+                    variant="outline"
+                    type="button"
+                    className="text-sm"
+                    onClick={() => reload()}
+                  >
+                    Retry
+                  </Button>
                 </div>
               </>
             )}
