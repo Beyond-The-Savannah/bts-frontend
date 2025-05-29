@@ -7,7 +7,7 @@ import Image from "next/image"
 import { correctedParsedHTML, DateFormatter } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { Link } from "next-view-transitions";
-import { ArrowUpRight, CalendarPlus, CalendarX } from "lucide-react";
+import { ArrowUpRight, CalendarPlus, CalendarX, MapPin } from "lucide-react";
 import {
     EmailIcon,
     EmailShareButton,
@@ -84,7 +84,8 @@ export default function ViewJob({jobsId}:{jobsId:string}) {
                     </p>
                     <p className="text-base font-medium ml-4">
                       <span className="font-bold block text-xs -ml-4 mr-1">
-                        Location:
+                        {/* Location: */}
+                        <MapPin/>
                       </span>
                       {filteredRemoteJob.jobCategory}
                     </p>
