@@ -130,7 +130,7 @@ export default async function SubscriptionDetails() {
               </div>
             </div>
             {userSubscriptionInformation.plan.amount !== 600000 ? (
-              <CareerSelection />
+              <CareerSelection  emailAddress={userSubscriptionInformation.customer.email}/>
             ) : null}
           </div>
         </div>

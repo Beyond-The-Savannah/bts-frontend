@@ -1,6 +1,6 @@
 import CareerSelectionComponent from "./CareerSelectionComponent";
 
-export default function CareerSelection() {
+export default function CareerSelection({emailAddress}:{emailAddress:string}) {
   return (
     <section className="py-10">
       <div className="min-h-[30vh] space-y-6 px-4 py-8 bg-bts-BrownOne/50 rounded-lg w-full lg:w-[30rem]
@@ -9,7 +9,7 @@ export default function CareerSelection() {
           <p className="font-semibold text-xl">Career Selection</p>
         </div>
         <div className="c">
-          <CareerSelectionComponent />
+          <CareerSelectionComponent  userEmailAddress={emailAddress}/>
         </div>
       </div>
     </section>

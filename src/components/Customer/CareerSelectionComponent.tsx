@@ -14,28 +14,58 @@ import {
   CommandList,
 } from "../ui/command";
 import clsx from "clsx";
+import { axiosInstance } from "@/remoteData/mutateData";
 
-export default function CareerSelectionComponent() {
+export default function CareerSelectionComponent({
+  userEmailAddress,
+}: {
+  userEmailAddress: string;
+}) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<number | null>(null);
   const [selectedCareerDepartmentValue, setSelectedCareerDepartmentValue] =
-    useState<string|null>(null);
+    useState<string | null>(null);
 
   const { data: jobDepartments } = useGetJobSubCategoryDropDownList();
 
+  
+
+  // set their carrer in localStorage
   useEffect(() => {
-    if (value !== null) {
+    if (value !== null && value !== undefined) {
       const stringValue = value.toString();
       localStorage.setItem("CareerDeparmentValue", stringValue);
     }
   }, [value]);
 
+  // get the carrer from localStorage and update state 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedValue = localStorage.getItem("CareerDeparmentValue") ?? "";
       setSelectedCareerDepartmentValue(storedValue);
     }
   }, []);
+
+  // update the DB with the career selected
+  useEffect(() => {
+    if (
+      selectedCareerDepartmentValue !== null &&
+      selectedCareerDepartmentValue !== undefined &&
+      selectedCareerDepartmentValue !== "" &&
+      userEmailAddress
+    ) {
+      try {
+        axiosInstance.put(
+          `/api/BydUsers/updateUserDetails?email=${userEmailAddress}`,
+          {
+            career: parseInt(selectedCareerDepartmentValue),
+          }
+        );
+      } catch (error) {
+        console.log("Error in updating your career in DB", error);
+      }
+    }
+  }, [selectedCareerDepartmentValue, userEmailAddress]);
 
   const selectedCareer = jobDepartments?.find(
     (department) => department.value == Number(selectedCareerDepartmentValue)
@@ -53,7 +83,6 @@ export default function CareerSelectionComponent() {
         </>
       ) : (
         <div className="space-y-4">
-          
           <p className="text-">
             Please select a career category that best matches your career
           </p>
