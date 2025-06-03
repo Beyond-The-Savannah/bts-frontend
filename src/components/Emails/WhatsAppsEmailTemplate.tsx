@@ -52,7 +52,7 @@ export default async function WhatsAppsEmailTemplate({
                 style={button} 
                 href={whatsAppExpiringLink}
               >
-                Whats Link
+                WhatsApp Link
               </Link>
 
               <Text style={text}>
