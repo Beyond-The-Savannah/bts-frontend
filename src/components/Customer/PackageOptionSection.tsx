@@ -26,7 +26,7 @@ export default async function PackageOptionSection() {
             <div className="c rounded-lg bg-amber-50 px-3 py-6 flex flex-col gap-4 items-start">
               <AlertCircle className="size-4" />
               <p className="text-xs">
-                Please note that all payments for the packages are
+                Please note that any payments for the packages are
                 non-refundable once processed
               </p>
               <p className="text-xs">
