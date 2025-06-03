@@ -71,7 +71,8 @@ export default function CompanyDetailsForm() {
     const postRequest = async () => {
       try {
         const response = await axiosInstance.post(
-          `/api/Companies/addCompanies`,
+          // `/api/Companies/addCompanies`,
+          `/api/Jobs/AddJobs`,
           {
             name: data.companyName,
             description: data.companyDescription,
