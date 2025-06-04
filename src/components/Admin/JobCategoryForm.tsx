@@ -87,6 +87,7 @@ export default function JobCategoryForm() {
                     <Input
                       {...field}
                       className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]"
+                      required
                     />
                   </FormControl>
                   <FormMessage />
