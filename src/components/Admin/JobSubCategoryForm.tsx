@@ -55,7 +55,7 @@ export default function JobSubCategoryForm() {
           {
             name: data.subCategoryName,
             description: data.subCategoryDescription,
-            jobCategoryId: 2,
+            jobCategoryId: parseInt(data.jobCategory),
             createdBy: ``,
             modifiedBy: ``,
           }

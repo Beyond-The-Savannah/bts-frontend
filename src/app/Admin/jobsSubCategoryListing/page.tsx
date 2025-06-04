@@ -35,8 +35,8 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 export default function JobsSubCategoryAdminPage() {
+  // const [jobCategoryValue, setjobCategoryValue] = useState("");
   const [subCategoryNameValue, setSubCategoryNameValue] = useState("");
-  const [jobCategoryValue, setjobCategoryValue] = useState("");
   const [subCategoryDescriptionValue, setSubCategoryDescriptionValue] =
     useState("");
 
@@ -50,15 +50,17 @@ export default function JobsSubCategoryAdminPage() {
       try {
         if (
           subCategoryNameValue !== "" &&
-          subCategoryDescriptionValue !== "" &&
-          jobCategoryValue !== ""
+          subCategoryDescriptionValue !== "" 
+          // jobCategoryValue !== ""
         ) {
           const response = await axiosInstance.put(
             `/api/JobSubCategory/updateJobSubCategory?id=${id}`,
             {
+              // jobCategoryId: parseInt(jobCategoryValue),
               name: subCategoryNameValue,
               description: subCategoryDescriptionValue,
-              jobCategoryId: parseInt(jobCategoryValue),
+              createdBy:``,
+              modifiedBy:``,
             }
           );
           console.log("Response from updating jobSubCategory", response);
@@ -113,15 +115,16 @@ export default function JobsSubCategoryAdminPage() {
           {dataInDescendingOrder?.map((jobSubCategory) => (
             <div
               key={jobSubCategory.id}
-              className="border rounded-lg px-12 py-6 w-3/4 md:w-4/12 lg:w-[20vw] flex flex-col gap-4 items-center justify-start bg-bts-BrownTwo"
+              className="border rounded-lg px-12 py-6 w-3/4 md:w-4/12 lg:w-[24vw] md:min-h-[24dvh] lg:min-h-[10dvh] flex flex-col gap-4 items-center justify-between bg-bts-BrownTwo"
             >
               <div>
-                <p className="text-base flex flex-col">
+                <p className="text-base flex flex-col ">
                   <span className="text-xs block -ml-4">
                     Job Sub Catgeory Name
                   </span>
-                  {jobSubCategory.name}
+                  {jobSubCategory.name} 
                 </p>
+                {/* <span className="text-xs">{jobSubCategory.jobCategoryId}</span> */}
               </div>
               <div className="flex flex-wrap justify-center items-center gap-4">
                 <Dialog>
@@ -165,7 +168,7 @@ export default function JobsSubCategoryAdminPage() {
                             }
                           />
                         </div>
-                        <div className="w-full">
+                        {/* <div className="w-full">
                           <Label>Job Category value</Label>
                           <Input
                             defaultValue={jobSubCategory.jobCategoryId}
@@ -176,7 +179,7 @@ export default function JobsSubCategoryAdminPage() {
                               )
                             }
                           />
-                        </div>
+                        </div> */}
                       </form>
                     </div>
                     <DialogFooter className="w-48 p-2 mx-auto flex gap-8">
