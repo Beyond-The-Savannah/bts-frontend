@@ -26,8 +26,18 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useGetAllJobSubCategories } from "@/remoteData/getData";
+import {
+  Select,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  useGetAllJobSubCategories,
+  useGetJobCategoryDropDownList,
+} from "@/remoteData/getData";
 import { axiosInstance } from "@/remoteData/mutateData";
+import { SelectContent } from "@radix-ui/react-select";
 
 import axios from "axios";
 import { useState } from "react";
@@ -35,10 +45,10 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 export default function JobsSubCategoryAdminPage() {
-  // const [jobCategoryValue, setjobCategoryValue] = useState("");
+  const { data: jobCategories } = useGetJobCategoryDropDownList();
+  const [jobCategoryValue, setjobCategoryValue] = useState("");
   const [subCategoryNameValue, setSubCategoryNameValue] = useState("");
-  const [subCategoryDescriptionValue, setSubCategoryDescriptionValue] =
-    useState("");
+  // const [subCategoryDescriptionValue, setSubCategoryDescriptionValue] =useState("");
 
   const { data, isLoading, isError } = useGetAllJobSubCategories();
   const dataInDescendingOrder = data
@@ -50,17 +60,15 @@ export default function JobsSubCategoryAdminPage() {
       try {
         if (
           subCategoryNameValue !== "" &&
-          subCategoryDescriptionValue !== "" 
-          // jobCategoryValue !== ""
+          // subCategoryDescriptionValue !== "" &&
+          jobCategoryValue !== ""
         ) {
           const response = await axiosInstance.put(
             `/api/JobSubCategory/updateJobSubCategory?id=${id}`,
             {
-              // jobCategoryId: parseInt(jobCategoryValue),
+              jobCategoryId: parseInt(jobCategoryValue),
               name: subCategoryNameValue,
-              description: subCategoryDescriptionValue,
-              createdBy:``,
-              modifiedBy:``,
+              // description: subCategoryDescriptionValue,
             }
           );
           console.log("Response from updating jobSubCategory", response);
@@ -122,7 +130,7 @@ export default function JobsSubCategoryAdminPage() {
                   <span className="text-xs block -ml-4">
                     Job Sub Catgeory Name
                   </span>
-                  {jobSubCategory.name} 
+                  {jobSubCategory.name}
                 </p>
                 {/* <span className="text-xs">{jobSubCategory.jobCategoryId}</span> */}
               </div>
@@ -137,14 +145,14 @@ export default function JobsSubCategoryAdminPage() {
                       Edit
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="max-w-xl mx-auto">
+                  <DialogContent className="max-w-xl mx-auto ">
                     <DialogHeader className="text-center max-w-xl mx-auto">
                       <DialogTitle>Edit Job Sub Category</DialogTitle>
                       <DialogDescription>
                         on save changes will be reflected
                       </DialogDescription>
                     </DialogHeader>
-                    <div className="c">
+                    <div className="min-h-[38dvh]">
                       <form className="space-y-4">
                         <div className="w-full">
                           <Label>Job subCategory name</Label>
@@ -155,9 +163,10 @@ export default function JobsSubCategoryAdminPage() {
                                 e.target.value || jobSubCategory.name
                               )
                             }
+                            required
                           />
                         </div>
-                        <div className="w-full">
+                        {/* <div className="w-full">
                           <Label>Job subCategory desciption</Label>
                           <Input
                             defaultValue={jobSubCategory.description}
@@ -166,20 +175,34 @@ export default function JobsSubCategoryAdminPage() {
                                 e.target.value || jobSubCategory.description
                               )
                             }
-                          />
-                        </div>
-                        {/* <div className="w-full">
-                          <Label>Job Category value</Label>
-                          <Input
-                            defaultValue={jobSubCategory.jobCategoryId}
-                            onChange={(e) =>
-                              setjobCategoryValue(
-                                e.target.value ||
-                                  jobSubCategory.jobCategoryId.toString()
-                              )
-                            }
+                            required
                           />
                         </div> */}
+                        <div className="w-full">
+                          <Label>Job Category</Label>
+                          <Select
+                            onValueChange={(value) => {
+                              setjobCategoryValue(
+                                value || jobSubCategory.jobCategoryId.toString()
+                              );
+                            }}
+                            required
+                          >
+                            <SelectTrigger className="w-full ">
+                              <SelectValue placeholder="Select Job Category" />
+                            </SelectTrigger>
+                            <SelectContent className="z-100">
+                              {jobCategories?.map((jobCategory) => (
+                                <SelectItem
+                                  key={jobCategory.value}
+                                  value={jobCategory.value.toString()}
+                                >
+                                  {jobCategory.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
                       </form>
                     </div>
                     <DialogFooter className="w-48 p-2 mx-auto flex gap-8">
