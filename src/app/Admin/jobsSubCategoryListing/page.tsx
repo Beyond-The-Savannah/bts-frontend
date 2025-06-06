@@ -138,7 +138,7 @@ export default function JobsSubCategoryAdminPage() {
                 <Dialog>
                   <DialogTrigger asChild>
                     <Button
-                      disabled
+                      // disabled
                       size="sm"
                       className="bg-green-400 hover:bg-green-500"
                     >
@@ -152,46 +152,29 @@ export default function JobsSubCategoryAdminPage() {
                         on save changes will be reflected
                       </DialogDescription>
                     </DialogHeader>
-                    <div className="min-h-[38dvh]">
+                    <div className="min-h-[30dvh]">
                       <form className="space-y-4">
                         <div className="w-full">
                           <Label>Job subCategory name</Label>
                           <Input
                             defaultValue={jobSubCategory.name}
                             onChange={(e) =>
-                              setSubCategoryNameValue(
-                                e.target.value || jobSubCategory.name
-                              )
-                            }
+                              setSubCategoryNameValue(e.target.value || jobSubCategory.name)}
                             required
                           />
                         </div>
-                        {/* <div className="w-full">
-                          <Label>Job subCategory desciption</Label>
-                          <Input
-                            defaultValue={jobSubCategory.description}
-                            onChange={(e) =>
-                              setSubCategoryDescriptionValue(
-                                e.target.value || jobSubCategory.description
-                              )
-                            }
-                            required
-                          />
-                        </div> */}
+
                         <div className="w-full">
                           <Label>Job Category</Label>
                           <Select
-                            onValueChange={(value) => {
-                              setjobCategoryValue(
-                                value || jobSubCategory.jobCategoryId.toString()
-                              );
-                            }}
+                            defaultValue={jobSubCategory.jobCategoryId.toString()}
+                            onValueChange={(value) => {setjobCategoryValue(value || jobSubCategory.jobCategoryId.toString())}}
                             required
                           >
                             <SelectTrigger className="w-full ">
                               <SelectValue placeholder="Select Job Category" />
                             </SelectTrigger>
-                            <SelectContent className="z-100">
+                            <SelectContent className="z-50">
                               {jobCategories?.map((jobCategory) => (
                                 <SelectItem
                                   key={jobCategory.value}
@@ -259,13 +242,6 @@ export default function JobsSubCategoryAdminPage() {
                   </AlertDialogContent>
                 </AlertDialog>
               </div>
-              {/* <Button
-                onClick={() => removeJobSubCategory(jobSubCategory.id)}
-                size="sm"
-                variant="destructive"
-              >
-                Remove
-              </Button> */}
             </div>
           ))}
         </div>
