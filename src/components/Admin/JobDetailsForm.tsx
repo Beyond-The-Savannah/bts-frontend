@@ -115,7 +115,7 @@ export default function JobDetailsForm() {
         if (response.status === 200) {
           // console.log(response);
           const {workflowRunId}=await client.trigger({
-            url:`http://localhost:3000/api/workflow-one`
+            url:`https://beyondthesavannah.co.ke/api/workflow-one`
           })
           console.log("WorkflowRundId from workflow one",workflowRunId)
           return true;
