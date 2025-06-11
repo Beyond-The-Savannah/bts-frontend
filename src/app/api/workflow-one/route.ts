@@ -17,18 +17,37 @@ async function sendNewJobAddedAlertEmail() {
   // get list of subscribed users from db and filter out the cancelled out users
   const response = await axiosInstance.get("/api/BydUsers/getAllUsers");
   const userList: SubscribedUserProp[] = await response.data;
-  const usersEmailList = userList.filter((user) => user.status != "cancelled");
+  // const usersEmailList = userList.filter((user) => user.status != "cancelled");
+
+  try {
+    
+    const{data,error}=await resend.emails.send({
+        from: `info@beyondthesavannah.co.ke`,
+        // to:[`${user.email}`]
+        to: ["gitoshmbae@gmail.com", "gitonga1993@gmail.com"],
+        subject: `New Job Alert`,
+        react: AllJobsAlertEmailTemplate({ firstName: "user.firstName" }),
+      });
+      if(data){
+        console.log("Success",data)
+      }
+      if(error){
+        console.log("Send error",error)
+      }
+  } catch (error) {
+    console.log("Error in the catch session of the sendNewJobAddedAlerEmail function",error)
+  }
 
   //map of new subcribed user list and send mail
-  usersEmailList.map(async (user) => {
-    await resend.emails.send({
-      from: `info@beyondthesavannah.co.ke`,
-      // to:[`${user.email}`]
-      to: ["gitoshmbae@gmail.com", "gitonga1993@gmail.com"],
-      subject: `New Job Alert`,
-      react: AllJobsAlertEmailTemplate({ firstName: user.firstName }),
-    });
-  });
+  // usersEmailList.map(async (user) => {
+  //   await resend.emails.send({
+  //     from: `info@beyondthesavannah.co.ke`,
+  //     // to:[`${user.email}`]
+  //     to: ["gitoshmbae@gmail.com", "gitonga1993@gmail.com"],
+  //     subject: `New Job Alert`,
+  //     react: AllJobsAlertEmailTemplate({ firstName: user.firstName }),
+  //   });
+  // });
 
   console.log(userList);
 }
