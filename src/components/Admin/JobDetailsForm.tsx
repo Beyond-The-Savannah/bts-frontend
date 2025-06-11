@@ -40,9 +40,9 @@ import {
 import { formats2, modules2 } from "@/lib/reactQuilSettings";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../ui/command";
 import { cn } from "@/lib/utils";
-import { Client } from "@upstash/workflow";
 
-const client= new Client({token: process.env.QSTASH_TOKEN})
+
+
 
 const ReactQuill = dynamic(() => import("react-quill-new"), {
   ssr: false,
@@ -114,10 +114,10 @@ export default function JobDetailsForm() {
         });
         if (response.status === 200) {
           // console.log(response);
-          const {workflowRunId}=await client.trigger({
-            url:`https://beyondthesavannah.co.ke/api/workflow-one`
-          })
-          console.log("WorkflowRundId from workflow one",workflowRunId)
+          // const {workflowRunId}=await client.trigger({
+          //   url:`https://beyondthesavannah.co.ke/api/workflow-one`
+          // })
+          // console.log("WorkflowRundId from workflow one",workflowRunId)
           return true;
         } else {
           // console.error("Request failed with status:", response.status);
