@@ -55,9 +55,7 @@ export default async function CustomerSideBar() {
           <SidebarGroupLabel></SidebarGroupLabel>
           <SidebarGroupContent className="flex flex-col justify-between h-[90vh]">
             <SidebarMenu className="space-y-2">
-              {/* userSubscriptionInformation?.status == "active" ||
-              userSubscriptionInformation?.status == "attention" ||
-              userSubscriptionInformation?.status == "non-renewing" ||   */}
+              
               {["active", "attention", "non-renewing", "completed"].includes(
                 userSubscriptionInformation?.status as string
               ) && userSubscriptionInformation?.plan?.amount != 600000 ? (
