@@ -40,11 +40,12 @@ export default function JobsCategoryListingAdminPage() {
           {isLoading && <RemoteJobListingsLoadingUI />}
           {isError && <RemoteJobListingErrorUI />}
         </div>
-        <div className=" space-y-4 flex flex-wrap gap-4 items-center">
+        <div className=" space-y-4 flex flex-wrap gap-4  items-end">
           {data?.map((jobCategory) => (
             <div
               key={jobCategory.id}
-              className="border rounded-lg px-12 py-6 w-[40vw] flex items-center justify-between bg-bts-BrownTwo"
+              // className="border rounded-lg px-12 py-6 w-[40vw] flex items-center justify-between bg-bts-BrownTwo"
+              className="border rounded-lg px-12 py-6 w-5/12 flex items-center justify-between bg-bts-BrownTwo"
             >
               <div>
                 <p className="text-base flex flex-col">

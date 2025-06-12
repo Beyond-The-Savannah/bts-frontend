@@ -14,7 +14,7 @@ export default function AdminLayout({
       <section className=" ">
         <SidebarProvider>
           <AppSidebar />
-          <main>
+          <main className="w-full">
             <SidebarTrigger />
             <section className="px-4 md:px-12">{children}</section>
           </main>
