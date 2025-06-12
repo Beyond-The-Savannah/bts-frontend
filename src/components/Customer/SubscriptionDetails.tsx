@@ -58,7 +58,8 @@ export default async function SubscriptionDetails() {
           </p>
           <div className="min-h-[70vh] mt-20">
             <div className="flex flex-wrap xl:flex-nowrap gap-8 justify-evenly">
-              <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 px-6 py-12 w-full lg:w-[30rem]">
+              {/* <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 px-6 py-12 w-full lg:w-[30rem]"> */}
+              <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 px-6 py-12 w-full lg:w-4/12">
                 <p className="font-semibold text-xl">Subscription details</p>
                 <p className="flex flex-col">
                   <span className="text-xs">Subscription Email Address: </span>
@@ -93,7 +94,8 @@ export default async function SubscriptionDetails() {
                   </span>
                 </p>
               </div>
-              <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 pr-6 py-12 w-full lg:w-[30rem]">
+              {/* <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 pr-6 py-12 w-full lg:w-[30rem]"> */}
+              <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 pr-6 py-12 w-full lg:w-7/12">
                 <p className="font-semibold text-xl px-9">Subscription guide</p>
                 {userSubscriptionInformation?.status == "non-renewing" ? (
                   <>
@@ -111,19 +113,19 @@ export default async function SubscriptionDetails() {
                 <div className="border-l-[1.5rem] border-blue-400 bg-blue-100 px-4 py-2 rounded-l text-sm">
                   <p>
                     To change your card details you can use the Manage your
-                    Subscrption button
+                    Subscription button
                   </p>
                 </div>
                 <div className="border-l-[1.5rem] border-red-400 bg-red-100 px-4 py-2 rounded-l text-sm">
                   <p>
-                    To cancel your subscrption can use the Manage your
-                    Subscrption button
+                    To cancel your subscription can use the Manage your
+                    Subscription button
                   </p>
                 </div>
                 <div className="px-8">
                   <form action={handleManageSubscription}>
                     <Button variant="outline" size="sm" type="submit">
-                      Manage your Subscrption
+                      Manage your Subscription
                     </Button>
                   </form>
                 </div>
