@@ -11,9 +11,9 @@ export default async function page() {
   const client=new Client({token:process.env.QSTASH_TOKEN})
   const {workflowRunId}=await client.trigger({
     // for local developement 
-    // url:'http://127.0.0.1:8080/workflow-one'
+    url:`${process.env.QSTASH_URL}/workflow-one`
     // for production 
-    url:`${process.env.PUBLIC_BASE_URL}/workflow-one`
+    // url:`${process.env.PUBLIC_BASE_URL}/workflow-one`
   })
   console.log("WorkflowRunId=>",workflowRunId)
 
