@@ -33,7 +33,7 @@ export default function PartnershipTypes() {
                 {type.benefits.map((benefit) => (
                   <div key={benefit.id} className="flex gap-2 items-center text-sm">
                     <p>
-                    <SquarePlus className="text-bts-BrownThree size-5" />
+                    <SquarePlus className="text-bts-BrownFive size-5" />
                     </p>
                     <p>{benefit.gain}</p>
                   </div>
