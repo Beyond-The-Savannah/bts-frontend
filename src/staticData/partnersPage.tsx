@@ -85,3 +85,89 @@ export const brands=[
     },
     
 ]
+
+export const partnershipType=[
+    {
+        id:1,
+        heading:"For Employers & Recruiters",
+        subheading:"Find Your Next Remote Team Member",
+        detials:"Partner with us to access a pipeline of exceptional remote-ready professionals across various industries and skill levels.",
+        benefits:[
+            {id:1, benefit:"Access to pre-screened, remote-work trained candidates"},
+            {id:2, benefit:"Reduced hiring time and costs"},
+            {id:3, benefit:"Cultural competency support for international teams"},
+            {id:4, benefit:"Ongoing partnership support and candidate success tracking"},
+        ]
+    },
+    {
+        id:2,
+        heading:"For Corporate Partners",
+        subheading:"Scale Your Remote Workforce",
+        detials:"Partner with us for enterprise-level remote talent acquisition and workforce development solutions.",
+        benefits:[
+             {id:1, benefit:"Customized talent pipelines"},
+            {id:2, benefit:"Bulk hiring solutions"},
+            {id:3, benefit:"Employee retention programs"},
+            {id:4, benefit:"Diversity and inclusion consulting"},
+        ]
+    },
+    {
+        id:3,
+        heading:"For Training Organizations",
+        subheading:"Amplify Your Impact",
+        detials:"Collaborate with us to enhance your training programs with real-world remote work preparation and job placement opportunities.",
+         benefits:[
+             {id:1, benefit:"Extended reach for your training programs"},
+            {id:2, benefit:"Job placement outcomes for your graduates"},
+            {id:3, benefit:"Industry insights to keep curricula relevant"},
+            {id:4, benefit:"Joint certification and credentialing opportunities"},
+        ]
+    },
+   
+]
+
+export const partnershipType1=[
+      {
+        id:1,
+        heading:"For Hiring Partners",
+        subheading:"Remote first companies, startups, and global teams looking to diversify and expand their talent pipeline",
+        detials:"Gain access to pre-screened, remote-ready candidates who bring unique global perspectives, strong work ethic, and cultural adaptability. We match your hiring needs with skilled professionals trained to thrive in distributed teams",
+        benefits:[
+            {id:1, gain:"Gain access to pre-screened, remote ready candidates who bring unique global perspectives, strong work ethic, and cultural adaptability"},
+            {id:2, gain:"We match your hiring needs with skilled professionals trained to thrive in distributed teams"},
+            
+        ]
+    },
+    {
+        id:2,
+        heading:"For Training & Upskilling Partners",
+        subheading:"EdTech companies, bootcamps, universities, online learning platforms, or community training hubs",
+        detials:"Expand your reach by tapping into a motivated and underserved learner base. Collaborate on curriculum co-design, certification programs, or short term intensives aligned with remote work",
+         benefits:[
+            {id:1, gain:"Expand your reach by tapping into a motivated and underserved learner base"},
+            {id:2, gain:"Collaborate on curriculum co-design, certification programs, or short term intensives aligned with remote work"},   
+        ]
+    },
+      {
+        id:3,
+        heading:"For Community & Impact Partners",
+        subheading:"Nonprofits, NGOs, foundations, development agencies, or social enterprises focused on youth employment, gender equity, or digital inclusion",
+        detials:"Leverage our platform to reach and uplift marginalized communities through remote work as a sustainable employment pathway. Align your program goals with our on-the-ground community network and digital infrastructure",
+         benefits:[
+            {id:1, gain:"Leverage our platform to reach and uplift marginalized communities through remote work as a sustainable employment pathway"},
+            {id:2, gain:"Align your program goals with our on-the-ground community network and digital infrastructure"},
+            
+        ]
+    },
+    {
+        id:4,
+        heading:"For Advisory Partners",
+        subheading:"Industry professionals, remote work veterans, career coaches, or organizations offering pro bono mentorship",
+        detials:"Give back by shaping the careers of emerging talent one conversation at a time. Build global connections, discover new perspectives, and help close the confidence gap",
+         benefits:[
+            {id:1, gain:"Give back by shaping the careers of emerging talent one conversation at a time"},
+            {id:2, gain:"Build global connections, discover new perspectives, and help close the confidence gap"},
+            
+        ]
+    },
+]
