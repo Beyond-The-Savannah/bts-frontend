@@ -1,21 +1,18 @@
 export const dynamic = 'force-dynamic'; 
 
-// import JobsListingByDepartmentCareer from "@/components/Customer/JobsListingByDepartmentCareer";
 import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
 import { FindJobs } from "@/components/findJobsPage/FindJobs";
-// import {Client} from "@upstash/workflow"
+import { redirect } from "next/navigation";
+
 
 export default async function page() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
   
-  // const client=new Client({token:process.env.QSTASH_TOKEN})
-  // const {workflowRunId}=await client.trigger({
-  //   // for local developement 
-  //   url:`${process.env.QSTASH_URL}/workflow-one`
-  //   // for production 
-  //   // url:`${process.env.PUBLIC_BASE_URL}/workflow-one`
-  // })
-  // console.log("WorkflowRunId=>",workflowRunId)
+  if(userSubscriptionInformation==null || userSubscriptionInformation==undefined){
+    redirect('/Customer')
+  }
+
+  console.log("USER INFO",userSubscriptionInformation)
 
   return (
     <section className="pt-4 pb-20">
