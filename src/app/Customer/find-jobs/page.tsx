@@ -1,18 +1,25 @@
-export const dynamic = 'force-dynamic'; 
+export const dynamic = "force-dynamic";
 
 import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
 import { FindJobs } from "@/components/findJobsPage/FindJobs";
+import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-
 
 export default async function page() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
-  
-  if(userSubscriptionInformation==null || userSubscriptionInformation==undefined){
-    redirect('/Customer')
+  const user = await currentUser();
+
+  const byPassEmailAddress = "anngachanja15@gmail.com";
+
+  if (
+    (userSubscriptionInformation == null ||
+      userSubscriptionInformation == undefined) &&
+    byPassEmailAddress != user?.emailAddresses[0].emailAddress
+  ) {
+    redirect("/Customer");
   }
 
-  console.log("USER INFO",userSubscriptionInformation)
+  console.log("USER INFO", userSubscriptionInformation);
 
   return (
     <section className="pt-4 pb-20">
@@ -26,7 +33,7 @@ export default async function page() {
       <div className="-mt-32">
         {userSubscriptionInformation?.status != "cancelled" ? (
           // <JobsListingByDepartmentCareer />
-          <FindJobs/>
+          <FindJobs />
         ) : null}
       </div>
     </section>
