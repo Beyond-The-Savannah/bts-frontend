@@ -12,13 +12,13 @@ export default function WhyPartnerships() {
             Why We Partner
           </h2>
         </div>
-        <div className="max-w-3xl mx-auto mtext-lg  leading-7  space-y-6">
-          <p className="md:text-balance">
+        <div className="max-w-3xl mx-auto grid place-content-center  leading-7  space-y-6">
+          <p className="md:text-balance ml-0 lg:ml-10">
             Every partnership helps unlock new pathways for individuals striving
             to thrive in the digital economy. Partnerships are at the heart of
             our mission. Together with our collaborators, we:
           </p>
-          <ul className="w-11/12 mx-auto text-start pt-10 space-y-4">
+          <ul className="w-11/12 mx-auto text-start pt-10 space-y-4  ml-0 md:ml-28">
             {reasonsForPartnership.map((reason) => (
               <li key={reason.id} className="flex items-center gap-2">
                 <CirclePlus size={20} className="text-bts-BrownThree" />
