@@ -97,7 +97,8 @@ export default function CareerSelectionComponent({
                   variant="outline"
                   role="combobox"
                   aria-expanded={open}
-                  className="w-full md:min-w-[380px] justify-between"
+                  // className="w-full md:min-w-[380px] justify-between"
+                  className="w-full  justify-between"
                 >
                   {value !== null
                     ? jobDepartments?.find(

@@ -50,11 +50,10 @@ export default async function SubscriptionDetails() {
     <>
       <section className="pt-4 pb-20">
         <div className="w-full mx-auto px-4">
-          <h2 className="text-xl">Hi {user?.firstName}</h2>
+          <h2 className="text-xl">Hi {user?.firstName ?? "There"}</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
           <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
-            {/* Subscription details */}
-            {/* Hi {user?.firstName} */}
+            
           </p>
           <div className="min-h-[70vh] mt-20">
             <div className="flex flex-wrap xl:flex-nowrap gap-8 justify-evenly">
@@ -99,7 +98,7 @@ export default async function SubscriptionDetails() {
                 <p className="font-semibold text-xl px-9">Subscription guide</p>
                 {userSubscriptionInformation?.status == "non-renewing" ? (
                   <>
-                    <div className="bg-yellow-100 px-4 py-2 max-w-lg mx-auto  flex gap-2 items-center">
+                    <div className="border-l-[1.5rem] border-yellow-400 rounded-l bg-yellow-100 px-4 py-2 max-w-4xl mr-auto  flex gap-2 items-center">
                       <CircleAlert />
                       <p className="text-xs">
                         Your subscription status means that can your enjoy the

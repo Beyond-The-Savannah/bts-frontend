@@ -19,7 +19,7 @@ export default async function page() {
     redirect("/Customer");
   }
 
-  console.log("USER INFO", userSubscriptionInformation);
+  // console.log("USER INFO", userSubscriptionInformation);
 
   return (
     <section className="pt-4 pb-20">
