@@ -38,9 +38,10 @@ export default function SavannahChatUi() {
   return (
     <>
       <section className="h-full mt-10">
-        <div className="w-full lg:w-[70vw] mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-1 md:px-4 py-10">
+        {/* <div className="w-full lg:w-[70vw] mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-1 md:px-4 py-10"> */}
+        <div className="w-full lg:w-11/12 mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-1 md:px-4 py-10">
           <div
-            className="w-full lg:w-10/12 h-[55dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-4 py-8"
+            className="w-full lg:w-10/12 h-[65dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-4 py-8"
             ref={chatContainer}
           >
             {messages.length > 0 ? (
@@ -160,7 +161,8 @@ export default function SavannahChatUi() {
               </>
             )}
           </div>
-          <div className="w-full lg:w-8/12 mx-auto border border-stone-400 px-4 py-12 rounded-lg ">
+          {/* <div className="w-full lg:w-8/12 mx-auto border border-stone-400 px-4 py-12 rounded-lg "> */}
+          <div className="w-full lg:w-8/12 mx-auto  px-4 py-2 rounded-lg ">
             <form onSubmit={handleSubmit}>
               <div className="flex flex-wrap md:flex-nowrap justify-end md:justify-evenly items-center gap-2">
                 {/* <Textarea
