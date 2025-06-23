@@ -43,15 +43,14 @@ async function sendNewJobAddedAlertEmail() {
   
 
   // map the new subcribed user list and send mail
-  usersEmailList.slice(0, 1).map(async (user) => {
+  // usersEmailList.slice(0, 1).map(async (user) => {
+  usersEmailList.map(async (user) => {
     try {
       await resend.emails.send({
         from: `info@beyondthesavannah.co.ke`,
-        // to:[`${user.email}`]
-        to: ["gitoshmbae@gmail.com"],
-        // subject: `New Jobs Alert`,
+        to:[`${user.email}`],
+        // to: ["gitoshmbae@gmail.com"],
         subject: `Beyond The Savannah New Jobs Alert`,
-        // react: AllJobsAlertEmailTemplate({ firstName: user.firstName, jobs:lastTenJobsListing }),
         react: AllJobsAlertEmailTemplate({ firstName: user.firstName, jobs:lastestJobListing }),
       });
       
