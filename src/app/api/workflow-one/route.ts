@@ -1,4 +1,4 @@
-// import { useGetRemoteListingJobsUsingTanstack } from "@/remoteData/getData";
+
 import AllJobsAlertEmailTemplate from "@/components/Emails/AllJobsAlertEmailTemplate";
 import { axiosInstance } from "@/remoteData/mutateData";
 import { ListingRemoteJobs } from "@/types/remoteJobsListing";
@@ -11,8 +11,11 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export const { POST } = serve(async (context) => {
   await context.run("Send Email Alert", async () => {
     await sendNewJobAddedAlertEmail();
-    console.log("tesing email send functionality to gitosh")
+    // console.log("tesing email send functionality to gitosh")
   });
+  while(true){
+    await context.sleep("Run every 8hrs a day",8*60*60*1000)
+  }
 });
 
 async function sendNewJobAddedAlertEmail() {
@@ -26,7 +29,16 @@ async function sendNewJobAddedAlertEmail() {
   const jobListingResponse=await axiosInstance.get("/api/Jobs/getAllJobsByCompany")
   const jobListing:ListingRemoteJobs[]=await jobListingResponse.data
   const sortedJobListingByDate=jobListing?.sort((a,b)=>{return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()})
+  // const lastTenJobsListing=sortedJobListingByDate.slice(0,10)
 
+
+  const now=new Date()
+  const eightHoursAgo= new Date(now.getTime()-8*60*60*1000)
+  const lastestJobListing=sortedJobListingByDate.filter((job)=>{
+    const createdTime= new Date(job.dateCreated)
+    return createdTime>eightHoursAgo
+  })
+  
 
   
 
@@ -37,8 +49,10 @@ async function sendNewJobAddedAlertEmail() {
         from: `info@beyondthesavannah.co.ke`,
         // to:[`${user.email}`]
         to: ["gitoshmbae@gmail.com"],
-        subject: `New Job Alert`,
-        react: AllJobsAlertEmailTemplate({ firstName: user.firstName }),
+        // subject: `New Jobs Alert`,
+        subject: `Beyond The Savannah New Jobs Alert`,
+        // react: AllJobsAlertEmailTemplate({ firstName: user.firstName, jobs:lastTenJobsListing }),
+        react: AllJobsAlertEmailTemplate({ firstName: user.firstName, jobs:lastestJobListing }),
       });
       
     } catch (error) {
@@ -46,5 +60,5 @@ async function sendNewJobAddedAlertEmail() {
     }
   });
 
-  console.log(sortedJobListingByDate);
+  // console.log("LISTING UNDER 8HRS",lastestJobListing);
 }
