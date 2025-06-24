@@ -81,7 +81,7 @@ export default function AllJobsAlertEmailTemplate({
                 ></Link>
               </Text>
               <Text style={text}>
-                {/* Warm Regards,  */}
+                Warm Regards, 
                 <br />
                 Beyond the Savannah Team
               </Text>

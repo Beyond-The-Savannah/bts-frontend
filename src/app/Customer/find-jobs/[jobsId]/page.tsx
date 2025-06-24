@@ -27,6 +27,3 @@ export default async function page({
     </>
   );
 }
-
-// http://localhost:3000/Customer/find-jobs/3010
-// http://localhost:3000/Customer/find-jobs/3009, 3008,3007
