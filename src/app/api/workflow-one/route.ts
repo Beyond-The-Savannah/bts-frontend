@@ -24,12 +24,10 @@ async function sendNewJobAddedAlertEmail() {
   const userList: SubscribedUserProp[] = await response.data;
   const usersEmailList = userList.filter((user) => user.status != "cancelled");
 
-
   // get jobs listing and determine recently new added ones 
   const jobListingResponse=await axiosInstance.get("/api/Jobs/getAllJobsByCompany")
   const jobListing:ListingRemoteJobs[]=await jobListingResponse.data
   const sortedJobListingByDate=jobListing?.sort((a,b)=>{return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()})
-  // const lastTenJobsListing=sortedJobListingByDate.slice(0,10)
 
 
   const now=new Date()
@@ -42,22 +40,27 @@ async function sendNewJobAddedAlertEmail() {
 
   
 
-  // map the new subcribed user list and send mail
+  // map the new subcribed user list and send mails 
   // usersEmailList.slice(0, 1).map(async (user) => {
-  usersEmailList.map(async (user) => {
-    try {
-      await resend.emails.send({
-        from: `info@beyondthesavannah.co.ke`,
-        to:[`${user.email}`],
-        // to: ["gitoshmbae@gmail.com"],
-        subject: `Beyond The Savannah New Jobs Alert`,
-        react: AllJobsAlertEmailTemplate({ firstName: user.firstName, jobs:lastestJobListing }),
-      });
-      
-    } catch (error) {
-       console.log("Error in the catch session of the sendNewJobAddedAlerEmail function",error);
-    }
-  });
+  if(lastestJobListing.length>0){
+    usersEmailList.map(async (user) => {
+      try {
+        await resend.emails.send({
+          from: `info@beyondthesavannah.co.ke`,
+          to:[`${user.email}`],
+          // to: ["gitoshmbae@gmail.com"],
+          subject: `Beyond The Savannah New Jobs Alert`,
+          react: AllJobsAlertEmailTemplate({ firstName: user.firstName, jobs:lastestJobListing }),
+        });
+        
+      } catch (error) {
+         console.log("Error in the catch session of the sendNewJobAddedAlerEmail function",error);
+      }
+    });
+  }
+  else{
+    console.log("No latest Jobs added within the latest 8 hours")
+  }
 
   // console.log("LISTING UNDER 8HRS",lastestJobListing);
 }
