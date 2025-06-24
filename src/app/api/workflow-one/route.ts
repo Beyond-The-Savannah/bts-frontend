@@ -5,7 +5,7 @@ import { SubscribedUserProp } from "@/types/subscribedUser";
 import { serve } from "@upstash/workflow/nextjs";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const { POST } = serve(async (context) => {
   await context.run("Send Email Alert", async () => {
@@ -40,6 +40,7 @@ async function sendNewJobAddedAlertEmail() {
   });
 
   if (lastestJobListing.length > 0) {
+    const resend = new Resend(process.env.RESEND_API_KEY);
     // Prepare an array of email objects for batch sending
     const batchEmails = usersEmailList.map((user) => ({
       from: "info@beyondthesavannah.co.ke",
@@ -56,8 +57,8 @@ async function sendNewJobAddedAlertEmail() {
       const batchSize = 100;
       for (let e = 0; e < batchEmails.length; e += batchSize) {
         const batch = batchEmails.slice(e, e + batchSize);
-        // await resend.batch.send(batch);
-        // await new Promise((res) => setTimeout(res, 500));
+        await resend.batch.send(batch);
+        await new Promise((res) => setTimeout(res, 500));
       }
     } catch (error) {
       console.log("Error sending batch emails:", error);
