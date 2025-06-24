@@ -1,4 +1,3 @@
-
 import AllJobsAlertEmailTemplate from "@/components/Emails/AllJobsAlertEmailTemplate";
 import { axiosInstance } from "@/remoteData/mutateData";
 import { ListingRemoteJobs } from "@/types/remoteJobsListing";
@@ -11,11 +10,9 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export const { POST } = serve(async (context) => {
   await context.run("Send Email Alert", async () => {
     await sendNewJobAddedAlertEmail();
-    // console.log("tesing email send functionality to gitosh")
   });
-  // while(true){
-    await context.sleep("Run every 8hrs a day",8*60*60*1000)
-  // }
+
+  await context.sleep("Run every 8hrs a day", 8 * 60 * 60 * 1000);
 });
 
 async function sendNewJobAddedAlertEmail() {
@@ -24,43 +21,48 @@ async function sendNewJobAddedAlertEmail() {
   const userList: SubscribedUserProp[] = await response.data;
   const usersEmailList = userList.filter((user) => user.status != "cancelled");
 
-  // get jobs listing and determine recently new added ones 
-  const jobListingResponse=await axiosInstance.get("/api/Jobs/getAllJobsByCompany")
-  const jobListing:ListingRemoteJobs[]=await jobListingResponse.data
-  const sortedJobListingByDate=jobListing?.sort((a,b)=>{return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()})
+  // get jobs listing and determine recently new added ones
+  const jobListingResponse = await axiosInstance.get(
+    "/api/Jobs/getAllJobsByCompany"
+  );
+  const jobListing: ListingRemoteJobs[] = await jobListingResponse.data;
+  const sortedJobListingByDate = jobListing?.sort((a, b) => {
+    return (
+      new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
+    );
+  });
 
+  const now = new Date();
+  const eightHoursAgo = new Date(now.getTime() - 8 * 60 * 60 * 1000);
+  const lastestJobListing = sortedJobListingByDate.filter((job) => {
+    const createdTime = new Date(job.dateCreated);
+    return createdTime > eightHoursAgo;
+  });
 
-  const now=new Date()
-  const eightHoursAgo= new Date(now.getTime()-8*60*60*1000)
-  const lastestJobListing=sortedJobListingByDate.filter((job)=>{
-    const createdTime= new Date(job.dateCreated)
-    return createdTime>eightHoursAgo
-  })
-  
+  if (lastestJobListing.length > 0) {
+    // Prepare an array of email objects for batch sending
+    const batchEmails = usersEmailList.map((user) => ({
+      from: "info@beyondthesavannah.co.ke",
+      to: [user.email],
+      subject: "Beyond The Savannah New Jobs Alert",
+      react: AllJobsAlertEmailTemplate({
+        firstName: user.firstName,
+        jobs: lastestJobListing,
+      }),
+    }));
 
-  
-
-  // map the new subcribed user list and send mails 
-  // usersEmailList.slice(0, 1).map(async (user) => {
-  if(lastestJobListing.length>0){
-    usersEmailList.map(async (user) => {
-      try {
-        await resend.emails.send({
-          from: `info@beyondthesavannah.co.ke`,
-          to:[`${user.email}`],
-          // to: ["gitoshmbae@gmail.com"],
-          subject: `Beyond The Savannah New Jobs Alert`,
-          react: AllJobsAlertEmailTemplate({ firstName: user.firstName, jobs:lastestJobListing }),
-        });
-        
-      } catch (error) {
-         console.log("Error in the catch session of the sendNewJobAddedAlerEmail function",error);
+    // Send emails in batches of up to 100 per request
+    try {
+      const batchSize = 100;
+      for (let e = 0; e < batchEmails.length; e += batchSize) {
+        const batch = batchEmails.slice(e, e + batchSize);
+        // await resend.batch.send(batch);
+        // await new Promise((res) => setTimeout(res, 500));
       }
-    });
+    } catch (error) {
+      console.log("Error sending batch emails:", error);
+    }
+  } else {
+    console.log("No latest Jobs added within the latest 8 hours");
   }
-  else{
-    console.log("No latest Jobs added within the latest 8 hours")
-  }
-
-  // console.log("LISTING UNDER 8HRS",lastestJobListing);
 }
