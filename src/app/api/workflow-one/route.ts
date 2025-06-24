@@ -13,9 +13,9 @@ export const { POST } = serve(async (context) => {
     await sendNewJobAddedAlertEmail();
     // console.log("tesing email send functionality to gitosh")
   });
-  while(true){
+  // while(true){
     await context.sleep("Run every 8hrs a day",8*60*60*1000)
-  }
+  // }
 });
 
 async function sendNewJobAddedAlertEmail() {
