@@ -6,7 +6,7 @@ export const SubscriptionPackages = [
     packageFigure:450,
     // packagePlanCode:"PLN_t75r4ruqwbnm67g",
     packagePlanCode: "PLN_w760t4s5krneblt",
-    packageGoods: ["NewsLetter", "Curated Job Search Alerts"],
+    packageGoods: ["Access To Listed Jobs","NewsLetter", "Curated Job Search Alerts"],
     link: "/Customer",
   },
   {
@@ -17,6 +17,7 @@ export const SubscriptionPackages = [
     // packagePlanCode:"PLN_c5f5wxnmq801g0n",
     packagePlanCode: "PLN_j90oifa99gcsgch",
     packageGoods: [
+      "Access To Listed Jobs",
       "NewsLetter",
       "Curated Job Search Alerts",
       "Limited Private Email Coaching",
@@ -31,6 +32,7 @@ export const SubscriptionPackages = [
     // packagePlanCode:"PLN_dfckl8ypbw5f67z",
     packagePlanCode: "PLN_hrl8wr3ugbxgzpf",
     packageGoods: [
+      "Access To Listed Jobs",
       "NewsLetter",
       "Curated Job Search Alerts",
       "Unlimited Private Email Coaching",
@@ -45,6 +47,7 @@ export const SubscriptionPackages = [
     // packagePlanCode:"PLN_8hrdfu9sjb6fnkb",
     packagePlanCode: "PLN_bc18wio85ryfm5i",
     packageGoods: [
+      "Access To Listed Jobs",
       "NewsLetter",
       "Curated Job Search Alerts",
       "Unlimited Private Email Coaching",
@@ -73,7 +76,7 @@ export const AnualSubscriptionPackages=[
     packageFigure:5400,
     // packagePlanCode:"PLN_ykdu7h1w83po8m7",
     packagePlanCode: "PLN_u6t1jre4vvzdd57",
-    packageGoods: ["NewsLetter", "Curated Job Search Alerts"],
+    packageGoods: ["Access To Listed Jobs","NewsLetter", "Curated Job Search Alerts"],
     link: "/Customer",
   },
   {
@@ -84,6 +87,7 @@ export const AnualSubscriptionPackages=[
     // packagePlanCode:"PLN_hifghlw9f0xki70",
     packagePlanCode: "PLN_8y9hl4dkw3g8b82",
     packageGoods: [
+      "Access To Listed Jobs",
       "NewsLetter",
       "Curated Job Search Alerts",
       "Limited Private Email Coaching",
@@ -98,6 +102,7 @@ export const AnualSubscriptionPackages=[
     // packagePlanCode:"PLN_uvknfyy0suvh4n1",
     packagePlanCode: "PLN_yqow22yubu57vbd",
     packageGoods: [
+      "Access To Listed Jobs",
       "NewsLetter",
       "Curated Job Search Alerts",
       "Unlimited Private Email Coaching",
@@ -112,6 +117,7 @@ export const AnualSubscriptionPackages=[
     // packagePlanCode:"PLN_ls6nq8avfnl8z11",
     packagePlanCode: "PLN_5ovxmtomzt0vtss",
     packageGoods: [
+      "Access To Listed Jobs",
       "NewsLetter",
       "Curated Job Search Alerts",
       "Unlimited Private Email Coaching",
