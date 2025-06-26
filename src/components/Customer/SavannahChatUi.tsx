@@ -37,11 +37,12 @@ export default function SavannahChatUi() {
 
   return (
     <>
-      <section className="h-full mt-10">
+      <section className="h-full mb-10">
         {/* <div className="w-full lg:w-[70vw] mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-1 md:px-4 py-10"> */}
-        <div className="w-full lg:w-11/12 mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-1 md:px-4 py-10">
+        {/* <div className="w-full lg:w-11/12 mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-1 md:px-4 py-10"> */}
+        <div className="w-full lg:w-11/12 mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo0 rounded-lg px-1 md:px-4 py-10">
           <div
-            className="w-full lg:w-10/12 h-[65dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-4 py-8"
+            className="w-full lg:w-10/12 h-[62dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-4 py-8"
             ref={chatContainer}
           >
             {messages.length > 0 ? (
@@ -56,13 +57,19 @@ export default function SavannahChatUi() {
                       {message.role === "user" ? (
                         <div className="w-5  md:w-10 h-5 md:h-10 grid place-content-center text-center">
                           {/* you */}
-                          <Image
-                            src={user?.imageUrl || ""}
+                          {user?.imageUrl !==undefined ? (
+                             <Image
+                            src={user.imageUrl}
                             height={400}
                             width={400}
                             alt="users image"
                             className="object-contain rounded-lg"
                           />
+                          )
+                          :
+                          (<p className="text-sm">You</p>)
+                          }
+                         
                         </div>
                       ) : (
                         <div className="w-5 md:w-10">
