@@ -19,11 +19,11 @@ export const simpleNavigationMenuItems = [
     title: "Packages",
     link: "/packages",
   },
-  {
-    id: 5,
-    title: "Savannah",
-    link: "/savannah",
-  },
+  // {
+  //   id: 5,
+  //   title: "Savannah",
+  //   link: "/savannah",
+  // },
 ];
 
 export const NonSimpleNavigationMenuItems = [
