@@ -22,6 +22,7 @@ import {
 } from "./ui/sheet";
 import { MenuSquareIcon } from "lucide-react";
 import DisplayImageFromNextCloudinary from "./DisplayImageFromNextCloudinary";
+import SavannahChatUI1 from "./Customer/SavannahChatUI1";
 
 export default function NavigationSection() {
   return (
@@ -79,6 +80,9 @@ export default function NavigationSection() {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               ))}
+              <NavigationMenuItem>
+                <SavannahChatUI1/>
+              </NavigationMenuItem>
             </div>
             {/* mobile navigation  */}
             <div className="block md:hidden">
@@ -137,6 +141,9 @@ export default function NavigationSection() {
                             </NavigationMenuContent>
                           </NavigationMenuItem>
                         ))}
+                        <NavigationMenuItem>
+                <SavannahChatUI1/>
+              </NavigationMenuItem>
                       </NavigationMenuList>
                     </NavigationMenu>
                   </div>
