@@ -63,6 +63,10 @@ export const NonSimpleNavigationMenuItems = [
         title: "Introductory Video",
         link: "/service/introductory-video",
       },
+      {
+        title: "Remote Work Starter Bundle",
+        link: "/service/remote-work-starter-bundle",
+      },
       
       
       {
