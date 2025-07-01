@@ -30,9 +30,9 @@ export default async function page(props: { searchParams: SearchParams }) {
             userSubscriptionInformation.status == "cancelled" ||
             userSubscriptionInformation?.plan.amount != 600000 ? (
               <div className=" space-y-4">
-                <p className=" max-w-2xl mx-auto">
+                <p className=" max-w-3xl text-center mb-20 mx-auto">
                   Struggling to navigate the tough job market? You&apos;re not
-                  alone. Join our exclusive paid WhatsApp community—a safe space
+                  alone. Join our exclusive paid WhatsApp community.  A safe space
                   for job seekers and professionals looking for support,
                   motivation, and expert guidance on securing remote jobs.
                 </p>
@@ -41,7 +41,8 @@ export default async function page(props: { searchParams: SearchParams }) {
                 </div>
               </div>
             ) : (
-              <div className="max-w-4xl mx-auto px-4">
+              // <div className="max-w-4xl mx-auto px-4">
+              <div className="max-w-7xl mx-auto px-4">
                 <SubscriptionDetails />
                 <div className="bg-bts-BrownOne rounded-md px-4 py-8 max-w-xl mx-auto xl:-mt-40">
                   <p className=" text-center text-balance">
