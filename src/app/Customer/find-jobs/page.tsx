@@ -9,7 +9,7 @@ export default async function page() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
   const user = await currentUser();
 
-  const byPassEmailAddress = "anngachanja15@gmail.com";
+  const byPassEmailAddress = "Ayuny.farah@gmail.com";
 
   if (
     (userSubscriptionInformation == null ||
