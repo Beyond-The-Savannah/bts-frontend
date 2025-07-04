@@ -1,3 +1,5 @@
+import { JSX } from "react";
+
 export interface SubscribedUserProp {
   id: number;
   firstName: string;
@@ -5,5 +7,11 @@ export interface SubscribedUserProp {
   email: string;
   subscriptionPlan: string;
   status: string;
-  Career: number | string;
+  career: number | string;
+}
+export interface EmailBatchProp{
+  from: string;
+    to: string[];
+    subject: string;
+    react: JSX.Element;
 }
