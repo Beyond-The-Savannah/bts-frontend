@@ -7,7 +7,7 @@ import {
   Head,
   Html,
   Img,
-  Link,
+  // Link,
   Preview,
   Row,
   Section,
@@ -33,40 +33,38 @@ export default function AllJobsAlertEmailTemplate({
               <Img
                 src={`https://res.cloudinary.com/dh8qlzbzk/image/upload/v1736518541/BTS_Logo_xa2iht.webp`}
                 width="114"
-                //   height="33"
                 alt="Beyond The Savannah Logo"
               />
             </Section>
             <Section>
               <Text style={text}>Hi {firstName},</Text>
               <Text style={text}>
-                Check out the following new opennings from the following
+                Check out the following new openings from the following
                 companies and apply for your next career move:
               </Text>
+              
               {jobs.map((job, index) => (
                 <Section key={index} style={jobSection}>
-                  
-                  <Row className="flex justify-between items-center gap-[20px]">
-                    <Column className="w-4/12 pr-[24px] flex flex-col items-center justify-center gap-[12px]">
+                  <Row>
+                    <Column style={imageColumn}>
                       <Img
                         src={job.imageUrl}
-                        width="90"
-                        alt={`${job.companyName} image`}
-                        className="object-contain rounded-[12px]"
+                        width="80"
+                        height="80"
+                        alt={`${job.companyName} logo`}
+                        style={companyImage}
                       />
                     </Column>
-                    <Column className="w-5/12 pr-[48px]">
-                      <div className="space-y-4">
-                        <Text style={textHeading}>{job.jobName}</Text>
-                        <Text style={text}>{job.companyName}</Text>
-                      </div>
+                    <Column style={jobDetailsColumn}>
+                      <Text style={jobTitle}>{job.jobName}</Text>
+                      <Text style={companyName}>{job.companyName}</Text>
                     </Column>
-                    <Column className="w-4/12 pr-[24px] flex flex-col items-center justify-center gap-[12px]">
+                    <Column style={buttonColumn}>
                       <Button
                         style={button1}
                         href={`https://beyondthesavannah.co.ke/Customer/find-jobs/${job.jobsId}`}
                       >
-                        View Openning
+                        View Opening
                       </Button>
                     </Column>
                   </Row>
@@ -75,13 +73,9 @@ export default function AllJobsAlertEmailTemplate({
 
               <Text style={text}>
                 Best of luck with your application!
-                <Link
-                  style={anchor}
-                  href="https://beyondthesavannah.co.ke/"
-                ></Link>
               </Text>
               <Text style={text}>
-                Warm Regards, 
+                Warm Regards,
                 <br />
                 Beyond the Savannah Team
               </Text>
@@ -102,28 +96,68 @@ const container = {
   backgroundColor: "#ffffff",
   border: "1px solid #f0f0f0",
   padding: "45px",
+  maxWidth: "700px",
+  width: "100%",
 };
+
 const logo = {
   display: "flex",
   justifyContent: "center",
-  alingItems: "center",
-  width: "580px",
-  margin: "0 auto",
+  alignItems: "center",
+  width: "100%",
+  margin: "0 auto 30px auto",
 };
 
 const jobSection = {
-  border: "8px",
-  borderRadius: "4px",
-  marginBottom: "24px",
+  backgroundColor: "#f9f9f9",
+  border: "1px solid #e0e0e0",
+  borderRadius: "8px",
+  padding: "25px",
+  marginBottom: "20px",
 };
 
-// const jobRow={
-//   display: "flex",
-//   justifyContent: "between",
-//   alingItems: "center",
-//   width:"full",
-//   gap:"20px"
-// }
+const imageColumn = {
+  width: "120px",
+  verticalAlign: "top",
+  paddingRight: "20px",
+};
+
+const jobDetailsColumn = {
+  verticalAlign: "top",
+  paddingRight: "20px",
+};
+
+const buttonColumn = {
+  width: "140px",
+  verticalAlign: "top",
+  textAlign: "center" as const,
+};
+
+const companyImage = {
+  borderRadius: "8px",
+  border: "1px solid #e0e0e0",
+  objectFit: "contain" as const,
+};
+
+const jobTitle = {
+  fontSize: "18px",
+  fontFamily:
+    "'Open Sans', 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif",
+  fontWeight: "700",
+  color: "#2c3e50",
+  lineHeight: "24px",
+  margin: "0 0 8px 0",
+};
+
+const companyName = {
+  fontSize: "14px",
+  fontFamily:
+    "'Open Sans', 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif",
+  fontWeight: "400",
+  color: "#7f8c8d",
+  lineHeight: "20px",
+  margin: "0",
+};
 
 const text = {
   fontSize: "16px",
@@ -133,27 +167,20 @@ const text = {
   color: "#404040",
   lineHeight: "26px",
 };
-const textHeading = {
-  fontSize: "16px",
-  fontFamily:
-    "'Open Sans', 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif",
-  fontWeight: "700",
-  color: "#404040",
-  lineHeight: "26px",
-};
 
 const button1 = {
   backgroundColor: "hsl(188, 34%, 17%)",
-  borderRadius: "4px",
+  borderRadius: "6px",
   color: "#fff",
   fontFamily: "'Open Sans', 'Helvetica Neue', Arial",
-  fontSize: "15px",
+  fontSize: "14px",
+  fontWeight: "600",
   textDecoration: "none",
   textAlign: "center" as const,
   display: "block",
   width: "110px",
-  padding: "7px 4px",
+  padding: "12px 8px",
+  border: "none",
 };
-const anchor = {
-  textDecoration: "underline",
-};
+
+
