@@ -31,7 +31,7 @@ async function sendNewJobAddedAlertEmail() {
   });
 
   const now = new Date();
-  const eightHoursAgo = new Date(now.getTime() - 38 * 60 * 60 * 1000); 
+  const eightHoursAgo = new Date(now.getTime() - 8 * 60 * 60 * 1000); 
   const latestJobListing = sortedJobListingByDate.filter((job) => {
     const createdTime = new Date(job.dateCreated);
     return createdTime > eightHoursAgo;
