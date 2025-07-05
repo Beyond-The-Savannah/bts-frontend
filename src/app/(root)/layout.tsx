@@ -48,7 +48,7 @@ export default function RootLayout({
         <PostHogProvider> */}
       <NavigationSection />
       <div className="relative z-20">
-        <div className="absolute top-[48rem] right-[11rem]  ">
+        <div className="absolute top-[39rem] right-[11rem]  ">
           <div className="fixed bg-bts-GreenOne px-4 py-1 hover:scale-105 rounded-xl">
             <SavannahChatUI1 />
           </div>
