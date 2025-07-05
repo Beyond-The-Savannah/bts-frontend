@@ -18,7 +18,7 @@ export default function SavannahChatUI1() {
       <Sheet>
         <SheetTrigger>
           <div className="flex items-center justify-center hover:scale-110 transition ease-in">
-            <p className="font-semibold text-black">Savannah</p>
+            <p className="font-semibold text-white">Savannah</p>
             <DisplayImageFromNextCloudinary
               src="kazina_upvlpf"
               height={800}
@@ -42,9 +42,9 @@ export default function SavannahChatUI1() {
             </SheetTitle>
             <SheetDescription>
               <span className="border-2 rounded-md block border-bts-BrownThree w-36"></span>
-              <p className="capitalize text-xl md:text-3xl font-bold text-bts-GreenOne mt-2">
+              <span className="capitalize text-xl md:text-3xl font-bold text-bts-GreenOne mt-2">
                 Your remote work assistant
-              </p>
+              </span>
             </SheetDescription>
           </SheetHeader>
           <div className="">
