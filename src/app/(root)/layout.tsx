@@ -6,8 +6,8 @@ import FooterSection from "@/components/FooterSection";
 // import { ViewTransitions } from "next-view-transitions";
 // import TanstackQueryProvider from "@/lib/tanstack";
 import { getCldOgImageUrl } from "next-cloudinary";
+import SavannahChatUI1 from "@/components/Customer/SavannahChatUI1";
 // import { PostHogProvider } from "@/lib/postHogProvider";
-
 
 // const montserrat = Montserrat({
 //   subsets: ["latin"],
@@ -43,17 +43,22 @@ export default function RootLayout({
     //     className={`${montserrat.className} antialiased`}
     //   >
     <>
-    {/* <TanstackQueryProvider>
+      {/* <TanstackQueryProvider>
       <ViewTransitions>
         <PostHogProvider> */}
-          <NavigationSection />
-          
-          {children}
-          <FooterSection />
-        {/* </PostHogProvider>
+      <NavigationSection />
+      <div className="relative z-20">
+        <div className="absolute top-[48rem] right-[11rem]  ">
+          <div className="fixed bg-bts-GreenOne px-4 py-1 hover:scale-105 rounded-xl">
+            <SavannahChatUI1 />
+          </div>
+        </div>
+      </div>
+      {children}
+      <FooterSection />
+      {/* </PostHogProvider>
       </ViewTransitions>
     </TanstackQueryProvider> */}
-    
     </>
     //   </body>
     // </html>
