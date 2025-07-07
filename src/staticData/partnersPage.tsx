@@ -171,3 +171,36 @@ export const partnershipType1=[
         ]
     },
 ]
+
+export const poolCandidateGroup=[
+    {
+        id:1,
+        title:"Project Managers",
+        details:"average years of experience: 8 ",
+    },
+    {
+        id:2,
+        title:"Operation Managers",
+        details:"average years of experience: 8",
+    },
+    {
+        id:3,
+        title:"Customer Success",
+        details:"average years of experience: 10",
+    },
+    {
+        id:4,
+        title:"Data Anyalst",
+        details:"average years of experience: 2",
+    },
+    {
+        id:5,
+        title:"Finance Anyalst",
+        details:"average years of experience: 2",
+    },
+    {
+        id:6,
+        title:"Administrative Assistant",
+        details:"average years of experience: 14",
+    },
+]
