@@ -12,12 +12,24 @@ export default async function page({
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
   const user = await currentUser();
 
-  const byPassEmailAddress = "ayuny.farah@gmail.com";
+  // const byPassEmailAddress = "ayuny.farah@gmail.com";
+  const byPassEmailAddresses = [
+    `ayuny.farah@gmail.com`,
+    `wambui4wachira@gmail.com`,
+    `jacklinewaceke199@gmail.co`,
+    `dmuthoni487@gmail.com`,
+    `marynicholas777@gmail.com`,
+    `linetahkamau25@gmail.com`,
+    `tracygwangui@gmail.com`,
+    `dianacheserem@gmail.com `,
+    // `cajix80721@binafex.com`,
+  ];
 
   if (
     (userSubscriptionInformation == null ||
       userSubscriptionInformation == undefined) &&
-    byPassEmailAddress != user?.emailAddresses[0].emailAddress
+      (!byPassEmailAddresses.includes(user?.emailAddresses[0].emailAddress as string))
+    // byPassEmailAddress != user?.emailAddresses[0].emailAddress
   ) {
     redirect("/Customer");
   }
