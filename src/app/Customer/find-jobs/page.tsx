@@ -9,7 +9,7 @@ export default async function page() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
   const user = await currentUser();
 
-  // const byPassEmailAddress = "ayuny.farah@gmail.com";
+  
 
   const byPassEmailAddresses = [
     `ayuny.farah@gmail.com`,
@@ -17,7 +17,6 @@ export default async function page() {
     `jacklinewaceke199@gmail.co`,
     `dmuthoni487@gmail.com`,
     `marynicholas777@gmail.com`,
-    `linetahkamau25@gmail.com`,
     `tracygwangui@gmail.com`,
     `dianacheserem@gmail.com `,
     `kinyachiokz@gmail.com`,
