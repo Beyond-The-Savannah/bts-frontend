@@ -35,7 +35,10 @@ export async function POST(request: Request) {
       callback_url: callback_url_value,
     });
 
-    if (initialResponse?.status == true && amountInCents == 150000) {
+    if (
+      initialResponse?.status == true &&
+      (amountInCents == 150000 || amountInCents == 1800000)
+    ) {
       const { data, error } = await resend.emails.send({
         from: `info@beyondthesavannah.co.ke`,
         to: [email],
@@ -58,7 +61,8 @@ export async function POST(request: Request) {
         subject: `Beyond The Savannah`,
         react: WhatsAppsEmailTemplate({
           firstName: firstName,
-          whatsAppExpiringLink: "https://chat.whatsapp.com/LDHAh18I4kZ208gGig8jMV",
+          whatsAppExpiringLink:
+            "https://chat.whatsapp.com/LDHAh18I4kZ208gGig8jMV",
         }),
       });
       if (error) {
@@ -66,8 +70,6 @@ export async function POST(request: Request) {
       }
       console.log(data?.id);
     }
-    
-    
 
     return Response.json({ initialResponse });
   } catch (error) {
@@ -102,7 +104,7 @@ export async function GET() {
       }
       currentPage++;
     } while (currentPage <= totalPages);
-    
+
     // return Response.json(response);
     return Response.json({
       status: true,
@@ -113,7 +115,6 @@ export async function GET() {
         pageCount: totalPages,
       },
     });
-    
   } catch (error) {
     return Response.json({ error }, { status: 500 });
   }
