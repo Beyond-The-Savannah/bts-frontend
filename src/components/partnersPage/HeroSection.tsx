@@ -6,8 +6,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 export default function HeroSection() {
   return (
     <section className="min-h-screen">
-      <div className="min-h-[90dvh] flex flex-wrap md:flex-nowrap justify-between  gap-4 ">
-        <div className="w-full md:w-6/12 px-4 md:px-12 flex flex-col justify-center items-start pt-24 md:pt-20  gap-12">
+      <div className="min-h-[90dvh] flex flex-wrap-reverse md:flex-nowrap justify-between  gap-4 ">
+        <div className="w-full md:w-6/12 px-4 md:px-12 flex flex-col justify-center items-start pb-10 pt-4 md:pt-20  gap-12">
           <h1 className="text-3xl md:text-5xl text-bts-GreenOne font-bold">
             Partnership that Empower
           </h1>

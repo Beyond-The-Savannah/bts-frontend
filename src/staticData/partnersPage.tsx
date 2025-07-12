@@ -185,22 +185,22 @@ export const poolCandidateGroup=[
     },
     {
         id:3,
-        title:"Customer Success",
+        title:"Customer Success Specialists",
         details:"average years of experience: 10",
     },
     {
         id:4,
-        title:"Data Anyalst",
+        title:"Data Anyalsts",
         details:"average years of experience: 2",
     },
     {
         id:5,
-        title:"Finance Anyalst",
+        title:"Finance Anyalsts",
         details:"average years of experience: 2",
     },
     {
         id:6,
-        title:"Administrative Assistant",
+        title:"Administrative Assistants",
         details:"average years of experience: 14",
     },
 ]
