@@ -6,7 +6,7 @@ export const reasonsForPartnership=[
     },
     {
         id:2,
-        point:"Provide career coaching, readyness support, and skills development",
+        point:"Provide career coaching, readiness support, and skills development",
     },
     {
         id:3,
