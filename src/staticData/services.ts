@@ -187,10 +187,10 @@ export const servicesList = [
     title: "Remote Work Starter Bundle",
     titleSlug: "remote-work-starter-bundle",
     subheading: "CV Revamp + LinkedIn Optimization + Introductory Video .",
-    // img: "remote_work_w658yv",
-    img: "new_Starter_Pack_img_q0jivd",
-    // openGraphImg: "remote_work_w658yv",
-    openGraphImg: "new_Starter_Pack_img_q0jivd",
+    img: "remote_work_w658yv",
+    // img: "new_Starter_Pack_img_q0jivd",
+    openGraphImg: "remote_work_w658yv",
+    // openGraphImg: "new_Starter_Pack_img_q0jivd",
     details:
       "Breaking into remote work can be challenging, but we've got you covered! Our Remote Work Starter Bundle is designed to position you for success in the global job market",
     benefits: [
