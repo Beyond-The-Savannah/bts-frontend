@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import CareerSelection from "./CareerSelection";
 import { GetUserSubscriptionInformation } from "./UserSubscriptionInformation";
 import { CircleAlert } from "lucide-react";
+import ResumeUpload1 from "./ReusmeUpload1";
+// import ResumeUpload from "./ResumeUpload";
 
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 
@@ -131,7 +133,10 @@ export default async function SubscriptionDetails() {
               </div>
             </div>
             {userSubscriptionInformation.plan.amount !== 600000 ? (
+              <div className="w-full flex flex-wrap lg:flex-nowrap gap-x-10 ">
               <CareerSelection  emailAddress={userSubscriptionInformation.customer.email}/>
+              <ResumeUpload1/>
+              </div>
             ) : null}
           </div>
         </div>

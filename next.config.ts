@@ -28,6 +28,11 @@ module.exports={
         hostname:'img.clerk.com',
       },
     ]
+  },
+  experimental:{
+    serverActions:{
+      bodySizeLimit:'5mb'
+    }
   }
 }
 

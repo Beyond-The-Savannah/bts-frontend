@@ -22,6 +22,7 @@ export default async function page({
     `dianacheserem@gmail.com`,
     `kinyachiokz@gmail.com`,
     `onyango.mary15@gmail.com`,
+    `sonimuthoni23@gmail.com`,
   ];
 
   if (
