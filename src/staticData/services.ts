@@ -207,8 +207,8 @@ export const servicesList = [
     // "This season, we're honoring the bold, the brave, and the visionary founders across the globe who dared to start. In the spirit of freedom and building something from scratch, we're offering an exclusive discount on our services to support your journey.",
     // price: 26000,
     // priceString: "26,000",
-    price: 23000,
-    priceString: "23,000",
+    price: 20000,
+    priceString: "20,000",
   },
   {
     id: 10,
