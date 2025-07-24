@@ -157,8 +157,8 @@ export const servicesList = [
     servicePolicy: "",
     valueProposal:
       "Whether you're a seasoned professional looking to transition to remote roles or a newcomer eager to enter the workforce, our Master Class is designed to equip you with the essential skills, strategies, and insights needed to thrive in a work environment.",
-    price: 3500,
-    priceString: "3,500",
+    price: 6000,
+    priceString: "6,000",
   },
   {
     id: 8,
@@ -272,7 +272,8 @@ export const servicesCalendlyLinks = [
   {
     id: 7,
     service: "Remote Work Master Class",
-    amount: 350000,
+    // amount: 350000,
+    amount: 600000,
     link: "",
   },
   {
