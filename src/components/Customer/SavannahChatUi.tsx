@@ -8,8 +8,8 @@ import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import { useEffect, useRef } from "react";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
-// import { Textarea } from "../ui/textarea";
-import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+// import { Input } from "../ui/input";
 
 export default function SavannahChatUi() {
   const chatContainer = useRef<HTMLDivElement>(null);
@@ -40,9 +40,11 @@ export default function SavannahChatUi() {
       <section className="h-full mb-10">
         {/* <div className="w-full lg:w-[70vw] mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-1 md:px-4 py-10"> */}
         {/* <div className="w-full lg:w-11/12 mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-1 md:px-4 py-10"> */}
-        <div className="w-full lg:w-11/12 mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo0 rounded-lg px-1 md:px-4 py-10">
+        <div className="w-full lg:w-11/12 mx-auto flex flex-col justify-between items-center gap-4  rounded-lg px-1 md:px-4 py-10">
           <div
-            className="w-full lg:w-11/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-4 py-8"
+            // className="w-full lg:w-11/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-4 py-8"
+            // className="w-full lg:w-11/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-2 lg:px-4 py-8"
+            className="w-[70vw] sm:w-11/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-2 lg:px-4 py-8"
             ref={chatContainer}
           >
             {messages.length > 0 ? (
@@ -51,7 +53,7 @@ export default function SavannahChatUi() {
                 {messages.map((message) => (
                   <div
                     key={message.id}
-                    className="flex flex-wrap md:flex-nowrap items-start gap-2 bg-stone-100 rounded-lg px-2 md:px-3 py-4 mb-4"
+                    className="flex flex-wrap md:flex-nowrap items-start gap-2 bg-stone-100 rounded-lg px-2  md:px-3 py-4 mb-4"
                   >
                     <span className="text-xs rounded-lg bg-stone-200 p-1">
                       {message.role === "user" ? (
@@ -170,22 +172,31 @@ export default function SavannahChatUi() {
           </div>
           
           {/* <div className="w-full lg:w-8/12 mx-auto  px-4 py-2 rounded-lg "> */}
-          <div className="w-full lg:w-10/12 mx-auto  px-4 py-2 rounded-lg ">
+          <div className="w-full xl:w-10/12 mx-auto  px-1 xl:px-4 py-2 rounded-lg ">
             <form onSubmit={handleSubmit}>
               <div className="flex flex-wrap md:flex-nowrap justify-end md:justify-evenly items-center gap-2">
-                {/* <Textarea
+                <Textarea
                   name="prompt"
                   value={input}
                   placeholder="Type your question here."
                   onChange={handleInputChange}
-                /> */}
-                <Input
+                  onKeyDown={async (event)=>{
+                    if(event.key ==='Enter'&& !event.shiftKey){
+                      event.preventDefault()
+                      const form = event.currentTarget.form;
+                      if (form) {
+                        handleSubmit(new Event('submit'));
+                      }
+                    }
+                  }}
+                />
+                {/* <Input
                   name="prompt"
                   value={input}
                   placeholder="Type your question here"
                   onChange={handleInputChange}
                   className="min-h-12"
-                />
+                /> */}
                 <Button
                   type="submit"
                   className="bg-bts-BrownOne text-black hover:bg-bts-BrownFour hover:text-slate-100 hover:scale-105"
