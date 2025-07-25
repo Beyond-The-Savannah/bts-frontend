@@ -28,7 +28,8 @@ export default function SavannahChatUI1() {
             />
           </div>
         </SheetTrigger>
-        <SheetContent className="max-w-[800px] md:max-w-[65%] lg:max-w-[45%] min-h-[80dvh]">
+        {/* <SheetContent className="max-w-[800px] md:max-w-[65%] lg:max-w-[45%] min-h-[80dvh]"> */}
+        <SheetContent className="max-w-[90dvw] md:max-w-[65%] lg:max-w-[45%] min-h-[80dvh] overflow-auto">
           <SheetHeader>
             <SheetTitle className="flex items-center gap-1">
               <span className="text-xl">Hi, I&apos;Am Savannah </span>
