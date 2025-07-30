@@ -38,11 +38,16 @@ import {
   useGetJobSubCategoryDropDownList,
 } from "@/remoteData/getData";
 import { formats2, modules2 } from "@/lib/reactQuilSettings";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../ui/command";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "../ui/command";
 import { cn } from "@/lib/utils";
-
-
-
+import { useUser } from "@clerk/nextjs";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), {
   ssr: false,
@@ -56,6 +61,7 @@ export default function JobDetailsForm() {
   const { data: companies } = useGetCompaniesDropDownList();
   const { data: jobCategories } = useGetJobCategoryDropDownList();
   const { data: jobSubCategories } = useGetJobSubCategoryDropDownList();
+  const { user } = useUser();
 
   const form = useForm<z.infer<typeof JobFormSchema>>({
     resolver: zodResolver(JobFormSchema),
@@ -78,14 +84,14 @@ export default function JobDetailsForm() {
     },
   });
 
+  const { formState } = form;
+
   const { fields, append, remove } = useFieldArray({
     name: "jobsAndSections",
     control: form.control,
   });
 
   function onSubmit(data: z.infer<typeof JobFormSchema>) {
-
-    console.log("JOBS DETAILS",data)
     const jobDetailsPostRequest = async () => {
       try {
         const response = await axiosInstance.post(`/api/Jobs/addJobs`, {
@@ -97,10 +103,10 @@ export default function JobDetailsForm() {
             language: "string",
             jobUrl: data.jobUrl,
             salary: 0,
-            jobCategoriesId: Number(data.jobSubCategoryId),
+            jobCategoriesId: Number(data.jobCategoriesId),
             jobSubCategoryId: Number(data.jobSubCategoryId),
           },
-          createdBy: "user",
+          createdBy: user?.fullName,
           jobsAndSections: data.jobsAndSections.map(
             (section, index: number) => ({
               id: index,
@@ -112,17 +118,15 @@ export default function JobDetailsForm() {
             })
           ),
         });
-        if (response.status === 200) {
-          // console.log(response);
-          // const {workflowRunId}=await client.trigger({
-          //   url:`https://beyondthesavannah.co.ke/api/workflow-one`
-          // })
-          // console.log("WorkflowRundId from workflow one",workflowRunId)
-          return true;
-        } else {
-          // console.error("Request failed with status:", response.status);
-          return false;
+
+        // console.log("JOBS DETAILS FORM RESPONSE",response)
+
+        if (response.data.errorCode == 500) {
+          toast.error(
+            "Error adding current job deatils, please try again later"
+          );
         }
+        return response;
       } catch (error) {
         if (axios.isAxiosError(error)) {
           // console.error("Axios error:", error.message);
@@ -135,23 +139,24 @@ export default function JobDetailsForm() {
     };
     toast.promise(jobDetailsPostRequest(), {
       loading: "Adding...",
-      success: () => {
-        form.reset();
-        return `Job Details Added`;
+      success: (response) => {
+        if (response.data.errorCode == 201) {
+          form.reset();
+          return `Job Details Added`;
+        }
       },
-      error: "Error, cannot add the jobs details, try again alter",
+      error: (response) => {
+        if (response.data.errorCode == 500) {
+          return "Error, cannot add current job deatils,";
+        }
+      },
     });
   }
   return (
     <>
-    {/* <div className="w-full lg:w-[70vw] mx-auto"></div> */}
-      {/* <div className="mt-10 mb-20"> */}
       <div className="container mx-auto mt-10 mb-20">
         <h2 className="text-xl">Jobs Form</h2>
         <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
-        {/* <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
-          Job Details
-        </p> */}
       </div>
 
       <Form {...form}>
@@ -219,22 +224,50 @@ export default function JobDetailsForm() {
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
-                        <Button variant="outline" role="combobox" className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw] mx-2 flex justify-between">
-                          {field.value? jobSubCategories?.find((categrory)=>String(categrory.value)===field.value)?.label:"Select categrory"}
-                          <ChevronsUpDown className="opacity-50"/>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw] mx-2 flex justify-between"
+                        >
+                          {field.value
+                            ? jobSubCategories?.find(
+                                (categrory) =>
+                                  String(categrory.value) === field.value
+                              )?.label
+                            : "Select categrory"}
+                          <ChevronsUpDown className="opacity-50" />
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
                     <PopoverContent className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]">
                       <Command>
-                        <CommandInput placeholder="Search job SubCategories" className="h-9"/>
+                        <CommandInput
+                          placeholder="Search job SubCategories"
+                          className="h-9"
+                        />
                         <CommandList>
                           <CommandEmpty>No job category found</CommandEmpty>
                           <CommandGroup>
-                            {jobSubCategories?.map((categrory)=>(
-                              <CommandItem key={categrory.value} value={categrory.label} onSelect={()=>{form.setValue("jobSubCategoryId",String(categrory.value))}}>
+                            {jobSubCategories?.map((categrory) => (
+                              <CommandItem
+                                key={categrory.value}
+                                value={categrory.label}
+                                onSelect={() => {
+                                  form.setValue(
+                                    "jobSubCategoryId",
+                                    String(categrory.value)
+                                  );
+                                }}
+                              >
                                 {categrory.label}
-                                <Check className={cn("ml-auto", String(categrory.value)===field.value?"opacity-100":"opacity-0")}/>
+                                <Check
+                                  className={cn(
+                                    "ml-auto",
+                                    String(categrory.value) === field.value
+                                      ? "opacity-100"
+                                      : "opacity-0"
+                                  )}
+                                />
                               </CommandItem>
                             ))}
                           </CommandGroup>
@@ -294,22 +327,50 @@ export default function JobDetailsForm() {
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
-                        <Button variant="outline" role="combobox" className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw] mx-2 flex justify-between">
-                          {field.value? companies?.find((company)=>String(company.value)===field.value)?.label:"Select company"}
-                          <ChevronsUpDown className="opacity-50"/>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw] mx-2 flex justify-between"
+                        >
+                          {field.value
+                            ? companies?.find(
+                                (company) =>
+                                  String(company.value) === field.value
+                              )?.label
+                            : "Select company"}
+                          <ChevronsUpDown className="opacity-50" />
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
                     <PopoverContent className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]">
                       <Command>
-                        <CommandInput placeholder="Search companies" className="h-9"/>
+                        <CommandInput
+                          placeholder="Search companies"
+                          className="h-9"
+                        />
                         <CommandList>
                           <CommandEmpty>No company found</CommandEmpty>
                           <CommandGroup>
-                            {companies?.map((company)=>(
-                              <CommandItem key={company.value} value={company.label} onSelect={()=>{form.setValue("companyId",String(company.value))}}>
+                            {companies?.map((company) => (
+                              <CommandItem
+                                key={company.value}
+                                value={company.label}
+                                onSelect={() => {
+                                  form.setValue(
+                                    "companyId",
+                                    String(company.value)
+                                  );
+                                }}
+                              >
                                 {company.label}
-                                <Check className={cn("ml-auto", String(company.value)===field.value?"opacity-100":"opacity-0")}/>
+                                <Check
+                                  className={cn(
+                                    "ml-auto",
+                                    String(company.value) === field.value
+                                      ? "opacity-100"
+                                      : "opacity-0"
+                                  )}
+                                />
                               </CommandItem>
                             ))}
                           </CommandGroup>
@@ -432,7 +493,6 @@ export default function JobDetailsForm() {
                       <FormControl>
                         <ReactQuill
                           theme="snow"
-                          
                           // style={{ width: "40vw" }}
                           className="w-[95dvw] md:w-[30dvw] rounded-lg border-2"
                           defaultValue={field.sectionDescription}
@@ -460,7 +520,7 @@ export default function JobDetailsForm() {
                     {index > 0 && (
                       <Button
                         type="button"
-                        size='sm'
+                        size="sm"
                         variant="outline"
                         onClick={() => remove(index)}
                       >
@@ -488,8 +548,10 @@ export default function JobDetailsForm() {
           <Button
             type="submit"
             className="bg-bts-BrownThree hover:bg-green-800"
+            disabled={formState.isSubmitting}
           >
-            Add Job
+            {formState.isSubmitting ? "Adding Job..." : "Add Job"}
+            {/* Add Job */}
           </Button>
         </form>
       </Form>

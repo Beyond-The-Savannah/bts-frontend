@@ -107,6 +107,7 @@ export default function JobsSubCategoryAdminPage() {
       error: "Error, cannot remove job sub category, try again later",
     });
   }
+  console.log("SUBCATEGORIES=>",dataInDescendingOrder)
   return (
     <>
       <section className="mt-10 px-4">
