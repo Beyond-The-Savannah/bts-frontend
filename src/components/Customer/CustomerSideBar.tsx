@@ -77,8 +77,10 @@ export default async function CustomerSideBar() {
               // ["active", "attention", "non-renewing", "completed"].includes(
               //   userSubscriptionInformation?.status as string
               // ) && userSubscriptionInformation?.plan?.amount != 600000 
-              (userSubscriptionInformation==null || userSubscriptionInformation==undefined) &&
-              byPassEmailAddresses.includes(user?.emailAddresses[0].emailAddress as string)
+              // (userSubscriptionInformation==null || userSubscriptionInformation==undefined) &&
+              // byPassEmailAddresses.includes(user?.emailAddresses[0].emailAddress as string)
+              (["active", "attention", "non-renewing", "completed"].includes(userSubscriptionInformation?.status as string) && userSubscriptionInformation?.plan?.amount != 600000 ) ||
+              (userSubscriptionInformation==null || userSubscriptionInformation==undefined) && byPassEmailAddresses.includes(user?.emailAddresses[0].emailAddress as string)
               ? 
               
               (
