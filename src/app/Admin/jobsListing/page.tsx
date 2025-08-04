@@ -1,4 +1,5 @@
 "use client";
+// import JobDetailsForm from "@/components/Admin/JobDetailsForm";
 import RemoteJobListingErrorUI from "@/components/RemoteJobListingErrorUI";
 import RemoteJobListingsLoadingUI from "@/components/RemoteJobListingsLoadingUI";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
@@ -10,13 +11,14 @@ import axios from "axios";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 import { toast } from "sonner";
+
 export default function JobsListingAdminPage() {
   const { data, isLoading, isError } = useGetRemoteListingJobsUsingTanstack();
 
   const sortedJobsByDate=data?.sort((a,b)=> {return new Date(b.dateCreated).getTime()- new Date(a.dateCreated).getTime()})
 
   // console.log("ADMIN JOB LISTING",data)
-  // console.log("ADMIN JOB LISTING BY DATE",sortedJobsByDate)
+  console.log("ADMIN JOB LISTING BY DATE",sortedJobsByDate)
 
 
   function removeJobDetails(id: number) {
@@ -87,6 +89,24 @@ export default function JobsListingAdminPage() {
                     View Position
                   </Button>
                 </Link>
+              
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="secondary" size="sm" className="border-bts-BrownTwo hover:bg-green-300 hover:text-black hover:scale-105 transition duration-500">Edit Job details</Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent className="w-full md:max-w-[80vw] pt-20 h-full overflow-y-auto  grid place-content-center">
+                    <AlertDialogHeader className="text-center">
+                      <AlertDialogTitle className="text-center">Job Details</AlertDialogTitle>
+                      <AlertDialogDescription className="text-center"></AlertDialogDescription>
+                    </AlertDialogHeader>
+                    {/* <JobDetailsForm id={job.jobsId}/> */}
+                    <AlertDialogFooter className="w-12/12 mx-auto flex  justify-center items-center">
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+                
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
                     <Button variant="destructive" size="sm" className="border-bts-BrownTwo hover:bg-red-300 hover:text-black hover:scale-105 transition duration-500">Delete Job</Button>
@@ -103,14 +123,6 @@ export default function JobsListingAdminPage() {
                   </AlertDialogContent>
                 </AlertDialog>
 
-                {/* <Button
-                onClick={()=>removeJobDetails(job.jobsId)}
-                  variant="destructive"
-                  size="sm"
-                  className="border-bts-BrownTwo hover:bg-red-300 hover:text-black hover:scale-105 transition duration-500"
-                >
-                  Remove job
-                </Button> */}
               </div>
             </div>
           ))}

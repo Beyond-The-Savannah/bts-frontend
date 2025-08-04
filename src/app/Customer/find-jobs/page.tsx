@@ -20,6 +20,7 @@ export default async function page() {
     `kinyachiokz@gmail.com`,
     `onyango.mary15@gmail.com`,
     `sonimuthoni23@gmail.com`,
+    `caroline_kairuthi@yahoo.com`
   ];
 
   if (
