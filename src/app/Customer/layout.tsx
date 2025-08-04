@@ -16,7 +16,7 @@ export default function Customerlayout({
           <CustomerSideBar />
           <main className=" w-full ">
             <SidebarTrigger />
-            <section className="px-4 md:px-12">{children}</section>
+            <section className="px-2 md:px-1">{children}</section>
           </main>
         </SidebarProvider>
       </section>

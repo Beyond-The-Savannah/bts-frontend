@@ -13,6 +13,22 @@ import { Link } from "next-view-transitions";
 import { SignedIn, UserButton } from "@clerk/nextjs";
 
 import { GetUserSubscriptionInformation } from "./UserSubscriptionInformation";
+import { currentUser } from "@clerk/nextjs/server";
+
+ const byPassEmailAddresses = [
+    `ayuny.farah@gmail.com`,
+    `wambui4wachira@gmail.com`,
+    `jacklinewaceke199@gmail.com`,
+    `dmuthoni487@gmail.com`,
+    `marynicholas777@gmail.com`,
+    `tracygwangui@gmail.com`,
+    `dianacheserem@gmail.com`,
+    `kinyachiokz@gmail.com`,
+    `onyango.mary15@gmail.com`,
+    `sonimuthoni23@gmail.com`,
+    `caroline_kairuthi@yahoo.com`,
+  ];
+
 const items = [
   {
     title: "Jobs",
@@ -46,6 +62,7 @@ const items3 = [
 ];
 export default async function CustomerSideBar() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
+  const user = await currentUser();
   // console.log("USEINFO SIDEBAR", userSubscriptionInformation);
 
   return (
@@ -56,9 +73,15 @@ export default async function CustomerSideBar() {
           <SidebarGroupContent className="flex flex-col justify-between h-[90vh]">
             <SidebarMenu className="space-y-2">
               
-              {["active", "attention", "non-renewing", "completed"].includes(
-                userSubscriptionInformation?.status as string
-              ) && userSubscriptionInformation?.plan?.amount != 600000 ? (
+              {
+              // ["active", "attention", "non-renewing", "completed"].includes(
+              //   userSubscriptionInformation?.status as string
+              // ) && userSubscriptionInformation?.plan?.amount != 600000 
+              (userSubscriptionInformation==null || userSubscriptionInformation==undefined) &&
+              byPassEmailAddresses.includes(user?.emailAddresses[0].emailAddress as string)
+              ? 
+              
+              (
                 <>
                   {" "}
                   {items.map((item) => (
@@ -73,9 +96,14 @@ export default async function CustomerSideBar() {
                   ))}
                 </>
               ) : null}
-              {["active", "attention", "non-renewing", "completed"].includes(
+              {
+              ["active", "attention", "non-renewing", "completed"].includes(
                 userSubscriptionInformation?.status as string
-              ) && userSubscriptionInformation?.plan?.amount == 600000 ? (
+              ) && userSubscriptionInformation?.plan?.amount == 600000 
+          
+              ? 
+              
+              (
                 <>
                   {items2.map((item) => (
                     <SidebarMenuItem key={item.title}>
