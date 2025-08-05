@@ -1,44 +1,74 @@
-"use client"
+"use client";
 
-import { useGetRemoteListingJobsUsingTanstack, useGetSingleRemiteListingUsingTanstack } from "@/remoteData/getData";
-import SingleJobLoadingErrorUI from "../SingleJobLoadingErrorUI"
-import SingleJobLoadingUI from "../SingleJobLoadingUI"
-import Image from "next/image"
+import {
+  useGetRemoteListingJobsUsingTanstack,
+  useGetSingleRemiteListingUsingTanstack,
+} from "@/remoteData/getData";
+import SingleJobLoadingErrorUI from "../SingleJobLoadingErrorUI";
+import SingleJobLoadingUI from "../SingleJobLoadingUI";
+import Image from "next/image";
 import { correctedParsedHTML, DateFormatter } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { Link } from "next-view-transitions";
 import { ArrowUpRight, CalendarPlus, CalendarX, MapPin } from "lucide-react";
 import {
-    EmailIcon,
-    EmailShareButton,
-    FacebookIcon,
-    FacebookShareButton,
-    LinkedinIcon,
-    LinkedinShareButton,
-    TelegramIcon,
-    TelegramShareButton,
-    TwitterShareButton,
-    WhatsappIcon,
-    WhatsappShareButton,
-    XIcon,
-  } from "react-share"
+  EmailIcon,
+  EmailShareButton,
+  FacebookIcon,
+  FacebookShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  TelegramIcon,
+  TelegramShareButton,
+  TwitterShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+  XIcon,
+} from "react-share";
 import clsx from "clsx";
+import { useEffect, useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import { SubscribedUserProp } from "@/types/subscribedUser";
+import axios from "axios";
 
+export default function ViewJob({ jobsId }: { jobsId: string }) {
+  const {
+    data: singleJob,
+    isLoading,
+    isError,
+  } = useGetSingleRemiteListingUsingTanstack(jobsId);
+  const { data: remoteJobs } = useGetRemoteListingJobsUsingTanstack();
 
-export default function ViewJob({jobsId}:{jobsId:string}) {
-     const {
-        data: singleJob,
-        isLoading,
-        isError,
-      } = useGetSingleRemiteListingUsingTanstack(jobsId);
-      const { data: remoteJobs } = useGetRemoteListingJobsUsingTanstack();
-    
-      const filteredRemoteJob = remoteJobs?.find(
-        (job) => job.jobsId == parseInt(`${jobsId}`)
-      );
+  const filteredRemoteJob = remoteJobs?.find(
+    (job) => job.jobsId == parseInt(`${jobsId}`)
+  );
+
+  const { user } = useUser();
+  const [loggedUser, setLoggedUser] = useState<SubscribedUserProp | undefined>(
+    undefined
+  );
+  useEffect(() => {
+    async function getLoggedUserData() {
+      try {
+        const result = await axios.get<SubscribedUserProp>(
+          `https://efmsapi-staging.azurewebsites.net/api/BydUsers/getUserDetailsByEmail?email=${user?.primaryEmailAddress?.emailAddress}`
+        );
+        setLoggedUser(result.data);
+      } catch (error) {
+        console.log(
+          "Error Getting logged User subscription information in resume upload",
+          error
+        );
+      }
+    }
+
+    if (user?.primaryEmailAddress?.emailAddress) {
+      getLoggedUserData();
+    }
+  }, [user?.primaryEmailAddress?.emailAddress]);
   return (
     <>
-     <section className="container mx-auto   min-h-screen pt-2 md:pt-4 px-4">
+      <section className="container mx-auto   min-h-screen pt-2 md:pt-4 px-4">
         <div className="">
           <h2 className="text-xl">Global Open Roles</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
@@ -85,7 +115,7 @@ export default function ViewJob({jobsId}:{jobsId:string}) {
                     <p className="text-base font-medium ml-4">
                       <span className="font-bold block text-xs -ml-4 mr-1">
                         {/* Location: */}
-                        <MapPin/>
+                        <MapPin />
                       </span>
                       {filteredRemoteJob.jobCategory}
                     </p>
@@ -125,6 +155,36 @@ export default function ViewJob({jobsId}:{jobsId:string}) {
                       <ArrowUpRight size={4} />
                     </Link>
                   </Button>
+                  {
+                  singleJob && loggedUser != undefined && 
+                  (<>
+                  <div>
+                     <Button onClick={ async()=>{
+                          // const {text}= await await getAnswer(`what will be my responsiblities for this role ${singleJob.map((listing)=>{return listing.sectionDescription})}? `)
+                          const {output}= await await getAnswer(`My resume ${resumeFile}, role ${singleJob.map((listing)=>{return listing.sectionDescription})}? `)
+                          for await (const delta of readStreamableValue(output)){
+                            setGeneration(curentGeneration=> `${curentGeneration}${delta}`)
+                          }
+                          // setGeneration(text)
+                        }} className="bg-bts-GreenOne hover:scale-105 transition duration-500 rounded  flex">
+                          Anayalze my Resume for this position
+                          <DisplayImageFromNextCloudinary
+                                        src="kazina_upvlpf"
+                                        height={800}
+                                        width={800}
+                                        alt="savannah avatar"
+                                        classname="size-12 -mt-10"
+                                      />
+                        </Button>
+                        <div className="rounded-lg bg-sky-50 px-3 py-4">
+                          {/* <div className="prose prose-sm" dangerouslySetInnerHTML={{__html: correctedParsedHTML(generation),}}></div> */}
+                          <div className="prose prose-sm">
+                            <Markdown remarkPlugins={[remarkGfm]}>{generation}</Markdown>
+                          </div>
+                        </div>
+                  </div>
+                  </>)
+                  }
                 </div>
               </div>
             )}
@@ -203,5 +263,5 @@ export default function ViewJob({jobsId}:{jobsId:string}) {
         </div>
       </section>
     </>
-  )
+  );
 }
