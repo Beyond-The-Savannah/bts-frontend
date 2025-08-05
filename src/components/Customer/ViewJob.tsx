@@ -30,8 +30,15 @@ import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { SubscribedUserProp } from "@/types/subscribedUser";
 import axios from "axios";
+import { getAnswer } from "@/app/actions/analyse-job-and-recommend";
+
+import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
+import { readStreamableValue } from "ai/rsc";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export default function ViewJob({ jobsId }: { jobsId: string }) {
+  const { user } = useUser();
   const {
     data: singleJob,
     isLoading,
@@ -43,10 +50,10 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
     (job) => job.jobsId == parseInt(`${jobsId}`)
   );
 
-  const { user } = useUser();
-  const [loggedUser, setLoggedUser] = useState<SubscribedUserProp | undefined>(
-    undefined
-  );
+  const [generation,setGeneration]=useState("")
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [loggedUser, setLoggedUser] = useState<SubscribedUserProp | undefined>(undefined);
+
   useEffect(() => {
     async function getLoggedUserData() {
       try {
@@ -84,7 +91,7 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
         <div className="py-10 flex flex-row-reverse flex-wrap md:flex-nowrap justify-center w-full  mx-auto  px-4 gap-4 lg:gap-x-24">
           <div className="w-full ">
             {filteredRemoteJob && (
-              <div className="  gap-4 rounded-lg py-4 px-8 mb-12">
+              <div className="  gap-4 rounded-lg py-4 md:px-8 mb-12">
                 <div className="">
                   <div className="flex flex-wrap lg:flex-nowrap items-center gap-4">
                     <Image
@@ -158,16 +165,19 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                   {
                   singleJob && loggedUser != undefined && 
                   (<>
-                  <div>
+                  <div className="relative">
                      <Button onClick={ async()=>{
-                          // const {text}= await await getAnswer(`what will be my responsiblities for this role ${singleJob.map((listing)=>{return listing.sectionDescription})}? `)
-                          const {output}= await await getAnswer(`My resume ${resumeFile}, role ${singleJob.map((listing)=>{return listing.sectionDescription})}? `)
+                          setIsAnalyzing(true)
+                          const {output}= await await getAnswer(`My resume ${loggedUser.imageUrl}, role ${singleJob.map((listing)=>{return listing.sectionDescription})}? `)
                           for await (const delta of readStreamableValue(output)){
                             setGeneration(curentGeneration=> `${curentGeneration}${delta}`)
                           }
-                          // setGeneration(text)
-                        }} className="bg-bts-GreenOne hover:scale-105 transition duration-500 rounded  flex">
-                          Anayalze my Resume for this position
+                          setIsAnalyzing(false)
+                        }}
+                        disabled={isAnalyzing || generation!=""} 
+                        className="bg-bts-GreenOne hover:scale-105 transition duration-500 rounded  md:w-[19rem] flex">
+                          {/* Anayalze my resume for this role */}
+                          {isAnalyzing ?"Analysing your resume...":"Analyse my resume for this role"}
                           <DisplayImageFromNextCloudinary
                                         src="kazina_upvlpf"
                                         height={800}
@@ -176,10 +186,11 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                                         classname="size-12 -mt-10"
                                       />
                         </Button>
-                        <div className="rounded-lg bg-sky-50 px-3 py-4">
+                        <div className="rounded-lg bg-sky-50 px-3 py-4 md:absolute md:top-12 w-full md:w-12/12">
                           {/* <div className="prose prose-sm" dangerouslySetInnerHTML={{__html: correctedParsedHTML(generation),}}></div> */}
                           <div className="prose prose-sm">
-                            <Markdown remarkPlugins={[remarkGfm]}>{generation}</Markdown>
+                            
+                            <ReactMarkdown remarkPlugins={[remarkGfm]} >{generation}</ReactMarkdown>
                           </div>
                         </div>
                   </div>
