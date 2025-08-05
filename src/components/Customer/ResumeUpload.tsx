@@ -102,6 +102,8 @@ export default function ResumeUpload2() {
             className="file:bg-sky-300 file:px-12 file:pt-4 file:pb-4 file:-mt-4 file:rounded-lg bg-slate-50 py-12 rounded-lg"
           />
           {file && (
+            <>
+            
             <div className="flex gap-2 justify-between items-end bg-bts-BrownTwo p-2">
               <div className="flex flex-col gap-1">
                 <p className="font-semibold text-sm pb-2">Selected Document</p>
@@ -117,6 +119,7 @@ export default function ResumeUpload2() {
                 
               </Button>
             </div>
+            </>
           )}
           <hr className="border-2 border-y-bts-BrownOne" />
           {(loggedUser!=undefined && loggedUser.attachmentName!="") &&
