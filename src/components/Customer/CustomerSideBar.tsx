@@ -27,6 +27,7 @@ import { currentUser } from "@clerk/nextjs/server";
     `onyango.mary15@gmail.com`,
     `sonimuthoni23@gmail.com`,
     `caroline_kairuthi@yahoo.com`,
+    `kimothoevalyne@gmail.com`,
     
   ];
 
