@@ -45,38 +45,55 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 export default function JobsSubCategoryAdminPage() {
-  const { data: jobCategories } = useGetJobCategoryDropDownList();
+  
+  // state to hold valiues of the input values onchange 
   const [jobCategoryValue, setjobCategoryValue] = useState("");
   const [subCategoryNameValue, setSubCategoryNameValue] = useState("");
-  // const [subCategoryDescriptionValue, setSubCategoryDescriptionValue] =useState("");
-
+  
+  const { data: jobCategories } = useGetJobCategoryDropDownList();
   const { data, isLoading, isError } = useGetAllJobSubCategories();
   const dataInDescendingOrder = data
     ? [...data].sort((a, b) => b.id - a.id)
     : [];
 
   function updateJobSubCategory(id: number) {
+
+    // gets all information for the jobSubCategory needed for default values in jobSubCategoryEditData object 
+    const jobSubCategoryData = dataInDescendingOrder?.find(
+      (job) => job.id == id
+    );
+
+    let updatedNameValue = "";
+    if (subCategoryNameValue != "") {
+      updatedNameValue = subCategoryNameValue;
+    } else {
+      updatedNameValue = jobSubCategoryData?.name as string;
+    }
+
     const updateEntry = async () => {
       try {
-        if (
-          subCategoryNameValue !== "" &&
-          // subCategoryDescriptionValue !== "" &&
-          jobCategoryValue !== ""
-        ) {
-          const response = await axiosInstance.put(
-            `/api/JobSubCategory/updateJobSubCategory?id=${id}`,
-            {
-              jobCategoryId: parseInt(jobCategoryValue),
-              name: subCategoryNameValue,
-              // description: subCategoryDescriptionValue,
-            }
-          );
-          console.log("Response from updating jobSubCategory", response);
-        }
+      
+          const jobSubCategoryEditData = {
+            id: id,
+            jobCategoryId: parseInt(jobCategoryValue),
+            name: updatedNameValue,
+            description: jobSubCategoryData?.description,
+            createdBy: jobSubCategoryData?.createdBy,
+            modifiedBy: jobSubCategoryData?.modifiedBy,
+          };
+
+          const response = await axiosInstance.put(`/api/JobSubCategory/updateJobSubCategory?id=${id}`,jobSubCategoryEditData);
+          if(response?.data.errorMessage=="Update Done But No Matching Records Found"){toast.error(`Error, cannot update the ${jobSubCategoryData?.name} JobSubCategory`)}
+          // console.log("Response from updating jobSubCategory", response);
+          
+        
       } catch (error) {
+        toast.error("Error, cannot updated at the moment, try again later");
         console.log("Error updating the job sub category", error);
       }
     };
+    
+
     toast.promise(updateEntry(), {
       loading: "Updating...",
       success: () => {
@@ -107,7 +124,7 @@ export default function JobsSubCategoryAdminPage() {
       error: "Error, cannot remove job sub category, try again later",
     });
   }
-  console.log("SUBCATEGORIES=>",dataInDescendingOrder)
+  // console.log("SUBCATEGORIES=>", dataInDescendingOrder);
   return (
     <>
       <section className="mt-10 px-4">
@@ -160,7 +177,10 @@ export default function JobsSubCategoryAdminPage() {
                           <Input
                             defaultValue={jobSubCategory.name}
                             onChange={(e) =>
-                              setSubCategoryNameValue(e.target.value || jobSubCategory.name)}
+                              setSubCategoryNameValue(
+                                e.target.value || jobSubCategory.name
+                              )
+                            }
                             required
                           />
                         </div>
@@ -169,7 +189,11 @@ export default function JobsSubCategoryAdminPage() {
                           <Label>Job Category</Label>
                           <Select
                             defaultValue={jobSubCategory.jobCategoryId.toString()}
-                            onValueChange={(value) => {setjobCategoryValue(value || jobSubCategory.jobCategoryId.toString())}}
+                            onValueChange={(value) => {
+                              setjobCategoryValue(
+                                value || jobSubCategory.jobCategoryId.toString()
+                              );
+                            }}
                             required
                           >
                             <SelectTrigger className="w-full ">
