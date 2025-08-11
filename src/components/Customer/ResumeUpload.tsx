@@ -92,7 +92,8 @@ export default function ResumeUpload2() {
   }, [user?.primaryEmailAddress?.emailAddress,file]);
   return (
     <>
-      <section className="py-10 ml-0 lg:-ml-32">
+      {/* <section className="py-10 ml-0 lg:-ml-32"> */}
+      <section className="py-10 ml-0 lg:ml-10">
         <div className="min-h-[35vh]  space-y-4 px-4 py-8 bg-bts-BrownOne/50 rounded-lg w-full md:w-[28rem]">
           <p className="font-semibold text-xl">Resume Upload</p>
           <Input
