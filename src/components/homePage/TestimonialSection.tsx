@@ -6,8 +6,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
-import Image from "next/image";
-import { QuoteIcon } from "lucide-react";
+// import Image from "next/image";
+import { QuoteIcon, Youtube } from "lucide-react";
+import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
+import { Link } from "next-view-transitions";
 
 export default function TestimonialSection() {
   return (
@@ -27,23 +29,37 @@ export default function TestimonialSection() {
                 <CarouselItem key={testimonial.id} className="basis-11/12 lg:basis-2/3">
                   <div className="bg-bts-BrownTwo rounded-lg px-8 py-4 h-full lg:h-96 flex flex-col md:flex-row gap-4 items-center">
                     <div className="w-full md:w-[25rem] grid place-content-center">
-                      <Image
+                      {/* <Image
                         src={testimonial.imgSource}
                         width={200}
                         height={200}
                         alt={testimonial.name}
                         className="object-cover  size-24 lg:size-48 rounded-full"
+                      /> */}
+                      <DisplayImageFromNextCloudinary 
+                       src={testimonial.imgSource}
+                       width={200}
+                       height={200}
+                       alt={`${testimonial.name}'s -image`}
+                       classname="object-cover size-24 lg:size-48 rounded-full"
                       />
                       <p className="text-center mt-4 italic font-semibold ">
                         {testimonial.name}
                       </p>
                     </div>
-                    <div className="w-full md:w-[55rem]">
+                    <div className="w-full flex flex-col items-center justify-center md:items-start md:w-[55rem]">
                       <QuoteIcon className="rotate-180" size={28} />
                       <p className="ml-6 lg:ml-12 text-balance text leading-7">
                         {testimonial.details}
                       </p>
                       <QuoteIcon className=" w-full ml-auto" size={28} />
+                      {testimonial.youtubeLink !="" && (
+                      <div className="rounded-lg flex items-center gap-2 bg-bts-BrownOne mt-2 px-2 hover:scale-105 duration-500 w-36">
+                        <span><Youtube /></span>
+                        <Link href={testimonial.youtubeLink} target="_blank" className="text-xs ">View their story</Link>
+                      </div>
+
+                      )}
                     </div>
                   </div>
                 </CarouselItem>
