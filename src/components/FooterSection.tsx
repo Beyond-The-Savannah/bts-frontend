@@ -16,8 +16,10 @@ export default function FooterSection() {
   return (
     <>
       <footer className="bg-bts-GreenOne">
-        <div className=" flex flex-wrap justify-center gap-12 lg:gap-8 px-12 py-24">
-          <div className="w-full md:w-56 lg:w-[20%]">
+        {/* <div className=" flex flex-wrap justify-center gap-12 lg:gap-8 px-12 py-24"> */}
+        <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-8 gap-x-12 px-12 py-24">
+          {/* <div className="w-full md:w-56 lg:w-[20%]"> */}
+          <div className="w-full md:w-56 lg:w-[100%]">
             {/* <p className=" text-amber-400 uppercase font-semibold mb-2"> */}
             <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               BEYOND THE SAVANNAH
@@ -39,7 +41,8 @@ export default function FooterSection() {
               />
             </Link>
           </div>
-          <div className="w-full md:w-56 lg:w-[24%]">
+          {/* <div className="w-full md:w-56 lg:w-[24%]"> */}
+          <div className="w-full md:w-56 lg:w-[100%]">
             {/* <p className=" text-amber-400 uppercase font-semibold mb-2"> */}
             <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               SERVICES
@@ -57,7 +60,8 @@ export default function FooterSection() {
               ))}
             </ul>
           </div>
-          <div className="w-full md:w-56 lg:w-[24%]">
+          {/* <div className="w-full md:w-56 lg:w-[24%]"> */}
+          <div className="w-full md:w-56 lg:w-[100%]">
             {/* <p className=" text-amber-400 uppercase font-semibold mb-2"> */}
             <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               USEFUL LINKS
@@ -105,24 +109,25 @@ export default function FooterSection() {
               </li>
             </ul>
           </div>
-          <div className="w-full md:w-56 lg:w-[24%]">
+          {/* <div className="w-full md:w-56 lg:w-[24%]"> */}
+          <div className="w-full md:w-56 lg:w-[100%]">
             {/* <p className=" text-amber-400 uppercase font-semibold mb-2"> */}
             <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               CONTACT
             </p>
-            <ul className="space-y-2 text-amber-100">
-              <li className="flex items-center">
+            <ul className="space-y-2 text-amber-100 ">
+              <li className="flex items-center text-sm">
                 {" "}
                 <MapPin size={14} className="mr-2" /> Nairobi city, Kenya
               </li>
-              <li className="flex items-center">
+              <li className="flex items-center text-sm">
                 {" "}
                 <MailIcon size={14} className="mr-2" />{" "}
                 info@beyondthesavannah.co.ke
               </li>
-              <li className="flex items-center">
+              <li className="flex items-center text-sm">
                 {" "}
-                <PhoneCallIcon size={14} className="mr-2" /> 0737120764
+                <PhoneCallIcon size={14} className="mr-2" /> 0737 120 764
               </li>
             </ul>
           </div>

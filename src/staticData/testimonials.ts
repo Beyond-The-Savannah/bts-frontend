@@ -11,7 +11,7 @@ export const clientTestimonials=[
         name:"Nanji",
         imgSource:"Nanji_wjwcxz",
         details:"Working with Lorraine was amazing. My CV was literally a 0, and with the Lorraine's help it was totally transformed gave me an idea of how a proper CV and cover letter should look and now I am even able to tailor cover letters to suit the jobs I am applying to.",
-        youtubeLink:"",
+        youtubeLink:"https://youtu.be/Abhg_zj5WWs?si=jDjec08bqDOD-_3g",
     },
     {
         id:2,
