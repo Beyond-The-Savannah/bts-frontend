@@ -11,7 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { SubscribedUserProp } from "@/types/subscribedUser";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, Download, MoreHorizontal } from "lucide-react";
+import Link from "next/link";
 
 export const columns: ColumnDef<SubscribedUserProp>[] = [
     {
@@ -68,6 +69,22 @@ export const columns: ColumnDef<SubscribedUserProp>[] = [
   {
     accessorKey: "career",
     header: "Career",
+  },
+  {
+    accessorKey:"attachmentName",
+    header:"Resume Name",
+    cell:({row})=>{
+      const resumeName=row.getValue("attachmentName") as string | undefined
+      return <div className=" text-xs">{resumeName}</div>
+    }
+  },
+  {
+    accessorKey:"imageUrl",
+    header:"Resume file",
+    cell:({row})=>{
+      const resumeUrl=row.getValue("imageUrl") as string | undefined
+      return <div className=""> { resumeUrl!=undefined &&(<Button size="sm"> <Link href={`${resumeUrl}`}><Download/></Link></Button>)}</div>
+    }
   },
   {
     id: "actions",
