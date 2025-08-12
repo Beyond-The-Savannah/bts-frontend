@@ -59,13 +59,15 @@ export default async function SubscriptionDetails() {
             
           </p>
           <div className="min-h-[70vh] mt-20">
-            <div className="flex flex-wrap xl:flex-nowrap gap-8 justify-evenly">
+            {/* <div className="flex flex-wrap xl:flex-nowrap gap-8 justify-evenly"> */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 px-6 py-12 w-full lg:w-[30rem]"> */}
-              <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 px-6 py-12 w-full lg:w-4/12">
+              {/* <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 px-6 py-12 w-full lg:w-4/12"> */}
+              <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 px-6 py-12 w-full ">
                 <p className="font-semibold text-xl">Subscription details</p>
-                <p className="flex flex-col">
+                <p className="flex  flex-col">
                   <span className="text-xs">Subscription Email Address: </span>
-                  <span className="font-semibold ml-1">
+                  <span className="text-sm lg:text-base font-semibold ml-1">
                     {userSubscriptionInformation?.customer.email}
                   </span>
                 </p>
@@ -97,7 +99,8 @@ export default async function SubscriptionDetails() {
                 </p>
               </div>
               {/* <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 pr-6 py-12 w-full lg:w-[30rem]"> */}
-              <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 pr-6 py-12 w-full lg:w-7/12">
+              {/* <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 pr-6 py-12 w-full lg:w-7/12"> */}
+              <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 pr-6 py-12 w-full ">
                 <p className="font-semibold text-xl px-9">Subscription guide</p>
                 {userSubscriptionInformation?.status == "non-renewing" ? (
                   <>
@@ -134,7 +137,8 @@ export default async function SubscriptionDetails() {
               </div>
             </div>
             {userSubscriptionInformation.plan.amount !== 600000 ? (
-              <div className="w-full flex flex-wrap lg:flex-nowrap justify-start gap-8 ">
+              // <div className="w-full flex flex-wrap lg:flex-nowrap justify-start gap-8 ">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
               <CareerSelection  emailAddress={userSubscriptionInformation.customer.email}/>
               <ResumeUpload/>
               {/* <ResumeUpload1/> */}

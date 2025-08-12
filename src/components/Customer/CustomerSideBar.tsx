@@ -72,15 +72,12 @@ export default async function CustomerSideBar() {
       <SidebarContent className="bg-bts-GreenOne text-white">
         <SidebarGroup>
           <SidebarGroupLabel></SidebarGroupLabel>
-          <SidebarGroupContent className="flex flex-col justify-between h-[90vh]">
+          {/* <SidebarGroupContent className="flex flex-col justify-between h-[90vh]"> */}
+          <SidebarGroupContent className="flex flex-col justify-between min-h-[90dvh]">
             <SidebarMenu className="space-y-2">
               
               {
-              // ["active", "attention", "non-renewing", "completed"].includes(
-              //   userSubscriptionInformation?.status as string
-              // ) && userSubscriptionInformation?.plan?.amount != 600000 
-              // (userSubscriptionInformation==null || userSubscriptionInformation==undefined) &&
-              // byPassEmailAddresses.includes(user?.emailAddresses[0].emailAddress as string)
+              
               (["active", "attention", "non-renewing", "completed"].includes(userSubscriptionInformation?.status as string) && userSubscriptionInformation?.plan?.amount != 600000 ) ||
               (userSubscriptionInformation==null || userSubscriptionInformation==undefined) && byPassEmailAddresses.includes(user?.emailAddresses[0].emailAddress as string)
               ? 

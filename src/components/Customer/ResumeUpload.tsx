@@ -58,7 +58,7 @@ export default function ResumeUpload2() {
           formData,
           {headers:{"Content-Type":"multipart/form-data"}}
         );
-        console.log("UPLOAD RESUME FUNCYION", result.data);
+        // console.log("UPLOAD RESUME FUNCYION", result.data);
         if(result.data.errorMessage=="Update Done Affected Rows : 1"){toast.success(`Resume has been uploaded`)}
         if(result.data.errorMessage=="Update Done But No Matching Records Found"){toast.error(`Error, resume can't be uploaded, try again later`)}
         setFile(null)
@@ -93,8 +93,10 @@ export default function ResumeUpload2() {
   return (
     <>
       {/* <section className="py-10 ml-0 lg:-ml-32"> */}
-      <section className="py-10 ml-0 lg:ml-10">
-        <div className="min-h-[35vh]  space-y-4 px-4 py-8 bg-bts-BrownOne/50 rounded-lg w-full md:w-[28rem]">
+      {/* <section className="py-10 ml-0 lg:ml-10"> */}
+      <section className="py-10">
+        {/* <div className="min-h-[35vh]  space-y-4 px-4 py-8 bg-bts-BrownOne/50 rounded-lg w-full md:w-[28rem]"> */}
+        <div className="min-h-[35vh]  space-y-4 px-4 py-8 bg-bts-BrownOne/50 rounded-lg ">
           <p className="font-semibold text-xl">Resume Upload</p>
           <Input
             type="file"

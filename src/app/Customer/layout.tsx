@@ -8,11 +8,16 @@ export default function Customerlayout({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}) 
+
+{
   return (
     <ViewTransitions>
       <section>
-        <SidebarProvider>
+        <SidebarProvider style={{
+          "--sidebar-width":"13rem",
+          "--sidebar-width-mobile":"13rem",
+        } as React.CSSProperties}>
           <CustomerSideBar />
           <main className=" w-full ">
             <SidebarTrigger />
