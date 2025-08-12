@@ -16,7 +16,8 @@ try {
     do{
         const response = await paystackInstance.subscription.list({
             page:currentPage,
-            perPage:50,
+            // perPage:50,
+            perPage:100,
         })
 
         if("data" in response){

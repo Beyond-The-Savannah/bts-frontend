@@ -12,7 +12,10 @@ export default function AdminLayout({
   return (
     <ViewTransitions>
       <section className=" ">
-        <SidebarProvider>
+        <SidebarProvider style={{
+          "--sidebar-width":"13rem",
+          "--sidebar-wdith":"13rem"
+        } as React.CSSProperties}>
           <AppSidebar />
           <main className="w-full">
             <SidebarTrigger />
