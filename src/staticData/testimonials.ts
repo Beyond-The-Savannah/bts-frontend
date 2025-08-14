@@ -57,6 +57,27 @@ export const clientTestimonials=[
         youtubeLink:"https://youtu.be/vBcQJOxXjls?si=FH3Gb_KviUxNL77N",
     },
     {
+        id:9,
+        name:"Catherine",
+        imgSource:"Catherine_mhzsrb",
+        details:"I shared my CV and profile that Lorraine worked on beautifully. I started making applications and gaining traction. So guys please, make use of her services, they work, for sure!",
+        youtubeLink:"https://youtu.be/rQpicqn-328?si=sa09uOn5ONqF192_",
+    },
+    {
+        id:10,
+        name:"Muthoni",
+        imgSource:"Muthoni_giphqo",
+        details:"I am very appreciative of Lorraine. Because if I did not run into her, I wouldn't be where I am right now. If I did not take that video seriously that day, I would not be working remotely right now.",
+        youtubeLink:"https://youtu.be/kDMocpeCRx4?si=LO2Dlzqg1ekwefzE",
+    },
+    {
+        id:11,
+        name:"Rhandzu",
+        imgSource:"Rhandzu_niwj0w",
+        details:"I am so grateful to Lorraine and Beyond the Savannah's support. Remote work has given me the chance to be more present in the things I was not really present in. It has given me that opportunity to have that balance of spending time with my family, siblings, partner and to do the things I want to.",
+        youtubeLink:"https://youtu.be/R6kFfybGHbY?si=N4Ginci-IUqRCIQ4",
+    },
+    {
         id:88,
         name:"Sithembelokuhle",
         imgSource:"Sithembelokuhle_ngvziy",
