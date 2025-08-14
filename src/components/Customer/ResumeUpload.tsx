@@ -96,7 +96,7 @@ export default function ResumeUpload2() {
       {/* <section className="py-10 ml-0 lg:-ml-32"> */}
       {/* <section className="py-10 ml-0 lg:ml-10"> */}
       {/* <section className="py-10"> */}
-      <section className={clsx("py-10", loggedUser!=undefined?"hidden":"block")}>
+      <section className={clsx("py-10", loggedUser==undefined?"hidden":"block")}>
         <div className="min-h-[35vh]  space-y-4 px-4 py-8 bg-bts-BrownOne/50 rounded-lg ">
           <p className="font-semibold text-xl">Resume Upload</p>
           <Input
