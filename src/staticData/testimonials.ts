@@ -46,7 +46,7 @@ export const clientTestimonials=[
         id:7,
         name:"Grace",
         imgSource:"Grace_olkge1",
-        details:"It has been a great journey with Lorraine, I feel like you were the trigger to me now starting remote work. Before Beyond the Savannah it is was kind of blurry but after I had my CV done, its like something clicked. The conversations we had during our sessions changed my mindset and really made a difference.",
+        details:"It has been a great journey with Lorraine, I feel like you were the trigger to me now starting remote work. Before Beyond the Savannah it was kind of blurry but after I had my CV done, its like something clicked. The conversations we had during our sessions changed my mindset and really made a difference.",
         youtubeLink:"https://youtu.be/m3atseSw-s4?si=yc62z8_sZ_i5NYCU",
     },
     {
