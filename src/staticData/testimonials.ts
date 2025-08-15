@@ -59,7 +59,7 @@ export const clientTestimonials=[
     {
         id:9,
         name:"Catherine",
-        imgSource:"Catherine_mhzsrb",
+        imgSource:"Catherine_2_w1cxtu",
         details:"I shared my CV and profile that Lorraine worked on beautifully. I started making applications and gaining traction. So guys please, make use of her services, they work, for sure!",
         youtubeLink:"https://youtu.be/ONdqmrIvCrU?si=a8t6YpKYdqfWDVyX",
     },
