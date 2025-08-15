@@ -61,7 +61,7 @@ export const clientTestimonials=[
         name:"Catherine",
         imgSource:"Catherine_mhzsrb",
         details:"I shared my CV and profile that Lorraine worked on beautifully. I started making applications and gaining traction. So guys please, make use of her services, they work, for sure!",
-        youtubeLink:"https://youtu.be/rQpicqn-328?si=sa09uOn5ONqF192_",
+        youtubeLink:"https://youtu.be/ONdqmrIvCrU?si=a8t6YpKYdqfWDVyX",
     },
     {
         id:10,
