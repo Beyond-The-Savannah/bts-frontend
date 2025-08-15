@@ -58,7 +58,8 @@ export  function FindJobs() {
   return (
     <>
       <section className="container mx-auto min-h-screen px-4">
-        <div className="pt-24 md:pt-44 mb-10">
+        {/* <div className="pt-24 md:pt-44 mb-10"> */}
+        <div className="pt-28 md:pt-32 pl-0 md:pl-5 mb-10">
           <h2 className="text-xl">Global Open Roles</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
           <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
@@ -67,7 +68,7 @@ export  function FindJobs() {
         </div>
         {isLoading && <RemoteJobListingsLoadingUI />}
         {isError && <RemoteJobListingErrorUI />}
-        <div className="my-4 flex flex-wrap gap-2 pb-10">
+        <div className="my-4 flex flex-wrap gap-2 pl-0 md:pl-5 pb-10">
           {remoteJobs && <FilterJobsByName remoteData={remoteJobs} />}
           {isLoading || jobDepartments && (
             <FilterJobsByDepartment remoteData={jobDepartments} />

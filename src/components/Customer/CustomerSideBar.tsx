@@ -53,7 +53,8 @@ const items2 = [
 const items3 = [
   {
     title: "Services",
-    url: "/#services",
+    // url: "/#services",
+    url: "/Customer/btsServices",
     icon: Server,
   },
   {
