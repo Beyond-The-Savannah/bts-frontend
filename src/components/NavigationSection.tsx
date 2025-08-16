@@ -22,6 +22,7 @@ import {
 } from "./ui/sheet";
 import { MenuSquareIcon } from "lucide-react";
 import DisplayImageFromNextCloudinary from "./DisplayImageFromNextCloudinary";
+import { Button } from "./ui/button";
 // import SavannahChatUI1 from "./Customer/SavannahChatUI1";
 
 export default function NavigationSection() {
@@ -58,7 +59,8 @@ export default function NavigationSection() {
               </ul>
 
               {NonSimpleNavigationMenuItems.map((item) => (
-                <NavigationMenuItem key={item.id} className="pr-12 lg:pr-48">
+                // <NavigationMenuItem key={item.id} className="pr-12 lg:pr-48">
+                <NavigationMenuItem key={item.id} className=" lg:pr-20 ">
                   <NavigationMenuTrigger className="font-semibold text-base relative bg-transparent hover:bg-transparent hover:scale-110 transition ease-in">
                     {item.title}
                   </NavigationMenuTrigger>
@@ -80,6 +82,11 @@ export default function NavigationSection() {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               ))}
+              <NavigationMenuItem>
+                          <Button variant="outline" asChild>
+                            <Link href="/Customer">Sign-in</Link>
+                          </Button>
+                        </NavigationMenuItem>
               {/* <NavigationMenuItem>
                 <SavannahChatUI1 />
               </NavigationMenuItem> */}
@@ -141,6 +148,11 @@ export default function NavigationSection() {
                             </NavigationMenuContent>
                           </NavigationMenuItem>
                         ))}
+                        <NavigationMenuItem>
+                          <Button variant="outline" asChild>
+                            <Link href="/sign-in">Sign-in</Link>
+                          </Button>
+                        </NavigationMenuItem>
                         {/* <NavigationMenuItem>
                           <SavannahChatUI1 />
                         </NavigationMenuItem> */}
