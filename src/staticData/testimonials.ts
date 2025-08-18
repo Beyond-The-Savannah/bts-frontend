@@ -66,7 +66,7 @@ export const clientTestimonials=[
     {
         id:10,
         name:"Muthoni",
-        imgSource:"Muthoni_giphqo",
+        imgSource:"Muthoni_gtrlfh",
         details:"I am very appreciative of Lorraine. Because if I did not run into her, I wouldn't be where I am right now. If I did not take that video seriously that day, I would not be working remotely right now.",
         youtubeLink:"https://youtu.be/kDMocpeCRx4?si=LO2Dlzqg1ekwefzE",
     },
