@@ -1,4 +1,4 @@
-import { poolCandidateGroup } from "@/staticData/partnersPage";
+import { poolCandidateGroup2 } from "@/staticData/partnersPage";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -8,12 +8,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/tooltip";
+// import {
+//   Tooltip,
+//   TooltipContent,
+//   TooltipProvider,
+//   TooltipTrigger,
+// } from "../ui/tooltip";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 
 export default function PreviewPool() {
   return (
@@ -27,8 +28,9 @@ export default function PreviewPool() {
           <DialogContent className="max-w-[46rem]">
             <DialogHeader>
               <DialogHeader>
-                <DialogTitle className="text-center">Our pool of candidates includes but not limited to :</DialogTitle>
-                <DialogDescription className=" text-center text-xs"> hover over the categories to see the average years of experience of the candidates that we have in our pool </DialogDescription>
+                {/* <DialogTitle className="text-center">Our pool of candidates includes but not limited to :</DialogTitle> */}
+                <DialogTitle className="text-center">Our pool of candidates includes:</DialogTitle>
+                <DialogDescription className="hidden text-center text-xs"> hover over the categories to see the average years of experience of the candidates that we have in our pool </DialogDescription>
               </DialogHeader>
             </DialogHeader>
             <div className="container mx-auto px-4 py-8">
@@ -37,7 +39,7 @@ export default function PreviewPool() {
                   
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {poolCandidateGroup.map((group) => (
                   <div key={group.id}>
                     <TooltipProvider>
@@ -52,6 +54,27 @@ export default function PreviewPool() {
                     </TooltipProvider>
                   </div>
                 ))}
+              </div> */}
+              <div className="">
+                  <Table className="">
+                    <TableCaption className="hidden">Our pool of candidates includes</TableCaption>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="font-medium text-black">Field</TableHead>
+                        <TableHead className="font-medium text-black">Number of candidates</TableHead>
+                        <TableHead className="font-medium text-black">Ratio</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {poolCandidateGroup2.map((group)=>(
+                        <TableRow key={group.id}>
+                          <TableCell>{group.fieldName}</TableCell>
+                          <TableCell className="text-center">{group.fieldNumber}</TableCell>
+                          <TableCell>{group.fieldPercentage}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
               </div>
             </div>
           </DialogContent>

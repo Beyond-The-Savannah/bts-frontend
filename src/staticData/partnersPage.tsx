@@ -204,3 +204,90 @@ export const poolCandidateGroup=[
         details:"average years of experience: 14",
     },
 ]
+
+export const poolCandidateGroup2=[
+    {
+        id:1,
+        fieldName:"Customer Service",
+        fieldNumber:310,
+        fieldPercentage:"14%"
+    },
+    {
+        id:2,
+        fieldName:"Finance",
+        fieldNumber:87,
+        fieldPercentage:"12.4%"
+    },
+    {
+        id:3,
+        fieldName:"Sales",
+        fieldNumber:75,
+        fieldPercentage:"10.7%"
+    },
+    {
+        id:4,
+        fieldName:"Project Management",
+        fieldNumber:63,
+        fieldPercentage:"9%"
+    },
+    {
+        id:5,
+        fieldName:"Human Resource",
+        fieldNumber:45,
+        fieldPercentage:"6.4%"
+    },
+    {
+        id:6,
+        fieldName:"Administration",
+        fieldNumber:43,
+        fieldPercentage:"6.1%"
+    },
+    {
+        id:7,
+        fieldName:"Marketing",
+        fieldNumber:35,
+        fieldPercentage:"5%"
+    },
+    {
+        id:8,
+        fieldName:"Law & Compliance",
+        fieldNumber:24,
+        fieldPercentage:"3.4%"
+    },
+    {
+        id:9,
+        fieldName:"Tech",
+        fieldNumber:22,
+        fieldPercentage:"3.1%"
+    },
+    {
+        id:10,
+        fieldName:"Operations & Procument",
+        fieldNumber:21,
+        fieldPercentage:"3%"
+    },
+    {
+        id:11,
+        fieldName:"Data analysis",
+        fieldNumber:21,
+        fieldPercentage:"3%"
+    },
+    {
+        id:12,
+        fieldName:"Medicine: nurses, doctors, caregivers, therapists",
+        fieldNumber:13,
+        fieldPercentage:"1.9%"
+    },
+    {
+        id:13,
+        fieldName:"Product",
+        fieldNumber:7,
+        fieldPercentage:"1%"
+    },
+    {
+        id:14,
+        fieldName:"Audit",
+        fieldNumber:3,
+        fieldPercentage:"0.4%"
+    },
+]
