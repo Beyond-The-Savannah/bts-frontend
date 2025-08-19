@@ -16,17 +16,16 @@ import { GetUserSubscriptionInformation } from "./UserSubscriptionInformation";
 import { currentUser } from "@clerk/nextjs/server";
 
  const byPassEmailAddresses = [
-    `ayuny.farah@gmail.com`,
-    `wambui4wachira@gmail.com`,
-    `jacklinewaceke199@gmail.com`,
-    `dmuthoni487@gmail.com`,
-    `marynicholas777@gmail.com`,
-    `tracygwangui@gmail.com`,
-    `dianacheserem@gmail.com`,
-    `kinyachiokz@gmail.com`,
+    // `ayuny.farah@gmail.com`,
+    // `wambui4wachira@gmail.com`,
+    // `jacklinewaceke199@gmail.com`,
+    // `dmuthoni487@gmail.com`,
+    // `marynicholas777@gmail.com`,
+    // `tracygwangui@gmail.com`,
+    // `dianacheserem@gmail.com`,
+    // `kinyachiokz@gmail.com`,
     `onyango.mary15@gmail.com`,
-    `sonimuthoni23@gmail.com`,
-    `caroline_kairuthi@yahoo.com`,
+    // `sonimuthoni23@gmail.com`,
     `kimothoevalyne@gmail.com`,
     
   ];
