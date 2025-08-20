@@ -24,9 +24,10 @@ import { currentUser } from "@clerk/nextjs/server";
     // `tracygwangui@gmail.com`,
     // `dianacheserem@gmail.com`,
     // `kinyachiokz@gmail.com`,
-    `onyango.mary15@gmail.com`,
     // `sonimuthoni23@gmail.com`,
+    `onyango.mary15@gmail.com`,
     `kimothoevalyne@gmail.com`,
+    `thothocaroline@gmail.com`,
     
   ];
 
