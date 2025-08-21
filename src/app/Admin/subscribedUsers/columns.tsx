@@ -1,4 +1,5 @@
 "use client";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -11,8 +12,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { SubscribedUserProp } from "@/types/subscribedUser";
 import { ColumnDef } from "@tanstack/react-table";
+import axios from "axios";
 import { ArrowUpDown, Download, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export const columns: ColumnDef<SubscribedUserProp>[] = [
     {
@@ -102,15 +105,29 @@ export const columns: ColumnDef<SubscribedUserProp>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem
+              {/* <DropdownMenuItem
                 onClick={() =>
                   navigator.clipboard.writeText(user.id.toString())
                 }
               >
                 Copy user ID
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Delete User</DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <AlertDialog>
+                  <AlertDialogTrigger className="w-full text-sm rounded-md px-1.5 py-1 hover:bg-stone-300">Delete Record</AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader className="flex flex-col justify-center items-center">
+                      <AlertDialogTitle className="text-sm">You are about to remove &quot; {user.email} &quot;</AlertDialogTitle>
+                      <AlertDialogDescription>Please be sure before proceeding deleting the record</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className="w-12/12 mx-auto flex justify-center items-center gap-2">
+                      <AlertDialogCancel className="block">Cancel</AlertDialogCancel>
+                      <AlertDialogAction className="block bg-red-400 hover:bg-red-600" onClick={()=>removeUser(user)}>Proceed</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </>
@@ -118,3 +135,20 @@ export const columns: ColumnDef<SubscribedUserProp>[] = [
     },
   },
 ];
+
+async function removeUser(user:SubscribedUserProp){
+  try {
+    const response = await axios.delete(`https://efmsapi-staging.azurewebsites.net/api/BydUsers/DeleteUser?userid=${user.id}`)
+    // console.log("DELETE SUBSCRIBED USER ",response)
+    if(response.data.errorMessage=="Update Done But No Matching Records Found"){
+      toast.error("Oops, deletion failed")
+    }else{
+      toast.success("Deletion Done")
+      window.location.reload()
+    }
+
+  } catch (error) {
+    console.log("Error delete susbcribed user entry",error)
+    toast.error("Cannot delete the entry, please try again later")
+  }
+}
