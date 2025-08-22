@@ -12,7 +12,7 @@ export default function page() {
           </p>
         </div>
         {/* <div className="min-h-[70vh] grid place-content-center px-12"> */}
-        <div className="min-h-[70vh] w-full px-4 xl:px-12 pt-10">
+        <div className="min-h-[70vh] w-full container mx-auto px-4  pt-10">
             <Packages email=""/>
         </div>
       </section>

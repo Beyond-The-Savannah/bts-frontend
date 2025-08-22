@@ -23,11 +23,13 @@ export default function ServicesSection() {
           <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
             How we can help you
           </p>
-          <div className="flex flex-wrap justify-center gap-9 my-8 ">
+          {/* <div className="flex flex-wrap justify-center gap-9 my-8 "> */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-9  my-8 ">
             {servicesList.map((service) => (
               <div
                 key={service.id}
-                className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[27vw] hover:shadow-bts-BrownFour hover:shadow-md duration-700"
+                // className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[27vw] hover:shadow-bts-BrownFour hover:shadow-md duration-700"
+                className=" bg-white rounded-lg   hover:shadow-bts-BrownFour hover:shadow-md duration-700"
               >
                 <div className="grid content-between h-full lg:h-full pb-4">
                   <DisplayImageFromNextCloudinary
@@ -42,7 +44,7 @@ export default function ServicesSection() {
                       <p className="text-base  font-semibold text-bts-GreenOne text-balance">
                         {service.title}
                       </p>
-                      <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 text-xs">
+                      <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 lg:w-36 text-xs">
                         KES{" "}
                         <span className="text-sm">{service.priceString}</span>
                       </p>

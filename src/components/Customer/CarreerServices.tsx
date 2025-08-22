@@ -23,12 +23,12 @@ export default function CarreerServices() {
             How we can help you
           </p>
     </div>
-      <div className="flex flex-wrap justify-center gap-9 my-8 ">
+      <div className="flex flex-wrap justify-evenly gap-9 my-8 ">
         {servicesList.map((service) => (
           <div
             key={service.id}
             // className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-3/12 hover:shadow-bts-BrownFour hover:shadow-md duration-700"
-            className=" bg-white rounded-lg  w-full md:w-10/12 lg:w-[22rem] border hover:shadow-bts-BrownFour hover:shadow-md duration-700"
+            className=" bg-white rounded-lg  w-full md:w-10/12 lg:w-[23rem] border hover:shadow-bts-BrownFour hover:shadow-md duration-700"
           >
             <div className="grid content-between h-full lg:h-full pb-4">
               <DisplayImageFromNextCloudinary
