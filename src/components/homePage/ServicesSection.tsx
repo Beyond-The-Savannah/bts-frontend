@@ -12,8 +12,11 @@ import { ScrollArea } from "../ui/scroll-area";
 import { Button } from "../ui/button";
 import { Link } from "next-view-transitions";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
+import PostHogClient from "@/lib/postHogServerPage";
 
-export default function ServicesSection() {
+export default async function ServicesSection() {
+  const posthog = PostHogClient();
+  await posthog?.shutdown();
   return (
     <>
       <section id="services" className="pt-40 pb-20 bg-bts-BrownTwo ">
