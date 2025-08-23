@@ -2,7 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Link } from "next-view-transitions";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 
-export default function HeroSection() {
+
+export default async function HeroSection() {
+  
 
   return (
     <>
@@ -26,7 +28,6 @@ export default function HeroSection() {
           </Link>
         </div>
         <div className="">
-          
           <DisplayImageFromNextCloudinary
             src="hero-img2_s7awvs"
             height={800}
