@@ -215,8 +215,8 @@ export default function NavigationSection() {
             </NavigationMenuItem>
             
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-end md:items-center gap-3 lg:gap-8">
-              <ul className="hidden md:flex items-end md:items-center gap-3 lg:gap-8">
+            <div className="hidden lg:flex items-end md:items-center gap-1 lg:gap-2">
+              <ul className="hidden lg:flex items-end md:items-center gap-1 lg:gap-2">
                 {simpleNavigationMenuItems.map((menuItem) => (
                   <NavigationMenuItem key={menuItem.id} className="">
                     <Link
@@ -265,10 +265,20 @@ export default function NavigationSection() {
                   </Link>
                 </Button>
               </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Button variant="secondary" asChild>
+                  <Link 
+                    href="/sign-up"
+                    className="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  >
+                    Sign-up
+                  </Link>
+                </Button>
+              </NavigationMenuItem>
             </div>
             
             {/* Mobile Navigation */}
-            <div className="block md:hidden">
+            <div className="block lg:hidden">
               <Sheet>
                 <SheetTrigger 
                   aria-label="Open mobile navigation menu"
@@ -340,6 +350,16 @@ export default function NavigationSection() {
                               className="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                             >
                               Sign-in
+                            </Link>
+                          </Button>
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                          <Button variant="secondary" asChild>
+                            <Link 
+                              href="/sign-up"
+                              className="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                            >
+                              Sign-up
                             </Link>
                           </Button>
                         </NavigationMenuItem>

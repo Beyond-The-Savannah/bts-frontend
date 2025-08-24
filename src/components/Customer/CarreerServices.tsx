@@ -27,8 +27,7 @@ export default function CarreerServices() {
         {servicesList.map((service) => (
           <div
             key={service.id}
-            // className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-3/12 hover:shadow-bts-BrownFour hover:shadow-md duration-700"
-            className=" bg-white rounded-lg  w-full md:w-10/12 lg:w-[23rem] border hover:shadow-bts-BrownFour hover:shadow-md duration-700"
+            className=" bg-white rounded-lg  w-full md:w-10/12 lg:w-[28rem] border hover:shadow-bts-BrownFour hover:shadow-md duration-700"
           >
             <div className="grid content-between h-full lg:h-full pb-4">
               <DisplayImageFromNextCloudinary
@@ -39,12 +38,10 @@ export default function CarreerServices() {
                 classname="object-cover w-full h-48 rounded-t-md"
               />
               <div className="space-y-2 py-4 px-8 md:min-h-52">
-                {/* <div className="flex gap-1 items-center justify-between"> */}
                 <div className="grid grid-cols-2 md:grid-cols-2 gap-2 items-center">
                   <p className="text-base  font-semibold text-bts-GreenOne text-balance">
                     {service.title}
                   </p>
-                  {/* <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 text-xs"> */}
                   <p className="bg-amber-100 rounded-lg py-2 px-6 w-11/12 text-xs">
                     KES <span className="text-sm">{service.priceString}</span>
                   </p>

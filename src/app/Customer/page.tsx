@@ -13,9 +13,6 @@ export default async function CustomerDefaultPage() {
       )
     : false;
 
-    // if(true){
-    //   throw new Error("This is a test error")
-    // }
 
   return (
     <>
