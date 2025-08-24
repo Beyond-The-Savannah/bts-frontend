@@ -7,12 +7,12 @@ import {
   useGetJobSubCategoryDropDownList,
   useGetRemoteListingJobsUsingTanstack,
 } from "@/remoteData/getData";
-// import { Params, SearchParams } from "@/types/remoteJobsListing";
+
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 import { useTransitionRouter } from "next-view-transitions";
 
-// import { use } from "react";
+
 import clsx from "clsx";
 import FilterJobsByName from "./FilterJobsByJobName";
 import FilterJobsByDepartment from "./FilterJobsByDepartment";
@@ -28,7 +28,6 @@ export default function FindJobsWrapper() {
 }
 export  function FindJobs() {
   const router = useTransitionRouter();
-  // const searchParams = use(props.searchParams);
   const searchParams = useSearchParams();
 
   const page = searchParams?.get("page") ?? "1";
@@ -58,7 +57,7 @@ export  function FindJobs() {
   return (
     <>
       <section className="container mx-auto min-h-screen px-4">
-        {/* <div className="pt-24 md:pt-44 mb-10"> */}
+        
         <div className="pt-28 md:pt-32 pl-0 md:pl-5 mb-10">
           <h2 className="text-xl">Global Open Roles</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
@@ -78,9 +77,7 @@ export  function FindJobs() {
           {paginatedRemoteJobs?.map((job, index) => (
             <div
               key={index}
-              // className=" border-bts-BrownTwo/50 border-2 rounded-xl w-full md:w-[38rem] lg:w-5/12  bg-bts-BrownTwo/50 hover:shadow-bts-BrownFour hover:shadow-md hover:bg-bts-BrownFive/50 duration-700 px-8 py-4"
-              // className=" border-bts-BrownTwo/50 border-2 rounded-xl w-full md:w-12/12 lg:w-[31rem]   bg-bts-BrownTwo/50 hover:shadow-bts-BrownFour hover:shadow-md hover:bg-bts-BrownFive/50 duration-700 px-8 py-4"
-              className=" border-bts-BrownTwo/50 border-2 rounded-xl w-full md:w-12/12 lg:w-5/12   bg-bts-BrownTwo/50 hover:shadow-bts-BrownFour hover:shadow-md hover:bg-bts-BrownFive/50 duration-700 px-8 py-4"
+              className=" border-bts-BrownTwo/50 border-2 rounded-xl w-full md:w-12/12 lg:w-5/12   bg-bts-BrownTwo/50 hover:shadow-bts-BrownFour hover:shadow-md hover:bg-bts-BrownFive/50 duration-700 px-2 xl:px-8 py-4"
             >
               <div className="flex items-center gap-2">
                 <Image
@@ -97,14 +94,14 @@ export  function FindJobs() {
                   </p>
                 </div>
               </div>
-              {/* <div className="flex items-end justify-between mt-4 "> */}
+              
               <div className="flex flex-col lg:flex-row items-start lg:items-end  lg:justify-between mt-4 ">
                 <div className="space-y-2 ml-4 lg:ml-12 w-full">
                   <p className="capitalize font-semibold">{job.jobName}</p>
                   <p className="capitalize text-sm">{job.jobSubCategory}</p>
                 </div>
                 <div className="flex  justify-end w-full">
-                  {/* <Link href={`view-job/${job.jobsId}`}> */}
+                  
                   <Link href={`find-jobs/${job.jobsId}`}>
                     <Button
                       variant="outline"
@@ -121,7 +118,6 @@ export  function FindJobs() {
         </div>
         {remoteJobs && (
           <div className="grid place-content-center">
-            {/* <div className=" mb-20 flex flex-wrap gap-2 items-center"> */}
             <div className=" mb-20 w-10/12 flex flex-wrap xl:flex-nowrap  justify-between gap-4 px-4 pb-4 ">
               <Button
                 variant="outline"

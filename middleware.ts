@@ -63,7 +63,7 @@ export default clerkMiddleware(async (auth, request) => {
   }
   
   // If user just signed in and is on sign-in page, redirect based on role
-  if (pathname === "/sign-in" && userId && userRole) {
+  if ((pathname === "/sign-in"|| pathname==="/sign-up") && userId && userRole) {
     if (userRole === "admin") {
       const url = new URL("/Admin", request.url);
       return NextResponse.redirect(url);

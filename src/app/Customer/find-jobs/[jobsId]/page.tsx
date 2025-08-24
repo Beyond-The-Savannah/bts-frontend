@@ -13,15 +13,6 @@ export default async function page({
   const user = await currentUser();
 
   const byPassEmailAddresses = [
-    // `ayuny.farah@gmail.com`,
-    // `wambui4wachira@gmail.com`,
-    // `jacklinewaceke199@gmail.com`,
-    // `dmuthoni487@gmail.com`,
-    // `marynicholas777@gmail.com`,
-    // `tracygwangui@gmail.com`,
-    // `dianacheserem@gmail.com`,
-    // `kinyachiokz@gmail.com`,
-    // `sonimuthoni23@gmail.com`,
     `onyango.mary15@gmail.com`,
     `kimothoevalyne@gmail.com`,
     `thothocaroline@gmail.com`,
@@ -33,7 +24,6 @@ export default async function page({
     !byPassEmailAddresses.includes(
       user?.emailAddresses[0].emailAddress as string
     )
-    // byPassEmailAddress != user?.emailAddresses[0].emailAddress
   ) {
     redirect("/Customer");
   }

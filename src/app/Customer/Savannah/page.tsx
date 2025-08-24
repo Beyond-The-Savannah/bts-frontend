@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import SavannahChatUi from "@/components/Customer/SavannahChatUi";
 import DisplayImageFromNextCloudinary from "@/components/DisplayImageFromNextCloudinary";
 import React from "react";
@@ -8,7 +10,6 @@ export default function page() {
       <section className="pt-4 px-4 pb-20">
         <div className="pl-0 md:pl-5">
           <div className="flex items-center gap-1">
-            {/* <h2 className="text-xl">Hi, Am Kazina &#128105; &#128075; </h2> */}
             <h2 className="text-xl">Hi, I&apos;Am Savannah </h2>
             <DisplayImageFromNextCloudinary
               src="kazina_upvlpf"
