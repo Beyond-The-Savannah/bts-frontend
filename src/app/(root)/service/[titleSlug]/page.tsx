@@ -47,22 +47,25 @@ export async function generateMetadata(
   };
 }
 
-export default async function ServicePage({
-  params,
-}: {
-  params: Promise<{ titleSlug: string }>;
-}) {
-  const serviceTitleSlug = (await params).titleSlug;
-  const specificService = servicesList.find(
-    (service) => service.titleSlug == serviceTitleSlug
-  );
+export async function generateStaticParams(){
+  return servicesList.map((service)=>({titleSlug:service.titleSlug}))
+}
+
+
+export default async function ServicePage({params,}: {params: Promise<{ titleSlug: string }>}) {
+// export default async function ServicePage({params,}: {params:{ titleSlug: string }}) {
+const { titleSlug } = await params;
+  const specificService= servicesList.find((service)=>service.titleSlug==titleSlug)
+  // const serviceTitleSlug = (await params).titleSlug;
+  // const specificService = servicesList.find(
+  //   (service) => service.titleSlug == serviceTitleSlug
+  // );
   const posthog = PostHogClient();
   await posthog?.shutdown();
   return (
     <>
       <section className="container mx-auto space-y-16 px-4 pt-24 md:pt-36 lg:pb-40">
         <div className="min-h-[50vh]  flex flex-wrap lg:flex-nowrap justify-around gap-y-12 gap-x-12">
-          {/* <div className="w-[85vw] md:w-[45vw] lg:max-w-[34vw] "> */}
           <div className="w-full lg:max-w-[34vw] ">
             {specificService && (
               <DisplayImageFromNextCloudinary
@@ -75,7 +78,6 @@ export default async function ServicePage({
               />
             )}
           </div>
-          {/* <div className=" w-[85vw] md:w-[44vw] lg:w-[48vw] space-y-4 text-balancee"> */}
           <div className=" w-[85vw]  lg:w-[48vw] space-y-4 ">
             <div className="flex lg:flex-col flex-wrap items-center lg:items-start gap-4">
               <h1 className=" text-2xl xl:text-3xl lg:text-5xl  text-bts-GreenOne font-bold">
@@ -85,7 +87,8 @@ export default async function ServicePage({
                 {" "}
                 KES{" "}
                 <span className="text-2xl">{specificService?.priceString}</span>
-                {serviceTitleSlug == "beyond-the-savannah-whatsApp-community" ? (
+                {/* {serviceTitleSlug == "beyond-the-savannah-whatsApp-community" ? ( */}
+                {titleSlug == "beyond-the-savannah-whatsApp-community" ? (
                   <>
                     <span>/annually</span>
                   </>
@@ -100,7 +103,7 @@ export default async function ServicePage({
           </div>
         </div>
 
-        {/* <div className="min-h-[50vh]  flex flex-wrap justify-around gap-12"> */}
+  
         <div className="min-h-[50vh]  flex flex-wrap md:flex-nowrap justify-between gap-12 pt-10">
           <div className="w-[85vw] md:max-w-[50vw] ">
             <div className="flex items-center justify-between ">
@@ -140,7 +143,8 @@ export default async function ServicePage({
           </div>
           <div className="w-[85vw] md:w-[27vw]   space-y-4 ">
             <p className="text-base">{specificService?.valueProposal}</p>
-            {serviceTitleSlug == "beyond-the-savannah-whatsApp-community" ? (
+            {/* {serviceTitleSlug == "beyond-the-savannah-whatsApp-community" ? ( */}
+            {titleSlug == "beyond-the-savannah-whatsApp-community" ? (
               <>
                 <Button
                   asChild

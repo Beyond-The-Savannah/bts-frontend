@@ -2,10 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "next-view-transitions";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 
-
-export default async function HeroSection() {
-  
-
+export default function HeroSection() {
   return (
     <>
       <section className="container mx-auto px-4 min-h-[99vh] grid grid-cols-1 md:grid-cols-2  md:pt-0  gap-4">
@@ -20,7 +17,6 @@ export default async function HeroSection() {
           <Link href="/#services">
             <Button
               size="lg"
-              // className="my-8 font-semibold text-black bg-amber-400 hover:bg-amber-500 hover:scale-105 transition duration-500 text-base"
               className="my-8 font-semibold text-black bg-bts-BrownFour hover:bg-bts-BrownThree hover:text-white hover:scale-105 transition duration-500 text-base"
             >
               View our Services

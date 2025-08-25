@@ -8,12 +8,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-// import {
-//   Tooltip,
-//   TooltipContent,
-//   TooltipProvider,
-//   TooltipTrigger,
-// } from "../ui/tooltip";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 
 export default function PreviewPool() {
@@ -28,7 +22,6 @@ export default function PreviewPool() {
           <DialogContent className="max-w-[46rem]">
             <DialogHeader>
               <DialogHeader>
-                {/* <DialogTitle className="text-center">Our pool of candidates includes but not limited to :</DialogTitle> */}
                 <DialogTitle className="text-center">Our pool of candidates includes:</DialogTitle>
                 <DialogDescription className="hidden text-center text-xs"> hover over the categories to see the average years of experience of the candidates that we have in our pool </DialogDescription>
               </DialogHeader>
@@ -39,22 +32,6 @@ export default function PreviewPool() {
                   
                 </p>
               </div>
-              {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {poolCandidateGroup.map((group) => (
-                  <div key={group.id}>
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger className="border rounded-xl px-4 py-1 bg-bts-BrownOne w-full md:w-[20rem]">
-                          {group.title}
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>{group.details}</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </div>
-                ))}
-              </div> */}
               <div className="">
                   <Table className="">
                     <TableCaption className="hidden">Our pool of candidates includes</TableCaption>

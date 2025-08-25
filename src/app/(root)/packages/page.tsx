@@ -1,4 +1,6 @@
 import Packages from "@/components/Customer/Packages";
+import PackagesLoader from "@/components/Loaders/PackagesLoader";
+import { Suspense } from "react";
 
 export default function page() {
   return (
@@ -11,9 +13,10 @@ export default function page() {
           Advance Your Career with Our Packages
           </p>
         </div>
-        {/* <div className="min-h-[70vh] grid place-content-center px-12"> */}
         <div className="min-h-[70vh] w-full container mx-auto px-4  pt-10">
+          <Suspense fallback={<PackagesLoader/>}>
             <Packages email=""/>
+          </Suspense>
         </div>
       </section>
     </>

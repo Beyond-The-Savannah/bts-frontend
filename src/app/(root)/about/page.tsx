@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     "Discover your potential at Beyond the Savannah, where we connect talented professionals with rewarding remote job opportunities. Embrace the future of work and achieve a fulfilling career from anywhere in the world.",
 };
 
-export default async function AboutPage() {
+export default function AboutPage() {
   return (
     <div className="pt-12">
       <HeroSection />
