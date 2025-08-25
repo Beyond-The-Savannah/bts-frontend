@@ -53,15 +53,13 @@ export async function generateStaticParams(){
 
 
 export default async function ServicePage({params,}: {params: Promise<{ titleSlug: string }>}) {
-// export default async function ServicePage({params,}: {params:{ titleSlug: string }}) {
-const { titleSlug } = await params;
+
+  const { titleSlug } = await params;
   const specificService= servicesList.find((service)=>service.titleSlug==titleSlug)
-  // const serviceTitleSlug = (await params).titleSlug;
-  // const specificService = servicesList.find(
-  //   (service) => service.titleSlug == serviceTitleSlug
-  // );
+  
   const posthog = PostHogClient();
   await posthog?.shutdown();
+  
   return (
     <>
       <section className="container mx-auto space-y-16 px-4 pt-24 md:pt-36 lg:pb-40">
@@ -87,7 +85,6 @@ const { titleSlug } = await params;
                 {" "}
                 KES{" "}
                 <span className="text-2xl">{specificService?.priceString}</span>
-                {/* {serviceTitleSlug == "beyond-the-savannah-whatsApp-community" ? ( */}
                 {titleSlug == "beyond-the-savannah-whatsApp-community" ? (
                   <>
                     <span>/annually</span>
@@ -143,7 +140,6 @@ const { titleSlug } = await params;
           </div>
           <div className="w-[85vw] md:w-[27vw]   space-y-4 ">
             <p className="text-base">{specificService?.valueProposal}</p>
-            {/* {serviceTitleSlug == "beyond-the-savannah-whatsApp-community" ? ( */}
             {titleSlug == "beyond-the-savannah-whatsApp-community" ? (
               <>
                 <Button
