@@ -13,11 +13,15 @@ export const { POST } = serve(async (context) => {
   await context.sleep("Run every 8hrs a day", 8 * 60 * 60 * 1000);
 });
 
+//array of emails of users who don't what to be get email notifications
+const noNewJobsNotifications=['riinyacynthia@gmail.com',]
+
 async function sendNewJobAddedAlertEmail() {
+
   // get list of subscribed users from db and filter out the cancelled out users
   const response = await axiosInstance.get("/api/BydUsers/getAllUsers");
   const userList: SubscribedUserProp[] = await response.data;
-  const usersEmailList = userList.filter((user) => user.status != "cancelled");
+  const usersEmailList = userList.filter((user) => user.status != "cancelled" && user.subscriptionPlan !="whatsapp community Annually"  && !noNewJobsNotifications.includes(user.email));
 
   // get jobs listing and determine recently new added ones
   const jobListingResponse = await axiosInstance.get(
