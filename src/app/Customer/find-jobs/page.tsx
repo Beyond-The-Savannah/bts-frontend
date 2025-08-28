@@ -1,5 +1,7 @@
 export const dynamic = "force-dynamic";
 
+import PackageOptionSection from "@/components/Customer/PackageOptionSection";
+// import Packages from "@/components/Customer/Packages";
 import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
 import { FindJobs } from "@/components/findJobsPage/FindJobs";
 import { currentUser } from "@clerk/nextjs/server";
@@ -8,24 +10,21 @@ import { redirect } from "next/navigation";
 export default async function page() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
   const user = await currentUser();
-
+  
+  const jobsListingSubscriptionDetails=userSubscriptionInformation?.filter((subscription)=>subscription.amount!=600000 && ["active","attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase()))[0]
+  
   const byPassEmailAddresses = [
     `onyango.mary15@gmail.com`,
     `kimothoevalyne@gmail.com`,
     `thothocaroline@gmail.com`,
   ];
-
-  if (
-    (userSubscriptionInformation == null ||
-      userSubscriptionInformation == undefined) &&
-    !byPassEmailAddresses.includes(
-      user?.emailAddresses[0].emailAddress as string
-    )
-  ) {
-    redirect("/Customer");
+   
+  if(jobsListingSubscriptionDetails==undefined && !byPassEmailAddresses.includes(user?.emailAddresses[0].emailAddress as string)){
+    redirect("/Customer")
   }
 
-  // console.log("USER INFO", userSubscriptionInformation);
+
+  // console.log("USER INFO", jobsListingSubscriptionDetails);
 
   return (
     <section className="pt-4 pb-20">
@@ -37,7 +36,23 @@ export default async function page() {
         </p>
       </div>
       <div className="-mt-32">
-        {userSubscriptionInformation?.status != "cancelled" ? (<FindJobs />) : null}
+        {/* {userSubscriptionInformation?.status != "cancelled" && userSubscriptionInformation?.plan.name !="whatsapp community Annually" ? (<FindJobs />) : null} */}
+        {user != null ? (
+          <>
+            {jobsListingSubscriptionDetails?.status != "cancelled" &&
+            jobsListingSubscriptionDetails?.plan.name !=
+              "whatsapp community Annually" ? (
+              <FindJobs />
+            ) : (
+              <>
+                <div className="grid place-content-center mt-28 min-h-[90dvh]">
+                  {/* <Packages email={user.emailAddresses[0].emailAddress} /> */}
+                <PackageOptionSection/>
+                </div>
+              </>
+            )}
+          </>
+        ) : null}
       </div>
     </section>
   );

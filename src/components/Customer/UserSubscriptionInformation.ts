@@ -17,11 +17,7 @@ export async function GetUserSubscriptionInformation() {
     const allSubscriptionData = response1.data;
     const userEmailAddress = user?.emailAddresses[0].emailAddress.toLowerCase();
 
-    const userSubscriptionInformation: SubscriptionProps =
-      // allSubscriptionData.data.find(
-      //   (data: SubscriptionProps) =>
-      //     data.customer.email.toLowerCase() == userEmailAddress
-      // );
+    const userSubscriptionInformation: SubscriptionProps[] =
       allSubscriptionData.data
         .filter(
           (data: SubscriptionProps) =>
@@ -30,14 +26,16 @@ export async function GetUserSubscriptionInformation() {
         .sort(
           (a:SubscriptionProps, b:SubscriptionProps) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        )[0];
+        // )[0];
+        ).slice(0,4);
     // console.log("SUBINFO", userSubscriptionInformation);
-    if (
-      userSubscriptionInformation.status == "active" &&
-      userEmailAddress != undefined
-    ) {
-      await AddSubscriberEmailToMailerLite({ email: userEmailAddress });
-    }
+
+    userSubscriptionInformation.forEach(async(subscription)=>{
+      if(subscription.amount!=600000 && subscription.status=="active" && userEmailAddress!=undefined){
+        await AddSubscriberEmailToMailerLite({email:userEmailAddress})
+      }
+    })
+
     return userSubscriptionInformation;
   } catch (error) {
     console.log("Error Getting userSubscriptionInformation", error);
