@@ -101,11 +101,11 @@ export default function Packages({ email }: { email: string }) {
     </div>
       {anual ? (
         <>
-          <div className="flex flex-wrap lg:flex-nowrap gap-x-2 gap-y-4 items-center justify-evenly pt-12">
+          <div className="flex flex-wrap xl:flex-nowrap gap-x-2 gap-y-4 items-center justify-evenly pt-12">
             {AnualSubscriptionPackages.map((sub) => (
               <div
                 key={sub.id}
-                className="min-h-96 w-64 lg:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
+                className="min-h-[25rem] w-full md:w-64 lg:w-64 xl:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
               >
                 {/* <div className="flex flex-wrap gap-4 items-center  justify-evenly"> */}
                 <div className="flex flex-col gap-4 items-center justify-center text-center">
@@ -159,11 +159,11 @@ export default function Packages({ email }: { email: string }) {
         </>
       ) : (
         <>
-          <div className="flex flex-wrap lg:flex-nowrap gap-x-2 gap-y-4 items-center justify-evenly pt-12">
+          <div className="flex flex-wrap xl:flex-nowrap gap-x-2 gap-y-4 items-center justify-evenly pt-12">
             {SubscriptionPackages.map((sub) => (
               <div
                 key={sub.id}
-                className="min-h-96 w-64 lg:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
+                className="min-h-[25rem] w-full md:w-64 lg:w-64 xl:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
               >
                 {/* <div className="flex flex-wrap gap-4 items-center  justify-evenly"> */}
                 <div className="flex flex-col gap-4 items-center justify-center text-center">

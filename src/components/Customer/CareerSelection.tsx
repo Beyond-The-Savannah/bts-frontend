@@ -3,11 +3,7 @@ import CareerSelectionComponent from "./CareerSelectionComponent";
 export default function CareerSelection({emailAddress}:{emailAddress:string}) {
   return (
     <section className="py-10">
-      {/* <div className="min-h-[30vh] space-y-6 px-4 py-8 bg-bts-BrownOne/50 rounded-lg w-full lg:w-[30rem]"> */}
-      {/* <div className="min-h-[30vh] space-y-6 ml-0 md:ml-8 px-4 py-8 bg-bts-BrownOne/50 rounded-lg w-full lg:w-4/12"> */}
-      {/* <div className="min-h-[35vh] space-y-6 ml-0 lg:ml-8 px-4 py-8 bg-bts-BrownOne/50 rounded-lg w-full lg:w-8/12"> */}
-      {/* <div className="min-h-[35vh] space-y-6 ml-0 lg:ml-8 px-4 py-8 bg-bts-BrownOne/50 rounded-lg w-full lg:w-[28rem]"> */}
-      <div className=" space-y-6  px-4 py-8 bg-bts-BrownOne/50 rounded-lg ">
+      <div className=" space-y-6  px-4 py-8 min-h-[20.3rem] bg-bts-BrownOne/50 rounded-lg ">
         <div className="space-y-4">
           <p className="font-semibold text-xl">Career Selection</p>
         </div>

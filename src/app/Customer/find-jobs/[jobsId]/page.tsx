@@ -9,7 +9,9 @@ export default async function page({
   params: Promise<{ jobsId: string }>;
 }) {
   const jobsId = (await params).jobsId;
+  
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
+  const jobsListingSubscriptionDetails=userSubscriptionInformation?.filter((subscription)=>subscription.amount!=600000 && ["active","attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase()))[0]
   const user = await currentUser();
 
   const byPassEmailAddresses = [
@@ -18,15 +20,10 @@ export default async function page({
     `thothocaroline@gmail.com`,
   ];
 
-  if (
-    (userSubscriptionInformation == null ||
-      userSubscriptionInformation == undefined) &&
-    !byPassEmailAddresses.includes(
-      user?.emailAddresses[0].emailAddress as string
-    )
-  ) {
-    redirect("/Customer");
+  if(jobsListingSubscriptionDetails==undefined && !byPassEmailAddresses.includes(user?.emailAddresses[0].emailAddress as string)){
+    redirect("/Customer")
   }
+  
   return (
     <>
       <ViewJob jobsId={jobsId} />
