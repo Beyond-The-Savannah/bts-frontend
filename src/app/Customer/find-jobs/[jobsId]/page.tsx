@@ -1,7 +1,9 @@
 import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
 import ViewJob from "@/components/Customer/ViewJob";
+import SingleJobLoadingUI from "@/components/SingleJobLoadingUI";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 export default async function page({
   params,
@@ -26,7 +28,9 @@ export default async function page({
   
   return (
     <>
+    <Suspense fallback={<SingleJobLoadingUI/>}>
       <ViewJob jobsId={jobsId} />
+    </Suspense>
     </>
   );
 }
