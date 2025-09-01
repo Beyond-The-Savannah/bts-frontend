@@ -1,3 +1,5 @@
+"use client"
+
 import { Briefcase, Building2, FolderPlus, Layers, Layers2, Users } from "lucide-react";
 import {
   Sidebar,
@@ -11,11 +13,13 @@ import {
 } from "../ui/sidebar";
 import { Link } from "next-view-transitions";
 import { SignedIn, UserButton } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
 const items = [
   {
     title: "Forms",
-    url: "/Admin/",
+    url: "/Admin",
     icon: FolderPlus,
   },
   
@@ -47,6 +51,7 @@ const items = [
 ];
 
 export default function AppSidebar() {
+  const pathname=usePathname()
   return (
     <Sidebar>
       <SidebarContent className="bg-bts-GreenOne text-white">
@@ -56,7 +61,7 @@ export default function AppSidebar() {
             <SidebarMenu className="space-y-2">
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton asChild className={clsx(pathname==item.url ? "bg-stone-400 text-bts-GreenOne":"bg-none")}>
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
