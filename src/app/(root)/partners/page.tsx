@@ -2,6 +2,7 @@ import FeaturedPartners from "@/components/partnersPage/FeaturedPartners";
 import HeroSection from "@/components/partnersPage/HeroSection";
 import PartnersCTASection from "@/components/partnersPage/PartnersCTASection";
 import PartnershipTypes from "@/components/partnersPage/PartnershipTypes";
+import PoolOfCandidates from "@/components/partnersPage/PoolOfCandidates";
 import WhyPartnerships from "@/components/partnersPage/WhyPartnerships";
 import { Metadata } from "next";
 import { getCldImageUrl } from "next-cloudinary";
@@ -32,6 +33,7 @@ export default function page() {
       <WhyPartnerships />
       <FeaturedPartners />
       <PartnershipTypes />
+      <PoolOfCandidates/>
       <PartnersCTASection />
     </>
   );

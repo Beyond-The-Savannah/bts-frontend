@@ -291,3 +291,90 @@ export const poolCandidateGroup2=[
         fieldPercentage:"0.4%"
     },
 ]
+
+export const poolCandidateGroup3=[
+    {
+        id:1,
+        title:"Customer Service",
+        description:"Providing support and assistance to customers to ensure satisfaction and resolve issues.",
+        imageSource:"/Customer_Service_kslyqa",
+    },
+    {
+        id:2,
+        title:"Finance",
+        description:"Managing money, investments, budgeting, and financial planning for organizations.",
+        imageSource:"/Finance_Service_uurioc",
+    },
+    {
+        id:3,
+        title:"Sales",
+        description:"Engaging with clients to sell products or services and achieve revenue targets.",
+        imageSource:"/Sales_Service_ekssyd",
+    },
+    {
+        id:4,
+        title:"Project Management",
+        description:"Planning, executing, and overseeing projects to meet specific goals within constraints.",
+        imageSource:"/Project_Management_xmqaru",
+    },
+    {
+        id:5,
+        title:"Human Resource",
+        description:"Managing recruitment, employee relations, payroll, training, and compliance within an organization.",
+        imageSource:"/Human_Resource_jiozhb",
+    },
+    {
+        id:6,
+        title:"Administration",
+        description:"Handling day-to-day office operations and organizational tasks to support business functions.",
+        imageSource:"/Administration_znncvk",
+    },
+    {
+        id:7,
+        title:"Marketing",
+        description:"Creating strategies to promote products or services, building brand awareness, and driving customer engagement.",
+        imageSource:"/Marketing_db6ikm",
+    },
+    {
+        id:8,
+        title:"Law & Compliance",
+        description:"Ensuring that organizations adhere to legal standards, regulations, and ethical practices.",
+        imageSource:"/Law_Compliance_fhlzqz",
+    },
+    {
+        id:9,
+        title:"Tech",
+        description:"Developing, implementing, and maintaining technology solutions, including software and hardware.",
+        imageSource:"/Tech_tufpax",
+    },
+    {
+        id:10,
+        title:"Operations & Procurement",
+        description:"Managing supply chain activities, sourcing goods/services, and optimizing operational efficiency.",
+        imageSource:"/Operations_Procurement_gpfimf",
+    },
+    {
+        id:11,
+        title:"Data Analysis",
+        description:"Collecting, processing, and interpreting data to aid in decision-making and strategic planning.",
+        imageSource:"/Data_Analysis_d9fyab",
+    },
+    {
+        id:12,
+        title:"Medicine",
+        description:"Providing healthcare services, therapy, diagnosing, treating, and preventing illnesses in patients.",
+        imageSource:"/Medicine_Service_acigjn",
+    },
+    {
+        id:13,
+        title:"Product",
+        description:"Overseeing the development, launch, and lifecycle of products to meet market needs and business goals",
+        imageSource:"/Product_Service_urqj55",
+    },
+    {
+        id:14,
+        title:"Audit",
+        description:"Examining financial records and processes to ensure accuracy, transparency, and regulatory compliance.",
+        imageSource:"/Audit_Service_ezdlzr",
+    },
+]

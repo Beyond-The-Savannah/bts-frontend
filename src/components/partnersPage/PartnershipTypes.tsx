@@ -1,6 +1,6 @@
 import { partnershipType1 } from "@/staticData/partnersPage";
 import { SquarePlus } from "lucide-react";
-import PreviewPool from "./PreviewPool";
+// import PreviewPool from "./PreviewPool";
 
 export default function PartnershipTypes() {
   return (
@@ -39,7 +39,7 @@ export default function PartnershipTypes() {
                     <p>{benefit.gain}</p>
                   </div>
                 ))}
-                {type.heading=="For Hiring Partners" &&(<PreviewPool/>)}
+                {/* {type.heading=="For Hiring Partners" &&(<PreviewPool/>)} */}
               </div>
             </div>
           ))}
