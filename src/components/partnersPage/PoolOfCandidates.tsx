@@ -11,7 +11,7 @@ export default function PoolOfCandidates() {
           <h2 className="text-4xl font-bold text-bts-GreenOne mt-2">
             Pool of Canidates
           </h2>
-          <div className="flex flex-nowrap overflow-x-auto  gap-x-12 gap-y-12 py-10">
+          <div className="flex flex-nowrap  gap-x-12 gap-y-12 overflow-x-auto scrollbar-thin scrollbar-thumb-bts-BrownFive scrollbar-track-bts-BrownTwo py-10 mt-10">
             {poolCandidateGroup3.map((candidate) => (
               <div
                 key={candidate.id}
