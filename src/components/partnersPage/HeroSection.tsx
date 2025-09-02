@@ -48,6 +48,8 @@ export default function HeroSection() {
             src="partnership_Hero_Image_ozntgb"
             height={800}
             width={800}
+            priority
+            sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw, 33vw"
             alt="partnership hero image"
             classname="object-cover w-full h-full"
           />

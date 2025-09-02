@@ -24,8 +24,9 @@ export default async function HeroSection() {
               src="remote_bento_1_transparent_ots5xr"
               height={400}
               width={1200}
+              priority
+              sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw, 33vw"
               alt="Beyond the savannah about hero image"
-              // classname="object-contain h-full w-full"
               classname="object-cover h-[30rem] md:h-full w-full"
             />
           </div>

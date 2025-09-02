@@ -32,6 +32,7 @@ export default function TestimonialSection() {
                        src={testimonial.imgSource}
                        width={200}
                        height={200}
+                       sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw, 33vw"
                        alt={`${testimonial.name}'s -image`}
                        classname="object-cover size-24 lg:size-48 rounded-full"
                       />

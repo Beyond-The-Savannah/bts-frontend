@@ -21,6 +21,7 @@ export default function PoolOfCandidates() {
                   src={candidate.imageSource}
                   height={400}
                   width={400}
+                  sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw, 33vw"
                   alt={`${candidate.title} image`}
                   classname="object-cover w-full h-64 rounded-t-lg"
                 />
