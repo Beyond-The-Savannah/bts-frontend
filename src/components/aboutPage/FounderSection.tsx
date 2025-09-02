@@ -29,6 +29,7 @@ export default function FounderSection() {
                 src="founder_loarrine_dx6gt5"
                 height={400}
                 width={900}
+                sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw, 33vw"
                 alt="Beyond the savannah founder loarine"
                 classname="object-cover w-96 h-[60vh] rounded-3xl"
               />

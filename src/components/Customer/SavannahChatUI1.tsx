@@ -21,8 +21,9 @@ export default function SavannahChatUI1() {
             <p className="font-semibold text-white">Savannah</p>
             <DisplayImageFromNextCloudinary
               src="kazina_upvlpf"
-              height={800}
-              width={800}
+              height={100}
+              width={100}
+              sizes="(max-width:768px) 10vw,(max-width:1200px) 10vw, 10vw"
               alt="savannah avatar"
               classname="size-12"
             />

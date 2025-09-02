@@ -28,8 +28,10 @@ export default function HeroSection() {
             src="hero-img2_s7awvs"
             height={800}
             width={800}
+            sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw, 33vw"
             alt="Lorraine founder of beyond the savannah"
             classname="object-cover h-full w-full"
+            priority
           />
         </div>
       </section>

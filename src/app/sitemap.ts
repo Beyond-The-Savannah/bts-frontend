@@ -27,6 +27,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 1,
     },
+    {
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/partners`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 1,
+    },
+    {
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/sign-up`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 1,
+    },
+    {
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/sign-in`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 1,
+    },
     ...servicesPages,
   ];
 }

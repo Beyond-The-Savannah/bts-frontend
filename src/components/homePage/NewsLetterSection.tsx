@@ -21,6 +21,7 @@ export default function NewsLetterSection() {
               src="global_map_anodbs"
               height={800}
               width={800}
+              sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw, 33vw"
               alt="word map"
               classname="object-cover h-full w-full"
             />

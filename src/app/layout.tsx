@@ -4,12 +4,15 @@ import "./globals.css";
 import { ViewTransitions } from "next-view-transitions";
 import TanstackQueryProvider from "@/lib/tanstack";
 import { getCldOgImageUrl } from "next-cloudinary";
-import { PostHogProvider } from "@/lib/postHogProvider";
-import {ClerkProvider} from '@clerk/nextjs'
-import { Toaster } from 'sonner'
-const montserrat = Montserrat({
-  subsets: ["latin"],
-});
+import dynamic from "next/dynamic";
+// import { PostHogProvider } from "@/lib/postHogProvider";
+// import {ClerkProvider} from '@clerk/nextjs'
+// import { Toaster } from 'sonner'
+const montserrat = Montserrat({subsets: ["latin"],});
+
+const ClerkProvider=dynamic(()=>import('@clerk/nextjs').then(mod=>mod.ClerkProvider),{ssr:true})
+const PostHogProvider=dynamic(()=>import('@/lib/postHogProvider').then(mod=>mod.PostHogProvider),{ssr:true})
+const Toaster=dynamic(()=>import('sonner').then(mod=>mod.Toaster),{ssr:true})
 
 const url = getCldOgImageUrl({
   src: "bts-og-img-2_t90ove",

@@ -21,6 +21,7 @@ export default function FeaturedPartners() {
                             src={brand.imageSrc}
                             height={800}
                             width={800}
+                            sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw, 33vw"
                             alt={`Beyond The Savannah partner brand ${brand.name}`}
                             classname="object-contain h-full w-full rounded-lg"
                         />

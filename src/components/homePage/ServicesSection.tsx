@@ -26,12 +26,12 @@ export default async function ServicesSection() {
           <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
             How we can help you
           </p>
-          {/* <div className="flex flex-wrap justify-center gap-9 my-8 "> */}
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-9  my-8 ">
             {servicesList.map((service) => (
               <div
                 key={service.id}
-                // className=" bg-white rounded-lg  w-full md:w-[42vw] lg:w-[27vw] hover:shadow-bts-BrownFour hover:shadow-md duration-700"
+                
                 className=" bg-white rounded-lg   hover:shadow-bts-BrownFour hover:shadow-md duration-700"
               >
                 <div className="grid content-between h-full lg:h-full pb-4">
@@ -40,6 +40,7 @@ export default async function ServicesSection() {
                     height={400}
                     width={600}
                     alt={service.title}
+                    sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw, 33vw"
                     classname="object-cover w-full h-48 rounded-t-md"
                   />
                   <div className="space-y-2 py-4 px-8 md:min-h-52">
@@ -79,6 +80,7 @@ export default async function ServicesSection() {
                               height={400}
                               width={600}
                               alt={service.title}
+                              sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw, 33vw"
                               classname="object-cover w-full h-[40vh] rounded-md"
                             />
                             <Link href={`service/${service.titleSlug}`}>
