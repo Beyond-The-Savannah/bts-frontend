@@ -1,39 +1,75 @@
+// import type { NextConfig } from "next";
+// // import { hostname } from "os";
+
+// const nextConfig: NextConfig = {
+//   /* config options here */
+// };
+// module.exports={
+//   images:{
+//     remotePatterns:[
+//       {
+//         protocol:'https',
+//         hostname:'i.postimg.cc',
+//       },
+//       {
+//         protocol:'https',
+//         hostname:'www.pexels.com',
+//       },
+//       {
+//         protocol:'https',
+//         hostname:'images.pexels.com',
+//       },
+//       {
+//         protocol:'https',
+//         hostname:'julesdb.blob.core.windows.net',
+//       },
+//       {
+//         protocol:'https',
+//         hostname:'img.clerk.com',
+//       },
+//     ]
+//   },
+//   experimental:{
+//     serverActions:{
+//       bodySizeLimit:'5mb'
+//     }
+//   }
+// }
+
+// export default nextConfig;
+
 import type { NextConfig } from "next";
-import { hostname } from "os";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
-module.exports={
-  images:{
-    remotePatterns:[
+  images: {
+    remotePatterns: [
       {
-        protocol:'https',
-        hostname:'i.postimg.cc',
+        protocol: 'https',
+        hostname: 'i.postimg.cc',
       },
       {
-        protocol:'https',
-        hostname:'www.pexels.com',
+        protocol: 'https',
+        hostname: 'www.pexels.com',
       },
       {
-        protocol:'https',
-        hostname:'images.pexels.com',
+        protocol: 'https',
+        hostname: 'images.pexels.com',
       },
       {
-        protocol:'https',
-        hostname:'julesdb.blob.core.windows.net',
+        protocol: 'https',
+        hostname: 'julesdb.blob.core.windows.net',
       },
       {
-        protocol:'https',
-        hostname:'img.clerk.com',
+        protocol: 'https',
+        hostname: 'img.clerk.com',
       },
     ]
   },
-  experimental:{
-    serverActions:{
-      bodySizeLimit:'5mb'
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '5mb'
     }
   }
-}
+};
 
 export default nextConfig;

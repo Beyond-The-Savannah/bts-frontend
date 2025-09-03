@@ -35,7 +35,6 @@ export default function FooterSection() {
                 src="BTS_Logo_xa2iht"
                 height={800}
                 width={800}
-                prioty
                 alt="square shapes"
                 classname="object-cover size-32 rounded-lg my-4"
               />

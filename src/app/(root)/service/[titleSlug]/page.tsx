@@ -70,7 +70,7 @@ export default async function ServicePage({params,}: {params: Promise<{ titleSlu
                 src={specificService.img}
                 height={800}
                 width={800}
-                prioty
+                priority
                 alt={`beyond the savannah, ${specificService.title} service image`}
                 classname="object-cover w-full lg:w-[40rem] mx-auto  bg-bts-BrownOne h-[40vh] rounded-xl"
               />
@@ -113,7 +113,7 @@ export default async function ServicePage({params,}: {params: Promise<{ titleSlu
                   src="Beyond_The_Savannah_Square_Elements_rryzny"
                   height={800}
                   width={800}
-                  prioty
+                  priority
                   alt="square shapes"
                   classname="object-cover size-32"
                 />
@@ -132,7 +132,7 @@ export default async function ServicePage({params,}: {params: Promise<{ titleSlu
                 src="Beyond_The_Savannah_Square_Elements_rryzny"
                 height={800}
                 width={800}
-                prioty
+                priority
                 alt="square shapes"
                 classname="object-cover size-32 rotate-180"
               />

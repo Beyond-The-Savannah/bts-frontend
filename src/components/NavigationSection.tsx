@@ -207,7 +207,7 @@ export default function NavigationSection() {
                   src="BTS_Logo_xa2iht"
                   height={800}
                   width={800}
-                  prioty
+                  priority
                   alt="BTS Company Logo"
                   classname="object-contain size-16 -mt-8 md:size-28 lg:size-32 rounded-lg absolute"
                 />
