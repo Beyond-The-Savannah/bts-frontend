@@ -1,8 +1,9 @@
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 import SavannahChatUi from "@/components/Customer/SavannahChatUi";
 import DisplayImageFromNextCloudinary from "@/components/DisplayImageFromNextCloudinary";
-import React from "react";
+import SavannahChatLoader from "@/components/Loaders/SavannahChatLoader";
+import React, { Suspense } from "react";
 
 export default function page() {
   return (
@@ -23,9 +24,10 @@ export default function page() {
           <p className="capitalize text-xl md:text-3xl font-bold text-bts-GreenOne mt-2">
             Your remote work assistant
           </p>
-        </div>
-
-        <SavannahChatUi />
+        </div>  
+        <Suspense fallback={<SavannahChatLoader/>}>
+          <SavannahChatUi />
+        </Suspense>
       </section>
     </>
   );

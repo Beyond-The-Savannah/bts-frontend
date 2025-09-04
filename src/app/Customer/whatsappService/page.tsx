@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 import SubscriptionDetails from "@/components/Customer/SubscriptionDetails";
 import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
