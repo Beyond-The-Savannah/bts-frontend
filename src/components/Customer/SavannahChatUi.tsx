@@ -44,7 +44,7 @@ export default function SavannahChatUi() {
           <div
             // className="w-full lg:w-11/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-4 py-8"
             // className="w-full lg:w-11/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-2 lg:px-4 py-8"
-            className="w-[70vw] sm:w-11/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-2 lg:px-4 py-8"
+            className="w-[95dvw] md:w-[70vw] sm:w-11/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-2 lg:px-4 py-8"
             ref={chatContainer}
           >
             {messages.length > 0 ? (

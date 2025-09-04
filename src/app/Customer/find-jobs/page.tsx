@@ -1,11 +1,13 @@
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
-import PackageOptionSection from "@/components/Customer/PackageOptionSection";
+// import PackageOptionSection from "@/components/Customer/PackageOptionSection";
 // import Packages from "@/components/Customer/Packages";
 import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
 import { FindJobs } from "@/components/findJobsPage/FindJobs";
+import RemoteJobListingsLoadingUI from "@/components/RemoteJobListingsLoadingUI";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 export default async function page() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
@@ -42,15 +44,19 @@ export default async function page() {
             {jobsListingSubscriptionDetails?.status != "cancelled" &&
             jobsListingSubscriptionDetails?.plan.name !=
               "whatsapp community Annually" ? (
-              <FindJobs />
-            ) : (
-              <>
-                <div className="grid place-content-center mt-28 min-h-[90dvh]">
-                  {/* <Packages email={user.emailAddresses[0].emailAddress} /> */}
-                <PackageOptionSection/>
-                </div>
-              </>
-            )}
+                <Suspense fallback={<RemoteJobListingsLoadingUI />}>
+                  <FindJobs />
+                </Suspense>
+            ) : null 
+            // (
+            //   <>
+            //     <div className="grid place-content-center mt-28 min-h-[90dvh]">
+            //       {/* <Packages email={user.emailAddresses[0].emailAddress} /> */}
+            //     <PackageOptionSection/>
+            //     </div>
+            //   </>
+            // )
+            }
           </>
         ) : null}
       </div>
