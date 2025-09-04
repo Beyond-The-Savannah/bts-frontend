@@ -1,4 +1,4 @@
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 // import PackageOptionSection from "@/components/Customer/PackageOptionSection";
 // import Packages from "@/components/Customer/Packages";
