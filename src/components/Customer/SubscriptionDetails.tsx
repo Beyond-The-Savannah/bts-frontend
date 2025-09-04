@@ -59,7 +59,7 @@ export default async function SubscriptionDetails() {
           <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
             
           </p>
-          <div className="min-h-[70vh] mt-20">
+          <div className="min-h-[70vh] mt-10 md:mt-20">
             {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-8"> */}
             <div className="flex flex-wrap lg:flex-nowrap justify-between gap-8">
               {/* jobs listings subscription details */}
@@ -101,7 +101,7 @@ export default async function SubscriptionDetails() {
                   </p>
 
                   </div>
-                  <div className="px-8 py-4 rounded-lg bg-bts-BrownFour/5 border space-y-4">
+                  <div className="px-1 md:px-8 py-4 rounded-lg bg-bts-BrownFour/5 border space-y-4">
                   {/* <p className="font-semibold text-xl px-9">Subscription guide</p> */}
                   {jobsListingSubscriptionDetails?.status == "non-renewing" ? (
                     <>
