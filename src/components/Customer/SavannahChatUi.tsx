@@ -40,11 +40,12 @@ export default function SavannahChatUi() {
       <section className="h-full mb-10">
         {/* <div className="w-full lg:w-[70vw] mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-1 md:px-4 py-10"> */}
         {/* <div className="w-full lg:w-11/12 mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-1 md:px-4 py-10"> */}
-        <div className="w-full lg:w-11/12 mx-auto flex flex-col justify-between items-center gap-4  rounded-lg px-1 md:px-4 py-10">
+        <div className="w-full lg:w-12/12 mx-auto flex flex-col justify-between items-center gap-4  rounded-lg px-1 py-10">
           <div
             // className="w-full lg:w-11/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-4 py-8"
             // className="w-full lg:w-11/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-2 lg:px-4 py-8"
-            className="w-[95dvw] md:w-[70vw] sm:w-11/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-2 lg:px-4 py-8"
+            // className="w-[95dvw] md:w-[70vw] sm:w-11/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-2 lg:px-4 py-8"
+            className="w-12/12  sm:w-11/12 md:w-full lg:w-12/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-2 lg:px-0 py-8"
             ref={chatContainer}
           >
             {messages.length > 0 ? (

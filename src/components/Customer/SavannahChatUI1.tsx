@@ -33,7 +33,7 @@ export default function SavannahChatUI1() {
         <SheetContent className="max-w-[90dvw] md:max-w-[65%] lg:max-w-[45%] min-h-[80dvh] overflow-auto">
           <SheetHeader>
             <SheetTitle className="flex items-center gap-1">
-              <span className="text-xl">Hi, I&apos;Am Savannah </span>
+              <span className="text-lg md:text-xl">Hi, I&apos;Am Savannah </span>
               <DisplayImageFromNextCloudinary
                 src="kazina_upvlpf"
                 height={400}
@@ -43,8 +43,8 @@ export default function SavannahChatUI1() {
               />
             </SheetTitle>
             <SheetDescription>
-              <span className="border-2 rounded-md block border-bts-BrownThree w-36"></span>
-              <span className="capitalize text-xl md:text-3xl font-bold text-bts-GreenOne mt-2">
+              <span className="border-2 rounded-md block border-bts-BrownThree md:w-36"></span>
+              <span className="capitalize text-sm md:text-3xl font-bold text-bts-GreenOne mt-2">
                 Your remote work assistant
               </span>
             </SheetDescription>
