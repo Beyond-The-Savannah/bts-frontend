@@ -102,7 +102,7 @@ export  function FindJobs() {
                 </div>
                 <div className="flex  justify-end w-full">
                   
-                  <Link href={`find-jobs/${job.jobsId}`}>
+                  <Link href={`find-jobs/${job.jobsId}`}prefetch>
                     <Button
                       variant="outline"
                       size="sm"
@@ -118,7 +118,7 @@ export  function FindJobs() {
         </div>
         {remoteJobs && (
           <div className="grid place-content-center">
-            <div className=" mb-20 w-10/12 flex flex-wrap xl:flex-nowrap  justify-between gap-4 px-4 pb-4 ">
+            <div className=" mb-0 w-8/12 md:w-11/12 mx-auto flex  xl:flex-nowrap  justify-between gap-4 px-4 pb-4 ">
               <Button
                 variant="outline"
                 onClick={() => {
@@ -130,7 +130,7 @@ export  function FindJobs() {
               >
                 previous
               </Button>
-              <ul className="flex  gap-4 items-center max-w-sm lg:max-w-2xl mx-auto py-1 overflow-y-hidden">
+              <ul className="flex  gap-4 items-center max-w-sm lg:max-w-2xl mx-auto  pb-3 scrollbar-thin scrollbar-thumb-bts-BrownOne/50 scrollbar-track-bts-BrownTwo overflow-y-hidden">
                 {[
                   ...new Array(Math.ceil(remoteJobs.length / Number(per_page))),
                 ].map((_, index) => {
