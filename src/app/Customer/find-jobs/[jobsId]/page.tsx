@@ -20,6 +20,7 @@ export default async function page({
     `onyango.mary15@gmail.com`,
     `kimothoevalyne@gmail.com`,
     `thothocaroline@gmail.com`,
+    `gitoshmbae@gmail.com`
   ];
 
   if(jobsListingSubscriptionDetails==undefined && !byPassEmailAddresses.includes(user?.emailAddresses[0].emailAddress as string)){
