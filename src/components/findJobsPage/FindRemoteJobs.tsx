@@ -38,13 +38,13 @@ export function FindRemoteJobs() {
   return (
     <>
       <section className="container mx-auto min-h-screen px-4">
-        <div className="pt-24 md:pt-44 mb-10">
+        {/* <div className="pt-24 md:pt-44 mb-10">
           <h2 className="text-xl">Global Open Roles</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
           <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
             Remote Opportunities
           </p>
-        </div>
+        </div> */}
         {isLoading && <RemoteJobListingsLoadingUI />}
         {isError && <RemoteJobListingErrorUI />}
         <div className="flex flex-wrap lg:justify-center  mb-20 gap-8 md:gap-2 md:gap-y-8 lg:gap-8">
@@ -91,7 +91,8 @@ export function FindRemoteJobs() {
         </div>
         {remoteJobs && (
           <div className="grid place-content-center ">
-            <div className=" max-w-5xl mx-auto mb-20 flex flex-wrap gap-2 items-center">
+            {/* <div className=" max-w-5xl mx-auto mb-20 flex flex-wrap gap-2 items-center"> */}
+            <div className=" mb-0 w-8/12 md:w-11/12 mx-auto flex  xl:flex-nowrap  justify-between gap-4 px-4 pb-4 ">
               <Button
                 variant="outline"
                 onClick={() => {
@@ -103,7 +104,8 @@ export function FindRemoteJobs() {
               >
                 previous
               </Button>
-              <ul className="flex flex-wrap lg:flex-nowrap gap-2 items-center  overflow-x-auto  scrollbar-thin pb-3 mx-4  max-w-3xl">
+              {/* <ul className="flex flex-wrap lg:flex-nowrap gap-2 items-center  overflow-x-auto  scrollbar-thin pb-3 mx-4  max-w-3xl"> */}
+              <ul className="flex  gap-4 items-center max-w-sm lg:max-w-2xl mx-auto  pb-3 scrollbar-thin scrollbar-thumb-bts-BrownOne/50 scrollbar-track-bts-BrownTwo overflow-y-hidden">
                 {[
                   ...new Array(Math.ceil(remoteJobs.length / Number(per_page))),
                 ].map((_, index) => {

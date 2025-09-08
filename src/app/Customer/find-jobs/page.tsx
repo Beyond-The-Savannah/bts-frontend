@@ -30,15 +30,18 @@ export default async function page() {
   // console.log("USER INFO", jobsListingSubscriptionDetails);
 
   return (
-    <section className="pt-4 pb-20">
-      <div className="hidden">
+    // <section className="container mx-auto pt-4 pb-20">
+    <section className="container mx-auto">
+      {/* <div className="pt-28 md:pt-32 pl-0 md:pl-5 mb-10"> */}
+      <div className="pt-4 md:pt-0 pl-0 md:pl-5 mb-10">
         <h2 className="text-xl">Global Open Roles</h2>
         <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
         <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
           Remote Opportunities
         </p>
       </div>
-      <div className="-mt-32">
+      {/* <div className="-mt-32"> */}
+      <div className="">
         {/* {userSubscriptionInformation?.status != "cancelled" && userSubscriptionInformation?.plan.name !="whatsapp community Annually" ? (<FindJobs />) : null} */}
         {user != null ? (
           <>

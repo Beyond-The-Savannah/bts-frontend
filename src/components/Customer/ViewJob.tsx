@@ -76,13 +76,13 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
   return (
     <>
       <section className="container mx-auto   min-h-screen pt-2 md:pt-4 px-4">
-        <div className="">
+        {/* <div className="">
           <h2 className="text-xl">Global Open Roles</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
           <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
             Remote Opportunity
           </p>
-        </div>
+        </div> */}
 
         {isLoading && <SingleJobLoadingUI />}
         {isError && <SingleJobLoadingErrorUI />}
@@ -185,7 +185,7 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                                         classname="size-12 -mt-10"
                                       />
                         </Button>
-                        <div className="rounded-lg bg-sky-50 px-3 py-4 md:absolute md:top-12 w-full md:w-12/12">
+                        <div className="rounded-lg bg-sky-50 px-3 py-4 mt-2 md:absolute md:top-12 w-full md:w-12/12">
                           {/* <div className="prose prose-sm" dangerouslySetInnerHTML={{__html: correctedParsedHTML(generation),}}></div> */}
                           <div className="prose prose-sm">
                             

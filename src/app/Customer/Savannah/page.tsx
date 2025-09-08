@@ -26,7 +26,9 @@ export default function page() {
           </p>
         </div>  
         <Suspense fallback={<SavannahChatLoader/>}>
+        <div className="w-full lg:max-w-5xl mx-auto">
           <SavannahChatUi />
+        </div>
         </Suspense>
       </section>
     </>
