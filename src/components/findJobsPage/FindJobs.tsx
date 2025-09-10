@@ -1,6 +1,6 @@
 "use client";
-import RemoteJobListingErrorUI from "@/components/RemoteJobListingErrorUI";
-import RemoteJobListingsLoadingUI from "@/components/RemoteJobListingsLoadingUI";
+import RemoteJobListingErrorUI from "@/components/Loaders/RemoteJobListingErrorUI";
+import RemoteJobListingsLoadingUI from "@/components/Loaders/RemoteJobListingsLoadingUI";
 import { Button } from "@/components/ui/button";
 import { DateFormatter } from "@/lib/utils";
 import {
@@ -12,7 +12,6 @@ import { Link } from "next-view-transitions";
 import Image from "next/image";
 import { useTransitionRouter } from "next-view-transitions";
 
-
 import clsx from "clsx";
 import FilterJobsByName from "./FilterJobsByJobName";
 import FilterJobsByDepartment from "./FilterJobsByDepartment";
@@ -21,12 +20,12 @@ import { Suspense } from "react";
 
 export default function FindJobsWrapper() {
   return (
-    <Suspense fallback={<RemoteJobListingsLoadingUI/>}>
+    <Suspense fallback={<RemoteJobListingsLoadingUI />}>
       <FindJobs />
     </Suspense>
   );
 }
-export  function FindJobs() {
+export function FindJobs() {
   const router = useTransitionRouter();
   const searchParams = useSearchParams();
 
@@ -57,7 +56,6 @@ export  function FindJobs() {
   return (
     <>
       <section className="container mx-auto min-h-screen px-4">
-        
         {/* <div className="pt-28 md:pt-32 pl-0 md:pl-5 mb-10">
           <h2 className="text-xl">Global Open Roles</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
@@ -69,9 +67,10 @@ export  function FindJobs() {
         {isError && <RemoteJobListingErrorUI />}
         <div className="my-4 flex flex-wrap gap-2 pl-0 md:pl-5 pb-10">
           {remoteJobs && <FilterJobsByName remoteData={remoteJobs} />}
-          {isLoading || jobDepartments && (
-            <FilterJobsByDepartment remoteData={jobDepartments} />
-          )}
+          {isLoading ||
+            (jobDepartments && (
+              <FilterJobsByDepartment remoteData={jobDepartments} />
+            ))}
         </div>
         <div className="flex flex-wrap lg:justify-center  mb-20 gap-8 md:gap-2 md:gap-y-8 lg:gap-x-12 lg:gap-y-8">
           {paginatedRemoteJobs?.map((job, index) => (
@@ -94,15 +93,14 @@ export  function FindJobs() {
                   </p>
                 </div>
               </div>
-              
+
               <div className="flex flex-col lg:flex-row items-start lg:items-end  lg:justify-between mt-4 ">
                 <div className="space-y-2 ml-4 lg:ml-12 w-full">
                   <p className="capitalize font-semibold">{job.jobName}</p>
                   <p className="capitalize text-sm">{job.jobSubCategory}</p>
                 </div>
                 <div className="flex  justify-end w-full">
-                  
-                  <Link href={`find-jobs/${job.jobsId}`}prefetch>
+                  <Link href={`find-jobs/${job.jobsId}`} prefetch>
                     <Button
                       variant="outline"
                       size="sm"

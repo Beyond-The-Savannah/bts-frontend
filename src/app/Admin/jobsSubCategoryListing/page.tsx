@@ -1,7 +1,7 @@
 "use client";
 
-import RemoteJobListingErrorUI from "@/components/RemoteJobListingErrorUI";
-import RemoteJobListingsLoadingUI from "@/components/RemoteJobListingsLoadingUI";
+import RemoteJobListingErrorUI from "@/components/Loaders/RemoteJobListingErrorUI";
+import RemoteJobListingsLoadingUI from "@/components/Loaders/RemoteJobListingsLoadingUI";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -45,11 +45,10 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 export default function JobsSubCategoryAdminPage() {
-  
-  // state to hold valiues of the input values onchange 
+  // state to hold valiues of the input values onchange
   const [jobCategoryValue, setjobCategoryValue] = useState("");
   const [subCategoryNameValue, setSubCategoryNameValue] = useState("");
-  
+
   const { data: jobCategories } = useGetJobCategoryDropDownList();
   const { data, isLoading, isError } = useGetAllJobSubCategories();
   const dataInDescendingOrder = data
@@ -57,8 +56,7 @@ export default function JobsSubCategoryAdminPage() {
     : [];
 
   function updateJobSubCategory(id: number) {
-
-    // gets all information for the jobSubCategory needed for default values in jobSubCategoryEditData object 
+    // gets all information for the jobSubCategory needed for default values in jobSubCategoryEditData object
     const jobSubCategoryData = dataInDescendingOrder?.find(
       (job) => job.id == id
     );
@@ -72,27 +70,33 @@ export default function JobsSubCategoryAdminPage() {
 
     const updateEntry = async () => {
       try {
-      
-          const jobSubCategoryEditData = {
-            id: id,
-            jobCategoryId: parseInt(jobCategoryValue),
-            name: updatedNameValue,
-            description: jobSubCategoryData?.description,
-            createdBy: jobSubCategoryData?.createdBy,
-            modifiedBy: jobSubCategoryData?.modifiedBy,
-          };
+        const jobSubCategoryEditData = {
+          id: id,
+          jobCategoryId: parseInt(jobCategoryValue),
+          name: updatedNameValue,
+          description: jobSubCategoryData?.description,
+          createdBy: jobSubCategoryData?.createdBy,
+          modifiedBy: jobSubCategoryData?.modifiedBy,
+        };
 
-          const response = await axiosInstance.put(`/api/JobSubCategory/updateJobSubCategory?id=${id}`,jobSubCategoryEditData);
-          if(response?.data.errorMessage=="Update Done But No Matching Records Found"){toast.error(`Error, cannot update the ${jobSubCategoryData?.name} JobSubCategory`)}
-          // console.log("Response from updating jobSubCategory", response);
-          
-        
+        const response = await axiosInstance.put(
+          `/api/JobSubCategory/updateJobSubCategory?id=${id}`,
+          jobSubCategoryEditData
+        );
+        if (
+          response?.data.errorMessage ==
+          "Update Done But No Matching Records Found"
+        ) {
+          toast.error(
+            `Error, cannot update the ${jobSubCategoryData?.name} JobSubCategory`
+          );
+        }
+        // console.log("Response from updating jobSubCategory", response);
       } catch (error) {
         toast.error("Error, cannot updated at the moment, try again later");
         console.log("Error updating the job sub category", error);
       }
     };
-    
 
     toast.promise(updateEntry(), {
       loading: "Updating...",

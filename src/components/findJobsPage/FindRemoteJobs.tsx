@@ -1,6 +1,6 @@
 "use client";
 
-import RemoteJobListingsLoadingUI from "@/components/RemoteJobListingsLoadingUI";
+import RemoteJobListingsLoadingUI from "@/components/Loaders/RemoteJobListingsLoadingUI";
 import { Button } from "@/components/ui/button";
 import { useGetRemoteListingJobsUsingTanstack } from "@/remoteData/getData";
 import { useSearchParams } from "next/navigation";
@@ -8,7 +8,7 @@ import { Link, useTransitionRouter } from "next-view-transitions";
 import Image from "next/image";
 import { DateFormatter } from "@/lib/utils";
 import clsx from "clsx";
-import RemoteJobListingErrorUI from "../RemoteJobListingErrorUI";
+import RemoteJobListingErrorUI from "../Loaders/RemoteJobListingErrorUI";
 
 export function FindRemoteJobs() {
   const router = useTransitionRouter();

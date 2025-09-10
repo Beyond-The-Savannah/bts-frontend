@@ -1,5 +1,5 @@
 import { FindRemoteJobs } from "@/components/findJobsPage/FindRemoteJobs";
-import RemoteJobListingErrorUI from "@/components/RemoteJobListingErrorUI";
+import RemoteJobListingErrorUI from "@/components/Loaders/RemoteJobListingErrorUI";
 import { Suspense } from "react";
 
 export default function page() {
