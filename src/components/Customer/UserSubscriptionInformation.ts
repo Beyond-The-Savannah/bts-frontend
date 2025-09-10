@@ -1,4 +1,5 @@
-import { AddSubscriberEmailToMailerLite } from "@/lib/mailerLite";
+// import { AddSubscriberEmailToMailerLite } from "@/lib/mailerLite";
+import { AddSubscriberToKit } from "@/lib/kitNewsLetter";
 import { SubscriptionProps } from "@/types/subscriptions";
 import { currentUser } from "@clerk/nextjs/server";
 
@@ -30,7 +31,8 @@ export async function GetUserSubscriptionInformation(){
 
     userSubscriptionInformation.forEach(async(subscription)=>{
       if(subscription.amount!=600000 && subscription.status=="active" && userEmailAddress!=undefined){
-        await AddSubscriberEmailToMailerLite({email:userEmailAddress})
+        // await AddSubscriberEmailToMailerLite({email:userEmailAddress})
+        await AddSubscriberToKit({email:userEmailAddress})
       }
     })
 

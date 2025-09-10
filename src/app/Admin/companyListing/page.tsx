@@ -1,8 +1,18 @@
 "use client";
 // import DisplayImageFromNextCloudinary from "@/components/DisplayImageFromNextCloudinary";
-import RemoteJobListingErrorUI from "@/components/RemoteJobListingErrorUI";
-import RemoteJobListingsLoadingUI from "@/components/RemoteJobListingsLoadingUI";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import RemoteJobListingErrorUI from "@/components/Loaders/RemoteJobListingErrorUI";
+import RemoteJobListingsLoadingUI from "@/components/Loaders/RemoteJobListingsLoadingUI";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetAllComapanies } from "@/remoteData/getData";
@@ -15,11 +25,12 @@ import React from "react";
 import { toast } from "sonner";
 
 export default function CompanyListingAmdinPage() {
-
   const router = useRouter();
   const { data, isLoading, isError } = useGetAllComapanies();
 
-  const dataInDescendingOrder = data ? [...data].sort((a, b) => b.id - a.id) : [];
+  const dataInDescendingOrder = data
+    ? [...data].sort((a, b) => b.id - a.id)
+    : [];
   // console.log(data);
 
   function removeCompany(id: number) {
@@ -37,10 +48,10 @@ export default function CompanyListingAmdinPage() {
     };
     toast.promise(softDeleteCompany(), {
       loading: "Removing...",
-      success: ()=>{
+      success: () => {
         // revalidatePath(`/Admin/companyListing`)
-        router.refresh()
-        return "Company Removed"
+        router.refresh();
+        return "Company Removed";
       },
       error: "Error, removal failed ",
     });
@@ -55,7 +66,9 @@ export default function CompanyListingAmdinPage() {
           {isError && <RemoteJobListingErrorUI />}
         </div>
 
-        <p className="flex justify-end text-xs mb-2">total companies listed {data?.length}</p>
+        <p className="flex justify-end text-xs mb-2">
+          total companies listed {data?.length}
+        </p>
         <ScrollArea className=" border space-y-4 px-4 pb-10 mb-10 h-[80vh] w-full rounded-lg">
           {/* <div className=" space-y-4 flex flex-wrap gap-4 items-end "> */}
           <div className=" space-y-4 flex flex-wrap gap-4 items-end justify-evenly ">
@@ -103,16 +116,33 @@ export default function CompanyListingAmdinPage() {
                 </p>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <Button variant="destructive" size="sm" className="hover:bg-red-300">Delete</Button>
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      className="hover:bg-red-300"
+                    >
+                      Delete
+                    </Button>
                   </AlertDialogTrigger>
                   <AlertDialogContent className="w-full grid place-content-center">
-                    <AlertDialogHeader >
-                      <AlertDialogTitle className="text-center">Please confirm Removal</AlertDialogTitle>
-                      <AlertDialogDescription className="text-center">This will remove <span className="font-semibold"> {company.name} </span> from the company listing</AlertDialogDescription>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle className="text-center">
+                        Please confirm Removal
+                      </AlertDialogTitle>
+                      <AlertDialogDescription className="text-center">
+                        This will remove{" "}
+                        <span className="font-semibold"> {company.name} </span>{" "}
+                        from the company listing
+                      </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter className="w-12/12 mx-auto flex  justify-center items-center">
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={()=>removeCompany(company.id)} className="bg-red-400 hover:bg-red-600">Remove</AlertDialogAction>
+                      <AlertDialogAction
+                        onClick={() => removeCompany(company.id)}
+                        className="bg-red-400 hover:bg-red-600"
+                      >
+                        Remove
+                      </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>

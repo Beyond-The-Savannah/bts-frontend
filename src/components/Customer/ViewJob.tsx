@@ -4,8 +4,8 @@ import {
   useGetRemoteListingJobsUsingTanstack,
   useGetSingleRemiteListingUsingTanstack,
 } from "@/remoteData/getData";
-import SingleJobLoadingErrorUI from "../SingleJobLoadingErrorUI";
-import SingleJobLoadingUI from "../SingleJobLoadingUI";
+import SingleJobLoadingErrorUI from "../Loaders/SingleJobLoadingErrorUI";
+import SingleJobLoadingUI from "../Loaders/SingleJobLoadingUI";
 import Image from "next/image";
 import { correctedParsedHTML, DateFormatter } from "@/lib/utils";
 import { Button } from "../ui/button";
@@ -50,9 +50,11 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
     (job) => job.jobsId == parseInt(`${jobsId}`)
   );
 
-  const [generation,setGeneration]=useState("")
+  const [generation, setGeneration] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [loggedUser, setLoggedUser] = useState<SubscribedUserProp | undefined>(undefined);
+  const [loggedUser, setLoggedUser] = useState<SubscribedUserProp | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     async function getLoggedUserData() {
@@ -161,40 +163,55 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                       <ArrowUpRight size={4} />
                     </Link>
                   </Button>
-                  {
-                  singleJob && loggedUser != undefined && 
-                  (<>
-                  <div className="relative">
-                     <Button onClick={ async()=>{
-                          setIsAnalyzing(true)
-                          const {output}= await await getAnswer(`My resume ${loggedUser.imageUrl}, role ${singleJob.map((listing)=>{return listing.sectionDescription})}? `)
-                          for await (const delta of readStreamableValue(output)){
-                            setGeneration(curentGeneration=> `${curentGeneration}${delta}`)
-                          }
-                          setIsAnalyzing(false)
-                        }}
-                        disabled={isAnalyzing || generation!=""} 
-                        className="bg-bts-GreenOne hover:scale-105 transition duration-500 rounded  md:w-[19rem] flex">
+                  {singleJob && loggedUser != undefined && (
+                    <>
+                      <div className="relative">
+                        <Button
+                          onClick={async () => {
+                            setIsAnalyzing(true);
+                            const { output } = await await getAnswer(
+                              `My resume ${loggedUser.imageUrl}, role ${singleJob.map(
+                                (listing) => {
+                                  return listing.sectionDescription;
+                                }
+                              )}? `
+                            );
+                            for await (const delta of readStreamableValue(
+                              output
+                            )) {
+                              setGeneration(
+                                (curentGeneration) =>
+                                  `${curentGeneration}${delta}`
+                              );
+                            }
+                            setIsAnalyzing(false);
+                          }}
+                          disabled={isAnalyzing || generation != ""}
+                          className="bg-bts-GreenOne hover:scale-105 transition duration-500 rounded  md:w-[19rem] flex"
+                        >
                           {/* Anayalze my resume for this role */}
-                          {isAnalyzing ?"Analysing your resume...":"Analyse my resume for this role"}
+                          {isAnalyzing
+                            ? "Analysing your resume..."
+                            : "Analyse my resume for this role"}
                           <DisplayImageFromNextCloudinary
-                                        src="kazina_upvlpf"
-                                        height={800}
-                                        width={800}
-                                        alt="savannah avatar"
-                                        classname="size-12 -mt-10"
-                                      />
+                            src="kazina_upvlpf"
+                            height={800}
+                            width={800}
+                            alt="savannah avatar"
+                            classname="size-12 -mt-10"
+                          />
                         </Button>
                         <div className="rounded-lg bg-sky-50 px-3 py-4 mt-2 md:absolute md:top-12 w-full md:w-12/12">
                           {/* <div className="prose prose-sm" dangerouslySetInnerHTML={{__html: correctedParsedHTML(generation),}}></div> */}
                           <div className="prose prose-sm">
-                            
-                            <ReactMarkdown remarkPlugins={[remarkGfm]} >{generation}</ReactMarkdown>
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                              {generation}
+                            </ReactMarkdown>
                           </div>
                         </div>
-                  </div>
-                  </>)
-                  }
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             )}
