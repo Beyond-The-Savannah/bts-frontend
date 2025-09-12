@@ -15,22 +15,34 @@ import {
 import clsx from "clsx";
 import { ListingRemoteJobs } from "@/types/remoteJobsListing";
 import { useTransitionRouter } from "next-view-transitions";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export default function FilterJobsByName({
   remoteData,
 }: {
   remoteData: ListingRemoteJobs[];
 }) {
+  const pathname=usePathname()
   const router = useTransitionRouter();
   const searchParams = useSearchParams();
   const name = searchParams?.get("name") || "";
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
+  function getBaseRoute(){
+    if(pathname?.startsWith('/Admin')){ return 'Admin'}
+    else{return 'Customer'}
+  }
+
   function handleClearFilter() {
     // router.push(`/find-jobs`);
-    router.push(`/Customer/find-jobs`);
+    // router.push(`/Customer/find-jobs`);
+     const baseRoute=getBaseRoute()
+    if(baseRoute=="Admin"){
+      router.push(`/${baseRoute}/jobsListing`);
+    }else{
+      router.push(`/${baseRoute}/find-jobs`);
+    }
   }
 
   return (
@@ -64,7 +76,15 @@ export default function FilterJobsByName({
                         value={job.jobName}
                         onSelect={(currentValue) => {
                           setValue(currentValue == value ? "" : currentValue);
-                          router.push(`find-jobs/?name=${currentValue}`);
+                          // router.push(`find-jobs/?name=${currentValue}`);
+                           {
+                             const baseRoute=getBaseRoute()
+                            if(baseRoute=="Admin"){
+                              router.push(`/${baseRoute}/jobsListing/?name=${currentValue}`);
+                            }else{
+                              router.push(`/${baseRoute}/find-jobs/?name=${currentValue}`);
+                            }
+                          }
                           setOpen(false);
                         }}
                       >

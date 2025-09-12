@@ -15,21 +15,34 @@ import {
 import clsx from "clsx";
 import { DropDownListProps } from "@/types/remoteJobsListing";
 import { useTransitionRouter } from "next-view-transitions";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export default function FilterJobsByDepartment({
   remoteData,
 }: {
   remoteData: DropDownListProps[];
 }) {
+  const pathname=usePathname()
   const router = useTransitionRouter();
   const searchParams = useSearchParams();
   const jobSubCategoryId = searchParams?.get("jobSubCategoryId") || "";
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<number | null>(null);
+
+  function getBaseRoute(){
+    if(pathname?.startsWith('/Admin')){ return 'Admin'}
+    else{return 'Customer'}
+  }
+
   function handleClearFilter() {
     // router.push(`/find-jobs`);
-    router.push(`/Customer/find-jobs`);
+    // router.push(`/Customer/find-jobs`);
+    const baseRoute=getBaseRoute()
+    if(baseRoute=="Admin"){
+      router.push(`/${baseRoute}/jobsListing`);
+    }else{
+      router.push(`/${baseRoute}/find-jobs`);
+    }
   }
   return (
     <>
@@ -67,9 +80,17 @@ export default function FilterJobsByDepartment({
                           setValue(
                             selectedDepartment ? selectedDepartment.value : null
                           );
-                          router.push(
-                            `find-jobs/?jobSubCategoryId=${selectedDepartment?.value ?? 0}`
-                          );
+                          {
+                             const baseRoute=getBaseRoute()
+                            if(baseRoute=="Admin"){
+                              router.push(`/${baseRoute}/jobsListing/?jobSubCategoryId=${selectedDepartment?.value ?? 0}`);
+                            }else{
+                              router.push(`/${baseRoute}/find-jobs/?jobSubCategoryId=${selectedDepartment?.value ?? 0}`);
+                            }
+                          }
+                          // router.push(
+                          //   `find-jobs/?jobSubCategoryId=${selectedDepartment?.value ?? 0}`
+                          // );
                           setOpen(false);
                         }}
                       >

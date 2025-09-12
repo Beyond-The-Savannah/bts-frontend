@@ -1,4 +1,6 @@
 "use client";
+import FilterJobsByDepartment from "@/components/findJobsPage/FilterJobsByDepartment";
+import FilterJobsByName from "@/components/findJobsPage/FilterJobsByJobName";
 // import JobDetailsForm from "@/components/Admin/JobDetailsForm";
 import RemoteJobListingErrorUI from "@/components/Loaders/RemoteJobListingErrorUI";
 import RemoteJobListingsLoadingUI from "@/components/Loaders/RemoteJobListingsLoadingUI";
@@ -15,24 +17,34 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { DateFormatter } from "@/lib/utils";
-import { useGetRemoteListingJobsUsingTanstack } from "@/remoteData/getData";
+import { useGetJobSubCategoryDropDownList, useGetRemoteListingJobsUsingTanstack } from "@/remoteData/getData";
 import { axiosInstance } from "@/remoteData/mutateData";
 import axios from "axios";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
 export default function JobsListingAdminPage() {
-  const { data, isLoading, isError } = useGetRemoteListingJobsUsingTanstack();
+  
+  const searchParams = useSearchParams();
 
-  const sortedJobsByDate = data?.sort((a, b) => {
+  const name = searchParams?.get("name") ?? "";
+  const jobSubCategoryId = searchParams?.get("jobSubCategoryId")? Number(searchParams.get("jobSubCategoryId")): undefined
+  
+  const { data, isLoading, isError } = useGetRemoteListingJobsUsingTanstack();
+  const { data: jobDepartments } = useGetJobSubCategoryDropDownList();
+  const {data: remoteJobs} = useGetRemoteListingJobsUsingTanstack(name, jobSubCategoryId);
+
+  // const sortedJobsByDate = data?.sort((a, b) => {
+  const sortedJobsByDate = remoteJobs?.sort((a, b) => {
     return (
       new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
     );
   });
 
   // console.log("ADMIN JOB LISTING",data)
-  console.log("ADMIN JOB LISTING BY DATE", sortedJobsByDate);
+  // console.log("ADMIN JOB LISTING BY DATE", sortedJobsByDate);
 
   function removeJobDetails(id: number) {
     const softDelteJobDetails = async () => {
@@ -63,9 +75,15 @@ export default function JobsListingAdminPage() {
         <div className="grid place-content-center mt-2">
           {isLoading && <RemoteJobListingsLoadingUI />}
           {isError && <RemoteJobListingErrorUI />}
+           <div className="my-4 flex flex-wrap gap-2 pl-0 md:pl-5 pb-10">
+              {remoteJobs && <FilterJobsByName remoteData={remoteJobs} />}
+                {isLoading ||(jobDepartments && (<FilterJobsByDepartment remoteData={jobDepartments} />))}
+            </div>
         </div>
-        <p className="flex justify-end text-xs mb-2">
-          total jobs listed {data?.length}
+        <p className="flex justify-end gap-4  text-xs mb-2">
+          <span className="block border rounded-md px-2 py-1">total jobs listed : <span className="font-semibold">{data?.length}</span></span>
+          {(jobSubCategoryId!=undefined ||  name!='') && (<span className="block border rounded-md px-2 py-1">filtered jobs : <span className="font-semibold">{remoteJobs?.length}</span>  </span>)}
+          
         </p>
         <div className="flex flex-wrap lg:justify-center  mb-20 gap-8 md:gap-2 md:gap-y-8 lg:gap-8">
           {sortedJobsByDate?.map((job, index) => (
