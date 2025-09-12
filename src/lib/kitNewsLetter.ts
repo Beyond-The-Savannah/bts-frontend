@@ -10,7 +10,8 @@ export async function AddSubscriberToKit(userData:UserDataProp){
     const options={
         method:'POST',
         headers:{'X-Kit-Api-Key':`${KIT_KEY}`, 'Content-Type':'application/json'},
-        body:`{'email_address':'${userData}'}`,
+        body:JSON.stringify({email_address:userData.email})
+        // body:`{'email_address':'${userData}'}`,
     }
 
     try {
