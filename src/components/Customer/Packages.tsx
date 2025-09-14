@@ -9,9 +9,10 @@ import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "sonner";
 import { useUser } from "@clerk/nextjs";
-import { Check } from "lucide-react";
+import { BadgeAlert, Check } from "lucide-react";
 import { useState } from "react";
 import { Switch } from "../ui/switch";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 // import { currentUser } from "@clerk/nextjs/server";
 
 export interface subScriptionProps {
@@ -125,6 +126,11 @@ export default function Packages({ email }: { email: string }) {
                       >
                         <Check className="size-4" />
                         <li>{good}</li>
+                        {(good=='Unlimited Private Email Coaching'|| good=='Limited Private Email Coaching')  && (<>
+                        <Popover>
+                          <PopoverTrigger><BadgeAlert size={16}/></PopoverTrigger>
+                          <PopoverContent className="text-xs">Please email us about what you want to coached about in order for us to best carter to your unique challenges and need</PopoverContent>
+                          </Popover></>)}
                       </ul>
                     ))}
                   </div>
@@ -183,6 +189,11 @@ export default function Packages({ email }: { email: string }) {
                       >
                         <Check className="size-4" />
                         <li>{good}</li>
+                         {(good=='Unlimited Private Email Coaching'|| good=='Limited Private Email Coaching')  && (<>
+                        <Popover>
+                          <PopoverTrigger><BadgeAlert size={16} /></PopoverTrigger>
+                          <PopoverContent className="text-xs">Please email us about what you want to coached about in order for us to best carter to your unique challenges and need</PopoverContent>
+                          </Popover></>)}
                       </ul>
                     ))}
                   </div>
