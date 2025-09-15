@@ -17,7 +17,7 @@ export default function SavannahChatUI2() {
             classname="size-12"
           />
         </PopoverTrigger>
-        <PopoverContent className="min-w-[98dvw] md:min-w-[75dvw] lg:min-w-[50dvw] ">
+        <PopoverContent className="min-w-[98dvw] md:min-w-[75dvw] lg:min-w-[50dvw] my-1 ">
           <div className="flex items-center gap-1">
             <span className="text-lg md:text-xl">Hi, I&apos;Am Savannah </span>
             <DisplayImageFromNextCloudinary
