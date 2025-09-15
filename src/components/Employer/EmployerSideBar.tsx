@@ -14,6 +14,11 @@ export default function EmployerSideBar() {
         icon:Home
         },
         {
+        title:"Jobs",
+        url:"/Employer/jobs",
+        icon:Home
+        },
+        {
         title:"subscription details",
         url:"",
         icon:Blinds
