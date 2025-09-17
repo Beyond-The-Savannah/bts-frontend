@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export default function PostJobs() {
   return (
-    <div className="container mx-auto">
+    <div className="container mt-20 mx-auto">
         
         {[1,2,3,4,5].map((_,index)=>(
         <div key={index} className="flex justify-between items-center border rounded-md px-4 py-2 my-2">
