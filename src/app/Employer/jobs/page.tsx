@@ -1,4 +1,4 @@
-import AddJobs from "@/components/Employer/JobSection.tsx/AddJobs";
+import AddJobs from "@/components/Employer/JobSection.tsx/AddJobsForm";
 
 
 export default function page() {
