@@ -1,4 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { completedInterviews, upComingInterviews } from "@/staticData/JobsPage/entries";
 
 
 export default function Interviews() {
@@ -11,27 +12,35 @@ export default function Interviews() {
                     <TabsTrigger value="completed">Completed</TabsTrigger>
                 </TabsList>
                 <TabsContent value="upComing">
-                    {[1,2,3,4,5].map((_,index)=>(
+                    {upComingInterviews.map((interview,index)=>(
                         <div key={index} className="flex justify-between items-center gap-8 border rounded-md px-4 py-2 my-2">
                             <div className="flex flex-col gap-4">
-                                <p className="c">juma@mail.com</p>
-                                <p className="text-xs">For <span className="font-semibold">Work Manager</span></p>
+                                <p className="c">{interview.fullName}</p>
+                                <p className="text-xs"> <span className="font-semibold">{interview.email}</span></p>
                             </div>
-                            <div className="text-sm">
-                                <p className="font-semibold">AT 10.30 AM</p>
+                            <div className="c">
+                                <p className="text- font-light"><span className="">{interview.jobName}</span></p>
+                            </div>
+                            <div className="text-sm flex flex-col  gap-1">
+                                <p className="">{interview.date}</p>
+                                <p className="font-semibold">{interview.time}</p>
                             </div>
                         </div>
                     ))}
                 </TabsContent>
                 <TabsContent value="completed">
-                    {[1,2,3,4,5].map((_,index)=>(
-                        <div key={index} className="flex justify-between items-center gap-8 border rounded-md px-4 py-2 my-2">
+                    {completedInterviews.map((interview,index)=>(
+                      <div key={index} className="flex justify-between items-center gap-8 border rounded-md px-4 py-2 my-2">
                             <div className="flex flex-col gap-4">
-                                <p className="c">bakari@mail.com</p>
-                                <p className="text-xs">For <span className="font-semibold">Work Manager</span></p>
+                                <p className="c">{interview.fullName}</p>
+                                <p className="text-xs"> <span className="font-semibold">{interview.email}</span></p>
                             </div>
-                            <div className="text-sm">
-                                <p className="font-semibold">AT 9.00 AM</p>
+                            <div className="c">
+                                <p className="text- font-light"><span className="">{interview.jobName}</span></p>
+                            </div>
+                            <div className="text-sm flex flex-col  gap-1">
+                                <p className="">{interview.date}</p>
+                                <p className="font-semibold">{interview.time}</p>
                             </div>
                         </div>
                     ))}

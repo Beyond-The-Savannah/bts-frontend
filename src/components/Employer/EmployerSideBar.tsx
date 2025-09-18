@@ -1,6 +1,6 @@
 'use client'
 
-import { Blinds, Home, Loader } from "lucide-react"
+import { Blinds, File, Home, Loader, Users } from "lucide-react"
 import { Link } from "next-view-transitions";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar"
 import { usePathname } from "next/navigation";
@@ -16,7 +16,12 @@ export default function EmployerSideBar() {
         {
         title:"Jobs",
         url:"/Employer/jobs",
-        icon:Home
+        icon:File
+        },
+        {
+        title:"Candidates",
+        url:"/Employer/candidates",
+        icon:Users
         },
         {
         title:"subscription details",
