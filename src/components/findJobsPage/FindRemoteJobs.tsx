@@ -9,10 +9,40 @@ import Image from "next/image";
 import { DateFormatter } from "@/lib/utils";
 import clsx from "clsx";
 import RemoteJobListingErrorUI from "../Loaders/RemoteJobListingErrorUI";
+import { useEffect, useState } from "react";
 
 export function FindRemoteJobs() {
   const router = useTransitionRouter();
   const searchParams = useSearchParams();
+
+
+  const[blurredCompanyNameImageUrl,setBlurredCompanyNameImageUrl]=useState('')
+  const[blurredCompanyImageSourceUrl,setBlurredCompanyImageSourceUrl]=useState('')
+
+  useEffect(()=>{
+    // 1. Create a source canvas (clean text)
+    const sourceCanvas = document.createElement("canvas");
+    const sourceCtx = sourceCanvas.getContext("2d")!;
+    sourceCanvas.width = 200;
+    sourceCanvas.height = 40;
+
+    sourceCtx.font = "16px Arial";
+    sourceCtx.fillStyle = "black";
+    sourceCtx.fillText('xxxx xxxx xxxx', 10, 25);
+
+    // 2. Create a target canvas (blurred)
+    const blurCanvas = document.createElement("canvas");
+    const blurCtx = blurCanvas.getContext("2d")!;
+    blurCanvas.width = sourceCanvas.width;
+    blurCanvas.height = sourceCanvas.height;
+
+    // Apply blur before drawing
+    blurCtx.filter = "blur(5px)";
+    blurCtx.drawImage(sourceCanvas, 0, 0);
+
+    setBlurredCompanyNameImageUrl(blurCanvas.toDataURL());
+    setBlurredCompanyImageSourceUrl(blurCanvas.toDataURL());
+  },[])
 
   const page = searchParams?.get("page") ?? "1";
   const per_page = searchParams?.get("per_page") ?? "10";
@@ -55,14 +85,35 @@ export function FindRemoteJobs() {
             >
               <div className="flex items-center gap-2">
                 <Image
-                  src={job.imageUrl}
+                  // src={job.imageUrl}
+                  src={blurredCompanyImageSourceUrl}
                   height={400}
                   width={400}
                   alt={`${job.companyName} image`}
-                  className="object-contain rounded-xl size-12 blur-lg"
+                  // className="object-contain rounded-xl size-12 blur-lg"
+                  className="object-contain rounded-xl size-12 "
                 />
+                <svg style={{position:'absolute', width:0, height:0, borderRadius:'16px'}}>
+                  <filter id="image-blur-filter" x='0' y='0'>
+                    <feGaussianBlur stdDeviation={5}/>
+                  </filter>
+                </svg>
                 <div className="flex items-center justify-between w-full">
-                  <p className="blur-sm">{job.companyName}</p>
+                  {/* <p className="blur-sm">{job.companyName}</p> */}
+                  <div className="relative">
+                    {blurredCompanyNameImageUrl ? (<>
+                      <Image
+                        width={200}
+                        height={40}
+                        src={blurredCompanyNameImageUrl}
+                        alt="blurred company name"
+                        style={{ pointerEvents:'none',userSelect:'none',}}
+                        onContextMenu={(e)=>e.preventDefault()}
+                        
+                      />
+                    </>):null}
+                  </div>
+                
                   <p className="capitalize text-sm rounded-xl bg-bts-BrownOne text-black w-24 text-center">
                     {DateFormatter(`${job.dateCreated}`)}
                   </p>
