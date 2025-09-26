@@ -21,6 +21,10 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'julesdb1.blob.core.windows.net',
+      },
+      {
+        protocol: 'https',
         hostname: 'img.clerk.com',
       },
     ]

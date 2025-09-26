@@ -9,6 +9,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "./mutateData";
 
+const baseUrl = process.env.NEXT_PUBLIC_DB_BASE_URL as string;
 
 export async function fetchRemoteJobsList(name?: string, jobSubCategoryId?: number) {
   const url = "/api/Jobs/getAllJobsByCompany";
@@ -37,7 +38,8 @@ export async function fetchSingleRemoteList(
   jobsId: string
 ): Promise<SingleRemoteJob[]> {
   const result = fetch(
-    `https://efmsapi.azurewebsites.net/api/Jobs/getAllJobsSections?jobId=${jobsId}`
+    // `https://efmsapi.azurewebsites.net/api/Jobs/getAllJobsSections?jobId=${jobsId}`
+    `${baseUrl}/api/Jobs/getAllJobsSections?jobId=${jobsId}`
   ).then((res) => res.json());
   return result;
 }
