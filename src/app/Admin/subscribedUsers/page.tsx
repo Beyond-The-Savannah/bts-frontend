@@ -49,7 +49,8 @@ import { SubscribedUserProp } from "@/types/subscribedUser";
 import { SubscribedUser } from "@/types/globals";
 
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
-const BTS_API_URL = "https://efmsapi-staging.azurewebsites.net/api/BydUsers";
+// const BTS_API_URL = "https://efmsapi-staging.azurewebsites.net/api/BydUsers";
+const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
 
 export default async function Page() {
   // 1. Fetch PayStack subscriptions
@@ -59,7 +60,8 @@ export default async function Page() {
   const payStackSubscribedUsers:SubscribedUser[] = await res.data.data;
 
   // 2. Fetch existing users from your database
-  const response = await axios.get(`${BTS_API_URL}/getAllUsers`);
+  // const response = await axios.get(`${BTS_API_URL}/getAllUsers`);
+  const response = await axios.get(`${BTS_API_URL}/api/BydUsers/getAllUsers`);
   const existingUsers: SubscribedUserProp[] = await response.data;
 
   // 3. Extract emails from existing users for easy comparison
