@@ -203,7 +203,8 @@ if (newUsers.length > 0) {
 
 
   // 6. Refresh the user list after potential additions
-  const updatedResponse = await axios.get(`${BTS_API_URL}/getAllUsers`);
+  // const updatedResponse = await axios.get(`${BTS_API_URL}/getAllUsers`);
+  const updatedResponse = await axios.get(`${BTS_API_URL}/api/BydUsers/getAllUsers`);
   const updatedUsers: SubscribedUserProp[] = await updatedResponse.data;
 
   // 7. Log summary information
