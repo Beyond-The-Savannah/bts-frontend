@@ -163,7 +163,8 @@ if (newUsers.length > 0) {
       const results = await Promise.allSettled(
         newUsers.map(async (user) => {
           try {
-            const response = await axios.post(`${BTS_API_URL}/addUser`, user, {
+            // const response = await axios.post(`${BTS_API_URL}/addUser`, user, {
+            const response = await axios.post(`${BTS_API_URL}/api/BydUsers/addUser`, user, {
               headers: { 
                 "Content-Type":"multipart/form-data"
               },
