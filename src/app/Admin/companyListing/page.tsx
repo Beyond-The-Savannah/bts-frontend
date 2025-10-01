@@ -1,4 +1,5 @@
 "use client";
+import CompanyDetailsForm from "@/components/Admin/CompanyDetailsForm";
 // import DisplayImageFromNextCloudinary from "@/components/DisplayImageFromNextCloudinary";
 import RemoteJobListingErrorUI from "@/components/Loaders/RemoteJobListingErrorUI";
 import RemoteJobListingsLoadingUI from "@/components/Loaders/RemoteJobListingsLoadingUI";
@@ -114,45 +115,64 @@ export default function CompanyListingAmdinPage() {
                   <span className="text-xs">comapny phoneNumber: </span>
                   {company.phoneNumber}
                 </p>
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      className="hover:bg-red-300"
-                    >
-                      Delete
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent className="w-full grid place-content-center">
-                    <AlertDialogHeader>
-                      <AlertDialogTitle className="text-center">
-                        Please confirm Removal
-                      </AlertDialogTitle>
-                      <AlertDialogDescription className="text-center">
-                        This will remove{" "}
-                        <span className="font-semibold"> {company.name} </span>{" "}
-                        from the company listing
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter className="w-12/12 mx-auto flex  justify-center items-center">
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction
-                        onClick={() => removeCompany(company.id)}
-                        className="bg-red-400 hover:bg-red-600"
+                <div className="flex justify-evenly gap-4">
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        className="hover:bg-red-300"
                       >
-                        Remove
-                      </AlertDialogAction>
+                        Delete
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent className="w-full grid place-content-center">
+                      <AlertDialogHeader>
+                        <AlertDialogTitle className="text-center">
+                          Please confirm Removal
+                        </AlertDialogTitle>
+                        <AlertDialogDescription className="text-center">
+                          This will remove{" "}
+                          <span className="font-semibold"> {company.name} </span>{" "}
+                          from the company listing
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter className="w-12/12 mx-auto flex  justify-center items-center">
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => removeCompany(company.id)}
+                          className="bg-red-400 hover:bg-red-600"
+                        >
+                          Remove
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button variant="secondary" size="sm" className="bg-green-300 hover:bg-green-400">Edit</Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent className="py-10 h-[90dvh] max-w-[90dvw] mx-auto overflow-y-auto">
+                      <AlertDialogTitle className="text-center">Edit <span className=" font-extrabold">{company.name}</span> details</AlertDialogTitle>
+                      <AlertDialogDescription className="text-center"> </AlertDialogDescription>
+                      <CompanyDetailsForm companyDetails={{
+                        id:company.id,
+                        companyName:company.name,
+                        companyHeadQuaters:company.headQuarters,
+                        companyContactEmail:company.email,
+                        companyContactPhone:company.phoneNumber,
+                        companyDescription:company.description,
+                        location:company.location,
+                        imageUrl:company.imageUrl
+
+                      }}/>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel className=" lg:-mt-20">Cancel</AlertDialogCancel>
+                      <AlertDialogCancel className=" bg-blue-200 hover:bg-blue-100 lg:-mt-20">Close</AlertDialogCancel>
                     </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-                {/* <Button
-                  variant="destructive"
-                  size='sm'
-                  onClick={() => removeCompany(company.id)}
-                >
-                  Remove
-                </Button> */}
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </div>
               </div>
             ))}
           </div>

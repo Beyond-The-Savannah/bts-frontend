@@ -2,7 +2,7 @@ export {};
 
 export type Roles = "client" | "admin";
 
-export type UploadStatus="idle"|"uploading"|"success"|"error";
+export type UploadStatus = "idle" | "uploading" | "success" | "error";
 declare global {
   interface CustomJwtSessionClaims {
     metadata: {
@@ -23,8 +23,8 @@ export interface Plan {
   send_sms: boolean;
   currency: string;
   integration: number;
-  createdAt: string;  // ISO date string
-  updatedAt: string;  // ISO date string
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
 }
 
 export interface Authorization {
@@ -63,19 +63,19 @@ export interface MostRecentInvoice {
   customer: number;
   transaction: number;
   amount: number;
-  period_start: string;  // ISO date string
-  period_end: string;    // ISO date string
+  period_start: string; // ISO date string
+  period_end: string; // ISO date string
   status: string;
   paid: number;
   retries: number;
   authorization: number;
-  paid_at: string;       // ISO date string
+  paid_at: string; // ISO date string
   next_notification: string; // ISO date string
   notification_flag: unknown | null;
   description: unknown | null;
   id: number;
-  created_at: string;    // ISO date string
-  updated_at: string;    // ISO date string
+  created_at: string; // ISO date string
+  updated_at: string; // ISO date string
 }
 
 // interface Subscription {
@@ -91,7 +91,7 @@ export interface SubscribedUser {
   cron_expression: string;
   next_payment_date: string; // ISO date string
   open_invoice: unknown | null;
-  createdAt: string;         // ISO date string
+  createdAt: string; // ISO date string
   integration: number;
   plan: Plan;
   authorization: Authorization;
@@ -101,4 +101,17 @@ export interface SubscribedUser {
   metadata: unknown | null;
   payments_count: number;
   most_recent_invoice: MostRecentInvoice;
+}
+
+export interface CompanyDetailsProps {
+  companyDetails: {
+    id?: number;
+    companyName?: string;
+    companyHeadQuaters?: string;
+    companyContactEmail?: string;
+    companyContactPhone?: string;
+    companyDescription?: string;
+    location?: string;
+    imageUrl?: string;
+  };
 }
