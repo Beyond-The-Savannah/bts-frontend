@@ -115,3 +115,27 @@ export interface CompanyDetailsProps {
     imageUrl?: string;
   };
 }
+
+export interface JobDetailsProps {
+  jobDetails: {
+    jobsId?: number;
+    endDate?: string;
+    jobName?: string;
+    jobDescription?: string;
+    companyId?: number;
+    language?: string;
+    jobUrl?: string;
+    salary?: number;
+    jobCategoriesId?: number;
+    jobSubCategoryId?: number;
+    createdBy?: string;
+    jobsAndSections?:{
+          id?:number,
+          sectionName?:string,
+          sectionDescription?: string,
+          jobTypesId?: number,
+          createdBy?: string,
+          modifiedBy?: string,
+      }[],
+  };
+}

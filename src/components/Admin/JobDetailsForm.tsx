@@ -48,13 +48,15 @@ import {
 } from "../ui/command";
 import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
+import { JobDetailsProps } from "@/types/globals";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), {
   ssr: false,
   loading: () => <p>Loading text editor...</p>,
 });
 
-export default function JobDetailsForm() {
+
+export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
   const [jCDValue] = useState("");
   const [jsDValue] = useState("");
 
@@ -65,23 +67,49 @@ export default function JobDetailsForm() {
 
   const form = useForm<z.infer<typeof JobFormSchema>>({
     resolver: zodResolver(JobFormSchema),
-    defaultValues: {
-      endDate: undefined,
-      jobName: "",
-      jobDescription: jCDValue,
-      companyId: "0",
+    defaultValues: jobDetails ? {
+      endDate: new Date(jobDetails.endDate as string),
+      jobName: jobDetails.jobName,
+      jobDescription: jobDetails.jobDescription || jCDValue,
+      companyId: jobDetails.companyId?.toString(),
+      // language: jobDetails.language,
       language: "",
-      jobUrl: "",
-      salary: 0,
-      jobCategoriesId: "0",
-      jobSubCategoryId: "0",
-      jobsAndSections: [
+      jobUrl:jobDetails.jobUrl,
+      salary: jobDetails.salary,
+      jobCategoriesId: jobDetails.jobCategoriesId?.toString(),
+      jobSubCategoryId: jobDetails.jobSubCategoryId?.toString(),
+      jobsAndSections: jobDetails ?(jobDetails?.jobsAndSections?.map((section,index:number)=>({
+        id:index,
+        sectionName: section.sectionName,
+        sectionDescription: section.sectionDescription,
+        jobTypesId: section.jobTypesId,
+        createdBy: section.createdBy,
+        modifiedBy: section.modifiedBy,
+      }))):([
         {
           sectionName: "",
           sectionDescription: jsDValue,
-        },
-      ],
-    },
+        }
+      ]), 
+      
+    }:undefined,
+    // defaultValues: {
+    //   endDate: undefined,
+    //   jobName: "",
+    //   jobDescription: jCDValue,
+    //   companyId: "0",
+    //   language: "",
+    //   jobUrl: "",
+    //   salary: 0,
+    //   jobCategoriesId: "0",
+    //   jobSubCategoryId: "0",
+    //   jobsAndSections: [
+    //     {
+    //       sectionName: "",
+    //       sectionDescription: jsDValue,
+    //     },
+    //   ],
+    // },
   });
 
   const { formState } = form;
@@ -92,65 +120,118 @@ export default function JobDetailsForm() {
   });
 
   function onSubmit(data: z.infer<typeof JobFormSchema>) {
-    const jobDetailsPostRequest = async () => {
-      try {
-        const response = await axiosInstance.post(`/api/Jobs/addJobs`, {
-          jobs: {
-            endDate: data.endDate,
-            jobName: data.jobName,
-            jobDescription: data.jobDescription,
-            companyId: Number(data.companyId),
-            language: "string",
-            jobUrl: data.jobUrl,
-            salary: 0,
-            jobCategoriesId: Number(data.jobCategoriesId),
-            jobSubCategoryId: Number(data.jobSubCategoryId),
-          },
-          createdBy: user?.fullName,
-          jobsAndSections: data.jobsAndSections.map(
-            (section, index: number) => ({
-              id: index,
-              sectionName: section.sectionName,
-              sectionDescription: section.sectionDescription,
-              jobTypesId: 1,
-              createdBy: "",
-              modifiedBy: "",
-            })
-          ),
-        });
+    if(jobDetails){
+      const jobDetailsPutRequest= async ()=>{
+        try {
+          const response= await axiosInstance.put(`/api/Jobs/udateJobs?jobId=${jobDetails.jobsId}`,{
+            jobs:{
+              endDate: data.endDate,
+              jobName: data.jobName,
+              jobDescription: data.jobDescription,
+              companyId: data.companyId,
+              language: "",
+              jobUrl: data.jobUrl,
+              salary: data.salary,
+              jobCategoriesId: Number(data.jobCategoriesId),
+              jobSubCategoryId: Number(data.jobSubCategoryId)
+            },
+            createdBy:user?.fullName,
+            jobsAndSections: data.jobsAndSections.map((section, index:number)=>({
+              id:index,
+              sectionName:section.sectionName,
+              sectionDescription:section.sectionDescription,
+              jobTypesId:1,
+              createdBy:user?.fullName,
+              modifiedBy:user?.fullName
+            }))
+          })
+          if(response.data.errorCode==500){
+            toast.error(`Error updating ${jobDetails.jobName} details, please try again later`)
+          }
+          console.log("Editing JOBDETAILSFORM", response)
+          return response
+        } catch (error) {
+          if(axios.isAxiosError(error)){
+              throw new Error(error.message)
+          }else{throw new Error("An unexpected error occurred in the put request of JobsDetailsForm")}
+        }
+      } 
+      toast.promise(jobDetailsPutRequest(),{
+        loading:"Updating...",
+        success:(response)=>{
+          if(response?.data?.errorCode==201){
+            return(`Job Details Updated for ${jobDetails.jobName}`)
+          }
+        },
+        error:(response)=>{
+          if(response?.data?.errorCode==500){
+          return(`Error cannot update job details of ${jobDetails.jobName}`)
+          }
+        }
+      })
+    }
+    else{
 
-        // console.log("JOBS DETAILS FORM RESPONSE",response)
-
-        if (response.data.errorCode == 500) {
-          toast.error(
-            "Error adding current job deatils, please try again later"
-          );
+      const jobDetailsPostRequest = async () => {
+        try {
+          const response = await axiosInstance.post(`/api/Jobs/addJobs`, {
+            jobs: {
+              endDate: data.endDate,
+              jobName: data.jobName,
+              jobDescription: data.jobDescription,
+              companyId: Number(data.companyId),
+              language: "",
+              jobUrl: data.jobUrl,
+              salary: 0,
+              jobCategoriesId: Number(data.jobCategoriesId),
+              jobSubCategoryId: Number(data.jobSubCategoryId),
+            },
+            createdBy: user?.fullName,
+            jobsAndSections: data.jobsAndSections.map(
+              (section, index: number) => ({
+                id: index,
+                sectionName: section.sectionName,
+                sectionDescription: section.sectionDescription,
+                jobTypesId: 1,
+                createdBy: "",
+                modifiedBy: "",
+              })
+            ),
+          });
+  
+          // console.log("JOBS DETAILS FORM RESPONSE",response)
+  
+          if (response.data.errorCode == 500) {
+            toast.error(
+              "Error adding current job deatils, please try again later"
+            );
+          }
+          return response;
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            // console.error("Axios error:", error.message);
+            throw new Error(error.message);
+          } else {
+            // console.error("An unexpected error occurred:", error);
+            throw new Error("An unexpected error occurred in the post request of JobsDetailsForm");
+          }
         }
-        return response;
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          // console.error("Axios error:", error.message);
-          throw new Error(error.message);
-        } else {
-          // console.error("An unexpected error occurred:", error);
-          throw new Error("An unexpected error occurred");
-        }
-      }
-    };
-    toast.promise(jobDetailsPostRequest(), {
-      loading: "Adding...",
-      success: (response) => {
-        if (response.data.errorCode == 201) {
-          form.reset();
-          return `Job Details Added`;
-        }
-      },
-      error: (response) => {
-        if (response.data.errorCode == 500) {
-          return "Error, cannot add current job deatils,";
-        }
-      },
-    });
+      };
+      toast.promise(jobDetailsPostRequest(), {
+        loading: "Adding...",
+        success: (response) => {
+          if (response.data.errorCode == 201) {
+            form.reset();
+            return `Job Details Added`;
+          }
+        },
+        error: (response) => {
+          if (response.data.errorCode == 500) {
+            return "Error, cannot add current job details,";
+          }
+        },
+      });
+    }
   }
   return (
     <>
@@ -166,7 +247,7 @@ export default function JobDetailsForm() {
           )}
           className="space-y-12 mb-20"
         >
-          <div className="flex flex-wrap items-center justify-center gap-6">
+          <div className="flex flex-wrap items-center justify-evenly gap-6">
             <FormField
               control={form.control}
               name="jobName"
@@ -300,7 +381,7 @@ export default function JobDetailsForm() {
               )}
             />
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-12">
+          <div className="flex flex-wrap items-center justify-evenly gap-12">
             <FormField
               control={form.control}
               name="jobUrl"
@@ -419,8 +500,9 @@ export default function JobDetailsForm() {
                             !field.value && "text-muted-foreground"
                           )}
                         >
-                          {field.value ? (
-                            format(field.value, "PPP")
+                          {(field.value && !isNaN(new Date(field.value).getTime())) ? (
+                            // format(field.value, "PPP")
+                            format(new Date(field.value), "PPP")
                           ) : (
                             <span>Pick and End Date</span>
                           )}
@@ -545,6 +627,20 @@ export default function JobDetailsForm() {
             </div>
           </section>
 
+          {jobDetails ?
+          (
+          <Button
+            type="submit"
+            className="bg-bts-BrownThree hover:bg-green-800"
+            disabled={formState.isSubmitting}
+          >
+            {formState.isSubmitting ? "Editing Job..." : "Edit Job"}
+            {/* Add Job */}
+          </Button>
+          )
+          :
+          (
+
           <Button
             type="submit"
             className="bg-bts-BrownThree hover:bg-green-800"
@@ -553,6 +649,8 @@ export default function JobDetailsForm() {
             {formState.isSubmitting ? "Adding Job..." : "Add Job"}
             {/* Add Job */}
           </Button>
+          )
+          }
         </form>
       </Form>
     </>
