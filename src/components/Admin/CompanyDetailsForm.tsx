@@ -49,7 +49,15 @@ export default function CompanyDetailsForm({companyDetails}:CompanyDetailsProps)
       // companyDescription: companyDetails.companyDescription,
       location: companyDetails.location,
       imageUrl: companyDetails.imageUrl,
-    }:undefined,
+    }:{
+      companyName: "",
+      companyHeadQuaters: "",
+      companyContactEmail: "",
+      companyContactPhone: "",
+      companyDescription:cDValue,
+      location: "",
+      imageUrl: "",
+    },
   });
 
   function handleLogo(e: React.ChangeEvent<HTMLInputElement>) {
