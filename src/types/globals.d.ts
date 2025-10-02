@@ -104,7 +104,7 @@ export interface SubscribedUser {
 }
 
 export interface CompanyDetailsProps {
-  companyDetails: {
+  companyDetails?: {
     id?: number;
     companyName?: string;
     companyHeadQuaters?: string;
@@ -117,7 +117,7 @@ export interface CompanyDetailsProps {
 }
 
 export interface JobDetailsProps {
-  jobDetails: {
+  jobDetails?: {
     jobsId?: number;
     endDate?: string;
     jobName?: string;
