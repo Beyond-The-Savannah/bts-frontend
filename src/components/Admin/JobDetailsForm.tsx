@@ -92,7 +92,23 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
         }
       ]), 
       
-    }:undefined,
+    }: {
+      endDate: undefined,
+      jobName: "",
+      jobDescription: jCDValue,
+      companyId: "0",
+      language: "",
+      jobUrl: "",
+      salary: 0,
+      jobCategoriesId: "0",
+      jobSubCategoryId: "0",
+      jobsAndSections: [
+        {
+          sectionName: "",
+          sectionDescription: jsDValue,
+        },
+      ],
+    },
     // defaultValues: {
     //   endDate: undefined,
     //   jobName: "",
