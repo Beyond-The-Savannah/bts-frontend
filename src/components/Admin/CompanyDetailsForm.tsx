@@ -283,9 +283,9 @@ export default function CompanyDetailsForm({companyDetails}:CompanyDetailsProps)
                   className="size-24 rounded-lg object-cover border-2"
                 />
               )}
-              {companyDetails.imageUrl !=undefined?(
+              {companyDetails?.imageUrl !=undefined?(
                 <Image
-                   src={companyDetails.imageUrl as string}
+                   src={companyDetails?.imageUrl as string}
                    height={200}
                    width={200}
                    alt="logo preview"

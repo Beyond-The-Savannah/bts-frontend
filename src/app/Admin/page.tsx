@@ -23,11 +23,11 @@ export default function AdminDefaultpage() {
               <TabsTrigger value="jobSubCategory">Job subCategory</TabsTrigger>
             </TabsList>
             <TabsContent value="companyDetails">
-              <CompanyDetailsForm companyDetails={{}}/>
+              <CompanyDetailsForm/>
               {/* <CompanyDetailsForm2/> */}
             </TabsContent>
             <TabsContent value="jobDetails">
-              <JobDetailsForm jobDetails={{}} />
+              <JobDetailsForm/>
             </TabsContent>
             <TabsContent value="jobCategory">
               <JobCategoryForm/>
