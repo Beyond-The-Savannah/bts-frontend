@@ -386,7 +386,7 @@ export default function CompanyDetailsForm({companyDetails}:CompanyDetailsProps)
             className="bg-bts-BrownThree hover:bg-green-800"
           >
             {form.formState.isSubmitting?"Adding...":"Add Comapny"}
-            Add Company
+            {/* Add Company */}
           </Button>
               </>
             )
