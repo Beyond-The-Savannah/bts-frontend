@@ -27,7 +27,7 @@ export default function AdminDefaultpage() {
               {/* <CompanyDetailsForm2/> */}
             </TabsContent>
             <TabsContent value="jobDetails">
-              <JobDetailsForm/>
+              <JobDetailsForm jobDetails={{}} />
             </TabsContent>
             <TabsContent value="jobCategory">
               <JobCategoryForm/>

@@ -1,4 +1,5 @@
 "use client";
+import JobDetailsForm from "@/components/Admin/JobDetailsForm";
 import FilterJobsByDepartment from "@/components/findJobsPage/FilterJobsByDepartment";
 import FilterJobsByName from "@/components/findJobsPage/FilterJobsByJobName";
 // import JobDetailsForm from "@/components/Admin/JobDetailsForm";
@@ -133,16 +134,29 @@ export default function JobsListingAdminPage() {
                       Edit Job details
                     </Button>
                   </AlertDialogTrigger>
-                  <AlertDialogContent className="w-full md:max-w-[80vw] pt-20 h-full overflow-y-auto  grid place-content-center">
+                  {/* <AlertDialogContent className="w-full md:max-w-[80dvw] pt-20 h-full overflow-y-auto  grid place-content-center"> */}
+                  <AlertDialogContent className="max-w-[80dvw] py-10 h-[90dvh] overflow-y-auto">
                     <AlertDialogHeader className="text-center">
-                      <AlertDialogTitle className="text-center">
-                        Job Details
-                      </AlertDialogTitle>
+                      <AlertDialogTitle className="text-center">Edit <span className=" font-extrabold"> {job.companyName}</span> Job Details</AlertDialogTitle>
                       <AlertDialogDescription className="text-center"></AlertDialogDescription>
                     </AlertDialogHeader>
-                    {/* <JobDetailsForm id={job.jobsId}/> */}
-                    <AlertDialogFooter className="w-12/12 mx-auto flex  justify-center items-center">
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <JobDetailsForm jobDetails={{
+                      jobsId:job.jobsId,
+                      endDate:job.endDate,
+                      jobName:job.companyName,
+                      jobDescription:job.jobDescription,
+                      companyId:job.companyId,
+                      language:job.language as string,
+                      jobUrl:job.jobUrl,
+                      salary:job.salary,
+                      jobCategoriesId:job.jobCategoriesId,
+                      jobSubCategoryId:job.jobSubCategoryId
+
+                    }}/>
+                    {/* <AlertDialogFooter className="w-12/12 mx-auto flex  justify-center items-center"> */}
+                    <AlertDialogFooter>
+                      <AlertDialogCancel className=" lg:-mt-32">Cancel</AlertDialogCancel>
+                      <AlertDialogCancel  className=" bg-blue-200 hover:bg-blue-100 lg:-mt-32">Close</AlertDialogCancel>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
