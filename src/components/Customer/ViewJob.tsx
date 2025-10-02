@@ -29,15 +29,17 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { SubscribedUserProp } from "@/types/subscribedUser";
-import axios from "axios";
+// import axios from "axios";
 import { getAnswer } from "@/app/actions/analyse-job-and-recommend";
 
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import { readStreamableValue } from "ai/rsc";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { axiosInstance } from "@/remoteData/mutateData";
 
 export default function ViewJob({ jobsId }: { jobsId: string }) {
+  
   const { user } = useUser();
   const {
     data: singleJob,
@@ -59,9 +61,10 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
   useEffect(() => {
     async function getLoggedUserData() {
       try {
-        const result = await axios.get<SubscribedUserProp>(
-          `https://efmsapi-staging.azurewebsites.net/api/BydUsers/getUserDetailsByEmail?email=${user?.primaryEmailAddress?.emailAddress}`
-        );
+        // const result = await axios.get<SubscribedUserProp>(
+        //   `https://efmsapi-staging.azurewebsites.net/api/BydUsers/getUserDetailsByEmail?email=${user?.primaryEmailAddress?.emailAddress}`
+        // );
+        const result= await axiosInstance.get<SubscribedUserProp>(`/api/BydUsers/getUserDetailsByEmail?email=${user?.primaryEmailAddress?.emailAddress}`)
         setLoggedUser(result.data);
       } catch (error) {
         console.log(
