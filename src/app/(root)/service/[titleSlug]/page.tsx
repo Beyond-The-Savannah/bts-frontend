@@ -18,6 +18,10 @@ import { AlertCircle, CircleCheck } from "lucide-react";
 import { Metadata } from "next";
 import { getCldImageUrl } from "next-cloudinary";
 import { Link } from "next-view-transitions";
+// import { IpNotFoundError, publicIpv4 } from "public-ip";
+// import { toast } from "sonner";
+
+// const ipInfoToken = process.env.NEXT_PUBLIC_IPINFO_TOKEN;
 
 export async function generateMetadata(
   { params }: ParamsProps
@@ -52,13 +56,34 @@ export async function generateStaticParams(){
 }
 
 
-export default async function ServicePage({params,}: {params: Promise<{ titleSlug: string }>}) {
+export default async function ServicePage({params,}: {params: Promise<{ titleSlug: string, currencyValue:string }>}) {
 
-  const { titleSlug } = await params;
+  const { titleSlug, currencyValue } = await params;
   const specificService= servicesList.find((service)=>service.titleSlug==titleSlug)
   
   const posthog = PostHogClient();
   await posthog?.shutdown();
+
+  // let currencyValue=""
+  // try {
+    
+  //   const ip=await publicIpv4({timeout:5000})
+  //   const response=await fetch(`https://ipinfo.io/${ip}/json?token=${ipInfoToken}`)
+  //   const response2=await response.json()
+  //    if (response2.country === "KE") {
+  //       toast.info(`${response2.country}, pay in KE`);
+  //       currencyValue="KES"
+  //       // return "KENYAN"
+  //     } else {
+  //       toast.warning(`${response2.country}, hence pay in $`);
+  //       currencyValue="USD"
+  //       // return "NON-KENYAN"
+  //     }
+  // } catch (error:unknown) {
+  //   if(error instanceof IpNotFoundError){console.log("Could not determine public IP Address")}
+  //   else if(error instanceof DOMException && error.name){console.log("request was cancelled")}
+  //   else{console.log("An error occured", (error as Error).message)}
+  // }
   
   return (
     <>
@@ -83,8 +108,13 @@ export default async function ServicePage({params,}: {params: Promise<{ titleSlu
               </h1>
               <p className="bg-amber-100 rounded-lg py-2 px-6 w-6/12 md:w-auto text">
                 {" "}
-                KES{" "}
-                <span className="text-2xl">{specificService?.priceString}</span>
+                {/* KES{" "} */}
+                {currencyValue=="KES" ? 
+                (<>KES <span className="text-2xl">{specificService?.priceKEString}</span></>)
+                :
+                (<>USD<span className="text-2xl">{specificService?.priceSUSDtring}</span></>)
+                }
+                {/* <span className="text-2xl">{specificService?.priceString}</span> */}
                 {titleSlug == "beyond-the-savannah-whatsApp-community" ? (
                   <>
                     <span>/annually</span>
@@ -181,10 +211,14 @@ export default async function ServicePage({params,}: {params: Promise<{ titleSlu
                       </DrawerDescription>
                     </DrawerHeader>
                     <div className=" max-w-md mx-auto py-4 px-8">
-                      {specificService?.price && (
-                        <CheckoutForm amount={specificService?.price} />
-                      )}
+                      {(currencyValue=='KES'&& specificService?.priceKE) && (<CheckoutForm amount={specificService?.priceKE} currencyValue={currencyValue}/>)}
+                      {(currencyValue=='USD'&& specificService?.priceUSD) && (<CheckoutForm amount={specificService?.priceUSD} currencyValue={currencyValue}/>)}
                     </div>
+                    {/* <div className=" max-w-md mx-auto py-4 px-8">
+                      {specificService?.price && (
+                        <CheckoutForm amount={specificService?.price} currencyValue={currencyValue}/>
+                      )}
+                    </div> */}
                     <DrawerFooter>
                       <DrawerClose>
                         <p>Close</p>

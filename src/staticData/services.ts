@@ -20,8 +20,11 @@ export const servicesList = [
       "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
     valueProposal:
       "Invest in your professional growth and make the most out of your LinkedIn presence. Book your 15 minute LinkedIn profile optimization session today and watch your online brand thrive!",
-    price: 15000,
-    priceString: "15,000",
+    // price: 15000,
+    priceKE: 15000,
+    priceUSD: 150,
+    priceSKEtring: "15,000",
+    priceSUSDtring: "150",
   },
   {
     id: 2,
@@ -42,8 +45,11 @@ export const servicesList = [
       "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
     valueProposal:
       "This is the boost your career needs. Take action today to increase your chances of landing your dream job. Book our CV review and cover letter package now",
-    price: 5000,
-    priceString: "5,000",
+    // price: 5000,
+    priceKE: 5000,
+    priceUSD: 500,
+    priceKEString: "5,000",
+    priceUSDString: "500",
   },
   {
     id: 3,
@@ -62,8 +68,11 @@ export const servicesList = [
       "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
     valueProposal:
       "This is the boost your career needs. Take action today to increase your chances of landing your dream job. Book our ATS CV revamp and cover letter package now!",
-    price: 8000,
-    priceString: "8,000",
+    // price: 8000,
+    priceKE: 8000,
+    priceUSD: 800,
+    priceKEString: "8,000",
+    priceUSDString: "800",
   },
   {
     id: 4,
@@ -85,8 +94,11 @@ export const servicesList = [
       "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
     valueProposal:
       "Invest in yourself and take the first step toward a brighter, more fulfilling future. Book your 1-hour coaching session today to start your transformative journey!",
-    price: 7000,
-    priceString: "7,000",
+    // price: 7000,
+    priceKE: 7000,
+    priceUSD: 700,
+    priceKEString: "7,000",
+    priceUSDString: "700",
   },
   {
     id: 5,
@@ -110,8 +122,11 @@ export const servicesList = [
       "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
     valueProposal:
       "Invest in yourself and take the next step toward landing your dream job. Book your 2-hour guided interview preparation session today and set yourself up for a brighter career future!",
-    price: 12000,
-    priceString: "12,000",
+    // price: 12000,
+    priceKE: 12000,
+    priceUSD: 120,
+    priceSKEtring: "12,000",
+    priceSUSDtring: "120",
   },
   {
     id: 6,
@@ -135,8 +150,11 @@ export const servicesList = [
       "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
     valueProposal:
       "Are you feeling stuck in your career or unsure about your next steps? Let us have an one-on-one and provide tailored advice and actionable strategies to help you navigate your professional challenges.",
-    price: 4000,
-    priceString: "4,000",
+    // price: 4000,
+    priceKE: 4000,
+    priceUSD: 400,
+    priceKEString: "4,000",
+    priceUSDString: "400",
   },
   {
     id: 7,
@@ -157,8 +175,11 @@ export const servicesList = [
     servicePolicy: "",
     valueProposal:
       "Whether you're a seasoned professional looking to transition to remote roles or a newcomer eager to enter the workforce, our Master Class is designed to equip you with the essential skills, strategies, and insights needed to thrive in a work environment.",
-    price: 6000,
-    priceString: "6,000",
+    // price: 6000,
+    priceKE: 6000,
+    priceUSD: 600,
+    priceKEString: "6,000",
+    priceUSDString: "600",
   },
   {
     id: 8,
@@ -179,8 +200,11 @@ export const servicesList = [
       "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
     valueProposal:
       "An introductory video is more than just a welcome, it's an essential tool for remote workers to establish rapport, communicate effectively, and set the tone for a productive working relationship.",
-    price: 3000,
-    priceString: "3,000",
+    // price: 3000,
+    priceKE: 3000,
+    priceUSD: 300,
+    priceKEString: "3,000",
+    priceUSDString: "300",
   },
   {
     id: 9,
@@ -206,9 +230,15 @@ export const servicesList = [
     // "Easter is here and we have a basket full of goodies! Enjoy the same package at a slashed price of 20,000 instead of 26,000! Take advantage of this offer running until the end of April.",
     // "This season, we're honoring the bold, the brave, and the visionary founders across the globe who dared to start. In the spirit of freedom and building something from scratch, we're offering an exclusive discount on our services to support your journey.",
     // price: 26000,
-    // priceString: "26,000",
-    price: 20000,
-    priceString: "20,000",
+    // priKEce: 26000,
+    // priKEcUSD 2600,
+    // priceSKEtring: "26,000",
+    // priceSUSDtring: "26,00",
+    // price: 20000,
+    priceKE: 20000,
+    priceUSD: 200,
+    priceSKEtring: "20,000",
+    priceSUSDtring: "200",
   },
   {
     id: 10,
@@ -227,8 +257,11 @@ export const servicesList = [
     servicePolicy: "",
     valueProposal:
       "Don't struggle in silence— let's navigate this journey together! Ready to invest in your career success? ",
-    price: 6000,
-    priceString: "6,000",
+    // price: 6000,
+    priceKE: 6000,
+    priceUSD: 60,
+    priceKEString: "6,000",
+    priceUSDString: "60",
   },
 ];
 
