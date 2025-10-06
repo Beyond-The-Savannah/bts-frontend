@@ -135,8 +135,8 @@ export const servicesList = [
       "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
     valueProposal:
       "Are you feeling stuck in your career or unsure about your next steps? Let us have an one-on-one and provide tailored advice and actionable strategies to help you navigate your professional challenges.",
-    price: 4000,
-    priceString: "4,000",
+    price: 3000,
+    priceString: "3,000",
   },
   {
     id: 7,
@@ -266,7 +266,7 @@ export const servicesCalendlyLinks = [
   {
     id: 6,
     service: "Consultation Call",
-    amount: 400000,
+    amount: 300000,
     link: "https://calendly.com/beyondthesavannah-info/30min",
   },
   {
