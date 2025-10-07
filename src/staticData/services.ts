@@ -152,8 +152,11 @@ export const servicesList = [
       "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
     valueProposal:
       "Are you feeling stuck in your career or unsure about your next steps? Let us have an one-on-one and provide tailored advice and actionable strategies to help you navigate your professional challenges.",
-    price: 3000,
-    priceString: "3,000",
+    // price: 3000,
+    priceKE: 3000,
+    priceUSD: 30,
+    priceKESString: "3,000",
+    priceUSDString: "30",
   },
   {
     id: 7,
