@@ -24,7 +24,7 @@ const checkOutFormSchema = z.object({
 });
 
 // export default function CheckoutForm(amount: { amount: number }, currencyValue:string) {
-export default function CheckoutForm({amount, currencyValue}:{amount:number, currencyValue:string}) {
+export default function CheckoutForm({amount, currencyValue,serviceName }:{amount:number, currencyValue:string, serviceName:string}) {
   const payStackKey = process.env.NEXT_PUBLIC_PS_KEY;
   // const ipInfoToken = process.env.NEXT_PUBLIC_IPINFO_TOKEN;
   if (!payStackKey) {
@@ -50,6 +50,7 @@ export default function CheckoutForm({amount, currencyValue}:{amount:number, cur
     reference: new Date().getTime().toString(),
     email,
     amount: amountInCents,
+    serviceName:serviceName,
     // currency: "KES",
     currency:currencyValue,
     publicKey: payStackKey,
@@ -69,38 +70,13 @@ export default function CheckoutForm({amount, currencyValue}:{amount:number, cur
     },
   };
 
-  // const getIpAddress = async () => {
-  //   try {
-  //     const ip = await publicIpv4({ timeout: 5000 });
-  //     toast.info(ip);
-  //     const response = await fetch(
-  //       `https://ipinfo.io/${ip}/json?token=${ipInfoToken}`
-  //     );
-  //     const response2 = await response.json();
-  //     if (response2.country == "KE") {
-  //       return "KENYAN"
-  //     } else {
-  //       return "NON-KENYAN"
-  //     }
-  //   } catch (error: unknown) {
-  //     if (error instanceof IpNotFoundError) {
-  //       console.log("could not determine public IP Address");
-  //     } else if ((error as unknown).name == "AbortError") {
-  //       console.log("request was cancelled");
-  //     } else {
-  //       console.log("An error occured:", (error as Error).message);
-  //     }
-  //   }
-  // };
-
-  // getIpAddress()
-  // const currencyValue=getIpAddress();
 
   const onSuccess = async () => {
     await axios.post(`/api/send`, {
       email: config.email,
       firstName: config.metadata.custom_fields[0].value,
       amount: amountInCents,
+      serviceName:config.serviceName
     });
     toast.info(`Please check your email, "${email}" for more instructions`, {
       duration: 16000,

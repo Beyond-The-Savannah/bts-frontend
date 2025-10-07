@@ -16,99 +16,108 @@ import { servicesCalendlyLinks } from "@/staticData/services";
 
 export default function ServiceEmailTemplate({
   firstName,
-  amount,
+  // amount,
+  serviceName,
 }: EmailProps) {
+  // const specificCalendlyLink = servicesCalendlyLinks.find((service) => {
+  //   return service.amount == amount;
+  // });
   const specificCalendlyLink = servicesCalendlyLinks.find((service) => {
-    return service.amount == amount;
+    return service.serviceName == serviceName;
   });
 
   return (
     <>
-      <Html>
-        <Head />
-        {/* <Preview>Beyond The Savannah calendly session Link</Preview> */}
-        <Preview>
-          Beyond The Savannah, {specificCalendlyLink?.service as string}{" "}
-          calendly session Link
-        </Preview>
-        <Body style={main}>
-          <Container style={container}>
-            <Section style={logo}>
-              <Img
-                src={`https://res.cloudinary.com/dh8qlzbzk/image/upload/v1736518541/BTS_Logo_xa2iht.webp`}
-                width="114"
-                //   height="33"
-                alt="Beyond The Savannah Logo"
-              />
-            </Section>
-            <Section>
-              <Text style={text}>Hi {firstName},</Text>
-              <Text style={text}>
-                Thank you once again for choosing Beyond the Savannah for your
-                services. We&apos;re excited to begin working with you.
-              </Text>
-              {specificCalendlyLink?.link != "" ? (
-                <>
-                  <Text style={text}>
-                    To make it as convenient as possible, please go ahead and
-                    select a date and time that works best for you
-                  </Text>
-                  <Text style={text}>
-                    Just click the button below to view our availability and
-                    book your session:
-                  </Text>
-                </>
-              ) : (
-                <></>
-              )}
+      {specificCalendlyLink != undefined ? (
+        <Html>
+          <Head />
+          {/* <Preview>Beyond The Savannah calendly session Link</Preview> */}
+          <Preview>
+            Beyond The Savannah, {specificCalendlyLink.serviceName as string}{" "}
+            calendly session Link
+          </Preview>
+          <Body style={main}>
+            <Container style={container}>
+              <Section style={logo}>
+                <Img
+                  src={`https://res.cloudinary.com/dh8qlzbzk/image/upload/v1736518541/BTS_Logo_xa2iht.webp`}
+                  width="114"
+                  //   height="33"
+                  alt="Beyond The Savannah Logo"
+                />
+              </Section>
+              <Section>
+                <Text style={text}>Hi {firstName},</Text>
+                <Text style={text}>
+                  Thank you once again for choosing Beyond the Savannah for your
+                  services. We&apos;re excited to begin working with you.
+                </Text>
+                {specificCalendlyLink.link != "" ? (
+                  <>
+                    <Text style={text}>
+                      To make it as convenient as possible, please go ahead and
+                      select a date and time that works best for you
+                    </Text>
+                    <Text style={text}>
+                      Just click the button below to view our availability and
+                      book your session:
+                    </Text>
+                  </>
+                ) : (
+                  <></>
+                )}
 
-              {specificCalendlyLink?.link != "" ? (
-                <>
-                  <Button style={button} href={`${specificCalendlyLink?.link}`}>
-                    Calendly Link
-                  </Button>
-                  <Text style={text}>
-                    Once scheduled, you&apos;ll receive a confirmation email
-                    with all the details.If you have any questions or need
-                    further assistance, please don&apos;t hesitate to reach out
-                    to us through the email : info@beyondthesavannah.co.ke
-                  </Text>
-                </>
-              ) : (
-                <>
-                  <Text style={text}>
-                    Please reach out to our team using the email :
-                    info@beyondthesavannah.co.ke or give us a call on 0737 120
-                    764 for us to send you the correct calendly link.
-                  </Text>
-                  <Text style={text}>
-                    A small head up, we might require you to share the
-                    transaction details of the paystack payment receipt to help
-                    with verification and make the process easier to send you
-                    the correct link.
-                  </Text>
-                  <Text style={text}>
-                    If you have any questions or need further assistance, please
-                    don&apos;t hesitate to reach out to us
-                  </Text>
-                </>
-              )}
+                {specificCalendlyLink.link != "" ? (
+                  <>
+                    <Button
+                      style={button}
+                      href={`${specificCalendlyLink.link}`}
+                    >
+                      Calendly Link
+                    </Button>
+                    <Text style={text}>
+                      Once scheduled, you&apos;ll receive a confirmation email
+                      with all the details.If you have any questions or need
+                      further assistance, please don&apos;t hesitate to reach
+                      out to us through the email : info@beyondthesavannah.co.ke
+                    </Text>
+                  </>
+                ) : (
+                  <>
+                    <Text style={text}>
+                      Please reach out to our team using the email :
+                      info@beyondthesavannah.co.ke or give us a call on 0737 120
+                      764 for us to send you the correct calendly link.
+                    </Text>
+                    <Text style={text}>
+                      A small head up, we might require you to share the
+                      transaction details of the paystack payment receipt to
+                      help with verification and make the process easier to send
+                      you the correct link.
+                    </Text>
+                    <Text style={text}>
+                      If you have any questions or need further assistance,
+                      please don&apos;t hesitate to reach out to us
+                    </Text>
+                  </>
+                )}
 
-              <Text style={text}>
-                Looking forward to our session!
-                <Link
-                  style={anchor}
-                  href="https://beyondthesavannah.co.ke/"
-                ></Link>
-              </Text>
-              <Text style={text}>
-                Regards, <br />
-                Beyond the Savannah Team
-              </Text>
-            </Section>
-          </Container>
-        </Body>
-      </Html>
+                <Text style={text}>
+                  Looking forward to our session!
+                  <Link
+                    style={anchor}
+                    href="https://beyondthesavannah.co.ke/"
+                  ></Link>
+                </Text>
+                <Text style={text}>
+                  Regards, <br />
+                  Beyond the Savannah Team
+                </Text>
+              </Section>
+            </Container>
+          </Body>
+        </Html>
+      ) : null}
     </>
   );
 }

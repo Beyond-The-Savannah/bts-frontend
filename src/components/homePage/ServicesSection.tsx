@@ -14,7 +14,6 @@ import { Link } from "next-view-transitions";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import PostHogClient from "@/lib/postHogServerPage";
 import { IpNotFoundError, publicIpv4 } from "public-ip";
-// import { toast } from "sonner";
 
 const ipInfoToken = process.env.NEXT_PUBLIC_IPINFO_TOKEN;
 
@@ -30,15 +29,9 @@ export default async function ServicesSection() {
     );
     const response2 = await response.json();
     if (response2.country === "KE") {
-      // toast.info(`${response2.country}, pay in KE`);
-      alert(response2.country)
       currencyValue = "KES";
-      // return "KENYAN"
     } else {
-      // toast.warning(`${response2.country}, hence pay in $`);
-      alert(response2.country)
       currencyValue = "USD";
-      // return "NON-KENYAN"
     }
   } catch (error: unknown) {
     if (error instanceof IpNotFoundError) {
@@ -84,7 +77,7 @@ export default async function ServicesSection() {
                         <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 lg:w-36 text-xs">
                           KES{" "}
                           <span className="text-sm">
-                            {service.priceKEString}
+                            {service.priceKESString}
                           </span>
                         </p>
                       ) : (
@@ -131,7 +124,8 @@ export default async function ServicesSection() {
                               sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw, 33vw"
                               classname="object-cover w-full h-[40vh] rounded-md"
                             />
-                            <Link href={`service/${service.titleSlug}?currencyValue=${currencyValue}`}>
+                            {/* <Link href={`service/${service.titleSlug}?currencyValue=${currencyValue}`}> */}
+                            <Link href={`service/${service.titleSlug}`}>
                               <Button
                                 size="lg"
                                 className="border border-bts-BrownThree bg-bts-BrownThree text-black hover:text-white   rounded-lg text-base  hover:bg-bts-BrownThree hover:scale-105 transition duration-500  my-4"
