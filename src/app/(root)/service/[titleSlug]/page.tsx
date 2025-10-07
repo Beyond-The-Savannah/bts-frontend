@@ -18,10 +18,10 @@ import { AlertCircle, CircleCheck } from "lucide-react";
 import { Metadata } from "next";
 import { getCldImageUrl } from "next-cloudinary";
 import { Link } from "next-view-transitions";
-import { IpNotFoundError, publicIpv4 } from "public-ip";
+// import { IpNotFoundError, publicIpv4 } from "public-ip";
 // import { toast } from "sonner";
 
-const ipInfoToken = process.env.NEXT_PUBLIC_IPINFO_TOKEN;
+// const ipInfoToken = process.env.NEXT_PUBLIC_IPINFO_TOKEN;
 
 export async function generateMetadata(
   { params }: ParamsProps
@@ -72,27 +72,27 @@ export default async function ServicePage({
   const posthog = PostHogClient();
   await posthog?.shutdown();
 
-  let currencyValue = "";
-  try {
-    const ip = await publicIpv4({ timeout: 5000 });
-    const response = await fetch(
-      `https://ipinfo.io/${ip}/json?token=${ipInfoToken}`
-    );
-    const response2 = await response.json();
-    if (response2.country === "KE") {
-      currencyValue = "KES";
-    } else {
-      currencyValue = "USD";
-    }
-  } catch (error: unknown) {
-    if (error instanceof IpNotFoundError) {
-      console.log("Could not determine public IP Address");
-    } else if (error instanceof DOMException && error.name) {
-      console.log("request was cancelled");
-    } else {
-      console.log("An error occured", (error as Error).message);
-    }
-  }
+  // let currencyValue = "";
+  // try {
+  //   const ip = await publicIpv4({ timeout: 5000 });
+  //   const response = await fetch(
+  //     `https://ipinfo.io/${ip}/json?token=${ipInfoToken}`
+  //   );
+  //   const response2 = await response.json();
+  //   if (response2.country === "KE") {
+  //     currencyValue = "KES";
+  //   } else {
+  //     currencyValue = "USD";
+  //   }
+  // } catch (error: unknown) {
+  //   if (error instanceof IpNotFoundError) {
+  //     console.log("Could not determine public IP Address");
+  //   } else if (error instanceof DOMException && error.name) {
+  //     console.log("request was cancelled");
+  //   } else {
+  //     console.log("An error occured", (error as Error).message);
+  //   }
+  // }
 
   return (
     <>
@@ -118,7 +118,7 @@ export default async function ServicePage({
                 </h1>
                 <p className="bg-amber-100 rounded-lg py-2 px-6 w-6/12 md:w-auto text">
                   {" "}
-                  {currencyValue == "KES" ? (
+                  {/* {currencyValue == "KES" ? (
                     <>
                       KES{" "}
                       <span className="text-2xl">
@@ -132,9 +132,9 @@ export default async function ServicePage({
                         {specificService?.priceUSDString}
                       </span>
                     </>
-                  )}
-                  {/* KES{" "} */}
-                  {/* <span className="text-2xl">{specificService?.priceString}</span> */}
+                  )} */}
+                  KES{" "}
+                  <span className="text-2xl">{specificService?.priceKESString}</span>
                   {titleSlug == "beyond-the-savannah-whatsApp-community" ? (
                     <>
                       <span>/annually</span>
@@ -228,7 +228,7 @@ export default async function ServicePage({
                           )}
                         </DrawerDescription>
                       </DrawerHeader>
-                      <div className=" max-w-md mx-auto py-4 px-8">
+                      {/* <div className=" max-w-md mx-auto py-4 px-8">
                         {currencyValue == "KES" && specificService.priceKE && (
                           <CheckoutForm
                             amount={specificService?.priceKE}
@@ -243,12 +243,12 @@ export default async function ServicePage({
                             serviceName={specificService.title}
                           />
                         )}
-                      </div>
-                      {/* <div className=" max-w-md mx-auto py-4 px-8">
-                      {specificService?.price && (
-                        <CheckoutForm amount={specificService?.price} currencyValue={currencyValue}/>
+                      </div> */}
+                      <div className=" max-w-md mx-auto py-4 px-8">
+                      {specificService?.priceKESString && (
+                        <CheckoutForm amount={specificService?.priceKE}/>
                       )}
-                    </div> */}
+                    </div>
                       <DrawerFooter>
                         <DrawerClose>
                           <p>Close</p>

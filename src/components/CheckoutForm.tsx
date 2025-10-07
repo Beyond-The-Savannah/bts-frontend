@@ -24,7 +24,7 @@ const checkOutFormSchema = z.object({
 });
 
 // export default function CheckoutForm(amount: { amount: number }, currencyValue:string) {
-export default function CheckoutForm({amount, currencyValue,serviceName }:{amount:number, currencyValue:string, serviceName:string}) {
+export default function CheckoutForm({amount, currencyValue,serviceName }:{amount:number, currencyValue?:string, serviceName?:string}) {
   const payStackKey = process.env.NEXT_PUBLIC_PS_KEY;
   // const ipInfoToken = process.env.NEXT_PUBLIC_IPINFO_TOKEN;
   if (!payStackKey) {
@@ -51,8 +51,8 @@ export default function CheckoutForm({amount, currencyValue,serviceName }:{amoun
     email,
     amount: amountInCents,
     serviceName:serviceName,
-    // currency: "KES",
-    currency:currencyValue,
+    currency: "KES",
+    // currency:currencyValue,
     publicKey: payStackKey,
     metadata: {
       custom_fields: [
