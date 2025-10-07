@@ -135,9 +135,9 @@ export const servicesList = [
     subheading:
       "This package includes 30 minutes consultation call on remote work and navigating the remote work landscape",
     // img: "consultation_qiod4j",
-    img: "Customer_Service_week_jfz9rt",
+    img: "Customer_Service_week_img_jszw7q",
     // openGraphImg: "Consultation_Call_openGraph_cecn9j",
-    openGraphImg: "Customer_Service_week_jfz9rt",
+    openGraphImg: "Customer_Service_week_img_jszw7q",
     details:
       "Are you feeling stuck in your career or looking for tailored guidance to elevate your professional journey? this is more than a call, it's your opportunity to invest in yourself and get expert level guidance. Ready to take the next step? Let's talk!",
     benefits: [
