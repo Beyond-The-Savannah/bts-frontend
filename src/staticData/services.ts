@@ -134,8 +134,10 @@ export const servicesList = [
     titleSlug: "consultation-call",
     subheading:
       "This package includes 30 minutes consultation call on remote work and navigating the remote work landscape",
-    img: "consultation_qiod4j",
-    openGraphImg: "Consultation_Call_openGraph_cecn9j",
+    // img: "consultation_qiod4j",
+    img: "Customer_Service_week_jfz9rt",
+    // openGraphImg: "Consultation_Call_openGraph_cecn9j",
+    openGraphImg: "Customer_Service_week_jfz9rt",
     details:
       "Are you feeling stuck in your career or looking for tailored guidance to elevate your professional journey? this is more than a call, it's your opportunity to invest in yourself and get expert level guidance. Ready to take the next step? Let's talk!",
     benefits: [
@@ -150,11 +152,8 @@ export const servicesList = [
       "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
     valueProposal:
       "Are you feeling stuck in your career or unsure about your next steps? Let us have an one-on-one and provide tailored advice and actionable strategies to help you navigate your professional challenges.",
-    // price: 4000,
-    priceKE: 3000,
-    priceUSD: 30,
-    priceKESString: "3,000",
-    priceUSDString: "30",
+    price: 3000,
+    priceString: "3,000",
   },
   {
     id: 7,
@@ -299,6 +298,7 @@ export const servicesCalendlyLinks = [
   {
     id: 6,
     serviceName: "Consultation Call",
+    service: "Consultation Call",
     amount: 300000,
     link: "https://calendly.com/beyondthesavannah-info/30min",
   },
