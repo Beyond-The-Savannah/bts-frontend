@@ -46,6 +46,8 @@ export default function CheckoutForm({amount, currencyValue,serviceName }:{amoun
   const firstName = watch("firstName");
   const lastName = watch("lastName");
 
+  console.log(currencyValue)
+
   const config = {
     reference: new Date().getTime().toString(),
     email,
