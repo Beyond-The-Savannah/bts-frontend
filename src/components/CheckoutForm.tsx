@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import axios from "axios";
 import { toast } from "sonner";
+// import { publicIpv4, IpNotFoundError } from "public-ip";
 
 const checkOutFormSchema = z.object({
   email: z.string().trim().email({ message: "Invalid Email" }),
@@ -22,12 +23,16 @@ const checkOutFormSchema = z.object({
   lastName: z.string().trim(),
 });
 
-export default function CheckoutForm(amount: { amount: number }) {
+// export default function CheckoutForm(amount: { amount: number }, currencyValue:string) {
+export default function CheckoutForm({amount, currencyValue,serviceName }:{amount:number, currencyValue:string, serviceName:string}) {
   const payStackKey = process.env.NEXT_PUBLIC_PS_KEY;
+  // const ipInfoToken = process.env.NEXT_PUBLIC_IPINFO_TOKEN;
   if (!payStackKey) {
     throw new Error("PS key is missing");
   }
-  const amountInCents = amount.amount * 100;
+  // const amountInCents = amount.amount * 100;
+  const amountInCents = amount * 100;
+
   const form = useForm<z.infer<typeof checkOutFormSchema>>({
     resolver: zodResolver(checkOutFormSchema),
     defaultValues: {
@@ -45,7 +50,9 @@ export default function CheckoutForm(amount: { amount: number }) {
     reference: new Date().getTime().toString(),
     email,
     amount: amountInCents,
-    currency: "KES",
+    serviceName:serviceName,
+    // currency: "KES",
+    currency:currencyValue,
     publicKey: payStackKey,
     metadata: {
       custom_fields: [
@@ -63,17 +70,19 @@ export default function CheckoutForm(amount: { amount: number }) {
     },
   };
 
+
   const onSuccess = async () => {
     await axios.post(`/api/send`, {
       email: config.email,
-      firstName:config.metadata.custom_fields[0].value,
-      amount:amountInCents
+      firstName: config.metadata.custom_fields[0].value,
+      amount: amountInCents,
+      serviceName:config.serviceName
     });
     toast.info(`Please check your email, "${email}" for more instructions`, {
       duration: 16000,
     });
   };
-  
+
   const initializePayment = usePaystackPayment(config);
 
   function onSumbit(values: z.infer<typeof checkOutFormSchema>) {

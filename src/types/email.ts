@@ -1,5 +1,6 @@
 export interface EmailProps {
   email?: string;
-  firstName:string;
-  amount:number;
+  firstName: string;
+  amount: number;
+  serviceName: string;
 }
