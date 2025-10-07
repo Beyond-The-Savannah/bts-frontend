@@ -12,8 +12,33 @@ import {
 import { ScrollArea } from "../ui/scroll-area";
 import { ArrowUpRightIcon, CircleCheck } from "lucide-react";
 import { servicesList } from "@/staticData/services";
+import { IpNotFoundError, publicIpv4 } from "public-ip";
 
-export default function CarreerServices() {
+const ipInfoToken = process.env.NEXT_PUBLIC_IPINFO_TOKEN;
+
+export default async function CarreerServices() {
+
+    let currencyValue = "";
+    try {
+      const ip = await publicIpv4({ timeout: 5000 });
+      const response = await fetch(
+        `https://ipinfo.io/${ip}/json?token=${ipInfoToken}`
+      );
+      const response2 = await response.json();
+      if (response2.country === "KE") {
+        currencyValue = "KES";
+      } else {
+        currencyValue = "USD";
+      }
+    } catch (error: unknown) {
+      if (error instanceof IpNotFoundError) {
+        console.log("Could not determine public IP Address");
+      } else if (error instanceof DOMException && error.name) {
+        console.log("request was cancelled");
+      } else {
+        console.log("An error occured", (error as Error).message);
+      }
+    }
   return (
     <section className="px-4">
     <div className="px-2  mb-10">
@@ -42,9 +67,24 @@ export default function CarreerServices() {
                   <p className="text-base  font-semibold text-bts-GreenOne text-balance">
                     {service.title}
                   </p>
-                  <p className="bg-amber-100 rounded-lg py-2 px-6 w-11/12 text-xs">
+                  {/* <p className="bg-amber-100 rounded-lg py-2 px-6 w-11/12 text-xs">
                     KES <span className="text-sm">{service.priceString}</span>
-                  </p>
+                  </p> */}
+                  {currencyValue == "KES" ? (
+                        <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 lg:w-36 text-xs">
+                          KES{" "}
+                          <span className="text-sm">
+                            {service.priceKESString}
+                          </span>
+                        </p>
+                      ) : (
+                        <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 lg:w-36 text-xs">
+                          USD{" "}
+                          <span className="text-sm">
+                            {service.priceUSDString}
+                          </span>
+                        </p>
+                      )}
                 </div>
                 <p className="text-sm leading-6">{service.valueProposal}</p>
               </div>
