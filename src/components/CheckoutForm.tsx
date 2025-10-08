@@ -24,7 +24,15 @@ const checkOutFormSchema = z.object({
 });
 
 // export default function CheckoutForm(amount: { amount: number }, currencyValue:string) {
-export default function CheckoutForm({amount, currencyValue,serviceName }:{amount:number, currencyValue?:string, serviceName?:string}) {
+export default function CheckoutForm({
+  amount,
+  currencyValue,
+  serviceName,
+}: {
+  amount: number;
+  currencyValue?: string;
+  serviceName?: string;
+}) {
   const payStackKey = process.env.NEXT_PUBLIC_PS_KEY;
   // const ipInfoToken = process.env.NEXT_PUBLIC_IPINFO_TOKEN;
   if (!payStackKey) {
@@ -46,15 +54,15 @@ export default function CheckoutForm({amount, currencyValue,serviceName }:{amoun
   const firstName = watch("firstName");
   const lastName = watch("lastName");
 
-  console.log(currencyValue)
+  // console.log(currencyValue)
 
   const config = {
     reference: new Date().getTime().toString(),
     email,
     amount: amountInCents,
-    serviceName:serviceName,
-    currency: "KES",
-    // currency:currencyValue,
+    serviceName: serviceName,
+    // currency: "KES",
+    currency: currencyValue,
     publicKey: payStackKey,
     metadata: {
       custom_fields: [
@@ -72,13 +80,12 @@ export default function CheckoutForm({amount, currencyValue,serviceName }:{amoun
     },
   };
 
-
   const onSuccess = async () => {
     await axios.post(`/api/send`, {
       email: config.email,
       firstName: config.metadata.custom_fields[0].value,
       amount: amountInCents,
-      serviceName:config.serviceName
+      serviceName: config.serviceName,
     });
     toast.info(`Please check your email, "${email}" for more instructions`, {
       duration: 16000,

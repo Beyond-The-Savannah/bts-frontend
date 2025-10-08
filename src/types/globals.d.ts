@@ -129,13 +129,30 @@ export interface JobDetailsProps {
     jobCategoriesId?: number;
     jobSubCategoryId?: number;
     createdBy?: string;
-    jobsAndSections?:{
-          id?:number,
-          sectionName?:string,
-          sectionDescription?: string,
-          jobTypesId?: number,
-          createdBy?: string,
-          modifiedBy?: string,
-      }[],
+    jobsAndSections?: {
+      id?: number;
+      sectionName?: string;
+      sectionDescription?: string;
+      jobTypesId?: number;
+      createdBy?: string;
+      modifiedBy?: string;
+    }[];
   };
+}
+
+export interface ServiceProps {
+  id: number;
+  title: string;
+  titleSlug: string;
+  subheading: string;
+  img: string;
+  openGraphImg: string;
+  details: string;
+  benefits: string[];
+  servicePolicy: string;
+  valueProposal: string;
+  priceKE: number;
+  priceUSD: number;
+  priceKESString: string;
+  priceUSDString: string;
 }

@@ -1,23 +1,24 @@
-import CheckoutForm from "@/components/CheckoutForm";
-import DisplayImageFromNextCloudinary from "@/components/DisplayImageFromNextCloudinary";
-import { Button } from "@/components/ui/button";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import PostHogClient from "@/lib/postHogServerPage";
-import { servicesList } from "@/staticData/services";
-import { ParamsProps } from "@/types/nextJSBasedParams";
-import { AlertCircle, CircleCheck } from "lucide-react";
+// import CheckoutForm from "@/components/CheckoutForm";
+// import DisplayImageFromNextCloudinary from "@/components/DisplayImageFromNextCloudinary";
+// import { Button } from "@/components/ui/button";
+// import {
+  //   Drawer,
+  //   DrawerClose,
+  //   DrawerContent,
+  //   DrawerDescription,
+  //   DrawerFooter,
+  //   DrawerHeader,
+  //   DrawerTitle,
+  //   DrawerTrigger,
+  // } from "@/components/ui/drawer";
+  // import { AlertCircle, CircleCheck } from "lucide-react";
+  // import { Link } from "next-view-transitions";
+  import PostHogClient from "@/lib/postHogServerPage";
+  import { servicesList } from "@/staticData/services";
+  import { ParamsProps } from "@/types/nextJSBasedParams";
+  import ServiceDetails from "@/components/servicePage/ServiceDetails";
 import { Metadata } from "next";
 import { getCldImageUrl } from "next-cloudinary";
-import { Link } from "next-view-transitions";
 // import { IpNotFoundError, publicIpv4 } from "public-ip";
 // import { toast } from "sonner";
 
@@ -97,7 +98,9 @@ export default async function ServicePage({
   return (
     <>
       {specificService != undefined ? (
-        <section className="container mx-auto space-y-16 px-4 pt-24 md:pt-36 lg:pb-40">
+        <>
+        <ServiceDetails specificService={specificService} titleSlug={titleSlug}/>
+        {/* <section className="container mx-auto space-y-16 px-4 pt-24 md:pt-36 lg:pb-40">
           <div className="min-h-[50vh]  flex flex-wrap lg:flex-nowrap justify-around gap-y-12 gap-x-12">
             <div className="w-full lg:max-w-[34vw] ">
               {specificService && (
@@ -118,7 +121,7 @@ export default async function ServicePage({
                 </h1>
                 <p className="bg-amber-100 rounded-lg py-2 px-6 w-6/12 md:w-auto text">
                   {" "}
-                  {/* {currencyValue == "KES" ? (
+                  {currencyValue == "KES" ? (
                     <>
                       KES{" "}
                       <span className="text-2xl">
@@ -132,7 +135,7 @@ export default async function ServicePage({
                         {specificService?.priceUSDString}
                       </span>
                     </>
-                  )} */}
+                  )}
                   KES{" "}
                   <span className="text-2xl">{specificService?.priceKESString}</span>
                   {titleSlug == "beyond-the-savannah-whatsApp-community" ? (
@@ -228,7 +231,7 @@ export default async function ServicePage({
                           )}
                         </DrawerDescription>
                       </DrawerHeader>
-                      {/* <div className=" max-w-md mx-auto py-4 px-8">
+                      <div className=" max-w-md mx-auto py-4 px-8">
                         {currencyValue == "KES" && specificService.priceKE && (
                           <CheckoutForm
                             amount={specificService?.priceKE}
@@ -243,7 +246,7 @@ export default async function ServicePage({
                             serviceName={specificService.title}
                           />
                         )}
-                      </div> */}
+                      </div>
                       <div className=" max-w-md mx-auto py-4 px-8">
                       {specificService?.priceKESString && (
                         <CheckoutForm amount={specificService?.priceKE}/>
@@ -268,7 +271,8 @@ export default async function ServicePage({
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
+        </>
       ) : (
         <>
           <div className="c">Loading</div>

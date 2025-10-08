@@ -1,3 +1,4 @@
+'use client'
 import { servicesList } from "@/staticData/services";
 import {
   Dialog,
@@ -12,14 +13,17 @@ import { ScrollArea } from "../ui/scroll-area";
 import { Button } from "../ui/button";
 import { Link } from "next-view-transitions";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
-import PostHogClient from "@/lib/postHogServerPage";
+import { useCurrencyBasedOnLocation } from "@/hooks/useCurrencyBasedOnLocation";
+// import PostHogClient from "@/lib/postHogServerPage";
 // import { IpNotFoundError, publicIpv4 } from "public-ip";
 
 // const ipInfoToken = process.env.NEXT_PUBLIC_IPINFO_TOKEN;
 
-export default async function ServicesSection() {
-  const posthog = PostHogClient();
-  await posthog?.shutdown();
+// export default async function ServicesSection() {
+export default function ServicesSection() {
+  const currencyValue=useCurrencyBasedOnLocation()
+  // const posthog = PostHogClient();
+  // await posthog?.shutdown();
 
   // let currencyValue = "";
   // try {
@@ -73,7 +77,7 @@ export default async function ServicesSection() {
                       <p className="text-base  font-semibold text-bts-GreenOne text-balance">
                         {service.title}
                       </p>
-                      {/* {currencyValue == "KES" ? (
+                      {currencyValue == "KES" ? (
                         <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 lg:w-36 text-xs">
                           KES{" "}
                           <span className="text-sm">
@@ -82,17 +86,17 @@ export default async function ServicesSection() {
                         </p>
                       ) : (
                         <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 lg:w-36 text-xs">
-                          USD{" "}
+                          $ {" "} 
                           <span className="text-sm">
                             {service.priceUSDString}
                           </span>
                         </p>
-                      )} */}
+                      )}
                                             
-                       <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 lg:w-36 text-xs">
+                       {/* <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 lg:w-36 text-xs">
                          KES{" "}
                         <span className="text-sm">{service.priceKESString}</span>
-                       </p>
+                       </p> */}
                     </div>
                     <p className="text-sm leading-6">{service.valueProposal}</p>
                   </div>
