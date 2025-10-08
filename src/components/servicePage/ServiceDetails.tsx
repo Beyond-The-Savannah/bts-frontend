@@ -16,8 +16,12 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "../ui/drawer";
-import CheckoutForm from "@/components/CheckoutForm";
+import dynamic from "next/dynamic";
 
+
+const CheckoutForm = dynamic(() => import("@/components/CheckoutForm"), {
+  ssr: false,
+});
 
 export default function ServiceDetails({
   specificService,
