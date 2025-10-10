@@ -13,6 +13,7 @@ import { BadgeAlert, Check } from "lucide-react";
 import { useState } from "react";
 import { Switch } from "../ui/switch";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { useCurrencyBasedOnLocation } from "@/hooks/useCurrencyBasedOnLocation";
 // import { currentUser } from "@clerk/nextjs/server";
 
 export interface subScriptionProps {
@@ -21,12 +22,13 @@ export interface subScriptionProps {
   amount: number;
   plan: string;
   name: string;
+  currency:string;
   firstName: string;
 }
 export default function Packages({ email }: { email: string }) {
   const pathName = usePathname();
   const router = useRouter();
-
+  const currencyValue=useCurrencyBasedOnLocation()
   const [anual, setAnual] = useState(false);
   const user = useUser();
   const userFirstName = user.user?.firstName as string;
@@ -65,8 +67,9 @@ export default function Packages({ email }: { email: string }) {
           // amount: subscriptionOptions.amount,
           amount: subscriptionOptions.amount,
           plan: subscriptionOptions.plan,
-          name: subscriptionOptions.name,
           firstName: user.user?.firstName,
+          currency:currencyValue,
+          // name: subscriptionOptions.name,
           whatsAppExpiringLink: expiringLink,
         });
 
@@ -112,8 +115,15 @@ export default function Packages({ email }: { email: string }) {
                 <div className="flex flex-col gap-4 items-center justify-center text-center">
                   <p className="font-semibold w-full">{sub.packageName}</p>
                   <p className="font-semibold w-full">
-                    <span className="text-xs mr-1 ">KSH</span>
-                    {sub.packagePrice}
+                    {currencyValue=="KES" ? (<>
+                     <span className="text-xs mr-1 ">KSH</span>
+                    {sub.packagePriceKE}
+                    </>):(<>
+                     <span className="text-xs mr-1 ">$ </span>
+                    {sub.packagePriceUSD}
+                    </>)}
+                     {/* <span className="text-xs mr-1 ">KSH</span> */}
+                    {/* {sub.packagePrice} */}
                     <span className="font-normal"> / year</span>
                   </p>
                 </div>
@@ -144,20 +154,42 @@ export default function Packages({ email }: { email: string }) {
                   </Button>
                 )}
                 {pathName != "/packages" && (
-                  <Button
+                  <>
+                  {currencyValue=='KES' ? 
+                  (<Button
                     onClick={() =>
                       handlePurchasePackage({
                         email: email,
-                        amount: sub.packageFigure,
-                        plan: sub.packagePlanCode,
+                        amount: sub.packageFigureKE,
+                        plan: sub.packagePlanCodeKE,
                         name: sub.packageName,
+                        currency:'KES',
                         firstName: userFirstName,
                       })
                     }
                     className="bg-bts-GreenOne hover:bg-green-900"
                   >
                     Purchase
-                  </Button>
+                  </Button>)
+                  :
+                  (<Button
+                    onClick={() =>
+                      handlePurchasePackage({
+                        email: email,
+                        amount: sub.packageFigureUSD,
+                        plan: sub.packagePlanCodeUSD,
+                        name: sub.packageName,
+                        currency:'USD',
+                        firstName: userFirstName,
+                      })
+                    }
+                    className="bg-bts-GreenOne hover:bg-green-900"
+                  >
+                    Purchase
+                  </Button>)
+                  }
+                  
+                  </>
                 )}
               </div>
             ))}
@@ -175,8 +207,15 @@ export default function Packages({ email }: { email: string }) {
                 <div className="flex flex-col gap-4 items-center justify-center text-center">
                   <p className="font-semibold w-full">{sub.packageName}</p>
                   <p className="font-semibold w-full">
-                    <span className="text-xs mr-1 ">KSH</span>
-                    {sub.packagePrice}
+                      {currencyValue=="KES" ? (<>
+                     <span className="text-xs mr-1 ">KSH </span>
+                    {sub.packagePriceKE}
+                    </>):(<>
+                     <span className="text-xs mr-1 ">$ </span>
+                    {sub.packagePriceUSD}
+                    </>)}
+                    {/* <span className="text-xs mr-1 ">KSH</span>
+                    {sub.packagePrice} */}
                     <span className="font-normal"> / month</span>
                   </p>
                 </div>
@@ -207,20 +246,41 @@ export default function Packages({ email }: { email: string }) {
                   </Button>
                 )}
                 {pathName != "/packages" && (
-                  <Button
+                  <>
+               {currencyValue=='KES' ? 
+                  (<Button
                     onClick={() =>
                       handlePurchasePackage({
                         email: email,
-                        amount: sub.packageFigure,
-                        plan: sub.packagePlanCode,
+                        amount: sub.packageFigureKE,
+                        plan: sub.packagePlanCodeKE,
                         name: sub.packageName,
+                        currency:'KES',
                         firstName: userFirstName,
                       })
                     }
                     className="bg-bts-GreenOne hover:bg-green-900"
                   >
                     Purchase
-                  </Button>
+                  </Button>)
+                  :
+                  (<Button
+                    onClick={() =>
+                      handlePurchasePackage({
+                        email: email,
+                        amount: sub.packageFigureUSD,
+                        plan: sub.packagePlanCodeUSD,
+                        name: sub.packageName,
+                        currency:'USD',
+                        firstName: userFirstName,
+                      })
+                    }
+                    className="bg-bts-GreenOne hover:bg-green-900"
+                  >
+                    Purchase
+                  </Button>)
+                  }
+                  </>
                 )}
               </div>
             ))}

@@ -16,7 +16,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
-    const { email, amount, plan, firstName, whatsAppExpiringLink } =
+    const { email, amount, plan, firstName, currency, whatsAppExpiringLink } =
       await request.json();
     const amountInCents = amount * 100;
 
@@ -31,6 +31,7 @@ export async function POST(request: Request) {
     const initialResponse = await paystackInstance.transaction.initialize({
       email: email,
       amount: String(amountInCents),
+      currency:currency,
       plan: plan,
       callback_url: callback_url_value,
     });
