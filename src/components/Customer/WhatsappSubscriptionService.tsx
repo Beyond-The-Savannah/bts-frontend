@@ -8,10 +8,15 @@ import { subScriptionProps } from "./Packages";
 import { toast } from "sonner";
 import axios from "axios";
 import { AnnualServicesPackages } from "@/staticData/packages";
+import { useCurrencyBasedOnLocation } from "@/hooks/useCurrencyBasedOnLocation";
 
-export default function WhatsappSubscriptionService({email}:{email:string}) {
+export default function WhatsappSubscriptionService({
+  email,
+}: {
+  email: string;
+}) {
   const router = useRouter();
-
+  const currencyValue = useCurrencyBasedOnLocation();
   const user = useUser();
   const userFirstName = user.user?.firstName as string;
 
@@ -87,11 +92,19 @@ export default function WhatsappSubscriptionService({email}:{email:string}) {
           {/* <div className="flex flex-wrap gap-4 items-center  justify-evenly"> */}
           <div className="flex flex-col gap-4 items-center justify-center text-center">
             <p className="font-semibold w-full">{sub.packageName}</p>
-            <p className="font-semibold w-full">
-              <span className="text-xs mr-1 ">KSH</span>
-              {sub.packagePrice}
-              <span className="font-normal"> / year</span>
-            </p>
+            {currencyValue == "KES" ? (
+              <p className="font-semibold w-full">
+                <span className="text-xs mr-1 ">KSH</span>
+                {sub.packagePriceKE}
+                <span className="font-normal"> / year</span>
+              </p>
+            ) : (
+              <p className="font-semibold w-full">
+                <span className="text-xs mr-1 ">KSH</span>
+                {sub.packagePriceUSD}
+                <span className="font-normal"> / year</span>
+              </p>
+            )}
           </div>
           <div>
             <div className="flex flex-col items-start min-h-40 gap-4  mt-1 ">
@@ -103,21 +116,39 @@ export default function WhatsappSubscriptionService({email}:{email:string}) {
               ))}
             </div>
           </div>
-
-          <Button
-            onClick={() =>
-              handlePurchasePackage({
-                email: email,
-                amount: sub.packageFigure,
-                plan: sub.packagePlanCode,
-                name: sub.packageName,
-                firstName: userFirstName,
-              })
-            }
-            className="bg-bts-GreenOne hover:bg-green-900"
-          >
-            Purchase
-          </Button>
+          {currencyValue == "KES" ? (
+            <Button
+              onClick={() =>
+                handlePurchasePackage({
+                  email: email,
+                  amount: sub.packageFigureKE,
+                  plan: sub.packagePlanCodeKE,
+                  name: sub.packageName,
+                  currency: currencyValue,
+                  firstName: userFirstName,
+                })
+              }
+              className="bg-bts-GreenOne hover:bg-green-900"
+            >
+              Purchase
+            </Button>
+          ) : (
+            <Button
+              onClick={() =>
+                handlePurchasePackage({
+                  email: email,
+                  amount: sub.packageFigureUSD,
+                  plan: sub.packagePlanCodeUSD,
+                  name: sub.packageName,
+                  currency: currencyValue,
+                  firstName: userFirstName,
+                })
+              }
+              className="bg-bts-GreenOne hover:bg-green-900"
+            >
+              Purchase
+            </Button>
+          )}
         </div>
       ))}
     </>
