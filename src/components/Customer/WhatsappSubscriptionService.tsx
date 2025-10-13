@@ -94,13 +94,13 @@ export default function WhatsappSubscriptionService({
             <p className="font-semibold w-full">{sub.packageName}</p>
             {currencyValue == "KES" ? (
               <p className="font-semibold w-full">
-                <span className="text-xs mr-1 ">KSH</span>
+                <span className="text-xs mr-1 ">KSH </span>
                 {sub.packagePriceKE}
                 <span className="font-normal"> / year</span>
               </p>
             ) : (
               <p className="font-semibold w-full">
-                <span className="text-xs mr-1 ">KSH</span>
+                <span className="text-xs mr-1 ">$ </span>
                 {sub.packagePriceUSD}
                 <span className="font-normal"> / year</span>
               </p>

@@ -153,10 +153,10 @@ export const servicesList = [
     valueProposal:
       "Are you feeling stuck in your career or unsure about your next steps? Let us have an one-on-one and provide tailored advice and actionable strategies to help you navigate your professional challenges.",
     // price: 3000,
-    priceKE: 3000,
-    priceUSD: 30,
-    priceKESString: "3,000",
-    priceUSDString: "30",
+    priceKE: 4000,
+    priceUSD: 40,
+    priceKESString: "4,000",
+    priceUSDString: "40",
   },
   {
     id: 7,
@@ -302,7 +302,7 @@ export const servicesCalendlyLinks = [
     id: 6,
     serviceName: "Consultation Call",
     service: "Consultation Call",
-    amount: 300000,
+    amount: 400000,
     link: "https://calendly.com/beyondthesavannah-info/30min",
   },
   {

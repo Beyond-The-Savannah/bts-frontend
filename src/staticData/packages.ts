@@ -196,7 +196,7 @@ export const AnnualServicesPackages = [
     packageFigureUSD: 60,
     // packagePlanCode:"PLN_oojfrfqovsuvbke",
     packagePlanCodeKE: "PLN_3uu6qivfxwr4vq1",
-    packagePlanCodeUSD: "PLN_3uu6qivfxwr4vq1",
+    packagePlanCodeUSD: "PLN_re4cch2cux4mjd1",
     packageGoods: [
       "Encouragement & Accountability",
       "Networking & Community",

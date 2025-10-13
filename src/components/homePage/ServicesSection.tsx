@@ -79,7 +79,7 @@ export default function ServicesSection() {
                       </p>
                       {currencyValue == "KES" ? (
                         <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 lg:w-36 text-xs">
-                          KES{" "}
+                          KES {" "}
                           <span className="text-sm">
                             {service.priceKESString}
                           </span>
