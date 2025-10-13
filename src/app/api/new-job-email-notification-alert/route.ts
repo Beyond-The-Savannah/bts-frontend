@@ -14,7 +14,7 @@ export const { POST } = serve(async (context) => {
 });
 
 //array of emails of users who don't what to be get email notifications
-const noNewJobsNotifications=['riinyacynthia@gmail.com','jeanjesang@gmail.com']
+const noNewJobsNotifications=['riinyacynthia@gmail.com','jeanjesang@gmail.com','slyburd@gmail.com']
 
 async function sendNewJobAddedAlertEmail() {
 
