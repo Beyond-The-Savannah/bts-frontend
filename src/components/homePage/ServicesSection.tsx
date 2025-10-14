@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { servicesList } from "@/staticData/services";
 import {
   Dialog,
@@ -14,38 +14,9 @@ import { Button } from "../ui/button";
 import { Link } from "next-view-transitions";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import { useCurrencyBasedOnLocation } from "@/hooks/useCurrencyBasedOnLocation";
-// import PostHogClient from "@/lib/postHogServerPage";
-// import { IpNotFoundError, publicIpv4 } from "public-ip";
 
-// const ipInfoToken = process.env.NEXT_PUBLIC_IPINFO_TOKEN;
-
-// export default async function ServicesSection() {
 export default function ServicesSection() {
-  const currencyValue=useCurrencyBasedOnLocation()
-  // const posthog = PostHogClient();
-  // await posthog?.shutdown();
-
-  // let currencyValue = "";
-  // try {
-  //   const ip = await publicIpv4({ timeout: 5000 });
-  //   const response = await fetch(
-  //     `https://ipinfo.io/${ip}/json?token=${ipInfoToken}`
-  //   );
-  //   const response2 = await response.json();
-  //   if (response2.country === "KE") {
-  //     currencyValue = "KES";
-  //   } else {
-  //     currencyValue = "USD";
-  //   }
-  // } catch (error: unknown) {
-  //   if (error instanceof IpNotFoundError) {
-  //     console.log("Could not determine public IP Address");
-  //   } else if (error instanceof DOMException && error.name) {
-  //     console.log("request was cancelled");
-  //   } else {
-  //     console.log("An error occured", (error as Error).message);
-  //   }
-  // }
+  const currencyValue = useCurrencyBasedOnLocation();
 
   return (
     <>
@@ -79,21 +50,21 @@ export default function ServicesSection() {
                       </p>
                       {currencyValue == "KES" ? (
                         <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 lg:w-36 text-xs">
-                          KES {" "}
+                          KES{" "}
                           <span className="text-sm">
                             {service.priceKESString}
                           </span>
                         </p>
                       ) : (
                         <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 lg:w-36 text-xs">
-                          $ {" "} 
+                          ${" "}
                           <span className="text-sm">
                             {service.priceUSDString}
                           </span>
                         </p>
                       )}
-                                            
-                       {/* <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 lg:w-36 text-xs">
+
+                      {/* <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 lg:w-36 text-xs">
                          KES{" "}
                         <span className="text-sm">{service.priceKESString}</span>
                        </p> */}

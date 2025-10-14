@@ -57,14 +57,14 @@ export default function ServiceDetails({
                 {" "}
                 {currencyValue == "KES" ? (
                   <>
-                    KES{" "}
+                    KES {" "}
                     <span className="text-2xl">
                       {specificService?.priceKESString}
                     </span>
                   </>
                 ) : (
                   <>
-                    $
+                    $ {" "}
                     <span className="text-2xl">
                       {specificService?.priceUSDString}
                     </span>
