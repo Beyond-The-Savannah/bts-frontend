@@ -3,10 +3,16 @@
 import RichEditorLoader from "@/components/Loaders/RichEditorLoader";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+// import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { formats2, modules2 } from "@/lib/reactQuilSettings";
+import { useGetJobCategoryDropDownList, useGetJobSubCategoryDropDownList } from "@/remoteData/getData";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -22,15 +28,18 @@ const ReactQuill = dynamic(() => import("react-quill-new"), {
 export default function AddJobs() {
   
     const [] = useState("")
-    const [createdJobDate, setCreatedJobDate] = useState<Date | undefined>(new Date())
-    const [deadLineDate, setDeadLineDate] = useState<Date | undefined>(new Date())
+    // const [createdJobDate, setCreatedJobDate] = useState<Date | undefined>(new Date())
+    const [deadLineDate, setDeadLineDate] = useState<Date>()
+    const { data: jobCategories } = useGetJobCategoryDropDownList();
+    const { data: jobSubCategories } = useGetJobSubCategoryDropDownList();
 
     const form=useForm({
         defaultValues:{
+          companyName:'',
+          workLocation:'',
             role:'',
             location:'',
             department:'',
-            company:'',
             createdDate:'',
             deadLine:'',
             jobsDetailSections:[
@@ -55,37 +64,63 @@ return (
           <TabsContent value="addJob1">
             <div className="flex items-center gap-8 my-10">
               <div className="flex-1">
+                <label htmlFor="companyName">Company Name</label>
+                <Input type="text" name="companyName" />
+              </div>
+              <div className="flex-1">
                 <Label htmlFor="role">Role</Label>
                 <Input type="text" id="role" name="role" />
               </div>
               <div className="flex-1">
                 <Label htmlFor="location">Location</Label>
-                <Input type="text" id="location" name="location" />
+                {/* <Input type="text" id="location" name="location" /> */}
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder='Select Location'/>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {jobCategories?.map((location)=>(
+                      <SelectItem key={location.label} value={String(location.value)}>{location.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                 </Select>
               </div>
             </div>
             <div className="flex items-center gap-8 my-10">
-              <div className="flex-1">
+              {/* <div className="flex-1">
                 <Label htmlFor="department">Department</Label>
                 <Input type="text" id="department" name="department" />
-              </div>
-              <div className="flex-1">
-                <Label htmlFor="company">Company</Label>
-                <Input type="text" id="company" name="company" />
-              </div>
-            </div>
-            <div className="flex items-center gap-8 my-10">
-              <div className="flex-1">
-                <Label htmlFor="createdDate">CreatedDate</Label>
-                {/* <Input type="text" id="createdDate" name="createdDate" /> */}
-                <Calendar mode='single' selected={createdJobDate} onSelect={setCreatedJobDate} className="rounded-lg border w-full grid place-content-center"/>
-              </div>
-              <div className="flex-1">
-                <Label htmlFor="deadline">Deadline</Label>
-                {/* <Input type="text" id="deadline" name="deadline" /> */}
-                <Calendar mode='single' selected={deadLineDate} onSelect={setDeadLineDate} className="rounded-lg border w-full grid place-content-center"/>
-              </div>
+              </div> */}
+              <div className="flex flex-1 flex-col">
+                  <label htmlFor="deadline">Department</label>
+                 <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder='Select Department'/>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {jobSubCategories?.map((departmentName)=>(
+                      <SelectItem key={departmentName.label} value={String(departmentName.value)}>{departmentName.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                 </Select>
+                </div>
+              <div className="flex flex-1 flex-col">
+                  <label htmlFor="deadline">Deadline</label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant='outline' data-empty={!deadLineDate} className="data-[empty=true]:text-muted-foreground justify-start text-left font-normal flex-1">
+                        <CalendarIcon/>
+                        {deadLineDate? format(deadLineDate,'PPP'):<span>Pick Deadline Date</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <Calendar mode="single" selected={deadLineDate} onSelect={setDeadLineDate}/>
+                    </PopoverContent>
+                  </Popover>
+                </div>
             </div>
             <div className="border rounded-lg p-4">
+              <p className="font-bold">Job Details Section</p>
                     {fields.map((field,index)=>(
                     <div key={field.id} className="w-full mx-auto flex flex-col items-start gap-8 my-10">
                         <div className="flex-1">
