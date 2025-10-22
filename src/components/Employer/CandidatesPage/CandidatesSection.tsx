@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { candidatesEntries } from "@/staticData/Employer/entries";
+import { Link } from "next-view-transitions";
 
 
 export default function CandidatesSection() {
@@ -24,7 +25,11 @@ export default function CandidatesSection() {
                 <span className="c">Email</span>{" "}
                 <span className="font-semibold">{candidate.email}</span>
             </p>
-          <Button variant="outline"> View Details</Button>
+          <Button variant="outline" asChild>
+            <Link href={`candidates/${candidate.email}`}>
+             View Details
+            </Link>
+          </Button>
         </div>
       ))}
     </div>
