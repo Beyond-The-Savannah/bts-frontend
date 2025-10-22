@@ -22,7 +22,7 @@ export async function POST(request: Request) {
 
     let callback_url_value = "";
 
-    if (amountInCents == 600000) {
+    if (amountInCents == 600000 || amountInCents==6000) {
       callback_url_value = `${PUBLIC_BASE_URL}/Customer/whatsappService?source=whatsapp-service`;
     } else {
       callback_url_value = `${PUBLIC_BASE_URL}/Customer`;
@@ -38,12 +38,12 @@ export async function POST(request: Request) {
 
     if (
       initialResponse?.status == true &&
-      (amountInCents == 150000 || amountInCents == 1800000)
+      (amountInCents == 150000 || amountInCents == 1500  || amountInCents == 1800000 || amountInCents == 18000)
     ) {
       const { data, error } = await resend.emails.send({
         from: `info@beyondthesavannah.co.ke`,
         to: [email],
-        subject: `Beyond The Savannah`,
+        subject: `Beyond The Savannah Whatsapp Link`,
         react: WhatsAppsEmailTemplate({
           firstName: firstName,
           whatsAppExpiringLink: whatsAppExpiringLink,
@@ -55,11 +55,11 @@ export async function POST(request: Request) {
       console.log(data?.id);
     }
 
-    if (initialResponse?.status == true && amountInCents == 600000) {
+    if (initialResponse?.status == true && (amountInCents == 600000 || amountInCents==6000)) {
       const { data, error } = await resend.emails.send({
         from: `info@beyondthesavannah.co.ke`,
         to: [email],
-        subject: `Beyond The Savannah`,
+        subject: `Beyond The Savannah Whatsapp Group Link`,
         react: WhatsAppsEmailTemplate({
           firstName: firstName,
           whatsAppExpiringLink:
