@@ -23,11 +23,11 @@ export default async function page({
   const user = await currentUser();
 
   const byPassEmailAddresses = [
-    `onyango.mary15@gmail.com`,
-    `kimothoevalyne@gmail.com`,
-    `thothocaroline@gmail.com`,
+    // `onyango.mary15@gmail.com`,
+    // `kimothoevalyne@gmail.com`,
+    // `thothocaroline@gmail.com`,
+    // `joanna.shiko@gmail.com`,
     `gitoshmbae@gmail.com`,
-    `joanna.shiko@gmail.com`,
   ];
 
   if (
