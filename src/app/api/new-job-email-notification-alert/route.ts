@@ -72,7 +72,7 @@ async function sendNewJobAddedAlertEmail() {
         to: [user.email],
         subject: "Beyond The Savannah New Jobs Alert",
         react: AllJobsAlertEmailTemplate({
-          firstName: user.firstName,
+          firstName: user.firstName ?? '',
           jobs: userJobsList,
         }),
       });
