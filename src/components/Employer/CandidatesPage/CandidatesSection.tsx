@@ -10,7 +10,7 @@ export default function CandidatesSection() {
         {candidatesEntries.map((candidate, index) => (
         <div
           key={index}
-          className="flex justify-between items-center border rounded-md px-4 py-2 my-2"
+          className="flex justify-between items-center border rounded-md px-4 py-2 my-2 bg-slate-100 odd:bg-slate-200"
         >
           <div className="flex flex-col">
             <p className="c">{candidate.fullName}</p>
@@ -26,7 +26,7 @@ export default function CandidatesSection() {
                 <span className="font-semibold">{candidate.email}</span>
             </p>
           <Button variant="outline" asChild>
-            <Link href={`candidates/${candidate.email}`}>
+            <Link href={`/Employer/candidates/${candidate.fullName}`}>
              View Details
             </Link>
           </Button>

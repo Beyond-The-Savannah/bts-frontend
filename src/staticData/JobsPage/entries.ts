@@ -12,7 +12,7 @@ export const jobEntries=[
     "deadlineDate": "2025-09-25"
   },
   {
-    "jobName": "UI/UX Designer",
+    "jobName": "UI-UX Designer",
     "jobLocation": "Kisumu, Kenya",
     "createdDate": "2025-09-05",
     "deadlineDate": "2025-09-28"
