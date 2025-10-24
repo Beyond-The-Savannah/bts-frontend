@@ -172,12 +172,16 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                         <Button
                           onClick={async () => {
                             setIsAnalyzing(true);
+                            // const { output } = await await getAnswer(
+                            //   `My resume ${loggedUser.imageUrl}, role ${singleJob.map(
+                            //     (listing) => {
+                            //       return listing.sectionDescription;
+                            //     }
+                            //   )}? `
+                            // );
                             const { output } = await await getAnswer(
-                              `My resume ${loggedUser.imageUrl}, role ${singleJob.map(
-                                (listing) => {
-                                  return listing.sectionDescription;
-                                }
-                              )}? `
+                              {resume:loggedUser.imageUrl, role :singleJob.map((listing) => {return listing.sectionDescription;})} 
+                            
                             );
                             for await (const delta of readStreamableValue(
                               output
