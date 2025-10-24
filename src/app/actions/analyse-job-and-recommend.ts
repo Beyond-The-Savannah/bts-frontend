@@ -4,6 +4,7 @@ import { createOpenAI } from "@ai-sdk/openai";
 // import { generateText } from "ai"
 import { streamText } from "ai";
 import { createStreamableValue } from "ai/rsc";
+import axios from 'axios';
 
 const openai = createOpenAI({ apiKey: process.env.OPEN_AI_KEY });
 
@@ -170,14 +171,53 @@ EXAMPLE (required behavior for verification):
       Skills: "Programming languages and frameworks Javascript Typescript React NextJs"
     Then your Candidate Background Verification MUST include those exact quotes and MUST NOT claim: "Bachelor of Science in Computer Science from ABC University" or "Skills: Java, Python, C++".`
 
-export async function getAnswer(question: string) {
+// export async function getAnswer(question: string) {
+//   const stream = createStreamableValue("");
+//   (async () => {
+//     const { textStream } = streamText({
+//       model: openai("gpt-4.1-mini-2025-04-14"),
+//       temperature: 0,
+//       prompt: question,
+//       system:SavannahAnalysisTemplate,
+//     });
+//     for await (const delta of textStream) {
+//       stream.update(delta);
+//     }
+//     stream.done();
+//   })();
+//   return { output: stream.value };
+// }
+interface ResumeAnalysisType{
+  resume:string,
+  role:string[]
+}
+export async function getAnswer(question: ResumeAnalysisType) {
   const stream = createStreamableValue("");
   (async () => {
+
+    const response=await axios.get(question.resume, {responseType:'arraybuffer'})
+    const resumeBuffer=Buffer.from(response.data)
     const { textStream } = streamText({
       model: openai("gpt-4.1-mini-2025-04-14"),
       temperature: 0,
-      prompt: question,
+      // prompt: 'Analyse my resume for the provided job description',
       system:SavannahAnalysisTemplate,
+      messages:[
+        {
+          role:'user',
+          content:[
+            {
+              type:'text',
+              text:`Analyse my resume for the provided job description ${question.role}`,
+            },
+            {
+              type:'file',
+              data: resumeBuffer,
+              mimeType:'application/pdf'
+            }
+          ],
+        }
+      ]
     });
     for await (const delta of textStream) {
       stream.update(delta);
