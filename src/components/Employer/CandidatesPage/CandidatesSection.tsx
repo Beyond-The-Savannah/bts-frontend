@@ -1,38 +1,69 @@
 import { Button } from "@/components/ui/button";
-import { candidatesEntries } from "@/staticData/Employer/entries";
+// import { candidatesEntries } from "@/staticData/Employer/entries";
+import { SubscribedUserProp } from "@/types/subscribedUser";
+import axios from "axios";
 import { Link } from "next-view-transitions";
 
 
-export default function CandidatesSection() {
+const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
+
+export default async function CandidatesSection() {
+  const response = await axios.get(`${BTS_API_URL}/api/BydUsers/getAllUsers`);
+  const existingUsers: SubscribedUserProp[] = await response.data;
   return (
     <>
-    <div className="max-w-7xl mx-auto px-4">
-        {candidatesEntries.map((candidate, index) => (
-        <div
-          key={index}
-          className="flex justify-between items-center border rounded-md px-4 py-2 my-2 bg-slate-100 odd:bg-slate-200"
-        >
-          <div className="flex flex-col">
-            <p className="c">{candidate.fullName}</p>
-            
+      <div className="max-w-7xl mx-auto px-4">
+        {/* {candidatesEntries.map((candidate, index) => (
+          <div
+            key={index}
+            className="flex justify-between items-center border rounded-md px-4 py-2 my-2 bg-slate-100 odd:bg-slate-200"
+          >
+            <div className="flex flex-col">
+              <p className="c">{candidate.fullName}</p>
+            </div>
+            <p className="text-xs">
+              <span className="c">Phone</span>{" "}
+              <span className="font-semibold">{candidate.phone}</span>
+            </p>
+            <p className="text-xs">
+              <span className="c">Email</span>{" "}
+              <span className="font-semibold">{candidate.email}</span>
+            </p>
+            <Button variant="outline" asChild>
+              <Link href={`/Employer/candidates/${candidate.fullName}`}>
+                View Details
+              </Link>
+            </Button>
           </div>
-            <p className="text-xs">
-                <span className="c">Phone</span>{" "}
-                <span className="font-semibold">{candidate.phone}</span>
-                
+        ))} */}
+        {existingUsers.map((candidate) => (
+          <div
+            key={candidate.id}
+            className="flex justify-between items-center border rounded-md px-4 py-2 my-2 bg-slate-100 odd:bg-slate-200"
+          >
+            <div className="flex flex-col">
+              <p className="c">{candidate.firstName} <span className="px-2"></span> {candidate.lastName}</p>
+            </div>
+            {/* <p className="text-xs">
+              <span className="c">Phone</span>{" "}
+              <span className="font-semibold">{candidate.phoneNumber}</span>
             </p>
             <p className="text-xs">
-                <span className="c">Email</span>{" "}
-                <span className="font-semibold">{candidate.email}</span>
+              <span className="c">Career</span>{" "}
+              <span className="font-semibold">{candidate.career}</span>
+            </p> */}
+            <p className="text-xs">
+              <span className="c">Email</span>{" "}
+              <span className="font-semibold">{candidate.email}</span>
             </p>
-          <Button variant="outline" asChild>
-            <Link href={`/Employer/candidates/${candidate.fullName}`}>
-             View Details
-            </Link>
-          </Button>
-        </div>
-      ))}
-    </div>
+            <Button variant="outline" asChild>
+              <Link href={`/Employer/candidates/${candidate.id}`}>
+                View Details
+              </Link>
+            </Button>
+          </div>
+        ))}
+      </div>
     </>
-  )
+  );
 }
