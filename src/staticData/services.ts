@@ -176,10 +176,10 @@ export const servicesList = [
     valueProposal:
       "Whether you're a seasoned professional looking to transition to remote roles or a newcomer eager to enter the workforce, our Master Class is designed to equip you with the essential skills, strategies, and insights needed to thrive in a work environment.",
     // price: 6000,
-    priceKE: 6000,
-    priceUSD: 60,
-    priceKESString: "6,000",
-    priceUSDString: "60",
+    priceKE: 3500,
+    priceUSD: 35,
+    priceKESString: "3,500",
+    priceUSDString: "35",
   },
   {
     id: 8,
