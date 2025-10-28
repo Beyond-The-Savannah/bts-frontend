@@ -219,41 +219,7 @@ export default async function SubscriptionDetails() {
 
               ):null}
 
-              {/* <div className="space-y-4 rounded-lg bg-bts-BrownOne/50 pr-6 py-12 w-full ">
-                <p className="font-semibold text-xl px-9">Subscription guide</p>
-                {jobsListingSubscriptionDetails?.status == "non-renewing" ? (
-                  <>
-                    <div className="border-l-[1.5rem] border-yellow-400 rounded-l bg-yellow-100 px-4 py-2 max-w-4xl mr-auto  flex gap-2 items-center">
-                      <CircleAlert />
-                      <p className="text-xs">
-                        Your subscription status means that can your enjoy the
-                        stated subscription plan services up to the Next
-                        Subscription Payment Date timeline.
-                      </p>
-                    </div>
-                  </>
-                ) : null}
 
-                <div className="border-l-[1.5rem] border-blue-400 bg-blue-100 px-4 py-2 rounded-l text-sm">
-                  <p>
-                    To change your card details you can use the Manage your
-                    Subscription button
-                  </p>
-                </div>
-                <div className="border-l-[1.5rem] border-red-400 bg-red-100 px-4 py-2 rounded-l text-sm">
-                  <p>
-                    To cancel your subscription can use the Manage your
-                    Subscription button
-                  </p>
-                </div>
-                <div className="px-8">
-                  <form action={handleManageSubscription}>
-                    <Button variant="outline" size="sm" type="submit">
-                      Manage your Subscription
-                    </Button>
-                  </form>
-                </div>
-              </div> */}
             </div>
             {jobsListingSubscriptionDetails?.plan.amount !== 600000 ? (
               
