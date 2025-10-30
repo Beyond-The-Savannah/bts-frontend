@@ -30,14 +30,11 @@ import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 
 import { SubscribedUserProp } from "@/types/subscribedUser";
-// import axios from "axios";
-// import { getAnswer } from "@/app/actions/analyse-job-and-recommend";
-// import { readStreamableValue } from "ai/rsc";
 
-import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { axiosInstance } from "@/remoteData/mutateData";
+import ResumeAnalyseBtn from "./ResumeAnalyseBtn";
 
 export default function ViewJob({ jobsId }: { jobsId: string }) {
   const { user } = useUser();
@@ -54,7 +51,7 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
   );
 
   const [generation, setGeneration] = useState("");
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  // const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [loggedUser, setLoggedUser] = useState<SubscribedUserProp | undefined>(
     undefined
   );
@@ -62,9 +59,7 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
   useEffect(() => {
     async function getLoggedUserData() {
       try {
-        // const result = await axios.get<SubscribedUserProp>(
-        //   `https://efmsapi-staging.azurewebsites.net/api/BydUsers/getUserDetailsByEmail?email=${user?.primaryEmailAddress?.emailAddress}`
-        // );
+       
         const result = await axiosInstance.get<SubscribedUserProp>(
           `/api/BydUsers/getUserDetailsByEmail?email=${user?.primaryEmailAddress?.emailAddress}`
         );
@@ -84,13 +79,6 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
   return (
     <>
       <section className="container mx-auto   min-h-screen pt-2 md:pt-4 px-4">
-        {/* <div className="">
-          <h2 className="text-xl">Global Open Roles</h2>
-          <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
-            Remote Opportunity
-          </p>
-        </div> */}
 
         {isLoading && <SingleJobLoadingUI />}
         {isError && <SingleJobLoadingErrorUI />}
@@ -203,95 +191,9 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                             classname="size-12 -mt-10"
                           />
                         </Button> */}
-                        {/* <form onSubmit={handleSubmit}></form> */}
-
-                        <Button
-                          onClick={async () => {
-                            setIsAnalyzing(true);
-
-                            try {
-                              const response = await fetch(
-                                "/api/analyse-job-and-recommend",
-                                {
-                                  method: "POST",
-                                  headers: {
-                                    "Content-Type": "application/json",
-                                  },
-                                  body: JSON.stringify({
-                                    question: {
-                                      resume: loggedUser.imageUrl,
-                                      role: singleJob.map(
-                                        (listing) => listing.sectionDescription
-                                      ),
-                                    },
-                                  }),
-                                }
-                              );
-
-                              if (!response.ok) {
-                                throw new Error("Failed to analyze resume");
-                              }
-                              const reader = response.body?.getReader();
-                              const decoder = new TextDecoder();
-
-                              if (reader) {
-                                let buffer = "";
-
-                                while (true) {
-                                  const { done, value } = await reader.read();
-                                  if (done) break;
-
-                                  buffer += decoder.decode(value, {
-                                    stream: true,
-                                  });
-
-                                  // Parse the AI SDK stream format
-                                  const lines = buffer.split("\n");
-                                  buffer = lines.pop() || ""; // Keep incomplete line in buffer
-
-                                  for (const line of lines) {
-                                    if (line.startsWith('0:"')) {
-                                      // Extract text from format: 0:"text"
-                                      const match = line.match(/0:"(.*)"/);
-                                      if (match && match[1]) {
-                                        const text = match[1]
-                                          .replace(/\\n/g, "\n")
-                                          .replace(/\\"/g, '"')
-                                          .replace(/\\\\/g, "\\");
-
-                                        setGeneration(
-                                          (currentGeneration) =>
-                                            currentGeneration + text
-                                        );
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            } catch (error) {
-                              console.log(
-                                "Error analysing resume Button Call->",
-                                error
-                              );
-                            } finally {
-                              setIsAnalyzing(false);
-                            }
-                          }}
-                          disabled={isAnalyzing || generation != ""}
-                          className="bg-bts-GreenOne hover:scale-105 transition duration-500 rounded  md:w-[19rem] flex"
-                        >
-                          {isAnalyzing
-                            ? "Analysing your resume..."
-                            : "Analyse my resume for this role"}
-                          <DisplayImageFromNextCloudinary
-                            src="kazina_upvlpf"
-                            height={800}
-                            width={800}
-                            alt="savannah avatar"
-                            classname="size-12 -mt-10"
-                          />
-                        </Button>
-                        <div className="rounded-lg bg-sky-50 px-3 py-4 mt-2 md:absolute md:top-12 w-full md:w-12/12">
+                        
+                        <ResumeAnalyseBtn loggedUser={loggedUser} singleJob={singleJob} generation={generation} setGeneration={setGeneration}/>
+                        <div className="rounded-lg bg-sky-50 px-3 py-4 mt-2 mb-10 md:absolute md:top-12 w-full md:w-12/12">
                           <div className="prose prose-sm">
                             <ReactMarkdown remarkPlugins={[remarkGfm]}>
                               {generation}
