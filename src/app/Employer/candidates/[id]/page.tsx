@@ -35,8 +35,7 @@ export default async function Page({params}: {params: Promise<{ id: string }>;})
           <div className="py-10">
             <div className="bg-slate-200/40 py-8 px-4 rounded-lg">
               <h2 className="text-xl font-semibold mb-10">Candidates Resume</h2>
-              {/* <EmbedPDF mode="inline" style={{width:500, height:800}} documentURL={candidate?.imageUrl}/> */}
-              {candidate?.imageUrl !=undefined && ( <ResumeDisplay url={candidate?.imageUrl}/>)}
+              {candidate?.imageUrl !=undefined && ( <ResumeDisplay url={candidate.imageUrl}/>)}
             </div>
           </div>
           <div className="py-10">
