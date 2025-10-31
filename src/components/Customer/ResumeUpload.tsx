@@ -6,9 +6,10 @@ import { Button } from "../ui/button";
 import { UploadStatus } from "@/types/globals";
 import { useUser } from "@clerk/nextjs";
 import { SubscribedUserProp } from "@/types/subscribedUser";
-import axios from "axios";
+// import axios from "axios";
 import { toast } from "sonner";
 import clsx from "clsx";
+import { axiosInstance } from "@/remoteData/mutateData";
 
 export default function ResumeUpload2() {
   
@@ -55,7 +56,8 @@ export default function ResumeUpload2() {
           formData.append("isActive",String(loggedUser.isActive))
           formData.append("isDeleted",String(loggedUser.isDeleted))
           
-          const result = await axios.put(`https://efmsapi-staging.azurewebsites.net/api/BydUsers/updateUserDetails?email=${user?.primaryEmailAddress?.emailAddress}`,
+          // const result = await axios.put(`https://efmsapi-staging.azurewebsites.net/api/BydUsers/updateUserDetails?email=${user?.primaryEmailAddress?.emailAddress}`,
+            const result = await axiosInstance.put(`api/BydUsers/updateUserDetails?email=${user?.primaryEmailAddress?.emailAddress}`,
           formData,
           {headers:{"Content-Type":"multipart/form-data"}}
         );
@@ -75,9 +77,10 @@ export default function ResumeUpload2() {
   useEffect(() => {
     async function getLoggedUserData() {
       try {
-        const result = await axios.get<SubscribedUserProp>(
-          `https://efmsapi-staging.azurewebsites.net/api/BydUsers/getUserDetailsByEmail?email=${user?.primaryEmailAddress?.emailAddress}`
-        );
+        // const result = await axios.get<SubscribedUserProp>(
+        //   `https://efmsapi-staging.azurewebsites.net/api/BydUsers/getUserDetailsByEmail?email=${user?.primaryEmailAddress?.emailAddress}`
+        // );
+        const result= await axiosInstance.get(`/api/BydUsers/getUserDetailsByEmail?email=${user?.primaryEmailAddress?.emailAddress}`)
         setLoggedUser(result.data);
       } catch (error) {
         console.log(
@@ -94,12 +97,14 @@ export default function ResumeUpload2() {
   return (
     <>
       <section className={clsx("py-10", loggedUser==undefined?"hidden":"block")}>
+      {/* <section className={clsx("py-10", )}> */}
         <div className="min-h-[20.3rem]  space-y-4 px-4 py-8 bg-bts-BrownOne/50 rounded-lg ">
           <p className="font-semibold text-xl">Resume Upload</p>
           <Input
             type="file"
             onChange={handleFileChange}
-            accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            // accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            accept="application/pdf"
             className="file:bg-sky-300 file:px-12 file:pt-4 file:pb-4 file:-mt-4 file:rounded-lg bg-slate-50 py-12 rounded-lg"
           />
           {file && (
