@@ -24,6 +24,7 @@ import {
   useGetJobCategoryDropDownList,
   useGetJobSubCategoryDropDownList,
 } from "@/remoteData/getData";
+import { newJobPositiings } from "@/staticData/Employer/entries";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
@@ -32,6 +33,7 @@ import { useState } from "react";
 import {  useForm } from "react-hook-form";
 
 import "react-quill-new/dist/quill.snow.css";
+import { toast } from "sonner";
 import z from "zod";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), {
@@ -50,19 +52,25 @@ export default function AddJobs() {
     role: z.string(),
     location: z.string(),
     department: z.string(),
-    deadLineDate: z.date(),
+    deadLineDate: z.string(),
     jobDetails: z.string(),
   });
   type jobsFormFields = z.infer<typeof jobsFormSchema>;
 
-  const { handleSubmit,setValue, register,formState:{isSubmitting, errors} } = useForm<jobsFormFields>({
+  const { handleSubmit,setValue, register, reset, formState:{isSubmitting} } = useForm<jobsFormFields>({
     resolver: zodResolver(jobsFormSchema),
   });
   
   async function formSubmit(data:jobsFormFields) {
-    await new Promise((resolve)=>setTimeout(resolve,200))
     console.log('Add Job Form Data', data)
-    if(errors){console.error('Form errors', errors)}
+    try {
+      newJobPositiings.push(...newJobPositiings, data)
+      reset()
+      toast.success('New Job Added')
+    } catch (error) {
+      console.error('Error adding new Job Details', error)
+    }
+    // if(errors){console.error('Form errors', errors)}
   }
 
   return (
@@ -81,6 +89,7 @@ export default function AddJobs() {
                     {...register("companyName", {required:'Company Name is required'})}
                     type="text"
                     name="companyName"
+                    required
                   />
                 </div>
                 <div className="flex-1">
@@ -90,6 +99,7 @@ export default function AddJobs() {
                     type="text"
                     id="role"
                     name="role"
+                    required
                   />
                 </div>
                 <div className="flex-1">
@@ -157,7 +167,7 @@ export default function AddJobs() {
                         onSelect={(value)=>{
                           setDeadLineDate(value)
                           if(value){
-                            setValue('deadLineDate',value)
+                            setValue('deadLineDate',value.toString())
                           }
                         }}
                       />
