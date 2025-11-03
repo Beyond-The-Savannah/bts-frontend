@@ -40,8 +40,6 @@ const ReactQuill = dynamic(() => import("react-quill-new"), {
 });
 
 export default function AddJobs() {
-  const [] = useState("");
-  // const [createdJobDate, setCreatedJobDate] = useState<Date | undefined>(new Date())
   const [deadLineDate, setDeadLineDate] = useState<Date>();
   const [jobDetailsValue, setJobDetailsValue] = useState("");
   const { data: jobCategories } = useGetJobCategoryDropDownList();
@@ -49,7 +47,6 @@ export default function AddJobs() {
 
   const jobsFormSchema = z.object({
     companyName: z.string(),
-    workLocation: z.string(),
     role: z.string(),
     location: z.string(),
     department: z.string(),
@@ -58,15 +55,14 @@ export default function AddJobs() {
   });
   type jobsFormFields = z.infer<typeof jobsFormSchema>;
 
-  const { handleSubmit, register,formState:{isSubmitting} } = useForm<jobsFormFields>({
+  const { handleSubmit,setValue, register,formState:{isSubmitting, errors} } = useForm<jobsFormFields>({
     resolver: zodResolver(jobsFormSchema),
   });
-  //   const {formState}=form
-
-  // const{fields,append,remove}=useFieldArray({name:"jobsDetailSections", control:form.control})
+  
   async function formSubmit(data:jobsFormFields) {
     await new Promise((resolve)=>setTimeout(resolve,200))
-    alert(data)
+    console.log('Add Job Form Data', data)
+    if(errors){console.error('Form errors', errors)}
   }
 
   return (
@@ -82,7 +78,7 @@ export default function AddJobs() {
                 <div className="flex-1">
                   <label htmlFor="companyName">Company Name</label>
                   <Input
-                    {...register("companyName")}
+                    {...register("companyName", {required:'Company Name is required'})}
                     type="text"
                     name="companyName"
                   />
@@ -90,7 +86,7 @@ export default function AddJobs() {
                 <div className="flex-1">
                   <Label htmlFor="role">Role</Label>
                   <Input
-                    {...register("role")}
+                    {...register("role", {required:'Role is required'})}
                     type="text"
                     id="role"
                     name="role"
@@ -98,14 +94,13 @@ export default function AddJobs() {
                 </div>
                 <div className="flex-1">
                   <Label htmlFor="location">Location</Label>
-                  <Select>
+                  <Select onValueChange={(value)=>{ setValue('location',value)}} required>
                     <SelectTrigger>
                       <SelectValue placeholder="Select Location" />
                     </SelectTrigger>
                     <SelectContent>
                       {jobCategories?.map((location) => (
                         <SelectItem
-                        {...register('workLocation')}
                           key={location.label}
                           value={String(location.value)}
                         >
@@ -119,14 +114,13 @@ export default function AddJobs() {
               <div className="flex items-center gap-8 my-10">
                 <div className="flex flex-1 flex-col">
                   <label htmlFor="department">Department</label>
-                  <Select>
+                  <Select onValueChange={(value)=>{setValue('department',value)}} required>
                     <SelectTrigger>
                       <SelectValue placeholder="Select Department" />
                     </SelectTrigger>
                     <SelectContent>
                       {jobSubCategories?.map((departmentName) => (
                         <SelectItem
-                        {...register('department')}
                           key={departmentName.label}
                           value={String(departmentName.value)}
                           
@@ -156,10 +150,16 @@ export default function AddJobs() {
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
                       <Calendar
-                      {...register('deadLineDate')}
+                        
                         mode="single"
                         selected={deadLineDate}
-                        onSelect={setDeadLineDate}
+                        required
+                        onSelect={(value)=>{
+                          setDeadLineDate(value)
+                          if(value){
+                            setValue('deadLineDate',value)
+                          }
+                        }}
                       />
                     </PopoverContent>
                   </Popover>
@@ -171,7 +171,11 @@ export default function AddJobs() {
                   theme="snow"
                   className="w-[55dvw]  mx-auto rounded-lg border-2"
                   defaultValue={jobDetailsValue}
-                  onChange={setJobDetailsValue}
+                  // onChange={setJobDetailsValue}
+                  onChange={(value)=>{
+                    setJobDetailsValue(value)
+                    setValue('jobDetails',value)
+                  }}
                   modules={modules2}
                   formats={formats2}
                 />
