@@ -59,7 +59,6 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
   useEffect(() => {
     async function getLoggedUserData() {
       try {
-       
         const result = await axiosInstance.get<SubscribedUserProp>(
           `/api/BydUsers/getUserDetailsByEmail?email=${user?.primaryEmailAddress?.emailAddress}`
         );
@@ -79,7 +78,6 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
   return (
     <>
       <section className="container mx-auto   min-h-screen pt-2 md:pt-4 px-4">
-
         {isLoading && <SingleJobLoadingUI />}
         {isError && <SingleJobLoadingErrorUI />}
 
@@ -157,52 +155,27 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                       <ArrowUpRight size={4} />
                     </Link>
                   </Button>
-                  {singleJob && loggedUser != undefined && (
-                    <>
-                      <div className="relative">
-                        {/* <Button
-                          onClick={async () => {
-                            setIsAnalyzing(true);
-                            const { output } = await await getAnswer(
-                              {resume:loggedUser.imageUrl, role :singleJob.map((listing) => {return listing.sectionDescription;})} 
-                            
-                            );
-                            for await (const delta of readStreamableValue(
-                              output
-                            )) {
-                              setGeneration(
-                                (curentGeneration) =>
-                                  `${curentGeneration}${delta}`
-                              );
-                            }
-                            setIsAnalyzing(false);
-                          }}
-                          disabled={isAnalyzing || generation != ""}
-                          className="bg-bts-GreenOne hover:scale-105 transition duration-500 rounded  md:w-[19rem] flex"
-                        >
-                          {isAnalyzing
-                            ? "Analysing your resume..."
-                            : "Analyse my resume for this role"}
-                          <DisplayImageFromNextCloudinary
-                            src="kazina_upvlpf"
-                            height={800}
-                            width={800}
-                            alt="savannah avatar"
-                            classname="size-12 -mt-10"
+                  {singleJob &&
+                    loggedUser != undefined &&
+                    loggedUser.imageUrl != "" && (
+                      <>
+                        <div className="relative">
+                          <ResumeAnalyseBtn
+                            loggedUser={loggedUser}
+                            singleJob={singleJob}
+                            generation={generation}
+                            setGeneration={setGeneration}
                           />
-                        </Button> */}
-                        
-                        <ResumeAnalyseBtn loggedUser={loggedUser} singleJob={singleJob} generation={generation} setGeneration={setGeneration}/>
-                        <div className="rounded-lg bg-sky-50 px-3 py-4 mt-2 mb-10 md:absolute md:top-12 w-full md:w-12/12">
-                          <div className="prose prose-sm">
-                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                              {generation}
-                            </ReactMarkdown>
+                          <div className="rounded-lg bg-sky-50 px-3 py-4 mt-2 mb-10 md:absolute md:top-12 w-full md:w-12/12">
+                            <div className="prose prose-sm">
+                              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                {generation}
+                              </ReactMarkdown>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </>
-                  )}
+                      </>
+                    )}
                 </div>
               </div>
             )}
@@ -222,7 +195,6 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                     <div
                       className="prose prose-sm md:prose-base"
                       dangerouslySetInnerHTML={{
-                        // __html: fixedHTML(listing.sectionDescription),
                         __html: correctedParsedHTML(listing.sectionDescription),
                       }}
                     ></div>

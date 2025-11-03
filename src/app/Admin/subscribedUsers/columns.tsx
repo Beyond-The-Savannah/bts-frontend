@@ -36,10 +36,6 @@ export const columns: ColumnDef<SubscribedUserProp>[] = [
         enableHiding:false,
 
     },
-//   {
-//     accessorKey: "id",
-//     header: "ID",
-//   },
   {
     accessorKey: "firstName",
     header: "First Name",
@@ -86,7 +82,7 @@ export const columns: ColumnDef<SubscribedUserProp>[] = [
     header:"Resume file",
     cell:({row})=>{
       const resumeUrl=row.getValue("imageUrl") as string | undefined
-      return <div className=""> { resumeUrl!=undefined &&(<Button size="sm"> <Link href={`${resumeUrl}`}><Download/></Link></Button>)}</div>
+      return <div className=""> { (resumeUrl!=undefined && resumeUrl!='') &&(<Button size="sm"> <Link href={`${resumeUrl}`}><Download/></Link></Button>)}</div>
     }
   },
   {
@@ -105,13 +101,6 @@ export const columns: ColumnDef<SubscribedUserProp>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              {/* <DropdownMenuItem
-                onClick={() =>
-                  navigator.clipboard.writeText(user.id.toString())
-                }
-              >
-                Copy user ID
-              </DropdownMenuItem> */}
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <AlertDialog>
@@ -139,7 +128,6 @@ export const columns: ColumnDef<SubscribedUserProp>[] = [
 async function removeUser(user:SubscribedUserProp){
   try {
     const response = await axios.delete(`https://efmsapi-staging.azurewebsites.net/api/BydUsers/DeleteUser?userid=${user.id}`)
-    // console.log("DELETE SUBSCRIBED USER ",response)
     if(response.data.errorMessage=="Update Done But No Matching Records Found"){
       toast.error("Oops, deletion failed")
     }else{
