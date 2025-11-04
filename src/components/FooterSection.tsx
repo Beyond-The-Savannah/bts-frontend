@@ -88,7 +88,7 @@ export default function FooterSection() {
               </li>
               <li>
                 <a
-                  href="https://www.instagram.com/lorraineotieno/?hl=en"
+                  href="https://www.instagram.com/beyond.the.savannah/?hl=en"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center hover:scale-105 transition ease-in"
