@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import axios from "axios";
 import { toast } from "sonner";
+import { Dispatch, SetStateAction } from "react";
 // import { publicIpv4, IpNotFoundError } from "public-ip";
 
 const checkOutFormSchema = z.object({
@@ -28,17 +29,18 @@ export default function CheckoutForm({
   amount,
   currencyValue,
   serviceName,
+  setOpen
 }: {
   amount: number;
   currencyValue?: string;
   serviceName?: string;
+  setOpen:Dispatch<SetStateAction<boolean>>
 }) {
   const payStackKey = process.env.NEXT_PUBLIC_PS_KEY;
-  // const ipInfoToken = process.env.NEXT_PUBLIC_IPINFO_TOKEN;
   if (!payStackKey) {
     throw new Error("PS key is missing");
   }
-  // const amountInCents = amount.amount * 100;
+
   const amountInCents = amount * 100;
 
   const form = useForm<z.infer<typeof checkOutFormSchema>>({
@@ -96,6 +98,8 @@ export default function CheckoutForm({
 
   function onSumbit(values: z.infer<typeof checkOutFormSchema>) {
     initializePayment({ onSuccess });
+    // this closes the purchase dialog 
+    setOpen(false)
     console.log(values);
   }
 

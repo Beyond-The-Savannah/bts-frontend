@@ -17,6 +17,7 @@ import {
   DrawerTrigger,
 } from "../ui/drawer";
 import dynamic from "next/dynamic";
+import { useState } from "react";
 
 
 const CheckoutForm = dynamic(() => import("@/components/CheckoutForm"), {
@@ -31,10 +32,11 @@ export default function ServiceDetails({
   titleSlug: string;
 }) {
   const currencyValue = useCurrencyBasedOnLocation();
+  const [open, setOpen]=useState(false)
   return (
     <>
-      {/* <div className="c">{currencyValue}</div> */}
-      <section className="container mx-auto space-y-16 px-4 pt-24 md:pt-36 lg:pb-40">
+      
+      <section className="container mx-auto space-y-16 mb-20 px-4 pt-24 md:pt-36 lg:pb-40">
         <div className="min-h-[50vh]  flex flex-wrap lg:flex-nowrap justify-around gap-y-12 gap-x-12">
           <div className="w-full lg:max-w-[34vw] ">
             {specificService && (
@@ -79,7 +81,7 @@ export default function ServiceDetails({
                 ) : null}
               </p>
             </div>
-            <p className="text-2xl font-medium lg:text-xl w-full">
+            <p className="text-xl font-medium lg:text-xl w-full">
               {specificService?.subheading}
             </p>
             <p className="text-base w-full ">{specificService?.details}</p>
@@ -140,7 +142,7 @@ export default function ServiceDetails({
               </>
             ) : (
               <>
-                <Drawer>
+                <Drawer open={open} onOpenChange={setOpen}>
                   <DrawerTrigger className="px-4 py-2 rounded-lg w-full text-white bg-bts-GreenOne hover:bg-green-700 hover:shadow-bts-BrownThree hover:shadow-md duration-700">
                     Purchase
                   </DrawerTrigger>
@@ -171,6 +173,7 @@ export default function ServiceDetails({
                           amount={specificService?.priceKE}
                           currencyValue={currencyValue}
                           serviceName={specificService.title}
+                          setOpen={setOpen}
                         />
                       )}
                       {currencyValue == "USD" && specificService.priceUSD && (
@@ -178,14 +181,11 @@ export default function ServiceDetails({
                           amount={specificService?.priceUSD}
                           currencyValue={currencyValue}
                           serviceName={specificService.title}
+                          setOpen={setOpen}
                         />
                       )}
                     </div>
-                    {/* <div className=" max-w-md mx-auto py-4 px-8">
-                      {specificService?.priceKESString && (
-                        <CheckoutForm amount={specificService?.priceKE} />
-                      )}
-                    </div> */}
+                    
                     <DrawerFooter>
                       <DrawerClose>
                         <p>Close</p>
@@ -195,8 +195,8 @@ export default function ServiceDetails({
                 </Drawer>
               </>
             )}
-
-            <div className="c rounded-lg bg-amber-50 px-3 py-6 flex flex-col gap-4 items-start">
+            <div className="h-5 bg-red-30000"></div>
+            <div className="c rounded-lg bg-amber-50 px-3 mt-10 py-6 flex flex-col gap-4 items-start">
               <AlertCircle className="size-4" />
               <p className="text-xs">
                 Please note that all payments for services are non-refundable
