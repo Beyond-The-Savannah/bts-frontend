@@ -5,33 +5,42 @@ import SubscriptionDetails from "@/components/Customer/SubscriptionDetails";
 import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
 import DashboardPageLoader from "@/components/Loaders/DashboardPageLoader";
 import PackagesLoader from "@/components/Loaders/PackagesLoader";
+import { currentUser } from "@clerk/nextjs/server";
 import { Suspense } from "react";
 
 export default async function CustomerDefaultPage() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
+  const user = await currentUser();
+  // console.log("USER SUB INFO", userSubscriptionInformation)
+  
+   const byPassEmailAddresses = [
+      `patienceat63@gmail.com`,
+      `imokolabarbra@gmail.com`,
+      `gitoshmbae@gmail.com`,
+    ];
 
-// console.log("USER SUB INFO", userSubscriptionInformation)
-
-
-  const isValidSubscription=userSubscriptionInformation?.some((subscription)=>{
-    return ["active","attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase())
-  })
- 
+    
+  const allowByPassUser=byPassEmailAddresses.includes(user?.emailAddresses[0].emailAddress as string)
+  const isValidSubscription = userSubscriptionInformation?.some(
+    (subscription) => {
+      return ["active", "attention", "non-renewing", "completed"].includes(
+        subscription.status.toLowerCase()
+      );
+    }
+  );
 
   return (
     <>
       {/* {isValidSubscription ? <SubscriptionDetails /> : <PackageOptionSection />} */}
-      {isValidSubscription ?
-      (
-        <Suspense fallback={<DashboardPageLoader/>}>
+      {(isValidSubscription || allowByPassUser==true ) ? (
+        <Suspense fallback={<DashboardPageLoader />}>
           <SubscriptionDetails />
         </Suspense>
-         ) : 
-         (
-          <Suspense fallback={<PackagesLoader/>}>
-            <PackageOptionSection />
-          </Suspense>
-         )}
+      ) : (
+        <Suspense fallback={<PackagesLoader />}>
+          <PackageOptionSection />
+        </Suspense>
+      )}
     </>
   );
 }
