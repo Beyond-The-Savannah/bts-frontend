@@ -1,5 +1,6 @@
 "use client";
 
+import { AddNewJobForm } from "@/app/actions/EmployerForms";
 import RichEditorLoader from "@/components/Loaders/RichEditorLoader";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -19,12 +20,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { db } from "@/db/db";
+// import { jobsTable } from "@/db/schema";
 import { formats2, modules2 } from "@/lib/reactQuilSettings";
 import {
   useGetJobCategoryDropDownList,
   useGetJobSubCategoryDropDownList,
 } from "@/remoteData/getData";
-import { newJobPositiings } from "@/staticData/Employer/entries";
+// import { newJobPositiings } from "@/staticData/Employer/entries";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
@@ -50,7 +53,7 @@ export default function AddJobs() {
   const jobsFormSchema = z.object({
     companyName: z.string(),
     role: z.string(),
-    location: z.string(),
+    workMode: z.string(),
     department: z.string(),
     deadLineDate: z.string(),
     jobDetails: z.string(),
@@ -63,13 +66,28 @@ export default function AddJobs() {
   
   async function formSubmit(data:jobsFormFields) {
     console.log('Add Job Form Data', data)
-    try {
-      newJobPositiings.push(...newJobPositiings, data)
+    const jobId= await AddNewJobForm(data)
+    if(jobId!=undefined){
       reset()
       toast.success('New Job Added')
-    } catch (error) {
-      console.error('Error adding new Job Details', error)
     }
+    // try {
+      // newJobPositiings.push(...newJobPositiings, data)
+      // await db.insert(jobsTable).values({
+      //   role:data.role,
+      //   workMode:data.workMode,
+      //   jobType:'Full Time',
+      //   department:data.department,
+      //   author:'current-loged-user',
+      //   deadLine:data.deadLineDate,
+      //   jobDetails:data.jobDetails,
+      //   applicationLink:''
+      // }).returning({jobId:jobsTable.id})
+    //   reset()
+    //   toast.success('New Job Added')
+    // } catch (error) {
+    //   console.error('Error adding new Job Details', error)
+    // }
     // if(errors){console.error('Form errors', errors)}
   }
 
@@ -104,7 +122,7 @@ export default function AddJobs() {
                 </div>
                 <div className="flex-1">
                   <Label htmlFor="location">Location</Label>
-                  <Select onValueChange={(value)=>{ setValue('location',value)}} required>
+                  <Select onValueChange={(value)=>{ setValue('workMode',value)}} required>
                     <SelectTrigger>
                       <SelectValue placeholder="Select Location" />
                     </SelectTrigger>
