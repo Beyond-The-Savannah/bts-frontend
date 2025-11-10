@@ -20,3 +20,4 @@ export async function AddNewJobForm(data: { deadLineDate: string; companyName: s
     console.log("Error in AddNewJobForm -Employer Section", error);
   }
 }
+
