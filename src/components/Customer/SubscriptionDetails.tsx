@@ -100,7 +100,7 @@ export default async function SubscriptionDetails() {
                     </span>
                     <span className="text-sm lg:text-base font-semibold ml-1">
                       {jobsListingSubscriptionDetails?.customer.email ??
-                        user?.emailAddresses[0].emailAddress}
+                        "No information available"}
                     </span>
                   </p>
                   <p className="flex flex-col">
@@ -130,11 +130,15 @@ export default async function SubscriptionDetails() {
                   </p>
                   <p className="flex flex-col">
                     <span className="text-xs">Subscription Card Number: </span>
-                    <span className="font-semibold ml-1">
+                    {jobsListingSubscriptionDetails?.authorization.last4 !=undefined ? 
+                    ( <span className="font-semibold ml-1">
                       XXXX XXXX{" "}
-                      {jobsListingSubscriptionDetails?.authorization.last4 ??
-                        "No information available"}
-                    </span>
+                      {jobsListingSubscriptionDetails.authorization.last4}
+                    </span>)
+                    :
+                    ( <span className="font-semibold ml-1">No information available</span>)
+                    }
+                   
                   </p>
                 </div>
                 {jobsListingSubscriptionDetails != undefined ? (

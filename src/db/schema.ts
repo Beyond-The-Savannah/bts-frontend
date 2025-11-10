@@ -1,9 +1,7 @@
-import { sql } from "drizzle-orm";
-import { integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { integer, pgTable, uuid, text, timestamp } from "drizzle-orm/pg-core";
 
 export const jobsTable = pgTable("jobs", {
-  // id: uuid("id").primaryKey().defaultRandom(),
-  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`).notNull(),
+  id: uuid("id").primaryKey().defaultRandom(),
   role: text("role").notNull(),
   workMode: text("work_mode").notNull(),
   jobType: text("job_type").notNull(),
@@ -13,7 +11,9 @@ export const jobsTable = pgTable("jobs", {
   jobDetails: text("job_details").notNull(),
   applicationLink: text("application_Link"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().$onUpdate(()=>new Date())
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .$onUpdate(() => new Date()),
 });
 
 export const companyTable = pgTable("company", {
@@ -22,7 +22,9 @@ export const companyTable = pgTable("company", {
   location: text("location").notNull(),
   teamMembers: text("team_members").array(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().$onUpdate(()=> new Date()),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .$onUpdate(() => new Date()),
 });
 
 export const candidatePoolTable = pgTable("candidate_pool", {
@@ -38,8 +40,9 @@ export const candidatePoolTable = pgTable("candidate_pool", {
   experienceYears: integer("experience_years").notNull(),
   certifications: text("certifications").notNull().array(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().$onUpdate(()=> new Date()),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .$onUpdate(() => new Date()),
 });
 
-
-export type JobsProp= typeof jobsTable.$inferSelect
+export type JobsProp = typeof jobsTable.$inferSelect;

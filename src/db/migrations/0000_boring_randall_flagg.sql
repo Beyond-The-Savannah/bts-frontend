@@ -1,5 +1,5 @@
 CREATE TABLE "candidate_pool" (
-	"id" uuid PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"first_name" text NOT NULL,
 	"last_name" text NOT NULL,
 	"email" text NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE "candidate_pool" (
 );
 --> statement-breakpoint
 CREATE TABLE "company" (
-	"id" uuid PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text NOT NULL,
 	"location" text NOT NULL,
 	"team_members" text[],
@@ -25,7 +25,7 @@ CREATE TABLE "company" (
 );
 --> statement-breakpoint
 CREATE TABLE "jobs" (
-	"id" uuid PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"role" text NOT NULL,
 	"work_mode" text NOT NULL,
 	"job_type" text NOT NULL,
