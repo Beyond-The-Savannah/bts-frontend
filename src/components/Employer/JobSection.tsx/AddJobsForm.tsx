@@ -4,7 +4,6 @@ import { AddNewJobForm } from "@/app/actions/EmployerForms";
 import RichEditorLoader from "@/components/Loaders/RichEditorLoader";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-// import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -20,20 +19,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-// import { db } from "@/db/db";
-// import { jobsTable } from "@/db/schema";
+
 import { formats2, modules2 } from "@/lib/reactQuilSettings";
 import {
   useGetJobCategoryDropDownList,
   useGetJobSubCategoryDropDownList,
 } from "@/remoteData/getData";
-// import { newJobPositiings } from "@/staticData/Employer/entries";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import {  useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 import "react-quill-new/dist/quill.snow.css";
 import { toast } from "sonner";
@@ -60,35 +57,25 @@ export default function AddJobs() {
   });
   type jobsFormFields = z.infer<typeof jobsFormSchema>;
 
-  const { handleSubmit,setValue, register, reset, formState:{isSubmitting} } = useForm<jobsFormFields>({
+  const {
+    handleSubmit,
+    setValue,
+    register,
+    reset,
+    formState: { isSubmitting },
+  } = useForm<jobsFormFields>({
     resolver: zodResolver(jobsFormSchema),
   });
-  
-  async function formSubmit(data:jobsFormFields) {
-    console.log('Add Job Form Data', data)
-    const jobId= await AddNewJobForm(data)
-    if(jobId!=undefined){
-      reset()
-      toast.success('New Job Added')
+
+  async function formSubmit(data: jobsFormFields) {
+    try {
+      await AddNewJobForm(data);
+      reset();
+      toast.success("New Job Add");
+    } catch (error) {
+      toast.error(`Cannot add new job:${error}`);
     }
-    // try {
-      // newJobPositiings.push(...newJobPositiings, data)
-      // await db.insert(jobsTable).values({
-      //   role:data.role,
-      //   workMode:data.workMode,
-      //   jobType:'Full Time',
-      //   department:data.department,
-      //   author:'current-loged-user',
-      //   deadLine:data.deadLineDate,
-      //   jobDetails:data.jobDetails,
-      //   applicationLink:''
-      // }).returning({jobId:jobsTable.id})
-    //   reset()
-    //   toast.success('New Job Added')
-    // } catch (error) {
-    //   console.error('Error adding new Job Details', error)
-    // }
-    // if(errors){console.error('Form errors', errors)}
+    // console.log('Add Job Form Data', data)
   }
 
   return (
@@ -104,7 +91,9 @@ export default function AddJobs() {
                 <div className="flex-1">
                   <label htmlFor="companyName">Company Name</label>
                   <Input
-                    {...register("companyName", {required:'Company Name is required'})}
+                    {...register("companyName", {
+                      required: "Company Name is required",
+                    })}
                     type="text"
                     name="companyName"
                     required
@@ -113,7 +102,7 @@ export default function AddJobs() {
                 <div className="flex-1">
                   <Label htmlFor="role">Role</Label>
                   <Input
-                    {...register("role", {required:'Role is required'})}
+                    {...register("role", { required: "Role is required" })}
                     type="text"
                     id="role"
                     name="role"
@@ -122,7 +111,12 @@ export default function AddJobs() {
                 </div>
                 <div className="flex-1">
                   <Label htmlFor="location">Location</Label>
-                  <Select onValueChange={(value)=>{ setValue('workMode',value)}} required>
+                  <Select
+                    onValueChange={(value) => {
+                      setValue("workMode", value);
+                    }}
+                    required
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select Location" />
                     </SelectTrigger>
@@ -142,7 +136,12 @@ export default function AddJobs() {
               <div className="flex items-center gap-8 my-10">
                 <div className="flex flex-1 flex-col">
                   <label htmlFor="department">Department</label>
-                  <Select onValueChange={(value)=>{setValue('department',value)}} required>
+                  <Select
+                    onValueChange={(value) => {
+                      setValue("department", value);
+                    }}
+                    required
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select Department" />
                     </SelectTrigger>
@@ -151,7 +150,6 @@ export default function AddJobs() {
                         <SelectItem
                           key={departmentName.label}
                           value={String(departmentName.value)}
-                          
                         >
                           {departmentName.label}
                         </SelectItem>
@@ -178,14 +176,13 @@ export default function AddJobs() {
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
                       <Calendar
-                        
                         mode="single"
                         selected={deadLineDate}
                         required
-                        onSelect={(value)=>{
-                          setDeadLineDate(value)
-                          if(value){
-                            setValue('deadLineDate',value.toString())
+                        onSelect={(value) => {
+                          setDeadLineDate(value);
+                          if (value) {
+                            setValue("deadLineDate", value.toString());
                           }
                         }}
                       />
@@ -200,16 +197,20 @@ export default function AddJobs() {
                   className="w-[55dvw]  mx-auto rounded-lg border-2"
                   defaultValue={jobDetailsValue}
                   // onChange={setJobDetailsValue}
-                  onChange={(value)=>{
-                    setJobDetailsValue(value)
-                    setValue('jobDetails',value)
+                  onChange={(value) => {
+                    setJobDetailsValue(value);
+                    setValue("jobDetails", value);
                   }}
                   modules={modules2}
                   formats={formats2}
                 />
               </div>
-              <Button disabled={isSubmitting} type='submit' className="bg-green-300 hover:bg-green-500">
-                {isSubmitting? 'Adding new job...':'Add new job'}
+              <Button
+                disabled={isSubmitting}
+                type="submit"
+                className="bg-green-300 hover:bg-green-500"
+              >
+                {isSubmitting ? "Adding new job..." : "Add new job"}
               </Button>
             </form>
           </TabsContent>
