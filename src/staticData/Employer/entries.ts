@@ -52,21 +52,80 @@ export const candidatesEntries = [
 ];
 
 export interface NewJobPositingsProp {
-  companyName:string;
-  role:string;
-  location:string;
-  department:string;
-  deadLineDate:string;
-  jobDetails:string;
+  companyName: string;
+  role: string;
+  location: string;
+  department: string;
+  deadLineDate: string;
+  jobDetails: string;
 }
 
 export const newJobPositiings: NewJobPositingsProp[] = [
   {
-    companyName:'Amazon',
-  role:'Data Engineer',
-  location:'Remote',
-  department:'Engineering ',
-  deadLineDate:'12-2026-17',
-  jobDetails:'job details',
-  }
+    companyName: "Amazon",
+    role: "Data Engineer",
+    location: "Remote",
+    department: "Engineering ",
+    deadLineDate: "12-2026-17",
+    jobDetails: "job details",
+  },
+];
+
+
+export const workModes=[
+  {
+    value:"Remote",
+    label:"Remote",
+  },
+  {
+    value:"Hybrid",
+    label:"Hybrid",
+  },
+  {
+    value:"On site",
+    label:"On Site",
+  },
+]
+
+export const JobTypes=[
+  {
+    value:"Full time",
+    label:"Full Time",
+  },
+  {
+    value:"Contract",
+    label:"Contract",
+  },
+  {
+    value:"Part time",
+    label:"Part Time",
+  },
+  {
+    value:"Temporary",
+    label:"Temporary",
+  },
+]
+
+export const Departments = [
+  { value: "Human Resources", label: "Human Resources" },
+  { value: "Finance & Accounting", label: "Finance & Accounting" },
+  { value: "Marketing", label: "Marketing" },
+  { value: "Sales", label: "Sales" },
+  { value: "Operations", label: "Operations" },
+  { value: "Information Technology", label: "Information Technology" },
+  { value: "Customer Service", label: "Customer Service" },
+  { value: "Legal", label: "Legal" },
+  { value: "Product Management", label: "Product Management" },
+  { value: "Research & Development", label: "Research & Development" },
+  { value: "Administration", label: "Administration" },
+  { value: "Quality Assurance", label: "Quality Assurance" },
+  { value: "Project Management", label: "Project Management" },
+  { value: "Business Development", label: "Business Development" },
+  { value: "Logistics", label: "Logistics" },
+  { value: "Corporate Communications", label: "Corporate Communications" },
+  { value: "Risk Management", label: "Risk Management" },
+  { value: "Purchasing & Sourcing", label: "Purchasing & Sourcing" },
+  { value: "Investor Relations", label: "Investor Relations" },
+  { value: "Creative Services", label: "Creative Services" },
+  { value: "Health Care", label: "Health Care" }
 ];

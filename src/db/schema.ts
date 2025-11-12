@@ -2,6 +2,7 @@ import { integer, pgTable, uuid, text, timestamp } from "drizzle-orm/pg-core";
 
 export const jobsTable = pgTable("jobs", {
   id: uuid("id").primaryKey().defaultRandom(),
+  companyName:text("company_name").notNull(),
   role: text("role").notNull(),
   workMode: text("work_mode").notNull(),
   jobType: text("job_type").notNull(),
