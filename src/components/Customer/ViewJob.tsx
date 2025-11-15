@@ -35,6 +35,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { axiosInstance } from "@/remoteData/mutateData";
 import ResumeAnalyseBtn from "./ResumeAnalyseBtn";
+import rehypeRaw from "rehype-raw";
 
 export default function ViewJob({ jobsId }: { jobsId: string }) {
   const { user } = useUser();
@@ -168,7 +169,10 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                           />
                           <div className="rounded-lg bg-sky-50 px-3 py-4 mt-2 mb-10 md:absolute md:top-12 w-full md:w-12/12">
                             <div className="prose prose-sm">
-                              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                              <ReactMarkdown
+                                remarkPlugins={[remarkGfm]}
+                                rehypePlugins={[rehypeRaw]}
+                              >
                                 {generation}
                               </ReactMarkdown>
                             </div>

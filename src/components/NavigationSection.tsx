@@ -215,8 +215,8 @@ export default function NavigationSection() {
             </NavigationMenuItem>
             
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-end md:items-center gap-1 lg:gap-2">
-              <ul className="hidden lg:flex items-end md:items-center gap-1 lg:gap-2">
+            <div className="hidden xl:flex items-end md:items-center gap-1 lg:gap-2">
+              <ul className="hidden xl:flex items-end md:items-center gap-1 lg:gap-2">
                 {simpleNavigationMenuItems.map((menuItem) => (
                   <NavigationMenuItem key={menuItem.id} className="">
                     <Link
@@ -278,7 +278,7 @@ export default function NavigationSection() {
             </div>
             
             {/* Mobile Navigation */}
-            <div className="block lg:hidden">
+            <div className="block xl:hidden">
               <Sheet>
                 <SheetTrigger 
                   aria-label="Open mobile navigation menu"
@@ -286,7 +286,7 @@ export default function NavigationSection() {
                 >
                   <MenuSquareIcon className="" size={32} />
                 </SheetTrigger>
-                <SheetContent className="overflow-auto" role="dialog" aria-modal="true">
+                <SheetContent className="  overflow-auto" role="dialog" aria-modal="true">
                   <SheetHeader>
                     <SheetTitle className="sr-only">Mobile Navigation Menu</SheetTitle>
                     <SheetDescription className="sr-only">
@@ -295,7 +295,7 @@ export default function NavigationSection() {
                   </SheetHeader>
                   <div className="">
                     <NavigationMenu>
-                      <NavigationMenuList className="flex flex-col items-end ml-36 gap-8 pt-8">
+                      <NavigationMenuList className="flex flex-col items-end ml-36 md:ml-60 lg:ml-52 gap-8 pt-8">
                         {simpleNavigationMenuItems.map((menuItem) => (
                           <NavigationMenuItem
                             key={menuItem.id}
@@ -324,7 +324,7 @@ export default function NavigationSection() {
                             >
                               {item.title}
                             </NavigationMenuTrigger>
-                            <NavigationMenuContent className="w-60 ">
+                            <NavigationMenuContent className="min-w-[52dvw] md:min-w-[36dvw] lg:min-w-[28dvw]  ">
                               <ul className="flex flex-col px-4 py-2 space-y-4">
                                 {item.subLinks.map((sublink) => (
                                   <li key={sublink.title}>

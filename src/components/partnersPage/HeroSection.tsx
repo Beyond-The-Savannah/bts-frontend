@@ -5,10 +5,11 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 
 export default function HeroSection() {
   return (
-    <section className="min-h-screen">
-      <div className="min-h-[90dvh] flex flex-wrap-reverse md:flex-nowrap justify-between  gap-4 ">
-        <div className="w-full md:w-6/12 px-4 md:px-12 flex flex-col justify-center items-start pb-10 pt-4 md:pt-20  gap-12">
-          <h1 className="text-3xl md:text-5xl text-bts-GreenOne font-bold">
+    <section className="">
+      {/* <div className="min-h-[90dvh] flex flex-wrap-reverse md:flex-nowrap justify-between  gap-4 "> */}
+      <div className="min-h-[90dvh]  2xl:max-h-[40dvh]  flex flex-wrap-reverse md:flex-nowrap justify-between  gap-4 ">
+        <div className="w-full md:w-6/12 px-4 md:px-12 flex flex-col justify-center items-start pb-10 pt-4 md:pt-2  xl:pt-80 gap-12">
+          <h1 className="text-3xl md:text-5xl text-bts-GreenOne font-bold xl:-mt-80">
             Partnership that Empower
           </h1>
           <p className="text-lg text-balance leading-7 ">
@@ -30,7 +31,7 @@ export default function HeroSection() {
                   </Button>
                 </Link>
               </DialogTrigger>
-              <DialogContent className="min-h-[80dvh] w-[80vw]">
+              <DialogContent className="min-h-[80dvh] max-w-[70dvw]">
                 <DialogHeader>
                   <DialogTitle></DialogTitle>
                   <DialogDescription></DialogDescription>
@@ -43,7 +44,7 @@ export default function HeroSection() {
               </DialogContent>
             </Dialog>
         </div>
-        <div className="w-full md:w-6/12 -z-10">
+        <div className="w-full md:w-6/12 2xl:max-h-[75dvh] -z-10">
           <DisplayImageFromNextCloudinary
             src="partnership_Hero_Image_ozntgb"
             height={800}

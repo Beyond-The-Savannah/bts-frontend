@@ -6,11 +6,11 @@ import ReactMarkDown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import { useEffect, useRef } from "react";
-// import { useUser } from "@clerk/nextjs";
+
 import { useUser } from "@clerk/clerk-react";
 import Image from "next/image";
 import { Textarea } from "../ui/textarea";
-// import { Input } from "../ui/input";
+
 
 export default function SavannahChatUi() {
   const chatContainer = useRef<HTMLDivElement>(null);
@@ -39,15 +39,12 @@ export default function SavannahChatUi() {
   return (
     <>
       <section className="h-full mb-2">
-        {/* <div className="w-full lg:w-[70vw] mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-1 md:px-4 py-10"> */}
-        {/* <div className="w-full lg:w-11/12 mx-auto flex flex-col justify-between items-center gap-4 bg-bts-BrownTwo rounded-lg px-1 md:px-4 py-10"> */}
+        
         <div className="w-full lg:w-12/12 mx-auto flex flex-col justify-between items-center gap-4  rounded-lg px-1 py-10">
           <div
-            // className="w-full lg:w-11/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-4 py-8"
-            // className="w-full lg:w-11/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-2 lg:px-4 py-8"
-            // className="w-[95dvw] md:w-[70vw] sm:w-11/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-2 lg:px-4 py-8"
-            // className="w-12/12  sm:w-11/12 md:w-full lg:w-12/12 h-[60dvh] lg:h-[68dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-2 lg:px-0 py-8"
-            className="w-12/12  sm:w-11/12 md:w-full lg:w-12/12 max-h-64 xl:max-h-96 overflow-y-auto bg-slate-500/3000 rounded-lg px-2 lg:px-0 py-8"
+            
+            // className="w-12/12  sm:w-11/12 md:w-full lg:w-12/12 max-h-64 xl:max-h-96 overflow-y-auto bg-slate-500/3000 rounded-lg px-2 lg:px-0 py-8"
+            className="w-12/12  sm:w-11/12 md:w-full lg:w-12/12 max-h-64 xl:max-h-96 2xl:max-h-[45dvh] overflow-y-auto bg-slate-500/3000 rounded-lg px-2  py-8"
             ref={chatContainer}
           >
             {messages.length > 0 ? (
@@ -112,17 +109,7 @@ export default function SavannahChatUi() {
             {(status === "submitted" || status === "streaming") && (
               <div className=" flex items-center gap-2 px-4">
                 {status == "submitted" && (
-                  // <p className="animate-pulse">
-                  //   processing
-                  //   {[1, 2, 3].map((_, index) => (
-                  //     <span
-                  //       key={index}
-                  //       className="animate-ping h-10 w-5 rounded-full"
-                  //     >
-                  //       &middot;
-                  //     </span>
-                  //   ))}
-                  // </p>
+                
                 <div className="flex items-center justify-center gap-2">
                   <p>Processing</p>
                   <svg
@@ -174,7 +161,7 @@ export default function SavannahChatUi() {
             )}
           </div>
           
-          {/* <div className="w-full lg:w-8/12 mx-auto  px-4 py-2 rounded-lg "> */}
+          
           <div className="w-full xl:w-10/12 mx-auto  px-1 xl:px-4 py-2 rounded-lg ">
             <form onSubmit={handleSubmit}>
               <div className="flex flex-wrap md:flex-nowrap justify-end md:justify-evenly items-center gap-2">
@@ -193,13 +180,6 @@ export default function SavannahChatUi() {
                     }
                   }}
                 />
-                {/* <Input
-                  name="prompt"
-                  value={input}
-                  placeholder="Type your question here"
-                  onChange={handleInputChange}
-                  className="min-h-12"
-                /> */}
                 <Button
                   type="submit"
                   className="bg-bts-BrownOne text-black hover:bg-bts-BrownFour hover:text-slate-100 hover:scale-105"

@@ -5,7 +5,7 @@ import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 export default function HeroSection() {
   return (
     <>
-      <section className="container mx-auto px-4 min-h-[99vh] grid grid-cols-1 md:grid-cols-2  md:pt-0  gap-4">
+      <section className="container mx-auto px-4 xs:min-h-[99dvh] md::min-h-[99dvh] lg::min-h-[99dvh] xl::min-h-[99dvh]   grid grid-cols-1 md:grid-cols-2  md:pt-0  gap-4">
         <div className=" space-y-6 mt-40 md:mt-64 capitalize">
           <h1 className=" text-3xl lg:text-5xl text-balance text-bts-GreenOne font-bold">
             Empowering your career journey through seamless connections.
@@ -23,7 +23,7 @@ export default function HeroSection() {
             </Button>
           </Link>
         </div>
-        <div className="">
+        <div className=" 2xl:max-h-[75dvh]">
           <DisplayImageFromNextCloudinary
             src="hero-img2_s7awvs"
             height={800}

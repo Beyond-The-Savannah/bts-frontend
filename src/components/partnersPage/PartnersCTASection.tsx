@@ -51,7 +51,7 @@ export default function PartnersCTASection() {
                   </Button>
                 </Link>
               </DialogTrigger>
-              <DialogContent className="min-h-[80dvh] w-[80vw]">
+              <DialogContent className="min-h-[80dvh] max-w-[70dvw]">
                 <DialogHeader>
                   <DialogTitle></DialogTitle>
                   <DialogDescription></DialogDescription>
