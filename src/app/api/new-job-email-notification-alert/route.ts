@@ -14,14 +14,26 @@ export const { POST } = serve(async (context) => {
 });
 
 //array of emails of users who don't what to be get email notifications
-const noNewJobsNotifications=['riinyacynthia@gmail.com','jeanjesang@gmail.com','slyburd@gmail.com','keterlaureen@gmail.com','wairimunjoroge132@gmail.com', 'yasmin.osman222@gmail.com']
+const noNewJobsNotifications = [
+  "riinyacynthia@gmail.com",
+  "jeanjesang@gmail.com",
+  "slyburd@gmail.com",
+  "keterlaureen@gmail.com",
+  "wairimunjoroge132@gmail.com",
+  "yasmin.osman222@gmail.com",
+  "bakhita.awuorba@gmail.com",
+];
 
 async function sendNewJobAddedAlertEmail() {
-
   // get list of subscribed users from db and filter out the cancelled out users
   const response = await axiosInstance.get("/api/BydUsers/getAllUsers");
   const userList: SubscribedUserProp[] = await response.data;
-  const usersEmailList = userList.filter((user) => user.status != "cancelled" && user.subscriptionPlan !="whatsapp community Annually"  && !noNewJobsNotifications.includes(user.email));
+  const usersEmailList = userList.filter(
+    (user) =>
+      user.status != "cancelled" &&
+      user.subscriptionPlan != "whatsapp community Annually" &&
+      !noNewJobsNotifications.includes(user.email)
+  );
 
   // get jobs listing and determine recently new added ones
   const jobListingResponse = await axiosInstance.get(
@@ -35,7 +47,7 @@ async function sendNewJobAddedAlertEmail() {
   });
 
   const now = new Date();
-  const eightHoursAgo = new Date(now.getTime() - 8 * 60 * 60 * 1000); 
+  const eightHoursAgo = new Date(now.getTime() - 8 * 60 * 60 * 1000);
   const latestJobListing = sortedJobListingByDate.filter((job) => {
     const createdTime = new Date(job.dateCreated);
     return createdTime > eightHoursAgo;
@@ -58,11 +70,17 @@ async function sendNewJobAddedAlertEmail() {
       userJobsList = latestJobListing.filter(
         (listing) => listing.jobSubCategoryId === user.career
       );
-      console.log(`Filtered jobs for ${user.email} (career: ${user.career}):`, userJobsList.length);
+      console.log(
+        `Filtered jobs for ${user.email} (career: ${user.career}):`,
+        userJobsList.length
+      );
     } else {
       // If no career preference, send all latest jobs
       userJobsList = latestJobListing;
-      console.log(`All jobs for ${user.email} (no career preference):`, userJobsList.length);
+      console.log(
+        `All jobs for ${user.email} (no career preference):`,
+        userJobsList.length
+      );
     }
 
     // Only send email if there are jobs to send
@@ -72,7 +90,7 @@ async function sendNewJobAddedAlertEmail() {
         to: [user.email],
         subject: "Beyond The Savannah New Jobs Alert",
         react: AllJobsAlertEmailTemplate({
-          firstName: user.firstName ?? '',
+          firstName: user.firstName ?? "",
           jobs: userJobsList,
         }),
       });
@@ -89,13 +107,15 @@ async function sendNewJobAddedAlertEmail() {
         const batch = batchEmails.slice(i, i + batchSize);
         await resend.batch.send(batch);
         console.log(`Sent batch of ${batch.length} emails`);
-        
+
         // Add delay between batches to avoid rate limiting
         if (i + batchSize < batchEmails.length) {
           await new Promise((res) => setTimeout(res, 500));
         }
       }
-      console.log(`Successfully sent ${batchEmails.length} personalized job alert emails`);
+      console.log(
+        `Successfully sent ${batchEmails.length} personalized job alert emails`
+      );
     } catch (error) {
       console.log("Error sending batch emails:", error);
     }
