@@ -39,7 +39,6 @@ export const servicesList = [
     benefits: [
       "Unlock the full potential of your job search with our tailored CV review and cover letter services. This package is designed to empower you in your career journey by ensuring your application materials stand out to potential employers.",
       "Cover Letter: Craft a compelling cover letter that highlights your strengths and showcases your motivation. We'll help you create a personalized cover letter that makes a strong impression.",
-      "Bonus: As a special bonus, we're offering insights into three job openings currently available, giving you a head start in your job search.",
     ],
     servicePolicy:
       "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",

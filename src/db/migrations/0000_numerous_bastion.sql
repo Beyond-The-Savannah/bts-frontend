@@ -4,7 +4,7 @@ CREATE TABLE "candidate_pool" (
 	"last_name" text NOT NULL,
 	"email" text NOT NULL,
 	"phone" text NOT NULL,
-	"resume_link" text NOT NULL,
+	"resume_link" "bytea" NOT NULL,
 	"resume_name" text NOT NULL,
 	"country" text NOT NULL,
 	"profession" text NOT NULL,
@@ -26,6 +26,7 @@ CREATE TABLE "company" (
 --> statement-breakpoint
 CREATE TABLE "jobs" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"company_name" text NOT NULL,
 	"role" text NOT NULL,
 	"work_mode" text NOT NULL,
 	"job_type" text NOT NULL,
