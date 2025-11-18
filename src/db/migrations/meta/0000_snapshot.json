@@ -1,5 +1,5 @@
 {
-  "id": "68f5ce6d-362e-4ab6-ab99-03f2e4fc0af1",
+  "id": "07ae7f19-96af-4ef2-be5b-064fd1aa1276",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -71,9 +71,9 @@
         },
         "certifications": {
           "name": "certifications",
-          "type": "text[]",
+          "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "created_at": {
           "name": "created_at",

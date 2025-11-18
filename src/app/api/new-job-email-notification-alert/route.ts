@@ -22,6 +22,7 @@ const noNewJobsNotifications = [
   "wairimunjoroge132@gmail.com",
   "yasmin.osman222@gmail.com",
   "bakhita.awuorba@gmail.com",
+  "louise.mutua@gmail.com"
 ];
 
 async function sendNewJobAddedAlertEmail() {
