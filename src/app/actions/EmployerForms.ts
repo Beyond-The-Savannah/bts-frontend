@@ -38,5 +38,6 @@ try {
   })
 } catch (error) {
   console.log('Error in AddCandidatesProfile Server Action -EmloyerSection',error)
+  return error
 }
 }

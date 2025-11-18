@@ -31,9 +31,10 @@ export default function CandidatesProfile() {
   const candidatesFormSchema = z.object({
     firstName: z.string(),
     lastName: z.string(),
-    email: z.string(),
+    email: z.string().email(),
     phone: z.string(),
     resumeLink: z.instanceof(Buffer),
+    // resumeLink: z.string(),
     resumeName: z.string(),
     country: z.string(),
     profession: z.string(),
@@ -59,6 +60,7 @@ export default function CandidatesProfile() {
         reader.onloadend= function(){
           const arrayBuffer=reader.result as ArrayBuffer
           const buffer=Buffer.from(arrayBuffer)
+          // setValue('resumeLink',buffer)
           setValue('resumeLink',buffer)
           setValue('resumeName',file.name)
           console.log('Resume File->',resumeFile )
@@ -72,6 +74,7 @@ export default function CandidatesProfile() {
     setValue,
     register,
     reset,
+    setError,
     formState: { isSubmitting, errors },
   } = useForm<candidatesFormFields>({
     resolver: zodResolver(candidatesFormSchema),
@@ -79,12 +82,15 @@ export default function CandidatesProfile() {
 
   async function formSubmit(data:candidatesFormFields) {
     try {
+      // console.log("Candidates Profile",data)
       await AddCandidatesProfile(data)
       toast.success("Profile Added")
       reset()
     } catch (error) {
+      toast.error(`Error in adding profile, please try again later`)
       console.log("Error Adding Candidates Profile", error);
       console.error("Form errors", errors);
+      setError('root',{})
     }
 
   }
@@ -95,28 +101,32 @@ export default function CandidatesProfile() {
         
         <form onSubmit={handleSubmit(formSubmit)}>
           <div className="space-y-16 border rounded-lg p-4 my-10">
-            <div className="flex items-center gap-8">
-              <div className="flex-1">
+            <div className="flex flex-wrap items-center gap-8">
+              <div className="w-full md:flex-1">
                 <label htmlFor="firstName">First Name</label>
-                <Input {...register('firstName')} type="text" name="firstName" id="firstName" />
+                <Input {...register('firstName',{required:"First Name is required"})} type="text" name="firstName" id="firstName" />
+                {errors.firstName &&(<p className="text-sm text-red-400">{errors.firstName.message}</p>)}
               </div>
-              <div className="flex-1">
+              <div className="w-full md:flex-1">
                 <label htmlFor="lastName">Last Name</label>
-                <Input type="text" {...register('lastName')} name="lastName" id="lastName" />
+                <Input type="text" {...register('lastName',{required:"Last Name is required"})} name="lastName" id="lastName" />
+                {errors.lastName &&(<p className="text-sm text-red-400">{errors.lastName.message}</p>)}
               </div>
             </div>
-            <div className="flex items-center gap-8">
-              <div className="flex-1">
-                <label htmlFor="phoneNumber">Phone Number</label>
-                <Input type="tel" {...register('phone')} name="phoneNumber" id="phoneNumber" />
+            <div className="flex flex-wrap items-center gap-8">
+              <div className="w-full md:flex-1">
+                <label htmlFor="phone">Phone Number</label>
+                <Input type="tel" {...register('phone',{required:"Phone Number is required"})} name="phone" id="phone" />
+                {errors.phone &&(<p className="text-sm text-red-400">{errors.phone.message}</p>)}
               </div>
-              <div className="flex-1">
-                <label htmlFor="emailAddress">Email Address</label>
-                <Input type="email" {...register("email")} name="emailAddress" id="emailAddress" />
+              <div className="w-full md:flex-1">
+                <label htmlFor="email">Email Address</label>
+                <Input type="email" {...register('email',{required:"Email Address is required"})} name="email" id="email" />
+                {errors.email &&(<p className="text-sm text-red-400">{errors.email.message}</p>)}
               </div>
             </div>
-            <div className="flex items-center gap-8">
-              <div className="flex-1">
+            <div className="flex flex-wrap items-center gap-8">
+              <div className="w-full md:flex-1">
                 <label htmlFor="profession">Profession</label>
                 {/* <Popover open={open} onOpenChange={setOpen}> */}
                 <Popover>
@@ -172,19 +182,19 @@ export default function CandidatesProfile() {
                   </PopoverContent>
                 </Popover>
               </div>
-              <div className="flex-1">
-                <label htmlFor="experienceYears">Experience Years</label>
+              <div className="w-full md:flex-1">
+                <label htmlFor="experienceYears">Experience In Years</label>
                 <Input
                   type="number"
                   min={0}
                   max={60}
-                  {...register('experienceYears',{valueAsNumber:true})}
+                  {...register('experienceYears',{valueAsNumber:true,required:"Experience In Years is required"})}
                   name="experienceYears"
                   id="experienceYears"
                   required
                 />
               </div>
-              <div className="flex-1">
+              <div className="w-full md:flex-1">
                 <label htmlFor="country">Country</label>
                 {/* <Popover open={open} onOpenChange={setOpen}> */}
                 <Popover>
@@ -204,7 +214,7 @@ export default function CandidatesProfile() {
                   </PopoverTrigger>
                   <PopoverContent className="w-full md:w-[450px]">
                     <Command>
-                      <CommandInput placeholder="Search Your Country" />
+                      <CommandInput required placeholder="Search Your Country" />
                       <CommandList>
                         <CommandEmpty>Country Not Found</CommandEmpty>
                         <CommandGroup>
@@ -240,12 +250,12 @@ export default function CandidatesProfile() {
                 </Popover>
               </div>
             </div>
-            <div className="flex items-center gap-8">
-              <div className="flex-1">
-                <label htmlFor="certifcations">Certifications</label>
-                <Input multiple type="text" {...register('certifications')} name="certifcations" id="certifcations" />
+            <div className="flex flex-wrap items-center gap-8">
+              <div className="w-full md:flex-1">
+                <label htmlFor="certifications">Certifications</label>
+                <Input multiple type="text" {...register('certifications',)} name="certifications" id="certifications" />
               </div>
-              <div className="flex-1">
+              <div className="w-full md:flex-1">
                 <label htmlFor="resume">Resume</label>
                 <Input
                   type="file"
@@ -253,9 +263,11 @@ export default function CandidatesProfile() {
                   id="resume"
                   accept="application/pdf"
                   onChange={handleResumeUpload}
+                  required
                 />
               </div>
             </div>
+            {errors.root && (<div className="text-red-300 border rounded-lg p-4">{errors.root.message}</div>)}
           </div>
           <Button
             disabled={isSubmitting}

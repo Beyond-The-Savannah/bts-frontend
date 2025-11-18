@@ -9,7 +9,7 @@ CREATE TABLE "candidate_pool" (
 	"country" text NOT NULL,
 	"profession" text NOT NULL,
 	"experience_years" integer NOT NULL,
-	"certifications" text[],
+	"certifications" text NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp NOT NULL,
 	CONSTRAINT "candidate_pool_email_unique" UNIQUE("email")
