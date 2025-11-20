@@ -1,0 +1,1 @@
+ALTER TABLE "candidate_pool" ALTER COLUMN "resume_link" SET DATA TYPE text;

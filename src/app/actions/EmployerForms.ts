@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db/db";
-import {  candidatePoolTable, CandidateProp, JobsProp, jobsTable } from "@/db/schema";
+import {  candidatePoolTable, CandidateProp, CompanyProp, companyTable, JobsProp, jobsTable } from "@/db/schema";
 
 export async function AddNewJobForm(data:Omit<JobsProp, 'id'|'createdAt'|'updatedAt'>) {
 // export async function AddNewJobForm(data: { deadLine: string; companyName: string; role: string; workMode: string; department: string; jobDetails: string; }) {
@@ -40,4 +40,19 @@ try {
   console.log('Error in AddCandidatesProfile Server Action -EmloyerSection',error)
   return error
 }
+}
+
+export async function AddCompanyProfile(data:Omit<CompanyProp, 'id'|'createdAt'|'updatedAt'>){
+  try {
+    await db.insert(companyTable).values({
+      name:data.name,
+      location:data.location,
+      companyLogo:data.companyLogo,
+      // teamMembers:data.teamMembers
+    })
+  } catch (error) {
+    console.log('Error in AddCompanyProfile Server Action -EmployerSection',error)
+    return error
+  }
+
 }

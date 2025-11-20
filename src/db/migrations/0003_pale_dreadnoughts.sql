@@ -1,0 +1,1 @@
+ALTER TABLE "company" ALTER COLUMN "company_logo" SET DATA TYPE text;

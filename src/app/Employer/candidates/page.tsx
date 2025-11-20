@@ -1,5 +1,6 @@
 import CandidatesProfile from "@/components/Customer/CandidatesProfile";
 import CandidatesSection from "@/components/Employer/CandidatesPage/CandidatesSection";
+import CompanyProfile from "@/components/Employer/CompanyProfile";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function page() {
@@ -16,9 +17,9 @@ export default function page() {
           <TabsList className="w-full">
             <TabsTrigger value="Candidates">Candidates</TabsTrigger>
             <TabsTrigger value="Candidates Profile">Add Candidate</TabsTrigger>
+            <TabsTrigger value="Company Profile"> Company</TabsTrigger>
           </TabsList>
           <TabsContent value="Candidates">
-            
             <div className="c">
               <h2 className="text-3xl font-semibold mb-10">All Candidates</h2>
             </div>
@@ -26,6 +27,9 @@ export default function page() {
           </TabsContent>
           <TabsContent value="Candidates Profile">
             <CandidatesProfile />
+          </TabsContent>
+          <TabsContent value="Company Profile">
+            <CompanyProfile/>
           </TabsContent>
         </Tabs>
       </section>

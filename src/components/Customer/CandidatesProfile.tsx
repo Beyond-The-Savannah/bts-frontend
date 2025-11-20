@@ -33,8 +33,8 @@ export default function CandidatesProfile() {
     lastName: z.string(),
     email: z.string().email(),
     phone: z.string(),
-    resumeLink: z.instanceof(Buffer),
-    // resumeLink: z.string(),
+    // resumeLink: z.instanceof(Buffer),
+    resumeLink: z.string(),
     resumeName: z.string(),
     country: z.string(),
     profession: z.string(),
@@ -53,15 +53,13 @@ export default function CandidatesProfile() {
       } else {
         const file = e.target.files[0];
         setResumeFile(e.target.files[0]);
-        // setResumeName(e.target.files[0].name)
         setResumeName(file.name)
         const reader= new FileReader()
-        reader.readAsArrayBuffer(e.target.files[0])
+        reader.readAsDataURL(file)
         reader.onloadend= function(){
-          const arrayBuffer=reader.result as ArrayBuffer
-          const buffer=Buffer.from(arrayBuffer)
-          // setValue('resumeLink',buffer)
-          setValue('resumeLink',buffer)
+          
+          const convertedFile=reader.result as string
+          setValue('resumeLink',convertedFile)
           setValue('resumeName',file.name)
           console.log('Resume File->',resumeFile )
           console.log('Resume File Name->',resumeName )
