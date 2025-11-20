@@ -22,6 +22,7 @@ export default async function page() {
   )[0];
 
   const byPassEmailAddresses = [
+    `starmugure@gmail.com`,
     `fmmusembi96@gmail.com`,
     `patienceat63@gmail.com`,
     `imokolabarbra@gmail.com`,
