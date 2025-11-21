@@ -95,7 +95,7 @@ export async function GET() {
     do {
       const response = await paystackInstance.subscription.list({
         page: currentPage,
-        perPage: 150,
+        perPage: 400,
         // perPage: 50,
       });
       if ("data" in response) {
