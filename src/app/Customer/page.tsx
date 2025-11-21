@@ -14,6 +14,7 @@ export default async function CustomerDefaultPage() {
   // console.log("USER SUB INFO", userSubscriptionInformation)
   
    const byPassEmailAddresses = [
+    `teddy254mutinge@gmail.com`,
       `lizanaropi@gmail.com`,
       `starmugure@gmail.com`,
       `fmmusembi96@gmail.com`,
