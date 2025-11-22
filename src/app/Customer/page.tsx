@@ -12,19 +12,20 @@ export default async function CustomerDefaultPage() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
   const user = await currentUser();
   // console.log("USER SUB INFO", userSubscriptionInformation)
-  
-   const byPassEmailAddresses = [
-    `teddy254mutinge@gmail.com`,
-      `lizanaropi@gmail.com`,
-      `starmugure@gmail.com`,
-      `fmmusembi96@gmail.com`,
-      `patienceat63@gmail.com`,
-      `imokolabarbra@gmail.com`,
-      `gitoshmbae@gmail.com`,
-    ];
 
-    
-  const allowByPassUser=byPassEmailAddresses.includes(user?.emailAddresses[0].emailAddress as string)
+  const byPassEmailAddresses = [
+    //   `teddy254mutinge@gmail.com`,
+    //   `lizanaropi@gmail.com`,
+    //   `starmugure@gmail.com`,
+    //   `fmmusembi96@gmail.com`,
+    //   `imokolabarbra@gmail.com`,
+    `patienceat63@gmail.com`,
+    `gitoshmbae@gmail.com`,
+  ];
+
+  const allowByPassUser = byPassEmailAddresses.includes(
+    user?.emailAddresses[0].emailAddress as string
+  );
   const isValidSubscription = userSubscriptionInformation?.some(
     (subscription) => {
       return ["active", "attention", "non-renewing", "completed"].includes(
@@ -36,7 +37,7 @@ export default async function CustomerDefaultPage() {
   return (
     <>
       {/* {isValidSubscription ? <SubscriptionDetails /> : <PackageOptionSection />} */}
-      {(isValidSubscription || allowByPassUser==true ) ? (
+      {isValidSubscription || allowByPassUser == true ? (
         <Suspense fallback={<DashboardPageLoader />}>
           <SubscriptionDetails />
         </Suspense>
