@@ -3,7 +3,8 @@ import { AddSubscriberToKit } from "@/lib/kitNewsLetter";
 import { SubscriptionProps } from "@/types/subscriptions";
 import { currentUser } from "@clerk/nextjs/server";
 
-const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
+// const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
+const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
 
 export async function GetUserSubscriptionInformation(){
   const user=await currentUser()
@@ -12,7 +13,10 @@ export async function GetUserSubscriptionInformation(){
      return null}
 
   try {
-    const response1=await fetch(`${PUBLIC_BASE_URL}/api/subscriptions`,{next:{revalidate:60}})
+    /*get subscriptions info from the bts database instead of directly from paystack*/
+
+    // const response1=await fetch(`${PUBLIC_BASE_URL}/api/subscriptions`,{next:{revalidate:60}})
+    const response1=await fetch(`${BTS_API_URL}/api/BydUsers/getAllUsers`,{method:'GET'})
     const allSubscriptionData=await response1.json()  
     const userEmailAddress = user?.emailAddresses[0].emailAddress.toLowerCase();
 
