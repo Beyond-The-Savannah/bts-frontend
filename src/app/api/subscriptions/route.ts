@@ -78,14 +78,7 @@ export async function POST(request: Request) {
   }
 }
 
-// export async function GET() {
-//   try {
-//     const response = await paystackInstance.subscription.list();
-//     return Response.json(response);
-//   } catch (error) {
-//     return Response.json({ error }, { status: 500 });
-//   }
-// }
+/*gets all subscriptions from paystack*/
 export async function GET() {
   try {
     let allSubscriptions: unknown[] = [];
@@ -95,7 +88,7 @@ export async function GET() {
     do {
       const response = await paystackInstance.subscription.list({
         page: currentPage,
-        perPage: 400,
+        perPage: 100,
         // perPage: 50,
       });
       if ("data" in response) {
