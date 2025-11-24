@@ -20,6 +20,7 @@ export default async function CustomerDefaultPage() {
 
   const byPassEmailAddresses = [
       `teddy254mutinge@gmail.com`,
+      `myrakagai05@gmail.com`,
     //   `lizanaropi@gmail.com`,
     //   `starmugure@gmail.com`,
     //   `fmmusembi96@gmail.com`,

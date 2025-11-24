@@ -26,6 +26,7 @@ export default async function page() {
   // console.log("BTS USER FROM CUSTOMER FIND-JOBS PAGE",validUser)
 
   const byPassEmailAddresses = [
+    `myrakagai05@gmail.com`,
     `teddy254mutinge@gmail.com`,
     // `lizanaropi@gmail.com`,
     // `starmugure@gmail.com`,
