@@ -13,6 +13,7 @@ export default async function page() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
   const user = await currentUser();
 
+  
   const jobsListingSubscriptionDetails = userSubscriptionInformation?.filter(
     (subscription) =>
       subscription.amount != 600000 &&
@@ -22,7 +23,7 @@ export default async function page() {
   )[0];
 
   const validUser=await GetUserSubscriptionInformationFromBTSDB()
-  // console.log("USER FROM DB",validUser)
+  // console.log("BTS USER FROM CUSTOMER FIND-JOBS PAGE",validUser)
 
   const byPassEmailAddresses = [
     // `teddy254mutinge@gmail.com`,
@@ -35,8 +36,8 @@ export default async function page() {
   ];
 
   if (
-    jobsListingSubscriptionDetails == undefined &&
-    validUser!=undefined &&
+    (jobsListingSubscriptionDetails == undefined ||
+    validUser!=null) &&
     !byPassEmailAddresses.includes(
       user?.emailAddresses[0].emailAddress as string
     )

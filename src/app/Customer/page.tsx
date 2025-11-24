@@ -16,6 +16,8 @@ export default async function CustomerDefaultPage() {
   const user = await currentUser();
   // console.log("USER SUB INFO", userSubscriptionInformation)
 
+  console.log("BTS USER FROM CUSTOMER PAGE",validUser)
+
   const byPassEmailAddresses = [
     //   `teddy254mutinge@gmail.com`,
     //   `lizanaropi@gmail.com`,
@@ -40,7 +42,7 @@ export default async function CustomerDefaultPage() {
   return (
     <>
       {/* {isValidSubscription ? <SubscriptionDetails /> : <PackageOptionSection />} */}
-      {isValidSubscription || allowByPassUser == true || validUser!=undefined ? (
+      {isValidSubscription || allowByPassUser == true || validUser!=null ? (
         <Suspense fallback={<DashboardPageLoader />}>
           <SubscriptionDetails />
         </Suspense>

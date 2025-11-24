@@ -15,6 +15,7 @@ export default async function page({
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
   
   const validUser=await GetUserSubscriptionInformationFromBTSDB()
+  // console.log("BTS USER FROM CUSTOMER FIND-JOBS:ID PAGE",validUser)
 
   const jobsListingSubscriptionDetails = userSubscriptionInformation?.filter(
     (subscription) =>
@@ -36,8 +37,8 @@ export default async function page({
   ];
 
   if (
-    jobsListingSubscriptionDetails == undefined &&
-    validUser!=undefined &&
+    (jobsListingSubscriptionDetails == undefined ||
+    validUser!=null) &&
     !byPassEmailAddresses.includes(
       user?.emailAddresses[0].emailAddress as string
     )

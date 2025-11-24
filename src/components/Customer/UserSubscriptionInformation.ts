@@ -60,11 +60,15 @@ export async function GetUserSubscriptionInformationFromBTSDB(){
   const user=await currentUser()
   try {
    const validUserResponse= await axiosInstance.get(`/api/BydUsers/getUserDetailsByEmail?email=${user?.emailAddresses[0].emailAddress.toLocaleLowerCase()}`)
-  //  const validUserResponse=await response.json()
+   
+   if(validUserResponse.status==500){
+    return null
+   }
    return validUserResponse.data
 
    
   } catch (error) {
     console.error("Error get user from BTS DB",error)
+    return null
   }
 }
