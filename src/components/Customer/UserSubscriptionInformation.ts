@@ -1,5 +1,6 @@
 
 import { AddSubscriberToKit } from "@/lib/kitNewsLetter";
+import { axiosInstance } from "@/remoteData/mutateData";
 import { SubscriptionProps } from "@/types/subscriptions";
 import { currentUser } from "@clerk/nextjs/server";
 
@@ -14,7 +15,6 @@ export async function GetUserSubscriptionInformation(){
 
   try {
     /*get subscriptions info from the bts database instead of directly from paystack*/
-
     const response1=await fetch(`${PUBLIC_BASE_URL}/api/subscriptions`,{next:{revalidate:60}})
 
     const allSubscriptionData=await response1.json()  
@@ -31,7 +31,7 @@ export async function GetUserSubscriptionInformation(){
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         // )[0];
         ).slice(0,4);
-    console.log("SUBINFO", userSubscriptionInformation);
+    // console.log("SUBINFO", userSubscriptionInformation);
 
     // userSubscriptionInformation.forEach(async(subscription)=>{
     //   if(subscription.amount!=600000 && subscription.status=="active" && userEmailAddress!=undefined){
@@ -53,5 +53,18 @@ export async function GetUserSubscriptionInformation(){
 
   } catch (error) {
     console.log("Error Getting userSubscriptionInformation", error);
+  }
+}
+
+export async function GetUserSubscriptionInformationFromBTSDB(){
+  const user=await currentUser()
+  try {
+   const validUserResponse= await axiosInstance.get(`/api/BydUsers/getUserDetailsByEmail?email=${user?.emailAddresses[0].emailAddress.toLocaleLowerCase()}`)
+  //  const validUserResponse=await response.json()
+   return validUserResponse.data
+
+   
+  } catch (error) {
+    console.error("Error get user from BTS DB",error)
   }
 }
