@@ -1,4 +1,4 @@
-import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
+import { GetUserSubscriptionInformation, GetUserSubscriptionInformationFromBTSDB } from "@/components/Customer/UserSubscriptionInformation";
 import ViewJob from "@/components/Customer/ViewJob";
 import SingleJobLoadingUI from "@/components/Loaders/SingleJobLoadingUI";
 import { currentUser } from "@clerk/nextjs/server";
@@ -13,6 +13,9 @@ export default async function page({
   const jobsId = (await params).jobsId;
 
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
+  
+  const validUser=await GetUserSubscriptionInformationFromBTSDB()
+
   const jobsListingSubscriptionDetails = userSubscriptionInformation?.filter(
     (subscription) =>
       subscription.amount != 600000 &&
@@ -34,6 +37,7 @@ export default async function page({
 
   if (
     jobsListingSubscriptionDetails == undefined &&
+    validUser!=undefined &&
     !byPassEmailAddresses.includes(
       user?.emailAddresses[0].emailAddress as string
     )

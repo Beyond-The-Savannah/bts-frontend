@@ -2,7 +2,7 @@
 
 // import PackageOptionSection from "@/components/Customer/PackageOptionSection";
 // import Packages from "@/components/Customer/Packages";
-import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
+import { GetUserSubscriptionInformation, GetUserSubscriptionInformationFromBTSDB } from "@/components/Customer/UserSubscriptionInformation";
 import { FindJobs } from "@/components/findJobsPage/FindJobs";
 import RemoteJobListingsLoadingUI from "@/components/Loaders/RemoteJobListingsLoadingUI";
 import { currentUser } from "@clerk/nextjs/server";
@@ -21,6 +21,9 @@ export default async function page() {
       )
   )[0];
 
+  const validUser=await GetUserSubscriptionInformationFromBTSDB()
+  // console.log("USER FROM DB",validUser)
+
   const byPassEmailAddresses = [
     // `teddy254mutinge@gmail.com`,
     // `lizanaropi@gmail.com`,
@@ -33,6 +36,7 @@ export default async function page() {
 
   if (
     jobsListingSubscriptionDetails == undefined &&
+    validUser!=undefined &&
     !byPassEmailAddresses.includes(
       user?.emailAddresses[0].emailAddress as string
     )

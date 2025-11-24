@@ -2,7 +2,7 @@
 
 import PackageOptionSection from "@/components/Customer/PackageOptionSection";
 import SubscriptionDetails from "@/components/Customer/SubscriptionDetails";
-import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
+import { GetUserSubscriptionInformation, GetUserSubscriptionInformationFromBTSDB } from "@/components/Customer/UserSubscriptionInformation";
 import DashboardPageLoader from "@/components/Loaders/DashboardPageLoader";
 import PackagesLoader from "@/components/Loaders/PackagesLoader";
 import { currentUser } from "@clerk/nextjs/server";
@@ -10,6 +10,9 @@ import { Suspense } from "react";
 
 export default async function CustomerDefaultPage() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
+
+  const validUser=await GetUserSubscriptionInformationFromBTSDB()
+  
   const user = await currentUser();
   // console.log("USER SUB INFO", userSubscriptionInformation)
 
@@ -37,7 +40,7 @@ export default async function CustomerDefaultPage() {
   return (
     <>
       {/* {isValidSubscription ? <SubscriptionDetails /> : <PackageOptionSection />} */}
-      {isValidSubscription || allowByPassUser == true ? (
+      {isValidSubscription || allowByPassUser == true || validUser!=undefined ? (
         <Suspense fallback={<DashboardPageLoader />}>
           <SubscriptionDetails />
         </Suspense>
