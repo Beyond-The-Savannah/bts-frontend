@@ -35,10 +35,7 @@ export default async function page() {
     `gitoshmbae@gmail.com`,
   ];
 
-  if (
-    (jobsListingSubscriptionDetails == undefined ||
-    validUser!=null) &&
-    !byPassEmailAddresses.includes(
+  if ((jobsListingSubscriptionDetails == undefined || validUser==null) && !byPassEmailAddresses.includes(
       user?.emailAddresses[0].emailAddress as string
     )
   ) {

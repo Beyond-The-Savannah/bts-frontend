@@ -16,7 +16,7 @@ export default async function CustomerDefaultPage() {
   const user = await currentUser();
   // console.log("USER SUB INFO", userSubscriptionInformation)
 
-  console.log("BTS USER FROM CUSTOMER PAGE",validUser)
+  // console.log("BTS USER FROM CUSTOMER PAGE",validUser)
 
   const byPassEmailAddresses = [
     //   `teddy254mutinge@gmail.com`,

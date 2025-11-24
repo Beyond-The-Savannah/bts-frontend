@@ -59,7 +59,8 @@ export async function GetUserSubscriptionInformation(){
 export async function GetUserSubscriptionInformationFromBTSDB(){
   const user=await currentUser()
   try {
-   const validUserResponse= await axiosInstance.get(`/api/BydUsers/getUserDetailsByEmail?email=${user?.emailAddresses[0].emailAddress.toLocaleLowerCase()}`)
+   const validUserResponse= await axiosInstance.get(`/api/BydUsers/getUserDetailsByEmail?email=${user?.emailAddresses[0].emailAddress.toLowerCase()}`)
+  //  const validUserResponse= await axiosInstance.get(`/api/BydUsers/getUserDetailsByEmail?email=gitoshmbae@gmaill.com`)
    
    if(validUserResponse.status==500){
     return null
