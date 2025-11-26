@@ -2,7 +2,7 @@
 
 // import PackageOptionSection from "@/components/Customer/PackageOptionSection";
 // import Packages from "@/components/Customer/Packages";
-import { GetUserSubscriptionInformation, GetUserSubscriptionInformationFromBTSDB } from "@/components/Customer/UserSubscriptionInformation";
+import { GetUserSubscriptionInformation,} from "@/components/Customer/UserSubscriptionInformation";
 import { FindJobs } from "@/components/findJobsPage/FindJobs";
 import RemoteJobListingsLoadingUI from "@/components/Loaders/RemoteJobListingsLoadingUI";
 import { currentUser } from "@clerk/nextjs/server";
@@ -22,10 +22,19 @@ export default async function page() {
       )
   )[0];
 
-  const validUser=await GetUserSubscriptionInformationFromBTSDB()
-  // console.log("BTS USER FROM CUSTOMER FIND-JOBS PAGE",validUser)
 
   const byPassEmailAddresses = [
+    `carolynmnjeri@gmail.com`,
+    `hassenga54@gmail.com`,
+    `belindaschira@gmail.com`,
+    `wangui.c.njeri@gmail.com`,
+    `jochesoli2015@gmail.com`,
+    `willymathuva@gmail.com`,
+    `winnie.gacheruw@gmail.com`,
+    `sharleen.maina98@gmail.com`,
+    `loismburuga@gmail.com`,
+    `marthatemesghen@gmail.com`,
+    `julietkaranja@gmail.com`,
     `kingoriwa@gmail.com`,
     `mdorcas864@gmail.com`,
     `daisygombe@gmail.com`,
@@ -48,7 +57,7 @@ export default async function page() {
     `gitoshmbae@gmail.com`,
   ];
 
-  if ((jobsListingSubscriptionDetails == undefined || validUser==null) && !byPassEmailAddresses.includes(
+  if (jobsListingSubscriptionDetails == undefined && !byPassEmailAddresses.includes(
       user?.emailAddresses[0].emailAddress as string
     )
   ) {
