@@ -1,4 +1,4 @@
-import { GetUserSubscriptionInformation, GetUserSubscriptionInformationFromBTSDB } from "@/components/Customer/UserSubscriptionInformation";
+import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
 import ViewJob from "@/components/Customer/ViewJob";
 import SingleJobLoadingUI from "@/components/Loaders/SingleJobLoadingUI";
 import { currentUser } from "@clerk/nextjs/server";
@@ -14,8 +14,6 @@ export default async function page({
 
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
   
-  const validUser=await GetUserSubscriptionInformationFromBTSDB()
-  // console.log("BTS USER FROM CUSTOMER FIND-JOBS:ID PAGE",validUser)
 
   const jobsListingSubscriptionDetails = userSubscriptionInformation?.filter(
     (subscription) =>
@@ -27,6 +25,17 @@ export default async function page({
   const user = await currentUser();
 
   const byPassEmailAddresses = [
+    `carolynmnjeri@gmail.com`,
+    `hassenga54@gmail.com`,
+    `belindaschira@gmail.com`,
+    `wangui.c.njeri@gmail.com`,
+    `jochesoli2015@gmail.com`,
+    `willymathuva@gmail.com`,
+    `winnie.gacheruw@gmail.com`,
+    `sharleen.maina98@gmail.com`,
+    `loismburuga@gmail.com`,
+    `marthatemesghen@gmail.com`,
+    `julietkaranja@gmail.com`,
     `kingoriwa@gmail.com`,
     `mdorcas864@gmail.com`,
     `daisygombe@gmail.com`,
@@ -49,8 +58,7 @@ export default async function page({
     `gitoshmbae@gmail.com`,
   ];
 
-  if ((jobsListingSubscriptionDetails == undefined || validUser==null) &&
-    !byPassEmailAddresses.includes(
+  if (jobsListingSubscriptionDetails == undefined && !byPassEmailAddresses.includes(
       user?.emailAddresses[0].emailAddress as string
     )
   ) {

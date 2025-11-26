@@ -1,6 +1,5 @@
 
 import { AddSubscriberToKit } from "@/lib/kitNewsLetter";
-import { axiosInstance } from "@/remoteData/mutateData";
 import { SubscriptionProps } from "@/types/subscriptions";
 import { currentUser } from "@clerk/nextjs/server";
 
@@ -53,23 +52,5 @@ export async function GetUserSubscriptionInformation(){
 
   } catch (error) {
     console.log("Error Getting userSubscriptionInformation", error);
-  }
-}
-
-export async function GetUserSubscriptionInformationFromBTSDB(){
-  const user=await currentUser()
-  try {
-   const validUserResponse= await axiosInstance.get(`/api/BydUsers/getUserDetailsByEmail?email=${user?.emailAddresses[0].emailAddress.toLowerCase()}`)
-  //  const validUserResponse= await axiosInstance.get(`/api/BydUsers/getUserDetailsByEmail?email=gitoshmbae@gmaill.com`)
-   
-   if(validUserResponse.status==500){
-    return null
-   }
-   return validUserResponse.data
-
-   
-  } catch (error) {
-    console.error("Error get user from BTS DB",error)
-    return null
   }
 }
