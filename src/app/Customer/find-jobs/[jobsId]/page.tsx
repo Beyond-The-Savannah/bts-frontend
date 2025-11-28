@@ -25,6 +25,14 @@ export default async function page({
   const user = await currentUser();
 
   const byPassEmailAddresses = [
+    `mutheustacey30@gmail.com`,
+    `jsamande21@gmail.com`,
+    `wanjirugichu7@gmail.com`,
+    `bkirinya@gmail.com`,
+    `k8karanja@gmail.com`,
+    `mosesmwangi007@gmail.com`,
+    `maureengakiavih@gmail.com`,
+    `mercynderitu183@gmail.com`,
     `carolynmnjeri@gmail.com`,
     `hassenga54@gmail.com`,
     `belindaschira@gmail.com`,
