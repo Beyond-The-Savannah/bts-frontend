@@ -17,6 +17,7 @@ export default async function CustomerDefaultPage() {
   // console.log("BTS USER FROM CUSTOMER PAGE",validUser)
 
   const byPassEmailAddresses = [
+    `dennismugera254@gmail.com`,
     `victornmungai@gmail.com`,
     `wayuabritney@gmail.com`,
     `otienocynderella@gmail.com`,
