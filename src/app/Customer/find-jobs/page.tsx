@@ -24,13 +24,14 @@ export default async function page() {
 
 
   const byPassEmailAddresses = [
+    `victornmungai@gmail.com`,
     `wayuabritney@gmail.com`,
     `otienocynderella@gmail.com`,
     `mkabanesandra@gmail.com`,
     `marcellakemunto@yahoo.com`,
     `graceakinyi1991@gmail.com`,
     `nonigatura@gmail.com`,
-    `fmmusembi96@gmail.com `,
+    `fmmusembi96@gmail.com`,
     `henrychelele@gmail.com`,
     `a.wanjirunina@gmail.com`,
     `lilykimeu@gmail.com`,

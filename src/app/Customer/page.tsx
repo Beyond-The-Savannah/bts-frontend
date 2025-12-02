@@ -2,7 +2,7 @@
 
 import PackageOptionSection from "@/components/Customer/PackageOptionSection";
 import SubscriptionDetails from "@/components/Customer/SubscriptionDetails";
-import { GetUserSubscriptionInformation} from "@/components/Customer/UserSubscriptionInformation";
+import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
 import DashboardPageLoader from "@/components/Loaders/DashboardPageLoader";
 import PackagesLoader from "@/components/Loaders/PackagesLoader";
 import { currentUser } from "@clerk/nextjs/server";
@@ -11,21 +11,20 @@ import { Suspense } from "react";
 export default async function CustomerDefaultPage() {
   const userSubscriptionInformation = await GetUserSubscriptionInformation();
 
-  
-  
   const user = await currentUser();
   // console.log("USER SUB INFO", userSubscriptionInformation)
 
   // console.log("BTS USER FROM CUSTOMER PAGE",validUser)
 
   const byPassEmailAddresses = [
+    `victornmungai@gmail.com`,
     `wayuabritney@gmail.com`,
     `otienocynderella@gmail.com`,
     `mkabanesandra@gmail.com`,
     `marcellakemunto@yahoo.com`,
     `graceakinyi1991@gmail.com`,
     `nonigatura@gmail.com`,
-    `fmmusembi96@gmail.com `,
+    `fmmusembi96@gmail.com`,
     `henrychelele@gmail.com`,
     `a.wanjirunina@gmail.com`,
     `lilykimeu@gmail.com`,
@@ -64,8 +63,8 @@ export default async function CustomerDefaultPage() {
     `zeldafaith@gmail.com`,
     `cwanjirumbugua@gmail.com`,
     `emanono@gmail.com`,
-      `teddy254mutinge@gmail.com`,
-      `myrakagai05@gmail.com`,
+    `teddy254mutinge@gmail.com`,
+    `myrakagai05@gmail.com`,
     //   `lizanaropi@gmail.com`,
     //   `starmugure@gmail.com`,
     //   `fmmusembi96@gmail.com`,
