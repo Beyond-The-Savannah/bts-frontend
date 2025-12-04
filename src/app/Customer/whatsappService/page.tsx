@@ -1,8 +1,10 @@
 // export const dynamic = "force-dynamic";
 
 import SubscriptionDetails from "@/components/Customer/SubscriptionDetails";
-import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
+import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/components/Customer/UserSubscriptionInformation";
+// import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
 import WhatsappSubscriptionService from "@/components/Customer/WhatsappSubscriptionService";
+import { subscriptionDetailsProps } from "@/types/subscriptions";
 import { currentUser } from "@clerk/nextjs/server";
 
 export type SearchParams = Promise<{
@@ -14,8 +16,10 @@ export default async function page(props: { searchParams: SearchParams }) {
   const userEmail = user?.emailAddresses[0].emailAddress as string;
   const searcHParams = await props.searchParams;
 
-  const userSubscriptionInformation = await GetUserSubscriptionInformation();
-  const whatsAppSubscriptionDetails=userSubscriptionInformation?.filter((subscription)=>subscription.amount==600000 && ["active","attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase()))[0]
+  // const userSubscriptionInformation = await GetUserSubscriptionInformation();
+  // const whatsAppSubscriptionDetails=userSubscriptionInformation?.filter((subscription)=>subscription.amount==600000 && ["active","attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase()))[0]
+  const userSubscriptionInformation:subscriptionDetailsProps[] = await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack()
+  const whatsAppSubscriptionDetails=userSubscriptionInformation?.find((subscription)=>subscription.amount==600000 && ["active","attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase()))
 
   return (
     <>

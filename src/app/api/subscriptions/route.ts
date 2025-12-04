@@ -78,39 +78,57 @@ export async function POST(request: Request) {
   }
 }
 
-/*gets all subscriptions from paystack*/
-export async function GET() {
+/*get subscription based on customer id*/
+export async function GET(request:Request){
   try {
-    let allSubscriptions: unknown[] = [];
-    let currentPage = 1;
-    let totalPages = 1;
-
-    do {
-      const response = await paystackInstance.subscription.list({
-        page: currentPage,
-        perPage: 100,
-        // perPage: 50,
-      });
-      if ("data" in response) {
-        allSubscriptions = [...allSubscriptions, ...response.data];
-        totalPages = response.meta.pageCount;
-      } else {
-        throw new Error("BadRequest received from Paystack API");
-      }
-      currentPage++;
-    } while (currentPage <= totalPages);
-
-    // return Response.json(response);
-    return Response.json({
-      status: true,
-      message: "All subscriptions retrieved",
-      data: allSubscriptions,
-      meta: {
-        total: allSubscriptions.length,
-        pageCount: totalPages,
-      },
-    });
+    const{searchParams}=new URL(request.url)
+    const customerCode=searchParams.get("idOrCode")
+    if(!customerCode){
+      return Response.json({error:"Customer code is needded"},{status:500})
+    }
+    const customerCode1=parseInt(customerCode)
+    // const response=await paystackInstance.subscription.fetch(customerCode)
+    const response=await paystackInstance.subscription.list({customer:customerCode1})
+    return Response.json(response)
   } catch (error) {
-    return Response.json({ error }, { status: 500 });
+    return Response.json({error:`${error}-- Error in getting subscription details of user based on customer id`}, {status:500})
   }
+
 }
+
+/*gets all subscriptions from paystack*/
+// export async function GET() {
+//   try {
+//     let allSubscriptions: unknown[] = [];
+//     let currentPage = 1;
+//     let totalPages = 1;
+
+//     do {
+//       const response = await paystackInstance.subscription.list({
+//         page: currentPage,
+//         perPage: 100,
+//         // perPage: 50,
+//       });
+//       if ("data" in response) {
+//         allSubscriptions = [...allSubscriptions, ...response.data];
+//         totalPages = response.meta.pageCount;
+//       } else {
+//         throw new Error("BadRequest received from Paystack API");
+//       }
+//       currentPage++;
+//     } while (currentPage <= totalPages);
+
+//     // return Response.json(response);
+//     return Response.json({
+//       status: true,
+//       message: "All subscriptions retrieved",
+//       data: allSubscriptions,
+//       meta: {
+//         total: allSubscriptions.length,
+//         pageCount: totalPages,
+//       },
+//     });
+//   } catch (error) {
+//     return Response.json({ error }, { status: 500 });
+//   }
+// }
