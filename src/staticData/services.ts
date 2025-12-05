@@ -347,4 +347,10 @@ export const servicesCalendlyLinks = [
     amount: 2000000,
     link: "",
   },
+  {
+    id: 10,
+    serviceName: "Remote Work Starter Bundle Christmas Offer",
+    amount: 2200000,
+    link: "",
+  },
 ];
