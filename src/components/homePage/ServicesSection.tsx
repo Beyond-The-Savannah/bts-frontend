@@ -41,7 +41,7 @@ export default function ServicesSection() {
                     width={600}
                     alt={service.title}
                     sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw, 33vw"
-                    classname="object-cover w-full h-48 rounded-t-md"
+                    classname="object-cover object-top w-full h-48 rounded-t-md"
                   />
                   <div className="space-y-2 py-4 px-8 md:min-h-52">
                     <div className="flex gap-1 items-center justify-between">

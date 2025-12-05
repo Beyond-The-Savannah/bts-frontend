@@ -215,7 +215,7 @@ export const servicesList = [
     openGraphImg: "remote_work_w658yv",
     // openGraphImg: "new_Starter_Pack_img_q0jivd",
     details:
-      "Breaking into remote work can be challenging, but we've got you covered! Our Remote Work Starter Bundle is designed to position you for success in the global job market",
+      "Breaking into remote work can be challenging, but we've got you covered! Our Remote Work Starter Bundle is designed to position you for success",
     benefits: [
       "CV Revamp - A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation call CV Revamp ",
       "LinkedIn Optimization - We'll transform your LinkedIn profile into a magnet for job opportunities, ensuring it ranks higher in recruiter searches + 15 minutes consultation call",
@@ -225,7 +225,7 @@ export const servicesList = [
       "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
     valueProposal:
       // "With our Remote Work Starter Bundle, you'll gain the edge you need to succeed in today's worldwide job landscape.",
-      "September Hiring Surge is Here! Companies are ramping up recruitment and this is your moment to shine. At Beyond the Savannah, we're helping you stay ahead of the curve by aligning your professional brand designed to position you for success in the global job market",
+      "September Hiring Surge is Here! Companies are ramping up recruitment and this is your moment to shine. At Beyond the Savannah, we're helping you stay ahead of the curve by aligning your professional brand designed to position you for success.",
     // "Easter is here and we have a basket full of goodies! Enjoy the same package at a slashed price of 20,000 instead of 26,000! Take advantage of this offer running until the end of April.",
     // "This season, we're honoring the bold, the brave, and the visionary founders across the globe who dared to start. In the spirit of freedom and building something from scratch, we're offering an exclusive discount on our services to support your journey.",
     // price: 26000,
