@@ -1,10 +1,14 @@
 
 import { AddSubscriberToKit } from "@/lib/kitNewsLetter";
+import { SubscribedUserProp } from "@/types/subscribedUser";
+import { subscriptionDetailsProps } from "@/types/subscriptions";
 // import { SubscriptionProps } from "@/types/subscriptions";
 import { currentUser } from "@clerk/nextjs/server";
+import axios, { AxiosError } from "axios";
+
 
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
-// const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
+const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
 
 // export async function GetUserSubscriptionInformation(){
 //   const user=await currentUser()
@@ -89,3 +93,65 @@ export async function GetCustomerSubscriptionDetailsByCustomerIDFromPaystack(){
     
   }
 }
+
+
+export async function AddNewSubscriberToDatabase(){
+  
+  const userSubscriptionInformation:subscriptionDetailsProps[] = await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
+
+  const userSubscriptionDetails=userSubscriptionInformation.find((subscription)=>subscription.amount!=600000 &&
+["active", "attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase()))
+
+// check if the user is already in the database
+let existingUser: SubscribedUserProp | null=null
+
+try {
+  const response = await axios.get(`${BTS_API_URL}/api/BydUsers/getUserDetailsByEmail?email=${userSubscriptionDetails?.customer.email.toLowerCase()}`);
+if(response.status==200){
+  existingUser =  response.data;
+}
+} catch (error) {
+  if(axios.isAxiosError(error)){
+    const axiosError=error as AxiosError
+    console.error("Axios error checking existing user from db",axiosError.response?.status)
+    existingUser=null
+  }
+}
+
+// console.log("EXISTING USER CHECK2",existingUser)
+
+
+if(userSubscriptionDetails !=undefined && existingUser==null){ 
+  const formData= new FormData()
+  formData.append("status",userSubscriptionDetails.status)
+  formData.append("subscriptionPlan",userSubscriptionDetails.plan.name)
+  formData.append("career",String(0))
+  formData.append("email",userSubscriptionDetails.customer.email)
+  formData.append("password","")
+  formData.append("firstName",userSubscriptionDetails.customer.first_name ||"")
+  formData.append("lastName",userSubscriptionDetails.customer.last_name ||"")
+  formData.append("phoneNumber",userSubscriptionDetails.customer.phone ||"")
+  formData.append("AttachmentName","")
+  formData.append("file","")
+  formData.append("ImageUrl","")
+  formData.append("IsActive",String(true))
+  formData.append("IsDeleted",String(false))
+
+  console.log("FORM DATA TO BE SENT",formData)
+  
+  try {
+    axios.post(`${BTS_API_URL}/api/ByUsers/addUser`,formData,{
+      headers:{
+        "Content-Type":"multipart/form-data"
+      }
+    })
+    console.log(`New subscriber added to database: ${formData.get("email")}`)
+    
+  } catch (error) {
+    console.error("Error adding new subscriber to database",error)
+  }
+}
+
+
+}
+

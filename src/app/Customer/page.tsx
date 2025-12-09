@@ -2,7 +2,7 @@
 
 import PackageOptionSection from "@/components/Customer/PackageOptionSection";
 import SubscriptionDetails from "@/components/Customer/SubscriptionDetails";
-import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/components/Customer/UserSubscriptionInformation";
+import { AddNewSubscriberToDatabase, GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/components/Customer/UserSubscriptionInformation";
 // import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
 import DashboardPageLoader from "@/components/Loaders/DashboardPageLoader";
 import PackagesLoader from "@/components/Loaders/PackagesLoader";
@@ -13,10 +13,14 @@ import { Suspense } from "react";
 
 export default async function CustomerDefaultPage() {
 
+
+  
   // const userSubscriptionInformation = await GetUserSubscriptionInformation();
   const userSubscriptionInformation:subscriptionDetailsProps[] = await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
-
+  
   const user = await currentUser();
+  
+  await AddNewSubscriberToDatabase()
   // console.log("USER SUB INFO", userSubscriptionInformation)
 
   // console.log("BTS USER FROM CUSTOMER PAGE",validUser)
