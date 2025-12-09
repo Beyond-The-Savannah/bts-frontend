@@ -7,7 +7,8 @@ export default async function HeroSection() {
   await posthog?.shutdown();
   return (
     <>
-      <section className="container mx-auto mt-5 md:-mt-10 lg:pt-40 lg:mb-20 px-2 md:px-4 min-h-[100vh] flex flex-col justify-center">
+      {/* <section className="container mx-auto mt-5 md:-mt-10 lg:pt-40 lg:mb-20 px-2 md:px-4 min-h-[100vh] flex flex-col justify-center"> */}
+      <section className="container mx-auto mt-5 md:-mt-10 lg:pt-40 lg:mb-20 px-2 md:px-4xs:min-h-[99dvh] md:min-h-[90dvh] lg:min-h-[90dvh] xl:min-h-[80dvh] 2xl:min-h-[55dvh] flex flex-col justify-center">
         <div className=" text-balance space-y-4  max-w-7xl mx-auto">
           <h1 className="capitalize text-center text-3xl lg:text-5xl text-balance text-bts-GreenOne font-bold ">
             Beyond the Savannah
