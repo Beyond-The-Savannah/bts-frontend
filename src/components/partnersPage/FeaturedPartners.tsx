@@ -16,7 +16,7 @@ export default function FeaturedPartners() {
             </div>
             <div className="flex flex-wrap justify-evenly items-center gap-4 md:gap-20 mt-10 mb-40">
                 {brands.map((brand)=>(
-                    <div key={brand.id} className="w-3/12 md:w-2/12 h-[20dvh] bg-purple-3000 rounded-lg">
+                    <div key={brand.id} className="w-3/12 md:w-2/12 h-[20dvh] bg-purple-3000 hover:shadow-md hover:scale-105 duration-700 rounded-lg">
                         <DisplayImageFromNextCloudinary
                             src={brand.imageSrc}
                             height={800}
@@ -25,7 +25,7 @@ export default function FeaturedPartners() {
                             alt={`Beyond The Savannah partner brand ${brand.name}`}
                             classname="object-contain h-full w-full rounded-lg"
                         />
-                        <p className="py-4 text-center font-semibold text-xs hidden">{brand.name}</p>
+                        <p className="py-4 text-center font-semibold text-xs ">{brand.name}</p>
                     </div>
                 ))}
             </div>

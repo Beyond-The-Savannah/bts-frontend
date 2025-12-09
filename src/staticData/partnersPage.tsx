@@ -83,6 +83,36 @@ export const brands=[
         name:"Africans On African Podcast",
         imageSrc:"Africans_on_Africa_Podcast_uf8mi5",
     },
+    {
+        id:14,
+        name:"Cyborgs Work",
+        imageSrc:"Cyborgs_uumhjn",
+    },
+    {
+        id:15,
+        name:"Remoteli",
+        imageSrc:"Remoteli_ozfwo1",
+    },
+    {
+        id:16,
+        name:"Education For All Children",
+        imageSrc:"Education_for_all_Children_hoi7pk",
+    },
+    {
+        id:17,
+        name:"Altas Assistants",
+        imageSrc:"Atlas_Assistants_ri2gxi",
+    },
+    {
+        id:18,
+        name:"Starthmore Universtity",
+        imageSrc:"Strath_cncgnp",
+    },
+    {
+        id:19,
+        name:"CyberDist",
+        imageSrc:"CyberDist_logo_uujybn",
+    },
     
 ]
 
