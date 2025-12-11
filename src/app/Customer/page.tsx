@@ -16,7 +16,12 @@ export default async function CustomerDefaultPage() {
 
   
   // const userSubscriptionInformation = await GetUserSubscriptionInformation();
-  const userSubscriptionInformation:subscriptionDetailsProps[] = await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
+  // const userSubscriptionInformation:subscriptionDetailsProps[] = await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
+
+  let userSubscriptionInformation:subscriptionDetailsProps[] | null= null;
+
+   userSubscriptionInformation= await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack()
+
   
   const user = await currentUser();
   
@@ -38,12 +43,13 @@ export default async function CustomerDefaultPage() {
   //     );
   //   }
   // );
-  const isValidSubscription=userSubscriptionInformation
+  // const isValidSubscription=userSubscriptionInformation
 
   return (
     <>
       
-      {isValidSubscription || allowByPassUser == true ? (
+      {/* {isValidSubscription || allowByPassUser == true ? ( */}
+      {userSubscriptionInformation!=null || allowByPassUser == true ? (
         <Suspense fallback={<DashboardPageLoader />}>
           <SubscriptionDetails />
         </Suspense>

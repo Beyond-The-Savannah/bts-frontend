@@ -63,7 +63,8 @@ async function GetCustomerIDFromPaystack() {
       `${PUBLIC_BASE_URL}/api/customer?email=${user.emailAddresses[0].emailAddress.toLocaleLowerCase()}`
     );
     if (!response.ok) {
-      throw new Error(`Fetch error in getting customer id: ${response.status}`);
+      // throw new Error(`Fetch error in getting customer id: ${response.status}`);
+      return null
     }
     const customerID = await response.json();
     // console.log("CUSTMER ID ",customerID)
@@ -81,9 +82,10 @@ export async function GetCustomerSubscriptionDetailsByCustomerIDFromPaystack() {
       `${PUBLIC_BASE_URL}/api/subscriptions?idOrCode=${customerID}`
     );
     if (!response.ok) {
-      throw new Error(
-        `Fetch error in getting customer subscriptions details: ${response.status}`
-      );
+      // throw new Error(
+      //   `Fetch error in getting customer subscriptions details: ${response.status}`
+      // );
+      return null
     }
     const subscriptionDetails = await response.json();
     // console.log("CUSTOMER SUBSCTIOPN DETAILS", subscriptionDetails.data)
@@ -94,8 +96,8 @@ export async function GetCustomerSubscriptionDetailsByCustomerIDFromPaystack() {
       subscriptionDetails.data[0].status == "active"
     ) {
       AddSubscriberToKit({ email: subscriptionDetails.data[0].customer.email });
+      return subscriptionDetails.data;
     }
-    return subscriptionDetails.data;
   } catch (error) {
     console.error("Error in getting customer subscription details", error);
     return null;
@@ -107,8 +109,8 @@ export async function AddNewSubscriberToDatabase() {
     await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
 
   if (!userSubscriptionInformation) {
-    console.error("No user subscription information available");
-    return;
+    // console.error("No user subscription information available");
+    return null;
   }
 
   const userSubscriptionDetails = userSubscriptionInformation.find(
@@ -120,8 +122,8 @@ export async function AddNewSubscriberToDatabase() {
   );
 
   if (!userSubscriptionDetails) {
-    console.error("No valid subscription details found for user");
-    return;
+    // console.error("No valid subscription details found for user");
+    return null;
   }
 
   // check if the user is already in the database
