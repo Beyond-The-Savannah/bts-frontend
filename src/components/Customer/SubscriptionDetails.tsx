@@ -14,7 +14,7 @@ export default async function SubscriptionDetails() {
   const user = await currentUser();
 
   // const userSubscriptionInformation = await GetUserSubscriptionInformation();
-  const userSubscriptionInformation:subscriptionDetailsProps[] = await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
+  const userSubscriptionInformation:subscriptionDetailsProps[] | null = await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
   // console.log("SUB DETAILS:", userSubscriptionInformation);
 
   // const whatsAppSubscriptionDetails = userSubscriptionInformation?.filter(
@@ -26,14 +26,14 @@ export default async function SubscriptionDetails() {
   // )[0];
   // console.log("WHATSAPP SUB", whatsAppSubscriptionDetails)
 
-  const whatsAppSubscriptionDetails1=userSubscriptionInformation.find((subscription)=> subscription.amount==600000 && 
+  const whatsAppSubscriptionDetails1=userSubscriptionInformation?.find((subscription)=> subscription.amount==600000 && 
   ["active", "attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase()))
 
 // console.log("WHATSAPP SUB", whatsAppSubscriptionDetails1)
 
 // console.log("SUB DETAILS PAGE, USER SUBINFO=>",userSubscriptionInformation)
 
-const jobsListingSubscriptionDetails1=userSubscriptionInformation.find((subscription)=>subscription.amount!=600000 &&
+const jobsListingSubscriptionDetails1=userSubscriptionInformation?.find((subscription)=>subscription.amount!=600000 &&
 ["active", "attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase()))
 
   // const jobsListingSubscriptionDetails = userSubscriptionInformation?.filter(

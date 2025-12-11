@@ -19,7 +19,7 @@ export default async function page({
   
 
   // const userSubscriptionInformation = await GetUserSubscriptionInformation();
-  const userSubscriptionInformation:subscriptionDetailsProps[] = await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack()
+  const userSubscriptionInformation:subscriptionDetailsProps[] | null= await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack()
   
 
   // const jobsListingSubscriptionDetails = userSubscriptionInformation?.filter(
@@ -30,7 +30,7 @@ export default async function page({
   //     )
   // )[0];
 
-  const jobsListingSubscriptionDetails=userSubscriptionInformation.find((subscription)=>subscription.amount!=600000 &&
+  const jobsListingSubscriptionDetails=userSubscriptionInformation?.find((subscription)=>subscription.amount!=600000 &&
 ["active", "attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase()))
 
 
