@@ -76,7 +76,10 @@ async function GetCustomerIDFromPaystack() {
 }
 
 export async function GetCustomerSubscriptionDetailsByCustomerIDFromPaystack() {
-  const customerID = await GetCustomerIDFromPaystack();
+  const customerID:string | null = await GetCustomerIDFromPaystack();
+  
+  if(!customerID){ return}
+
   try {
     const response = await fetch(
       `${PUBLIC_BASE_URL}/api/subscriptions?idOrCode=${customerID}`
@@ -105,15 +108,15 @@ export async function GetCustomerSubscriptionDetailsByCustomerIDFromPaystack() {
 }
 
 export async function AddNewSubscriberToDatabase() {
-  const userSubscriptionInformation: subscriptionDetailsProps[] =
+  const userSubscriptionInformation: subscriptionDetailsProps[] | null =
     await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
 
-  if (!userSubscriptionInformation) {
+  if (userSubscriptionInformation==null) {
     // console.error("No user subscription information available");
     return null;
   }
 
-  const userSubscriptionDetails = userSubscriptionInformation.find(
+  const userSubscriptionDetails = userSubscriptionInformation?.find(
     (subscription) =>
       subscription.amount != 600000 &&
       ["active", "attention", "non-renewing", "completed"].includes(
@@ -143,7 +146,11 @@ export async function AddNewSubscriberToDatabase() {
         "Axios error checking existing user from db",
         axiosError.response?.status
       );
-      existingUser = null;
+     existingUser = null;
+  
+    }else{
+      console.error("Unknown error checking existing user:", error);
+      existingUser=null;
     }
   }
 
@@ -174,10 +181,10 @@ export async function AddNewSubscriberToDatabase() {
     formData.append("IsActive", String(true));
     formData.append("IsDeleted", String(false));
 
-    console.log("FORM DATA TO BE SENT", formData);
+    // console.log("FORM DATA TO BE SENT", formData);
 
     try {
-      await axios.post(`${BTS_API_URL}/api/ByUsers/addUser`, formData, {
+      await axios.post(`${BTS_API_URL}/api/BydUsers/addUser`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
