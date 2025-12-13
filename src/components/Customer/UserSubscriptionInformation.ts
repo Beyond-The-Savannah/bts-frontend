@@ -92,6 +92,8 @@ export async function GetCustomerSubscriptionDetailsByCustomerIDFromPaystack() {
     }
     const subscriptionDetails = await response.json();
     // console.log("CUSTOMER SUBSCTIOPN DETAILS", subscriptionDetails.data)
+
+    /*Add new subscriber to the kit to get bts newsletter*/
     if (
       subscriptionDetails.data &&
       subscriptionDetails.data[0] &&
@@ -99,8 +101,17 @@ export async function GetCustomerSubscriptionDetailsByCustomerIDFromPaystack() {
       subscriptionDetails.data[0].status == "active"
     ) {
       AddSubscriberToKit({ email: subscriptionDetails.data[0].customer.email });
+    }
+
+    /*return subscriber data*/
+    if (
+      subscriptionDetails.data &&
+      subscriptionDetails.data[0] &&
+      (subscriptionDetails.data[0].status == "active"|| "attention" ||"non-renewing" ||"completed")
+    ) {
       return subscriptionDetails.data;
     }
+
   } catch (error) {
     console.error("Error in getting customer subscription details", error);
     return null;
