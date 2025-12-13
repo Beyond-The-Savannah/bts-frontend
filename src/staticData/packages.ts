@@ -7,7 +7,7 @@ export const SubscriptionPackages = [
     packageFigureKE: 450,
     packagePriceUSD: "4.5",
     packageFigureUSD: 4.5,
-    // packagePlanCode:"PLN_t75r4ruqwbnm67g",
+    // packagePlanCodeKE:"PLN_t75r4ruqwbnm67g",
     packagePlanCodeKE: "PLN_w760t4s5krneblt",
     packagePlanCodeUSD: "PLN_o7hyc72yj0edl1q",
     packageGoods: [

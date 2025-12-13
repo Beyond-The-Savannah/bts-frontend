@@ -35,21 +35,23 @@ export default async function CustomerDefaultPage() {
   const allowByPassUser = byPassEmailAddresses.includes(
     user?.emailAddresses[0].emailAddress as string
   );
-  /*old code that I need to remove*/
-  // const isValidSubscription = userSubscriptionInformation?.some(
-  //   (subscription) => {
-  //     return ["active", "attention", "non-renewing", "completed"].includes(
-  //       subscription.status.toLowerCase()
-  //     );
-  //   }
-  // );
+
+  
+  const isValidSubscription = userSubscriptionInformation?.some(
+    (subscription) => {
+      return ["active", "attention", "non-renewing", "completed"].includes(
+        subscription.status.toLowerCase()
+      );
+    }
+  );
   // const isValidSubscription=userSubscriptionInformation
 
   return (
     <>
       
       {/* {isValidSubscription || allowByPassUser == true ? ( */}
-      {userSubscriptionInformation!=null || allowByPassUser == true ? (
+      {/* {userSubscriptionInformation!=null || allowByPassUser == true ? ( */}
+      {isValidSubscription!=null || allowByPassUser == true ? (
         <Suspense fallback={<DashboardPageLoader />}>
           <SubscriptionDetails />
         </Suspense>
