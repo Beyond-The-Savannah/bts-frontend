@@ -8,7 +8,6 @@ import {
   PhoneCallIcon,
   YoutubeIcon,
 } from "lucide-react";
-// import Link from "next/link";
 import { Link } from "next-view-transitions";
 import DisplayImageFromNextCloudinary from "./DisplayImageFromNextCloudinary";
 
@@ -16,19 +15,14 @@ export default function FooterSection() {
   return (
     <>
       <footer className="bg-bts-GreenOne">
-        {/* <div className=" flex flex-wrap justify-center gap-12 lg:gap-8 px-12 py-24"> */}
         <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-8 gap-x-12 px-12 py-24">
-          {/* <div className="w-full md:w-56 lg:w-[20%]"> */}
           <div className="w-full md:w-56 lg:w-[100%]">
-            {/* <p className=" text-amber-400 uppercase font-semibold mb-2"> */}
             <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               BEYOND THE SAVANNAH
             </p>
             <p className="text-xs xl:text-sm text-amber-100">
-              {/* Seamless connections, soaring carrers, elevate yours with beyond
-              the savannah! */}
-              Seamless connections and soaring carrers, elevate yours with beyond
-              the savannah!
+              Seamless connections and soaring carrers, elevate yours with
+              Beyond The Savannah!
             </p>
             <Link href="/">
               <DisplayImageFromNextCloudinary
@@ -40,9 +34,8 @@ export default function FooterSection() {
               />
             </Link>
           </div>
-          {/* <div className="w-full md:w-56 lg:w-[24%]"> */}
+
           <div className="w-full md:w-56 lg:w-[100%]">
-            {/* <p className=" text-amber-400 uppercase font-semibold mb-2"> */}
             <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               SERVICES
             </p>
@@ -59,16 +52,15 @@ export default function FooterSection() {
               ))}
             </ul>
           </div>
-          {/* <div className="w-full md:w-56 lg:w-[24%]"> */}
+
           <div className="w-full md:w-56 lg:w-[100%]">
-            {/* <p className=" text-amber-400 uppercase font-semibold mb-2"> */}
             <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               USEFUL LINKS
             </p>
             <ul className="space-y-2 text-xs xl:text-sm text-amber-100">
               <li>
                 <a
-                  href="https://www.tiktok.com/@beyond.the.savannah"
+                  href="https://www.tiktok.com/@beyond.the.savannah2?_r=1&_t=ZM-92FIt7kfpS0"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center hover:scale-105 transition ease-in"
@@ -108,9 +100,8 @@ export default function FooterSection() {
               </li>
             </ul>
           </div>
-          {/* <div className="w-full md:w-56 lg:w-[24%]"> */}
+
           <div className="w-full md:w-56 lg:w-[100%]">
-            {/* <p className=" text-amber-400 uppercase font-semibold mb-2"> */}
             <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               CONTACT
             </p>
