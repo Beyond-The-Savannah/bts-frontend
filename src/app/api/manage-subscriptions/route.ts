@@ -34,3 +34,18 @@ export async function GET(request: Request) {
     return Response.json({ "manage-subscription:getMethodError": error });
   }
 }
+
+
+export async function POST(request: Request) {
+
+  try {
+  const {code,token}=await request.json()
+  const response=await paystackInstance.subscription.disable({code,token})
+  if(response.status==false){
+    return Response.json({error:"Failed to disable subscription"},{status:500})
+  }
+  return Response.json(response)
+  } catch (error) {
+    return Response.json({ "manage-subscription:postMethodError": error });
+  }
+}
