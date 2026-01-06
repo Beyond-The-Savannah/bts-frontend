@@ -14,6 +14,7 @@ import { useState } from "react";
 import { Switch } from "../ui/switch";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useCurrencyBasedOnLocation } from "@/hooks/useCurrencyBasedOnLocation";
+
 // import { currentUser } from "@clerk/nextjs/server";
 
 export interface subScriptionProps {
@@ -106,10 +107,14 @@ export default function Packages({ email }: { email: string }) {
       {anual ? (
         <>
           <div className="flex flex-wrap xl:flex-nowrap gap-x-2 gap-y-4 items-center justify-evenly pt-12">
+          {/* <div className="flex flex-wrap  gap-x-2 gap-y-4 items-center justify-evenly pt-12"> */}
+          {/* <div className="flex flex-wrap  gap-x-2 gap-y-4 items-start justify-evenly pt-12"> */}
             {AnualSubscriptionPackages.map((sub) => (
               <div
                 key={sub.id}
                 className="min-h-[25rem] w-full md:w-64 lg:w-64 xl:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
+                // className="h-full w-full md:w-64 lg:w-64 border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
+                // className="h-full w-full md:w-64 lg:w-56 border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
               >
                 {/* <div className="flex flex-wrap gap-4 items-center  justify-evenly"> */}
                 <div className="flex flex-col gap-4 items-center justify-center text-center">
@@ -198,10 +203,15 @@ export default function Packages({ email }: { email: string }) {
       ) : (
         <>
           <div className="flex flex-wrap xl:flex-nowrap gap-x-2 gap-y-4 items-center justify-evenly pt-12">
+          {/* <div className="flex flex-wrap  gap-x-2 gap-y-4 items-start justify-evenly pt-12"> */}
             {SubscriptionPackages.map((sub) => (
               <div
                 key={sub.id}
                 className="min-h-[25rem] w-full md:w-64 lg:w-64 xl:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
+                // className="h-full w-full md:w-64 lg:w-64 xl:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
+                // className={clsx("h-full w-full md:w-64 lg:w-56 border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between",
+                  
+                // )}
               >
                 {/* <div className="flex flex-wrap gap-4 items-center  justify-evenly"> */}
                 <div className="flex flex-col gap-4 items-center justify-center text-center">
@@ -231,7 +241,7 @@ export default function Packages({ email }: { email: string }) {
                          {(good=='Unlimited Private Email Coaching'|| good=='Limited Private Email Coaching')  && (<>
                         <Popover>
                           <PopoverTrigger><BadgeAlert size={16} /></PopoverTrigger>
-                          <PopoverContent className="text-xs">Please email us about what you want to coached about in order for us to best carter to your unique challenges and need</PopoverContent>
+                          <PopoverContent className="text-xs">Please email us about what you want to be coached about in order for us to best carter to your unique challenges and needs.</PopoverContent>
                           </Popover></>)}
                       </ul>
                     ))}

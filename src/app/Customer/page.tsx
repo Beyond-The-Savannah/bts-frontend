@@ -22,6 +22,8 @@ export default async function CustomerDefaultPage() {
 
   userSubscriptionInformation =
     await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
+  // console.log("USER SUB INFO PAGE TSX", userSubscriptionInformation);
+    
 
   const user = await currentUser();
 
@@ -34,21 +36,38 @@ export default async function CustomerDefaultPage() {
     user?.emailAddresses[0].emailAddress as string
   );
 
-  // const isValidSubscription = userSubscriptionInformation?.some(
-  //   (subscription) => {
-  //     return ["active", "attention", "non-renewing", "completed"].includes(
-  //       subscription.status.toLowerCase()
-  //     );
-  //   }
-  // );
-  // const isValidSubscription=userSubscriptionInformation
+  const isValidSubscription = userSubscriptionInformation?.some(
+    (subscription) => {
+      return ["active", "attention", "non-renewing", "completed"].includes(
+        subscription.status.toLowerCase()
+      );
+    }
+  );
+  
 
   return (
     <>
-      {/* {isValidSubscription || allowByPassUser == true ? ( */}
-      {/* {userSubscriptionInformation!=null || allowByPassUser == true ? ( */}
+      
 
-      {/* {isValidSubscription!=undefined || allowByPassUser == true ? (
+      {(isValidSubscription==true || allowByPassUser == true )? (
+        <Suspense fallback={<DashboardPageLoader />}>
+          <SubscriptionDetails />
+        </Suspense>
+      ) : (
+        <Suspense fallback={<PackagesLoader />}>
+          <PackageOptionSection />
+        </Suspense>
+      )}
+      {/* {(userSubscriptionInformation!=null || allowByPassUser == true )? (
+        <Suspense fallback={<DashboardPageLoader />}>
+          <SubscriptionDetails />
+        </Suspense>
+      ) : (
+        <Suspense fallback={<PackagesLoader />}>
+          <PackageOptionSection />
+        </Suspense>
+      )} */}
+      {/* {(userSubscriptionInformation!=null && userSubscriptionInformation[0].status !=="cancellled") || allowByPassUser == true ? (
         <Suspense fallback={<DashboardPageLoader />}>
           <SubscriptionDetails />
         </Suspense>
@@ -58,15 +77,7 @@ export default async function CustomerDefaultPage() {
         </Suspense>
       )} */}
 
-      {(userSubscriptionInformation != null || allowByPassUser === true) ? (
-        <Suspense fallback={<DashboardPageLoader />}>
-          <SubscriptionDetails />
-        </Suspense>
-      ) : (
-        <Suspense fallback={<PackagesLoader />}>
-          <PackageOptionSection />
-        </Suspense>
-      )}
+      
     </>
   );
 }

@@ -7,6 +7,7 @@ import { CircleAlert } from "lucide-react";
 import ResumeUpload from "./ResumeUpload";
 import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "./UserSubscriptionInformation";
 import { subscriptionDetailsProps } from "@/types/subscriptions";
+import PackageOptionSection from "./PackageOptionSection";
 
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 
@@ -97,10 +98,57 @@ const jobsListingSubscriptionDetails1=userSubscriptionInformation?.find((subscri
           <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2"></p>
           <div className="min-h-[70vh] mt-10 md:mt-20">
             
-            <div className="flex flex-wrap lg:flex-nowrap justify-between gap-8">
+            {/* <div className="flex flex-wrap lg:flex-nowrap justify-between gap-8"> */}
+            <div className="flex-col gap-8">
               
               <div className="flex flex-wrap justify-between space-y-4 rounded-lg bg-bts-BrownOne/50 px-6 py-12 w-full flex-1 ">
-                <div className="space-y-4">
+              {jobsListingSubscriptionDetails1 != undefined ? (<>
+                     <div className="space-y-4">
+                  <p className="font-semibold text-xl">
+                    Jobs Listings Subscription details
+                  </p>
+                  <p className="flex  flex-col">
+                    <span className="text-xs">
+                      Subscription Email Address:{" "}
+                    </span>
+                    <span className="text-sm lg:text-base font-semibold ml-1">
+                      {jobsListingSubscriptionDetails1.customer.email}
+                    </span>
+                  </p>
+                  <p className="flex flex-col">
+                    <span className="text-xs">Current Subscription Plan: </span>
+                    <span className="font-semibold ml-1">
+                      {jobsListingSubscriptionDetails1.plan.name}
+                    </span>
+                  </p>
+                  <p className="flex flex-col">
+                    <span className="text-xs">
+                      Current Subscription Status:{" "}
+                    </span>
+                    <span className="font-semibold ml-1">
+                      {jobsListingSubscriptionDetails1.status}
+                    </span>
+                  </p>
+                  <p className="flex flex-col">
+                    <span className="text-xs">
+                      Next Subscription Payment Date:{" "}
+                    </span>
+                    <span className="font-semibold ml-1">
+                      {convertedNextSubscriptionDate2}
+                    </span>
+                  </p>
+                  <p className="flex flex-col">
+                    <span className="text-xs">Subscription Card Number: </span>
+                    
+                <span className="font-semibold ml-1">
+                      XXXX XXXX{" "}
+                      {jobsListingSubscriptionDetails1.authorization.last4}
+                    </span>
+                    
+                   
+                  </p>
+                </div></>):(<><PackageOptionSection/></>)}
+                {/* <div className="space-y-4">
                   <p className="font-semibold text-xl">
                     Jobs Listings Subscription details
                   </p>
@@ -149,7 +197,7 @@ const jobsListingSubscriptionDetails1=userSubscriptionInformation?.find((subscri
                     }
                    
                   </p>
-                </div>
+                </div> */}
                 {jobsListingSubscriptionDetails1 != undefined ? (
                   <div className="px-1 md:px-8 py-4 rounded-lg bg-bts-BrownFour/5 border space-y-4">
                     {jobsListingSubscriptionDetails1?.status ==
