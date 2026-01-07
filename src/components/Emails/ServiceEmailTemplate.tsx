@@ -47,7 +47,7 @@ export default function ServiceEmailTemplate({
                 />
               </Section>
               <Section>
-                <Text style={text}>Hi {firstName},</Text>
+                <Text style={text}>Hi {firstName ?? "There"},</Text>
                 <Text style={text}>
                   Thank you once again for choosing Beyond the Savannah for your
                   services. We&apos;re excited to begin working with you.

@@ -9,16 +9,17 @@ import {
 } from "@/components/ui/dialog";
 import { GetCandidatesPool } from "@/db/queries/employerQuries";
 // import { candidatesEntries } from "@/staticData/Employer/entries";
-import { SubscribedUserProp } from "@/types/subscribedUser";
-import axios from "axios";
-import { CheckCircle } from "lucide-react";
-import { Link } from "next-view-transitions";
+// import { SubscribedUserProp } from "@/types/subscribedUser";
+// import axios from "axios";
+import {  LocateFixed, Mail, PhoneIcon } from "lucide-react";
+// import { Link } from "next-view-transitions";
+import Image from "next/image";
 
-const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
+// const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
 
 export default async function CandidatesSection() {
-  const response = await axios.get(`${BTS_API_URL}/api/BydUsers/getAllUsers`);
-  const existingUsers: SubscribedUserProp[] = await response.data;
+  // const response = await axios.get(`${BTS_API_URL}/api/BydUsers/getAllUsers`);
+  // const existingUsers: SubscribedUserProp[] = await response.data;
   const candidates = await GetCandidatesPool();
   return (
     <>
@@ -28,61 +29,103 @@ export default async function CandidatesSection() {
             key={candidate.id}
             className="bg-bts-BrownOne rounded-md px-3 py-6 flex justify-between items-center border my-2 "
           >
-            <p className="w-full flex-1">
-              {candidate.firstName} <span className="px-2"></span>{" "}
-              {candidate.lastName}
-            </p>
-            <p className="w-full flex-1 text-xs font-semibold">
+            <div className="flex flex-1 items-start gap-2">
+                <Image src={"/images/founder loarrine.jpeg"} alt="candidates headshot" height={50} width={50} className="bg-center size-10 rounded-full border-2 border-bts-BrownFive"/>
+              <div className="flex-col">
+                <p className="">
+                  {candidate.firstName} <span className="px-1"></span>{" "}
+                  {candidate.lastName}
+                </p>
+                <p className="flex items-center gap-2 text-xs"><LocateFixed size={14} className=""/> {candidate.country}</p>
+
+              </div>
+
+            </div>
+            <p className="w-full flex-1 text-sm font-semibold">
+              <span className="font-thin text-xs">
+                      Profession :</span>
               {/* {candidate.email} */}
               {candidate.profession}
             </p>
 
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant="outline">View candidate details</Button>
+                <Button variant="outline" className="hover:scale-105 duration-300 transition ease-in">View candidate details</Button>
               </DialogTrigger>
               <DialogContent className="w-full md:max-w-[1200px] max-h-[90dvh] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle className="text-center">
-                    {" "}
+                    {/* {" "}
                     <span className="font-thin text-base">
                       Profession :
                     </span>{" "}
-                    {candidate.profession}
+                    {candidate.profession} */}
                   </DialogTitle>
                   <DialogDescription></DialogDescription>
                 </DialogHeader>
                 <div className="my-10">
                   <div className="flex items-center justify-between">
-                    <p className="border rounded-xl px-3 py-1">
+                    <p className="border rounded-xl px-3 py-1 hidden">
                       Created on {candidate.createdAt.toLocaleDateString()}
                     </p>
                     <p className="border rounded-xl px-3 py-1 hidden">
                       Deadline on {candidate.createdAt.toLocaleDateString()}
                     </p>
                   </div>
+                  <div className="border-t-2 pt-2 flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <Image src={"/images/founder loarrine.jpeg"} alt="candidates headshot" height={50} width={50} className="bg-center size-20 rounded-full border-2 border-bts-BrownFive"/>
+                      <div className="flex-col gap-2">
+                      <p className="text-lg font-medium"><span className="text-xs hidden">First Name:</span>{candidate.firstName} {candidate.lastName}</p>
+                      {/* <p className="text-base">{candidate.profession}</p> */}
+                      {/* <p className="flex items-center gap-2 text-xs"><LocateFixed size={14} className=""/> {candidate.country}</p> */}
+                    </div>
+                    </div>
+                    <div className="c">
+                      <p className="c">  
+                      <span className="font-thin text-base">Profession :</span>
+                    {candidate.profession}</p>
+                    </div>
+                  </div>
+                  <p className="border-b-2  underline-offset-1 mt-10">Contact Details:</p>
                   <div className="my-10 flex items-center justify-between">
+                    <p className="px-4 py-1 flex items-center gap-1"> <Mail size={20} className=""/>{candidate.email}</p>
+                    <p className="px-4 py-1 flex items-center gap-1"> <PhoneIcon size={20} className=""/>{candidate.phone}</p>
+                    <p className="px-4 py-1 flex items-center gap-1"> <LocateFixed size={20} className=""/>{candidate.country}</p>
+                  </div>
+               
+                  {/* <div className="my-10 flex items-center justify-between">
                     <p className="c">First Name:{candidate.firstName}</p>
                     <p className="c">Last Name:{candidate.lastName}</p>
                     <p className="c">Email Address:{candidate.email}</p>
                     <p className="c">Phone Number:{candidate.phone}</p>
                     <p className="c">Country:{candidate.country}</p>
-                  </div>
+                  </div> */}
                   <div className=" max-w-5xl mx-auto  px-2 py-3 prose prose-sm">
-                    <p className="c">Resume Name:{candidate.resumeName}</p>
+                    <p className="text-center">Resume Name:{candidate.resumeName}</p>
                     <iframe
-                      src={candidate.resumeLink}
+                      // src={candidate.resumeLink}
+                      src={`${candidate.resumeLink}#view=fitH`}
                       title={candidate.resumeName}
+                      name={candidate.resumeName}
                       width={900}
                       height={900}
                     />
+                  </div>
+                     <p className="border-b-2  underline-offset-1 mt-10">Certifications:</p>
+                  <div className="my-10 flex-col items-center justify-between">
+                    {candidate.certifications}
+                  </div>
+                  <p className="border-b-2  underline-offset-1 mt-10">Career Experience:</p>
+                  <div className="my-10 flex-col items-center justify-between">
+                    {candidate.experienceYears} years
                   </div>
                 </div>
               </DialogContent>
             </Dialog>
           </div>
         ))}
-
+{/* 
         {existingUsers.map((candidate) => (
           <div
             key={candidate.id}
@@ -114,7 +157,7 @@ export default async function CandidatesSection() {
               </Link>
             </Button>
           </div>
-        ))}
+        ))} */}
       </div>
     </>
   );

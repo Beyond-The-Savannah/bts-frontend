@@ -10,6 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { GetEmpolyerJobs } from "@/db/queries/employerQuries";
+import { CalendarOff, CalendarPlus } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 import rehypeRaw from "rehype-raw";
@@ -43,18 +44,47 @@ export default async function Jobs() {
               </DialogHeader>
               <div className="my-10">
                 <div className="flex items-center justify-between">
-                  <p className="border rounded-xl px-3 py-1">
-                    Created on {job.createdAt.toLocaleDateString()}
-                  </p>
-                  <p className="border rounded-xl px-3 py-1">
+                  <div className=" px-3 py-1 flex items-center gap-2 ">
+                    {/* Created on {job.createdAt.toLocaleDateString()} */}
+                    <CalendarPlus size={24} className="text-green-400"/> 
+                    <p className="flex-col">
+                      <span className="text-xs block">Created on</span>
+                      {new Date(job.createdAt).toDateString()}
+                    </p>
+                  </div>
+                  <div className=" px-3 py-1 flex items-center gap-2 ">
+                    {/* Created on {job.createdAt.toLocaleDateString()} */}
+                    <CalendarOff size={24} className="text-red-400"/> 
+                    <p className="flex-col">
+                      <span className="text-xs block">Deadline on</span>
+                      {new Date(job.deadLine).toDateString()}
+                    </p>
+                  </div>
+                  {/* <p className="border rounded-xl px-3 py-1">
                     Deadline on {job.createdAt.toLocaleDateString()}
-                  </p>
+                  </p> */}
                 </div>
                 <div className="my-10 flex items-center justify-between">
-                  <p className="c">Department Hiring :{job.department}</p>
-                  <p className="c">Job Type :{job.jobType}</p>
-                  <p className="c">Work Mode :{job.workMode}</p>
-                  <p className="text-xs">Job Posted by :{job.author}</p>
+                  {/* <p className="c">Department Hiring :{job.department}</p> */}
+                   <p className="flex-col border rounded-lg px-3 py-1 w-[30%]">
+                      <span className="text-xs block">Department:</span>
+                      {job.department}
+                    </p>
+                  {/* <p className="c">Job Type :{job.jobType}</p> */}
+                   <p className="flex-col border rounded-lg px-3 py-1 w-[30%]">
+                      <span className="text-xs block">Job type:</span>
+                      {job.jobType}
+                    </p>
+                  {/* <p className="c">Work Mode :{job.workMode}</p> */}
+                   <p className="flex-col border rounded-lg px-3 py-1 w-[30%]">
+                      <span className="text-xs block">Work mode:</span>
+                      {job.workMode}
+                    </p>
+                  {/* <p className="text-xs">Job Posted by :{job.author}</p> */}
+                   {/* <p className="flex-col">
+                      <span className="text-xs block">Posted by:</span>
+                      {job.author}
+                    </p> */}
                 </div>
                 <div className=" max-w-5xl mx-auto  px-2 py-3 prose prose-sm">
                   <ReactMarkdown rehypePlugins={[rehypeRaw]}>

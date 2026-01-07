@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { jobEntries } from "../../../staticData/JobsPage/entries";
+// import { jobEntries } from "../../../staticData/JobsPage/entries";
 import { Link } from "next-view-transitions";
-import { newJobPositiings } from "@/staticData/Employer/entries";
+// import { newJobPositiings } from "@/staticData/Employer/entries";
 import { GetEmpolyerJobs } from "@/db/queries/employerQuries";
+import { TimerIcon, TimerOff } from "lucide-react";
 
 export default async function PostJobs() {
 
@@ -14,20 +15,22 @@ export default async function PostJobs() {
        <div className="flex flex-col">
             <p className="c">{job.role}</p>
             <p className="text-xs">{job.department}</p>
-            <p className="flex justify-center items-center gap-4 text-xs">
+            <p className="flex justify-center items-center mt-4 gap-4 text-xs">
               {" "}
-              <span className="c">Created on: {}</span>{" "}
-              <span className="c">Expires on: {job.deadLine}</span>
+              {/* <span className="c">Created on: {new Date(job.createdAt).toDateString()}</span>{" "} */}
+              {/* <span className="c">Expires on: {new Date(job.deadLine).toDateString()}</span> */}
+              <span className="flex items-center"><TimerIcon size={20} className="text-green-400 inline "/>: {new Date(job.createdAt).toDateString()}</span>{" "}
+              <span className="flex items-center"><TimerOff size={20} className=" text-red-400 inline"/>: {new Date(job.deadLine).toDateString()}</span>
             </p>
           </div>
-          <Button variant="outline" asChild> 
-            <Link href={`Employer/jobs/${job.role}`}>
+          <Button variant="outline" asChild className="hover:scale-105 duration-300 transition ease-in"> 
+            <Link href={`Employer/jobs/${job.role}`} >
               View Applicants
             </Link>
           </Button>
     </div>))}
 
-      {newJobPositiings.map((job, index) => (
+      {/* {newJobPositiings.map((job, index) => (
         <div
           key={index}
           className="flex justify-between items-center border rounded-md px-4 py-2 my-2 bg-slate-100"
@@ -47,9 +50,9 @@ export default async function PostJobs() {
             </Link>
           </Button>
         </div>
-      ))}
+      ))} */}
       
-      {jobEntries.map((job, index) => (
+      {/* {jobEntries.map((job, index) => (
         <div
           key={index}
           className="flex justify-between items-center border rounded-md px-4 py-2 my-2 bg-slate-100"
@@ -69,7 +72,7 @@ export default async function PostJobs() {
             </Link>
           </Button>
         </div>
-      ))}
+      ))} */}
     </div>
   );
 }
