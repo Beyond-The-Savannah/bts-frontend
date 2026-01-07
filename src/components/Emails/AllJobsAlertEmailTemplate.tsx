@@ -37,7 +37,7 @@ export default function AllJobsAlertEmailTemplate({
               />
             </Section>
             <Section>
-              <Text style={text}>Hi {firstName},</Text>
+              <Text style={text}>Hi {firstName ?? "There"},</Text>
               <Text style={text}>
                 Check out the following new openings from the following
                 companies and apply for your next career move:
