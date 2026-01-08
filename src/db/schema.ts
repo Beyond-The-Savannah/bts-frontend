@@ -58,13 +58,14 @@ export const candidatePoolTable = pgTable("candidate_pool", {
   email: text("email").notNull().unique(),
   phone: text("phone").notNull(),
   resumeLink: text("resume_link").notNull(),
-  // resumeLink: bytea("resume_link").notNull(),
   resumeName: text("resume_name").notNull(),
+  photoLink: text("photo_link").notNull(),
+  photoName:text("photo_name").notNull(),
   country: text("country").notNull(),
   profession: text("profession").notNull(),
   experienceYears: integer("experience_years").notNull(),
-  // certifications: text("certifications").notNull().array(),
-  certifications: text("certifications").notNull(),
+  certifications: text("certifications"),
+  workExperience: text("work_experience"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
     .notNull()

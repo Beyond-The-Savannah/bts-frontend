@@ -20,13 +20,25 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AddCandidatesProfile } from "@/app/actions/EmployerForms";
+import dynamic from "next/dynamic";
+import "react-quill-new/dist/quill.snow.css";
+import { formats2, modules2 } from "@/lib/reactQuilSettings";
+
+const ReactQuill = dynamic(() => import("react-quill-new"), {
+  ssr: false,
+  loading: () => <p>Loading text editor...</p>,
+});
 
 export default function CandidatesProfile() {
   // const [open,setOpen]=useState(false)
   const [professionValue, setProfessionValue] = useState("");
   const [countryValue, setCountryValue] = useState("");
   const [resumeFile, setResumeFile] = useState<File | null>(null);
-  const [resumeName,setResumeName]=useState("")
+  const [resumeName, setResumeName] = useState("");
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [photoName, setPhotoName] = useState("");
+  const [certificates, setCertificates] = useState("");
+  const [workExperience, setWorkExperience] = useState("");
 
   const candidatesFormSchema = z.object({
     firstName: z.string(),
@@ -36,16 +48,43 @@ export default function CandidatesProfile() {
     // resumeLink: z.instanceof(Buffer),
     resumeLink: z.string(),
     resumeName: z.string(),
+    photoLink: z.string(),
+    photoName: z.string(),
     country: z.string(),
     profession: z.string(),
     experienceYears: z.number().int(),
+    // certifications: z.string(),
     certifications: z.string(),
+    workExperience: z.string(),
   });
 
   type candidatesFormFields = z.infer<typeof candidatesFormSchema>;
 
+  function handlePhotoUpload(e: ChangeEvent<HTMLInputElement>) {
+    if (e.target.files != null) {
+      if (e.target.files[0].size > 2 * 1024 * 1024) {
+        toast.warning(
+          "Selected photo file is too big. It should be less than 2MB"
+        );
+      } else {
+        const file = e.target.files[0];
+        setPhotoFile(e.target.files[0]);
+        setPhotoName(file.name);
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = function () {
+          const convertedFile = reader.result as string;
+          setValue("photoLink", convertedFile);
+          setValue("photoName", file.name);
+          console.log("Photo File->", photoFile);
+          console.log("Photo File Name->", photoName);
+        };
+      }
+    }
+  }
+
   function handleResumeUpload(e: ChangeEvent<HTMLInputElement>) {
-    if (e.target.files !=null) {
+    if (e.target.files != null) {
       if (e.target.files[0].size > 2 * 1024 * 1024) {
         toast.warning(
           "Selected resume file is too big. It should be less than 2MB"
@@ -53,17 +92,16 @@ export default function CandidatesProfile() {
       } else {
         const file = e.target.files[0];
         setResumeFile(e.target.files[0]);
-        setResumeName(file.name)
-        const reader= new FileReader()
-        reader.readAsDataURL(file)
-        reader.onloadend= function(){
-          
-          const convertedFile=reader.result as string
-          setValue('resumeLink',convertedFile)
-          setValue('resumeName',file.name)
-          console.log('Resume File->',resumeFile )
-          console.log('Resume File Name->',resumeName )
-        }
+        setResumeName(file.name);
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = function () {
+          const convertedFile = reader.result as string;
+          setValue("resumeLink", convertedFile);
+          setValue("resumeName", file.name);
+          console.log("Resume File->", resumeFile);
+          console.log("Resume File Name->", resumeName);
+        };
       }
     }
   }
@@ -78,49 +116,88 @@ export default function CandidatesProfile() {
     resolver: zodResolver(candidatesFormSchema),
   });
 
-  async function formSubmit(data:candidatesFormFields) {
+  async function formSubmit(data: candidatesFormFields) {
     try {
-      // console.log("Candidates Profile",data)
-      await AddCandidatesProfile(data)
-      toast.success("Profile Added")
-      reset()
+      console.log("Candidates Profile", data);
+      await AddCandidatesProfile(data);
+      toast.success("Profile Added");
+      reset();
     } catch (error) {
-      toast.error(`Error in adding profile, please try again later`)
+      toast.error(`Error in adding profile, please try again later`);
       console.log("Error Adding Candidates Profile", error);
       console.error("Form errors", errors);
-      setError('root',{})
+      setError("root", {});
     }
-
   }
   return (
     <>
       <section className="px-4">
         <p className="font-bold text-3xl">Candidates Form</p>
-        
+
         <form onSubmit={handleSubmit(formSubmit)}>
           <div className="space-y-16 border rounded-lg p-4 my-10">
             <div className="flex flex-wrap items-center gap-8">
               <div className="w-full md:flex-1">
                 <label htmlFor="firstName">First Name</label>
-                <Input {...register('firstName',{required:"First Name is required"})} type="text" name="firstName" id="firstName" />
-                {errors.firstName &&(<p className="text-sm text-red-400">{errors.firstName.message}</p>)}
+                <Input
+                  {...register("firstName", {
+                    required: "First Name is required",
+                  })}
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                />
+                {errors.firstName && (
+                  <p className="text-sm text-red-400">
+                    {errors.firstName.message}
+                  </p>
+                )}
               </div>
               <div className="w-full md:flex-1">
                 <label htmlFor="lastName">Last Name</label>
-                <Input type="text" {...register('lastName',{required:"Last Name is required"})} name="lastName" id="lastName" />
-                {errors.lastName &&(<p className="text-sm text-red-400">{errors.lastName.message}</p>)}
+                <Input
+                  type="text"
+                  {...register("lastName", {
+                    required: "Last Name is required",
+                  })}
+                  name="lastName"
+                  id="lastName"
+                />
+                {errors.lastName && (
+                  <p className="text-sm text-red-400">
+                    {errors.lastName.message}
+                  </p>
+                )}
               </div>
             </div>
             <div className="flex flex-wrap items-center gap-8">
               <div className="w-full md:flex-1">
                 <label htmlFor="phone">Phone Number</label>
-                <Input type="tel" {...register('phone',{required:"Phone Number is required"})} name="phone" id="phone" />
-                {errors.phone &&(<p className="text-sm text-red-400">{errors.phone.message}</p>)}
+                <Input
+                  type="tel"
+                  {...register("phone", {
+                    required: "Phone Number is required",
+                  })}
+                  name="phone"
+                  id="phone"
+                />
+                {errors.phone && (
+                  <p className="text-sm text-red-400">{errors.phone.message}</p>
+                )}
               </div>
               <div className="w-full md:flex-1">
                 <label htmlFor="email">Email Address</label>
-                <Input type="email" {...register('email',{required:"Email Address is required"})} name="email" id="email" />
-                {errors.email &&(<p className="text-sm text-red-400">{errors.email.message}</p>)}
+                <Input
+                  type="email"
+                  {...register("email", {
+                    required: "Email Address is required",
+                  })}
+                  name="email"
+                  id="email"
+                />
+                {errors.email && (
+                  <p className="text-sm text-red-400">{errors.email.message}</p>
+                )}
               </div>
             </div>
             <div className="flex flex-wrap items-center gap-8">
@@ -160,7 +237,7 @@ export default function CandidatesProfile() {
                                     : currentValue
                                 );
                                 // setOpen(false)
-                                setValue('profession',currentValue)
+                                setValue("profession", currentValue);
                               }}
                             >
                               {depart.label}
@@ -186,7 +263,10 @@ export default function CandidatesProfile() {
                   type="number"
                   min={0}
                   max={60}
-                  {...register('experienceYears',{valueAsNumber:true,required:"Experience In Years is required"})}
+                  {...register("experienceYears", {
+                    valueAsNumber: true,
+                    required: "Experience In Years is required",
+                  })}
                   name="experienceYears"
                   id="experienceYears"
                   required
@@ -212,7 +292,10 @@ export default function CandidatesProfile() {
                   </PopoverTrigger>
                   <PopoverContent className="w-full md:w-[450px]">
                     <Command>
-                      <CommandInput required placeholder="Search Your Country" />
+                      <CommandInput
+                        required
+                        placeholder="Search Your Country"
+                      />
                       <CommandList>
                         <CommandEmpty>Country Not Found</CommandEmpty>
                         <CommandGroup>
@@ -227,7 +310,7 @@ export default function CandidatesProfile() {
                                     : currentValue
                                 );
                                 // setOpen(false)
-                                setValue('country',currentValue)
+                                setValue("country", currentValue);
                               }}
                             >
                               {country.label}
@@ -248,24 +331,83 @@ export default function CandidatesProfile() {
                 </Popover>
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-8">
-              <div className="w-full md:flex-1">
-                <label htmlFor="certifications">Certifications</label>
-                <Input multiple type="text" {...register('certifications',)} name="certifications" id="certifications" />
+            <div className="flex flex-wrap items-center justify-between gap-8">
+              <div className="c">
+                <label htmlFor="certificates">Certifications</label>
+                <ReactQuill
+                  theme="snow"
+                  className="w-full md:w-[35dvw] rounded-lg border-4"
+                  value={certificates}
+                  // onChange={setCertificates}
+                  onChange={(currentValue) => {
+                    setCertificates(
+                      currentValue === certificates ? "" : currentValue
+                    );
+                    setValue("certifications", currentValue);
+                  }}
+                  modules={modules2}
+                  formats={formats2}
+                />
               </div>
-              <div className="w-full md:flex-1">
-                <label htmlFor="resume">Resume</label>
-                <Input
-                  type="file"
-                  name="resume"
-                  id="resume"
-                  accept="application/pdf"
-                  onChange={handleResumeUpload}
-                  required
+              <div className="c">
+                <label htmlFor="certificates">Work Experience</label>
+                <ReactQuill
+                  theme="snow"
+                  className="w-full md:w-[35dvw] rounded-lg border-4"
+                  value={workExperience}
+                  onChange={(currentValue) => {
+                    setWorkExperience(
+                      currentValue === workExperience ? "" : currentValue
+                    );
+                    setValue("workExperience", currentValue);
+                  }}
+                  modules={modules2}
+                  formats={formats2}
                 />
               </div>
             </div>
-            {errors.root && (<div className="text-red-300 border rounded-lg p-4">{errors.root.message}</div>)}
+            <div className="flex flex-wrap items-center gap-8">
+              {/* <div className="w-full md:flex-1 ">
+                <label htmlFor="certifications">Certifications</label>
+                <Input
+                  multiple
+                  type="text"
+                  {...register("certifications")}
+                  name="certifications"
+                  id="certifications"
+                />
+              </div> */}
+                <div className="w-full md:flex-1">
+                  {/* <div className="w-96 mx-auto"> */}
+                  <label htmlFor="resume">Resume</label>
+                  <Input
+                    type="file"
+                    name="resume"
+                    id="resume"
+                    accept="application/pdf"
+                    onChange={handleResumeUpload}
+                    required
+                  />
+                </div>
+                <div className="w-full md:flex-1">
+                  {/* <div className="w-96 mx-auto"> */}
+                  <label htmlFor="photo">Professional Head Photo</label>
+                  <Input
+                    type="file"
+                    name="photo"
+                    id="photo"
+                    accept="image/jpeg, image/png"
+                    onChange={handlePhotoUpload}
+                    required
+                  />
+                </div>
+              
+            </div>
+            {errors.root && (
+              <div className="text-red-300 border rounded-lg p-4">
+                {errors.root.message}
+              </div>
+            )}
           </div>
           <Button
             disabled={isSubmitting}

@@ -1,0 +1,1 @@
+ALTER TABLE "candidate_pool" ADD COLUMN "work_experience" text;

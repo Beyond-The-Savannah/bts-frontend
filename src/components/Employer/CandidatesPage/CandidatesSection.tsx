@@ -8,6 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { GetCandidatesPool } from "@/db/queries/employerQuries";
+import { correctedParsedHTML } from "@/lib/utils";
 // import { candidatesEntries } from "@/staticData/Employer/entries";
 // import { SubscribedUserProp } from "@/types/subscribedUser";
 // import axios from "axios";
@@ -30,7 +31,7 @@ export default async function CandidatesSection() {
             className="bg-bts-BrownOne rounded-md px-3 py-6 flex justify-between items-center border my-2 "
           >
             <div className="flex flex-1 items-start gap-2">
-                <Image src={"/images/founder loarrine.jpeg"} alt="candidates headshot" height={50} width={50} className="bg-center size-10 rounded-full border-2 border-bts-BrownFive"/>
+                <Image src={candidate.photoLink ?? "/images/founder loarrine.jpeg"} alt="candidates headshot" height={50} width={50} className="bg-center bg-cover bg-no-repeat size-10 rounded-full border-2 border-bts-BrownFive"/>
               <div className="flex-col">
                 <p className="">
                   {candidate.firstName} <span className="px-1"></span>{" "}
@@ -74,7 +75,7 @@ export default async function CandidatesSection() {
                   </div>
                   <div className="border-t-2 pt-2 flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
-                      <Image src={"/images/founder loarrine.jpeg"} alt="candidates headshot" height={50} width={50} className="bg-center size-20 rounded-full border-2 border-bts-BrownFive"/>
+                      <Image src={candidate.photoLink ??"/images/founder loarrine.jpeg"} alt="candidates headshot" height={50} width={50} className="bg-center bg-cover bg-no-repeat size-20 rounded-full border-2 border-bts-BrownFive"/>
                       <div className="flex-col gap-2">
                       <p className="text-lg font-medium"><span className="text-xs hidden">First Name:</span>{candidate.firstName} {candidate.lastName}</p>
                       {/* <p className="text-base">{candidate.profession}</p> */}
@@ -112,14 +113,19 @@ export default async function CandidatesSection() {
                       height={900}
                     />
                   </div>
-                     <p className="border-b-2  underline-offset-1 mt-10">Certifications:</p>
-                  <div className="my-10 flex-col items-center justify-between">
-                    {candidate.certifications}
+                  <p className="border-b-2  underline-offset-1 mt-10">Certifications:</p>
+                  <div className="my-10 prose prose-sm md:prose-sm"
+                  dangerouslySetInnerHTML={{__html:correctedParsedHTML(candidate.certifications as string)}}
+                  >
+                    
                   </div>
                   <p className="border-b-2  underline-offset-1 mt-10">Career Experience:</p>
-                  <div className="my-10 flex-col items-center justify-between">
-                    {candidate.experienceYears} years
+                     <div className="my-10 prose prose-sm md:prose-sm"
+                  dangerouslySetInnerHTML={{__html:correctedParsedHTML(candidate.workExperience as string)}}
+                  >
+                    
                   </div>
+                  
                 </div>
               </DialogContent>
             </Dialog>

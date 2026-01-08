@@ -36,6 +36,20 @@
       "when": 1763627526532,
       "tag": "0004_awesome_micromax",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1767876135085,
+      "tag": "0005_loud_warstar",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1767877324414,
+      "tag": "0006_wild_metal_master",
+      "breakpoints": true
     }
   ]
 }
