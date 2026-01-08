@@ -31,10 +31,13 @@ try {
     phone:data.phone,
     resumeLink:data.resumeLink,
     resumeName:data.resumeName,
+    photoLink:data.photoLink,
+    photoName:data.photoName,
     country:data.country,
     profession:data.profession,
     experienceYears:data.experienceYears,
-    certifications:data.certifications
+    certifications:data.certifications,
+    workExperience:data.workExperience
   })
 } catch (error) {
   console.log('Error in AddCandidatesProfile Server Action -EmloyerSection',error)
