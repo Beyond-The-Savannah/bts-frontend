@@ -56,11 +56,6 @@ export default async function CandidatesSection() {
               <DialogContent className="w-full md:max-w-[1200px] max-h-[90dvh] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle className="text-center">
-                    {/* {" "}
-                    <span className="font-thin text-base">
-                      Profession :
-                    </span>{" "}
-                    {candidate.profession} */}
                   </DialogTitle>
                   <DialogDescription></DialogDescription>
                 </DialogHeader>
@@ -78,8 +73,7 @@ export default async function CandidatesSection() {
                       <Image src={candidate.photoLink ??"/images/founder loarrine.jpeg"} alt="candidates headshot" height={50} width={50} className="bg-center bg-cover bg-no-repeat size-20 rounded-full border-2 border-bts-BrownFive"/>
                       <div className="flex-col gap-2">
                       <p className="text-lg font-medium"><span className="text-xs hidden">First Name:</span>{candidate.firstName} {candidate.lastName}</p>
-                      {/* <p className="text-base">{candidate.profession}</p> */}
-                      {/* <p className="flex items-center gap-2 text-xs"><LocateFixed size={14} className=""/> {candidate.country}</p> */}
+                      
                     </div>
                     </div>
                     <div className="c">
@@ -95,13 +89,6 @@ export default async function CandidatesSection() {
                     <p className="px-4 py-1 flex items-center gap-1"> <LocateFixed size={20} className=""/>{candidate.country}</p>
                   </div>
                
-                  {/* <div className="my-10 flex items-center justify-between">
-                    <p className="c">First Name:{candidate.firstName}</p>
-                    <p className="c">Last Name:{candidate.lastName}</p>
-                    <p className="c">Email Address:{candidate.email}</p>
-                    <p className="c">Phone Number:{candidate.phone}</p>
-                    <p className="c">Country:{candidate.country}</p>
-                  </div> */}
                   <div className=" max-w-5xl mx-auto  px-2 py-3 prose prose-sm">
                     <p className="text-center">Resume Name:{candidate.resumeName}</p>
                     <iframe
@@ -113,15 +100,15 @@ export default async function CandidatesSection() {
                       height={900}
                     />
                   </div>
-                  <p className="border-b-2  underline-offset-1 mt-10">Certifications:</p>
-                  <div className="my-10 prose prose-sm md:prose-sm"
-                  dangerouslySetInnerHTML={{__html:correctedParsedHTML(candidate.certifications as string)}}
-                  >
-                    
-                  </div>
                   <p className="border-b-2  underline-offset-1 mt-10">Career Experience:</p>
                      <div className="my-10 prose prose-sm md:prose-sm"
                   dangerouslySetInnerHTML={{__html:correctedParsedHTML(candidate.workExperience as string)}}
+                  >
+                    
+                  </div>
+                  <p className="border-b-2  underline-offset-1 mt-10">Certifications:</p>
+                  <div className="my-10 prose prose-sm md:prose-sm"
+                  dangerouslySetInnerHTML={{__html:correctedParsedHTML(candidate.certifications as string)}}
                   >
                     
                   </div>

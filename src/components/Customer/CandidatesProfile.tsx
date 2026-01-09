@@ -22,7 +22,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AddCandidatesProfile } from "@/app/actions/EmployerForms";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
-import { formats2, modules2 } from "@/lib/reactQuilSettings";
+import {  modules3 } from "@/lib/reactQuilSettings";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), {
   ssr: false,
@@ -146,6 +146,7 @@ export default function CandidatesProfile() {
                   type="text"
                   name="firstName"
                   id="firstName"
+                  required
                 />
                 {errors.firstName && (
                   <p className="text-sm text-red-400">
@@ -162,6 +163,7 @@ export default function CandidatesProfile() {
                   })}
                   name="lastName"
                   id="lastName"
+                  required
                 />
                 {errors.lastName && (
                   <p className="text-sm text-red-400">
@@ -180,6 +182,7 @@ export default function CandidatesProfile() {
                   })}
                   name="phone"
                   id="phone"
+                  required
                 />
                 {errors.phone && (
                   <p className="text-sm text-red-400">{errors.phone.message}</p>
@@ -194,13 +197,15 @@ export default function CandidatesProfile() {
                   })}
                   name="email"
                   id="email"
+                  required
                 />
                 {errors.email && (
                   <p className="text-sm text-red-400">{errors.email.message}</p>
                 )}
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-8">
+            <div className="flex flex-wrap items-center relative gap-8">
+              <input tabIndex={-1} type="text" autoComplete="off" value={professionValue} required onChange={()=>{}} className="pointer-events-none opacity-0 absolute"/>
               <div className="w-full md:flex-1">
                 <label htmlFor="profession">Profession</label>
                 {/* <Popover open={open} onOpenChange={setOpen}> */}
@@ -211,6 +216,7 @@ export default function CandidatesProfile() {
                       role="combobox"
                       // aria-expanded={open}
                       className="flex justify-between mx-2 w-full md:w-[450px]"
+                     
                     >
                       {professionValue
                         ? Departments.find(
@@ -272,15 +278,17 @@ export default function CandidatesProfile() {
                   required
                 />
               </div>
-              <div className="w-full md:flex-1">
+              <div className="w-full md:flex-1 relative">
                 <label htmlFor="country">Country</label>
                 {/* <Popover open={open} onOpenChange={setOpen}> */}
+                <input tabIndex={-1} type="text" autoComplete="off" value={countryValue} required onChange={()=>{}} className="pointer-events-none opacity-0 absolute"/>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
                       variant="outline"
                       role="combobox"
                       className="flex justify-between mx-2 w-full md:w-[450px]"
+                     
                     >
                       {countryValue
                         ? Countries.find(
@@ -331,52 +339,8 @@ export default function CandidatesProfile() {
                 </Popover>
               </div>
             </div>
-            <div className="flex flex-wrap items-center justify-between gap-8">
-              <div className="c">
-                <label htmlFor="certificates">Certifications</label>
-                <ReactQuill
-                  theme="snow"
-                  className="w-full md:w-[35dvw] rounded-lg border-4"
-                  value={certificates}
-                  // onChange={setCertificates}
-                  onChange={(currentValue) => {
-                    setCertificates(
-                      currentValue === certificates ? "" : currentValue
-                    );
-                    setValue("certifications", currentValue);
-                  }}
-                  modules={modules2}
-                  formats={formats2}
-                />
-              </div>
-              <div className="c">
-                <label htmlFor="certificates">Work Experience</label>
-                <ReactQuill
-                  theme="snow"
-                  className="w-full md:w-[35dvw] rounded-lg border-4"
-                  value={workExperience}
-                  onChange={(currentValue) => {
-                    setWorkExperience(
-                      currentValue === workExperience ? "" : currentValue
-                    );
-                    setValue("workExperience", currentValue);
-                  }}
-                  modules={modules2}
-                  formats={formats2}
-                />
-              </div>
-            </div>
             <div className="flex flex-wrap items-center gap-8">
-              {/* <div className="w-full md:flex-1 ">
-                <label htmlFor="certifications">Certifications</label>
-                <Input
-                  multiple
-                  type="text"
-                  {...register("certifications")}
-                  name="certifications"
-                  id="certifications"
-                />
-              </div> */}
+              
                 <div className="w-full md:flex-1">
                   {/* <div className="w-96 mx-auto"> */}
                   <label htmlFor="resume">Resume</label>
@@ -391,7 +355,7 @@ export default function CandidatesProfile() {
                 </div>
                 <div className="w-full md:flex-1">
                   {/* <div className="w-96 mx-auto"> */}
-                  <label htmlFor="photo">Professional Head Photo</label>
+                  <label htmlFor="photo">Professional Headshot  Photo</label>
                   <Input
                     type="file"
                     name="photo"
@@ -402,6 +366,43 @@ export default function CandidatesProfile() {
                   />
                 </div>
               
+            </div>
+            <div className="flex flex-wrap items-center justify-between gap-8">
+              <div className="c">
+                <label htmlFor="certificates">Certifications</label>
+                <ReactQuill
+                  theme="snow"
+                  className="w-full md:w-[35dvw] rounded-lg border-4"
+                  placeholder="Enter your certifications then format them using the bulleted icon at the top"
+                  value={certificates}
+                  // onChange={setCertificates}
+                  onChange={(currentValue) => {
+                    setCertificates(
+                      currentValue === certificates ? "" : currentValue
+                    );
+                    setValue("certifications", currentValue);
+                  }}
+                  modules={modules3}
+                  // formats={formats2}
+                />
+              </div>
+              <div className="c">
+                <label htmlFor="workExperience">Work Experience</label>
+                <ReactQuill
+                  theme="snow"
+                  className="w-full md:w-[35dvw] rounded-lg border-4"
+                  placeholder="Enter your work experience then format them using the bulleted icon at the top"
+                  value={workExperience}
+                  onChange={(currentValue) => {
+                    setWorkExperience(
+                      currentValue === workExperience ? "" : currentValue
+                    );
+                    setValue("workExperience", currentValue);
+                  }}
+                  modules={modules3}
+                  // formats={formats2}
+                />
+              </div>
             </div>
             {errors.root && (
               <div className="text-red-300 border rounded-lg p-4">

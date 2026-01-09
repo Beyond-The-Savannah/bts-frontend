@@ -38,6 +38,13 @@ export const modules2 = {
       [{ list: "bullet" }],
     ],
   };
+
+  export const modules3={
+    toolbar:[
+      [{list:"bullet"}]
+    ]
+  }
+
   export const formats2= [
     "header",
     "bold",
