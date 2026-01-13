@@ -17,7 +17,7 @@ export default function HeroSection() {
             We collaborate with organizations committed to empowering global
             talent and transforming remote opportunities into thriving careers.
           </p>
-        
+        <div className="flex items-center  gap-2">
            <Dialog>
               <DialogTrigger asChild>
                 <Link
@@ -44,6 +44,12 @@ export default function HeroSection() {
                 </DialogHeader>
               </DialogContent>
             </Dialog>
+          <Button variant="outline" size="lg" asChild>
+            <Link href="/Employer">
+                Sign In As Employer
+            </Link>
+          </Button>
+        </div>
         </div>
         <div className="w-full md:w-6/12 2xl:max-h-[75dvh] -z-10">
           <DisplayImageFromNextCloudinary

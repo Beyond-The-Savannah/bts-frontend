@@ -1,28 +1,36 @@
-import InfoCards from "@/components/Employer/HomeSection/InfoCards";
-import Interviews from "@/components/Employer/HomeSection/Interviews";
-import PostJobs from "@/components/Employer/HomeSection/PostJobs";
+import { OrganizationSwitcher, SignIn, SignInButton } from "@clerk/nextjs";
+import { auth, clerkClient } from "@clerk/nextjs/server";
+export default async function page() {
+  const { isAuthenticated, orgId, orgRole } = await auth();
+  if (!isAuthenticated) {
+    return (
+      <div className="grid place-content-center mt-40 h-96">
+        <SignInButton>
+          <SignIn />
+        </SignInButton>
+      </div>
+    );
+  }
+  if(!orgId){ return(
+    <div className="grid place-content-center mt-40 h-96">
+      <p className="text-center my-10">Please create your organization or login to an invited one</p>
+<OrganizationSwitcher hidePersonal={true} />
 
-
-export default function page() {
+    </div>
+)}
+  const client= await clerkClient()
+  const organization= await client.organizations.getOrganization({organizationId:orgId})
   return (
     <>
-    <section className="px-4">
-      <div className="c">
-        <h2 className="text-3xl font-semibold mb-10">Dashboard</h2>
-        <InfoCards/>
-      </div>
-      <div className="flex gap-8">
-        <div className="w-full  md:w-6/12 mx-auto bg-slate-100/50 rounded-md my-10 px-4">
-          <h3 className="text-lg font-semibold my-8">Recently Posted Jobs</h3>
-          <PostJobs/>
+      <section className="px-4">
+        <div className="grid place-content-center h-96">
+          <OrganizationSwitcher hidePersonal={true}/>
         </div>
-        <div className="w-full mx-auto bg-slate-100/60 rounded-md my-10 px-4 md:w-6/12">
-          <h3 className="text-lg font-semibold my-8">Interviews Schedule</h3>
-          <Interviews/>
+        <div className="grid place-content-center h-96">
+          <p className="c">Welcome to {organization.name}</p>
+          <p className="c">Current role {orgRole}</p>
         </div>
-
-      </div>
-    </section>
+      </section>
     </>
-  )
+  );
 }
