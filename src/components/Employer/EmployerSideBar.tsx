@@ -5,7 +5,7 @@ import { Link } from "next-view-transitions";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar"
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { SignedIn,  UserButton } from "@clerk/nextjs";
+import { OrganizationSwitcher, SignedIn,  UserButton } from "@clerk/nextjs";
 
 export default function EmployerSideBar() {
     const sidebarLinks=[
@@ -37,6 +37,7 @@ export default function EmployerSideBar() {
 ]
 
 const pathname=usePathname()
+
   return (
     <>
         <Sidebar>
@@ -56,6 +57,14 @@ const pathname=usePathname()
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}  
+                            <SidebarMenuItem>
+                                <SidebarMenuButton asChild className=" hover:bg-none">
+                                      <div className="flex items-center gap-2 bg-slate-50/10">
+                                                {/* <p className="c">Manage {organization?.name} profile </p> */}
+                                                <OrganizationSwitcher hidePersonal={true}/>
+                                              </div>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
                         </SidebarMenu>
                             <div className="c">
                                 <SignedIn>

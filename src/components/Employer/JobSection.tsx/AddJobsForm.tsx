@@ -25,7 +25,7 @@ import {
 import { formats2, modules2 } from "@/lib/reactQuilSettings";
 
 import { Departments, JobTypes, workModes } from "@/staticData/Employer/entries";
-import { useUser } from "@clerk/nextjs";
+import { useOrganization, useUser } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
 import { format } from "date-fns";
@@ -46,9 +46,11 @@ const ReactQuill = dynamic(() => import("react-quill-new"), {
 export default function AddJobs() {
 
   const {user}=useUser()
+  const {organization}=useOrganization()
   // let currentUserEmail
   // if (user !=null && user !=undefined){currentUserEmail=user.emailAddresses[0].emailAddress}
   // const currentUserEmail=user?.emailAddresses[0].emailAddress
+
   const [deadLineDate, setDeadLineDate] = useState<Date>();
   const [jobDetailsValue, setJobDetailsValue] = useState("");
   const [jobTypeValue, setTypeValue] = useState("");
@@ -59,6 +61,8 @@ export default function AddJobs() {
     
     role:z.string(),
     companyName:z.string(),
+    companyOrganizationId:z.string(),
+    companyLogo:z.string(),
     workMode:z.string(),
     department:z.string(),
     jobDetails:z.string(),
@@ -105,9 +109,12 @@ export default function AddJobs() {
               <div className="">
                 <input type="text" {...register("author")} defaultValue={user?.emailAddresses[0].emailAddress} name="author" hidden/>
                 <input type="text" {...register("applicationLink")} defaultValue={""} name="applicationLink"  hidden/>
+                <input type="text" {...register("companyName")} defaultValue={organization?.name} name="companyName"  hidden/>
+                <input type="text" {...register("companyOrganizationId")} defaultValue={organization?.id} name="companyOrganizationId"  hidden/>
+                <input type="text" {...register("companyLogo")} defaultValue={organization?.imageUrl} name="companyLogo"  hidden/>
               </div>
               <div className="flex items-center gap-8 my-10">
-                <div className="flex-1">
+                {/* <div className="flex-1">
                   <label htmlFor="companyName">Company Name</label>
                   <Input
                     {...register("companyName", {
@@ -115,9 +122,11 @@ export default function AddJobs() {
                     })}
                     type="text"
                     name="companyName"
+                    defaultValue={organization?.name}
                     required
                   />
-                </div>
+                </div> */}
+             
                 <div className="flex-1">
                   <Label htmlFor="role">Job Role</Label>
                   <Input

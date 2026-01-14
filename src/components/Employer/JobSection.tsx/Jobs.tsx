@@ -10,7 +10,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { GetEmpolyerJobs } from "@/db/queries/employerQuries";
-import { CalendarOff, CalendarPlus } from "lucide-react";
+import { auth } from "@clerk/nextjs/server";
+import { CalendarOff, CalendarPlus, FolderX, UserPen } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 import rehypeRaw from "rehype-raw";
@@ -18,9 +19,17 @@ import rehypeRaw from "rehype-raw";
 // import Link from "next/link";
 
 export default async function Jobs() {
-  const newJobs = await GetEmpolyerJobs();
+  const{orgId}=await auth()
+  const newJobs = await GetEmpolyerJobs(orgId!);
   return (
     <>
+    {newJobs.length===0 &&(
+      <div className="grid place-content-center gap-y-4 my-10 py-10 px-2 h-full border rounded-lg w-96 mx-auto">
+        <FolderX  className="text-red-200 mx-auto"/>
+        <p className="text-center c">No job postings found.</p>
+
+      </div>
+      )}
       {newJobs.map((job) => (
         <div
           key={job.id}
@@ -45,7 +54,6 @@ export default async function Jobs() {
               <div className="my-10">
                 <div className="flex items-center justify-between">
                   <div className=" px-3 py-1 flex items-center gap-2 ">
-                    {/* Created on {job.createdAt.toLocaleDateString()} */}
                     <CalendarPlus size={24} className="text-green-400"/> 
                     <p className="flex-col">
                       <span className="text-xs block">Created on</span>
@@ -53,7 +61,14 @@ export default async function Jobs() {
                     </p>
                   </div>
                   <div className=" px-3 py-1 flex items-center gap-2 ">
-                    {/* Created on {job.createdAt.toLocaleDateString()} */}
+                    <UserPen size={24} className="text-green-4000"/> 
+                    <p className="flex-col">
+                      <span className="text-xs block">Published by</span>
+                      <span className="text-sm block">{job.author}</span>
+                      
+                    </p>
+                  </div>
+                  <div className=" px-3 py-1 flex items-center gap-2 ">
                     <CalendarOff size={24} className="text-red-400"/> 
                     <p className="flex-col">
                       <span className="text-xs block">Deadline on</span>

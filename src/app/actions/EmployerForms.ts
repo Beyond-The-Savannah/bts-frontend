@@ -9,6 +9,8 @@ export async function AddNewJobForm(data:Omit<JobsProp, 'id'|'createdAt'|'update
    await db.insert(jobsTable).values({
       role: data.role,
       companyName:data.companyName,
+      companyOrganizationId:data.companyOrganizationId,
+      companyLogo:data.companyLogo,
       workMode: data.workMode,
       department: data.department,
       jobDetails: data.jobDetails,

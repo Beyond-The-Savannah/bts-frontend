@@ -50,6 +50,13 @@
       "when": 1767877324414,
       "tag": "0006_wild_metal_master",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1768384973202,
+      "tag": "0007_panoramic_bruce_banner",
+      "breakpoints": true
     }
   ]
 }

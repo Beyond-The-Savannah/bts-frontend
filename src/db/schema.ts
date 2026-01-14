@@ -25,6 +25,8 @@ import {
 export const jobsTable = pgTable("jobs", {
   id: uuid("id").primaryKey().defaultRandom(),
   companyName: text("company_name").notNull(),
+  companyOrganizationId: text("company_organization_id").notNull(),
+  companyLogo: text("company_logo").notNull(),
   role: text("role").notNull(),
   workMode: text("work_mode").notNull(),
   jobType: text("job_type").notNull(),
