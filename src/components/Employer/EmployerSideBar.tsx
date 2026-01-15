@@ -26,7 +26,7 @@ export default function EmployerSideBar() {
         },
         {
         title:"subscription details",
-        url:"",
+        url:"/Employer/subscriptionDetails",
         icon:Blinds
         },
         {
