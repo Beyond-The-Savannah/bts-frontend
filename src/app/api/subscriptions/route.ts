@@ -22,12 +22,20 @@ export async function POST(request: Request) {
 
     let callback_url_value = "";
 
-    if (amountInCents == 600000 || amountInCents==6000) {
+    // if (amountInCents == 600000 || amountInCents==6000) {
+    //   callback_url_value = `${PUBLIC_BASE_URL}/Customer/whatsappService?source=whatsapp-service`;
+    // } else {
+    //   callback_url_value = `${PUBLIC_BASE_URL}/Customer`;
+    // }
+    if(amountInCents==600000){
       callback_url_value = `${PUBLIC_BASE_URL}/Customer/whatsappService?source=whatsapp-service`;
-    } else {
+    }
+    else if (amountInCents==300000 || amountInCents==500000){
+      callback_url_value = `${PUBLIC_BASE_URL}/Employer`;
+    }
+    else{
       callback_url_value = `${PUBLIC_BASE_URL}/Customer`;
     }
-
     const initialResponse = await paystackInstance.transaction.initialize({
       email: email,
       amount: String(amountInCents),

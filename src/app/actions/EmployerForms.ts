@@ -2,6 +2,7 @@
 
 import { db } from "@/db/db";
 import {  candidatePoolTable, CandidateProp, CompanyProp, companyTable, JobsProp, jobsTable } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 export async function AddNewJobForm(data:Omit<JobsProp, 'id'|'createdAt'|'updatedAt'>) {
 // export async function AddNewJobForm(data: { deadLine: string; companyName: string; role: string; workMode: string; department: string; jobDetails: string; }) {
@@ -9,6 +10,8 @@ export async function AddNewJobForm(data:Omit<JobsProp, 'id'|'createdAt'|'update
    await db.insert(jobsTable).values({
       role: data.role,
       companyName:data.companyName,
+      companyOrganizationId:data.companyOrganizationId,
+      companyLogo:data.companyLogo,
       workMode: data.workMode,
       department: data.department,
       jobDetails: data.jobDetails,
@@ -20,6 +23,30 @@ export async function AddNewJobForm(data:Omit<JobsProp, 'id'|'createdAt'|'update
   } catch (error) {
     console.log("Error in AddNewJobForm -Employer Section", error);
   }
+}
+
+export async function EditJobsDetails(data:JobsProp){
+  try {
+    await db.update(jobsTable).set({
+      id:data.id,
+      role: data.role,
+      companyName:data.companyName,
+      companyOrganizationId:data.companyOrganizationId,
+      companyLogo:data.companyLogo,
+      workMode: data.workMode,
+      department: data.department,
+      jobDetails: data.jobDetails,
+      jobType:data.jobType,
+      author: data.author,
+      deadLine: data.deadLine,
+      applicationLink: "",
+      createdAt:data.createdAt,
+      updatedAt:data.updatedAt
+    }).where(eq(jobsTable.id,data.id))
+  } catch (error) {
+    console.log("Error Editing the Job's Details",error)
+  }
+
 }
 
 export async function AddCandidatesProfile(data:Omit<CandidateProp, 'id'|'createdAt'|'updatedAt'>){

@@ -5,6 +5,7 @@ import { Link } from "next-view-transitions";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar"
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { OrganizationSwitcher, SignedIn,  UserButton } from "@clerk/nextjs";
 
 export default function EmployerSideBar() {
     const sidebarLinks=[
@@ -25,7 +26,7 @@ export default function EmployerSideBar() {
         },
         {
         title:"subscription details",
-        url:"",
+        url:"/Employer/subscriptionDetails",
         icon:Blinds
         },
         {
@@ -36,6 +37,7 @@ export default function EmployerSideBar() {
 ]
 
 const pathname=usePathname()
+
   return (
     <>
         <Sidebar>
@@ -43,6 +45,7 @@ const pathname=usePathname()
                 <SidebarGroup>
                     <SidebarGroupLabel></SidebarGroupLabel>
                     <SidebarGroupContent>
+                        <div className="flex flex-col h-[90dvh] items-center justify-between">
                         <SidebarMenu>
                             {sidebarLinks.map((link)=>(
                                 <SidebarMenuItem key={link.title}>
@@ -54,7 +57,24 @@ const pathname=usePathname()
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}  
+                            <SidebarMenuItem>
+                                <SidebarMenuButton asChild className=" hover:bg-none">
+                                      <div className="flex items-center gap-2 bg-slate-50/10">
+                                                {/* <p className="c">Manage {organization?.name} profile </p> */}
+                                                <OrganizationSwitcher hidePersonal={true}/>
+                                              </div>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
                         </SidebarMenu>
+                            <div className="c">
+                                <SignedIn>
+                                    <div className="flex items-center gap-2">
+                                        <p className="c">Signed in as</p>
+                                    <UserButton afterSwitchSessionUrl="/partners"/>
+                                    </div>
+                                </SignedIn>
+                            </div>
+                        </div>
                     </SidebarGroupContent>
                 </SidebarGroup>
             </SidebarContent>
