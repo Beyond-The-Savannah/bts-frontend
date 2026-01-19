@@ -262,31 +262,7 @@ export const servicesList = [
     priceKESString: "6,000",
     priceUSDString: "60",
   },
-  {
-    id: 11,
-    title: "Remote Work Starter Bundle Christmas Offer",
-    titleSlug: "remote-work-starter-bundle-christmas-offer",
-    subheading: "CV Revamp + LinkedIn Optimization + Introductory Video + Master Class .",
-    img: "Christmas_Offer_-2025_ewaelg",
-    openGraphImg: "Christmas_Bundle_Service_cdpj9p",
-    details:
-      "Breaking into remote work can be challenging, but we've got you covered! Our Remote Work Starter Bundle Chrismas Offer is designed to position you for success in the global job market",
-    benefits: [
-      "CV Revamp - A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation call CV Revamp ",
-      "LinkedIn Optimization - We'll transform your LinkedIn profile into a magnet for job opportunities, ensuring it ranks higher in recruiter searches + 15 minutes consultation call",
-      "Introductory Video - Pointers on how to make a polished video to introduce yourself professionally, making you memorable to potential employers.",
-      "Master Class - The class is designed for professionals seeking to transition to or excel in remote roles..",
-    ],
-    servicePolicy:
-      "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
-    valueProposal:
-      // "This holiday season, Beyond the Savannah, is committed to helping you get ahead by shaping a professional brand that sets you up for success in the global job market.",
-      "As the festive season inspires giving, Beyond The Savannah wants to give you the gift of a head start. We'll align your professional brand to ensure you're ahead of the curve and perfectly positioned for success.",
-    priceKE: 22000,
-    priceUSD: 220,
-    priceKESString: "22,000",
-    priceUSDString: "220",
-  },
+  
 ];
 
 export const servicesCalendlyLinks = [
@@ -347,10 +323,5 @@ export const servicesCalendlyLinks = [
     amount: 2000000,
     link: "",
   },
-  {
-    id: 10,
-    serviceName: "Remote Work Starter Bundle Christmas Offer",
-    amount: 2200000,
-    link: "",
-  },
+ 
 ];
