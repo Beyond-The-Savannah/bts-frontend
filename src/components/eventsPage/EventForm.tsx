@@ -18,6 +18,7 @@ import { X } from "lucide-react";
 import { FormEvent, useState } from "react";
 // import axios from "axios";
 import { usePaystackPayment } from "react-paystack";
+import { AddEventToDb } from "@/app/actions/eventsForm";
 
 const paystackKey=process.env.NEXT_PUBLIC_PS_KEY!
 
@@ -62,9 +63,21 @@ export default function EventForm() {
     }
     const initializeEventPayment=usePaystackPayment(config)
 
-  async function handleEventRegistraion(e: FormEvent) {
+  async function handleEventRegistraion(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    initializeEventPayment({onSuccess:eventPayment})
+    const formData= new FormData(e.currentTarget)
+    const formValues={
+      eventName:formData.get('eventName') as string,
+      firstName:formData.get('firstName') as string,
+      lastName:formData.get('lastName') as string,
+      email:formData.get('email') as string,
+      phoneNumber:formData.get('phoneNumber') as string,
+    }
+    // initializeEventPayment({onSuccess:eventPayment})
+    initializeEventPayment({onSuccess:()=>{
+      eventPayment()
+      AddEventToDb(formValues)
+    }})
     setOpen(!open);
     // toast.success("Registration was successful", {
     //   description: "this is the first implementation",
@@ -103,10 +116,10 @@ export default function EventForm() {
                     />
                   </div>
                   <div className="">
-                    <Label htmlFor="lasttName">Last Name</Label>
+                    <Label htmlFor="lastName">Last Name</Label>
                     <Input
                       type="text"
-                      name="lasttName"
+                      name="lastName"
                       placeholder="Your Last Name"
                       required
                     />
@@ -118,15 +131,22 @@ export default function EventForm() {
                     <Input type="email" name="email" placeholder="Your Email" required/>
                   </div>
                   <div className="">
-                    <Label htmlFor="phone">Phone Number</Label>
+                    <Label htmlFor="phoneNumber">Phone Number</Label>
                     <Input
                       type="phone"
-                      name="phone"
+                      name="phoneNumber"
                       placeholder="0700 000 000"
                       required
                     />
                   </div>
                 </div>
+                <Input
+                      type="text"
+                      name="eventName"
+                      defaultValue={"Beyond The Savannah March Mixer Event"}
+                      hidden
+                      className="hidden"
+                    />
                 <div className="grid ">
                   <Button
                     type="submit"
