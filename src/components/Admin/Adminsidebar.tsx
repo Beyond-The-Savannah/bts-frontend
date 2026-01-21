@@ -1,6 +1,6 @@
 "use client"
 
-import { Briefcase, Building2, FolderPlus, Layers, Layers2, Users } from "lucide-react";
+import { BrickWall, Briefcase, Building2, FolderPlus, Layers, Layers2, Users, } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -47,6 +47,11 @@ const items = [
     title: "Subscribed Users",
     url: "/Admin/subscribedUsers",
     icon: Users,
+  },
+  {
+    title: "Events",
+    url: "/Admin/events-bts",
+    icon: BrickWall,
   },
 ];
 
