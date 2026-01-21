@@ -80,7 +80,7 @@ export const eventsTable= pgTable("events", {
   eventName:text("event_name").notNull(),
   firstName:text("first_name").notNull(),
   lastName:text("last_name").notNull(),
-  email:text("email").notNull().unique(),
+  email:text("email").notNull(),
   phoneNumber:text("phone_number").notNull(),
   createdAt:timestamp("created_at").notNull().defaultNow(),
   updatedAt:timestamp("updated_at").notNull().$onUpdate(()=> new Date())

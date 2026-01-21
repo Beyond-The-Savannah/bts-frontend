@@ -95,23 +95,23 @@ export default function EventForm() {
             Register for Event
           </Button>
         </DrawerTrigger>
-        <DrawerContent className="max-w-xl mx-auto pt-10 px-4">
+        <DrawerContent className="max-w-2xl mx-auto px-4">
           <DrawerHeader>
             <DrawerTitle className="text-center">Registration Form</DrawerTitle>
             <DrawerDescription className="text-center">
               Please fill in all the fields
             </DrawerDescription>
           </DrawerHeader>
-          <div className="c">
+          <div className="py-10">
             <form onSubmit={handleEventRegistraion}>
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <div className="space-y-4 lg:space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="">
                     <Label htmlFor="firstName">First Name</Label>
                     <Input
                       type="text"
                       name="firstName"
-                      placeholder="Your First Name"
+                      placeholder="Nadai"
                       required
                     />
                   </div>
@@ -120,15 +120,15 @@ export default function EventForm() {
                     <Input
                       type="text"
                       name="lastName"
-                      placeholder="Your Last Name"
+                      placeholder="Amali"
                       required
                     />
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="">
                     <Label htmlFor="email">Email</Label>
-                    <Input type="email" name="email" placeholder="Your Email" required/>
+                    <Input type="email" name="email" placeholder="yourEmailAddress@mail.com" required/>
                   </div>
                   <div className="">
                     <Label htmlFor="phoneNumber">Phone Number</Label>
@@ -147,7 +147,7 @@ export default function EventForm() {
                       hidden
                       className="hidden"
                     />
-                <div className="grid ">
+                <div className="grid  ">
                   <Button
                     type="submit"
                     className="w-48 mx-auto bg-green-700 hover:bg-green-600 hover:scale-105 transition ease-in duration-300"
