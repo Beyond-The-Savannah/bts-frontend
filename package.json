@@ -52,6 +52,7 @@
     "next": "^15.5.9",
     "next-cloudinary": "^6.16.0",
     "next-view-transitions": "^0.3.4",
+    "papaparse": "^5.5.3",
     "paystack-sdk": "^2.5.19",
     "posthog-js": "^1.206.1",
     "posthog-node": "^4.3.2",
