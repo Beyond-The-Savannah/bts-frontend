@@ -7,14 +7,22 @@ import { toast } from "sonner";
 import Papa from "papaparse";
 
 interface CSVDataProp {
-  created_at: string;
+  id?: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  event_name: string;
-  first_name: string;
-  id: string;
-  last_name: string;
-  phone_number: string;
-  updated_at: string;
+  phone: string;
+  resumeLink: string;
+  resumeName: string;
+  photoLink: string;
+  photoName: string;
+  country: string;
+  profession: string;
+  experienceYears: string;
+  certifications: string;
+  workExperience: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export default function UploadCandidatesForm() {
@@ -38,12 +46,12 @@ export default function UploadCandidatesForm() {
       toast.error("No file found");
     }
   };
-  const submitUploadedCsvFile= (e:FormEvent<HTMLFormElement>)=>{
-    e.preventDefault()
-    if(csvData.length!=0){
-        toast.info(`Uploading ${JSON.stringify(csvData)}`)
+  const submitUploadedCsvFile = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (csvData.length != 0) {
+      toast.info(`Uploading ${JSON.stringify(csvData)}`);
     }
-  }
+  };
   return (
     <>
       <div className="max-w-sm mx-auto">
@@ -61,25 +69,34 @@ export default function UploadCandidatesForm() {
           </Button>
         </form>
       </div>
-      {/* <div className="grid place-content-center gap-2 max-w-7xl mx-auto border-4 rounded-lg my-4 px-2 py-4">
+      <div className="grid place-content-center gap-2 max-w-7xl mx-auto border-4 rounded-lg my-4 px-2 py-4">
         {csvData.length != 0 ? (
           <>
             <ul>
               {csvData.map((csv, indx) => (
-                <div key={indx} className="flex items-center gap-2">
+                <div key={indx} className="flex items-center gap-x-2 gap-y-4">
                   <li className="text-xs">{csv.id}</li>
-                  <li className="text-xs">{csv.first_name}</li>
-                  <li className="text-xs">{csv.last_name}</li>
+                  <li className="text-xs">{csv.firstName}</li>
+                  <li className="text-xs">{csv.lastName}</li>
                   <li className="text-xs">{csv.email}</li>
-                  <li className="text-xs">{csv.phone_number}</li>
-                  <li className="text-xs">{csv.created_at}</li>
-                  <li className="text-xs">{csv.updated_at}</li>
+                  <li className="text-xs">{csv.phone}</li>
+                  <li className="text-xs">{csv.resumeLink}</li>
+                  <li className="text-xs">{csv.resumeName}</li>
+                  <li className="text-xs">{csv.photoLink}</li>
+                  <li className="text-xs">{csv.photoName}</li>
+                  <li className="text-xs">{csv.country}</li>
+                  <li className="text-xs">{csv.profession}</li>
+                  <li className="text-xs">{csv.experienceYears}</li>
+                  <li className="text-xs">{csv.certifications}</li>
+                  <li className="text-xs">{csv.workExperience}</li>
+                  <li className="text-xs">{csv.createdAt}</li>
+                  <li className="text-xs">{csv.updatedAt}</li>
                 </div>
               ))}
             </ul>
           </>
         ) : null}
-      </div> */}
+      </div>
     </>
   );
 }
