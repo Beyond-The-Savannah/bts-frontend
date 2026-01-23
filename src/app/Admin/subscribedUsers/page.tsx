@@ -1,140 +1,19 @@
+// 
+
+
+
+// app/page.tsx
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import axios from "axios";
 import { SubscribedUserProp } from "@/types/subscribedUser";
-import { SubscribedUser } from "@/types/globals";
 
-const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
 
 export default async function Page() {
-  // 1. Fetch PayStack subscriptions
-  const res = await axios.get(
-    `${PUBLIC_BASE_URL}/api/subscription-details-by-plan-codes`
-  );
-  const payStackSubscribedUsers: SubscribedUser[] = await res.data.data;
-
-  // 2. Fetch existing users from your database
+  // Only fetch the users - sync happens separately
   const response = await axios.get(`${BTS_API_URL}/api/BydUsers/getAllUsers`);
-  const existingUsers: SubscribedUserProp[] = await response.data;
-
-  // 3. Extract emails from existing users for easy comparison
-  const existingEmails = new Set(
-    existingUsers.map((user) => user.email.toLowerCase())
-  );
-
-  // 4. Filter and format PayStack users that don't exist in your database
-  const newUsers = payStackSubscribedUsers
-    .filter((subscription: { customer: { email: string } }) => {
-      const email = subscription.customer?.email?.toLowerCase();
-      return email && !existingEmails.has(email);
-    })
-    .map(
-      (subscription: {
-        customer: {
-          first_name: string | null;
-          last_name: string | null;
-          email: string;
-          phone: string | null;
-        };
-        plan: { name: string };
-        status: string;
-      }) => {
-        // Extract first name and last name from email if not provided
-        let firstName = subscription.customer?.first_name;
-        let lastName = subscription.customer?.last_name;
-
-        if (!firstName && !lastName) {
-          const emailName = subscription.customer.email.split("@")[0];
-          const nameParts = emailName.split(/[._-]/);
-          firstName = nameParts[0] || "";
-          lastName = nameParts.length > 1 ? nameParts.slice(1).join(" ") : "";
-        }
-        // Ensure we have string values, not null
-        firstName = firstName || "";
-        lastName = lastName || "";
-
-        // Format to match your database schema
-        const formData = new FormData();
-        formData.append("status", subscription.status);
-        formData.append("subscriptionPlan", subscription.plan.name);
-        formData.append("career", String(0));
-        formData.append("email", subscription.customer.email);
-        formData.append("password", "");
-        formData.append("firstName", firstName);
-        formData.append("lastName", lastName);
-        formData.append("phoneNumber", "");
-        formData.append("AttachmentName", "");
-        formData.append("file", "");
-        formData.append("ImageUrl", "");
-        formData.append("isActive", String(true));
-        formData.append("isDeleted", String(false));
-
-        return formData;
-      }
-    );
-
-  if (newUsers.length > 0) {
-    console.log(`Adding ${newUsers.length} new users to database`);
-
-    // Process users one by one to better handle errors
-    const results = await Promise.allSettled(
-      newUsers.map(async (user) => {
-        try {
-          // const response = await axios.post(`${BTS_API_URL}/addUser`, user, {
-          const response = await axios.post(
-            `${BTS_API_URL}/api/BydUsers/addUser`,
-            user,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-              timeout: 10000, // Add timeout
-            }
-          );
-          console.log(`Successfully added user: ${user.get("email")}`);
-          return response.data;
-        } catch (error) {
-          console.log("Failed to add user", error);
-        }
-      })
-    );
-
-    // Count successful additions
-    const successful = results.filter(
-      (result) => result.status === "fulfilled"
-    ).length;
-    const failed = results.filter(
-      (result) => result.status === "rejected"
-    ).length;
-
-    console.log(`Successfully added ${successful} users, ${failed} failed`);
-
-    // Log failed attempts for debugging
-    results.forEach((result, index) => {
-      if (result.status === "rejected") {
-        console.error(
-          `User ${newUsers[index].get("email")} failed:`,
-          result.reason
-        );
-      }
-    });
-  } else {
-    console.log("No new users to add to database");
-  }
-
-  // 6. Refresh the user list after potential additions
-  const updatedResponse = await axios.get(
-    `${BTS_API_URL}/api/BydUsers/getAllUsers`
-  );
-  const updatedUsers: SubscribedUserProp[] = await updatedResponse.data;
-
-  // 7. Log summary information
-  console.log(
-    `Total PayStack subscriptions: ${payStackSubscribedUsers.length}`
-  );
-  console.log(`Total users in database: ${updatedUsers.length}`);
-  console.log(`Added ${newUsers.length} new users`);
+  const users: SubscribedUserProp[] = await response.data;
 
   return (
     <>
@@ -143,7 +22,7 @@ export default async function Page() {
         <div className="border-2 rounded-md border-bts-GreenOne w-36 mb-8"></div>
 
         <div className="container mx-auto px-4 py-10">
-          <DataTable data={updatedUsers} columns={columns} />
+          <DataTable data={users} columns={columns} />
         </div>
       </section>
     </>
