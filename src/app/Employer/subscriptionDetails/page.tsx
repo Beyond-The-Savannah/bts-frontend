@@ -2,7 +2,7 @@ import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/compon
 import { Button } from "@/components/ui/button";
 import { subscriptionDetailsProps } from "@/types/subscriptions";
 import { auth, clerkClient } from "@clerk/nextjs/server";
-import { CircleAlert } from "lucide-react";
+import { CircleAlert, CircleAlertIcon, FileWarning } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
@@ -10,6 +10,25 @@ const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 
 export default async function page() {
   const { orgId } = await auth();
+
+  if (!orgId) {
+    return (
+      <>
+        <div className="grid place-content-center min-h-[80dvh] ">
+          <div className="px-4 py-8 max-w-xl mx-auto border rounded-md">
+            <p className="text-center text-xl">
+              <FileWarning className="text-orange-400 mx-auto" />
+              No Organisation has be identified
+            </p>
+            <p className="text-center text-sm mt-4">
+              please create one by clicking on the home link on the sidebar or
+              the no-organisation seleted on the sidebar
+            </p>
+          </div>
+        </div>
+      </>
+    );
+  }
   const client = await clerkClient();
   const organization = await client.organizations.getOrganization({
     organizationId: orgId!,
@@ -17,12 +36,29 @@ export default async function page() {
 
   const employerSubscriptionDetails: subscriptionDetailsProps[] =
     await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
+
+  if(!employerSubscriptionDetails){
+    return(<>
+     <div className="grid place-content-center min-h-[80dvh] ">
+          <div className="px-4 py-8 max-w-xl mx-auto border rounded-md">
+            <p className="text-center text-xl">
+              <CircleAlertIcon className="text-orange-400 mx-auto" />
+              Only availabe to the admin
+            </p>
+            <p className="text-center text-sm mt-4">
+              Only the amin with the correct email address can view the subscription details and manage it
+            </p>
+          </div>
+        </div>
+    </>)
+  }
+
   const recentEmployerSubscriptionDetails = employerSubscriptionDetails.find(
     (subscription) =>
       (subscription.amount == 300000 || subscription.amount == 500000) &&
       ["active", "attention", "non-renewing", "completed"].includes(
-        subscription.status.toLowerCase()
-      )
+        subscription.status.toLowerCase(),
+      ),
   );
 
   // console.log('RECENT EMPLOYER SUB DETAILS',recentEmployerSubscriptionDetails)
@@ -34,7 +70,7 @@ export default async function page() {
     try {
       const response = await fetch(
         `${PUBLIC_BASE_URL}/api/manage-subscriptions?code=${subscriptionCode}`,
-        { method: "GET" }
+        { method: "GET" },
       );
       const responseUrl = await response.json();
       paystackManageUrl = responseUrl.url;
@@ -42,7 +78,7 @@ export default async function page() {
       console.log("Error fetching employermanage subscription URL:", error);
     }
     if (paystackManageUrl != "") {
-      console.log("",paystackManageUrl)
+      console.log("", paystackManageUrl);
       redirect(paystackManageUrl);
     }
   }
@@ -68,7 +104,7 @@ export default async function page() {
                 <>
                   <div className="space-y-4">
                     <p className="font-semibold text-xl">
-                       Subscription details
+                      Subscription details
                     </p>
                     <p className="flex  flex-col">
                       <span className="text-xs">
@@ -103,7 +139,7 @@ export default async function page() {
                           null && (
                           <>
                             {new Date(
-                              recentEmployerSubscriptionDetails.next_payment_date
+                              recentEmployerSubscriptionDetails.next_payment_date,
                             ).toLocaleDateString()}
                           </>
                         )}
@@ -123,52 +159,53 @@ export default async function page() {
                 </>
               ) : null}
             </div>
-          
-          {/* manage organization subscription  */}
-          {recentEmployerSubscriptionDetails != undefined ? (
-            <>
-              <div className="px-1 md:px-8 py-4 mt-10 rounded-lg bg-bts-BrownFour/5 broder space-y-4">
-                {recentEmployerSubscriptionDetails.status == "non-renewing" ? (
-                  <>
-                    <div className="border-l-[1.5rem] border-yellow-400 rounded-l bg-yellow-100 px-4 py-2 max-w-4xl mr-auto  flex gap-2 items-center">
-                      <CircleAlert />
-                      <p className="text-xs">
-                        Your subscription status means that can your enjoy the
-                        stated subscription plan services up to the Next
-                        Subscription Payment Date timeline.
-                      </p>
-                    </div>
-                  </>
-                ) : null}
-                <div className="border-l-[1.5rem] border-blue-400 bg-blue-100 px-4 py-2 rounded-l text-xs">
-                  <p>
-                    To change your card details you can use the Manage your
-                    Subscription button
-                  </p>
+
+            {/* manage organization subscription  */}
+            {recentEmployerSubscriptionDetails != undefined ? (
+              <>
+                <div className="px-1 md:px-8 py-4 mt-10 rounded-lg bg-bts-BrownFour/5 broder space-y-4">
+                  {recentEmployerSubscriptionDetails.status ==
+                  "non-renewing" ? (
+                    <>
+                      <div className="border-l-[1.5rem] border-yellow-400 rounded-l bg-yellow-100 px-4 py-2 max-w-4xl mr-auto  flex gap-2 items-center">
+                        <CircleAlert />
+                        <p className="text-xs">
+                          Your subscription status means that can your enjoy the
+                          stated subscription plan services up to the Next
+                          Subscription Payment Date timeline.
+                        </p>
+                      </div>
+                    </>
+                  ) : null}
+                  <div className="border-l-[1.5rem] border-blue-400 bg-blue-100 px-4 py-2 rounded-l text-xs">
+                    <p>
+                      To change your card details you can use the Manage your
+                      Subscription button
+                    </p>
+                  </div>
+                  <div className="border-l-[1.5rem] border-red-400 bg-red-100 px-4 py-2 rounded-l text-xs">
+                    <p>
+                      To cancel your subscription can use the Manage your
+                      Subscription button
+                    </p>
+                  </div>
+                  <div className="">
+                    <form action={handleManageEmployerSubscription}>
+                      <input
+                        type="hidden"
+                        name="employerSubscriptionCode"
+                        value={
+                          recentEmployerSubscriptionDetails.subscription_code
+                        }
+                      />
+                      <Button variant="outline" size="sm" type="submit">
+                        Manage your Jobs listings Subscription
+                      </Button>
+                    </form>
+                  </div>
                 </div>
-                <div className="border-l-[1.5rem] border-red-400 bg-red-100 px-4 py-2 rounded-l text-xs">
-                  <p>
-                    To cancel your subscription can use the Manage your
-                    Subscription button
-                  </p>
-                </div>
-                <div className="">
-                  <form action={handleManageEmployerSubscription}>
-                    <input
-                      type="hidden"
-                      name="employerSubscriptionCode"
-                      value={
-                        recentEmployerSubscriptionDetails.subscription_code
-                      }
-                    />
-                    <Button variant="outline" size="sm" type="submit">
-                      Manage your Jobs listings Subscription
-                    </Button>
-                  </form>
-                </div>
-              </div>
-            </>
-          ) : null}
+              </>
+            ) : null}
           </div>
         </div>
       </section>

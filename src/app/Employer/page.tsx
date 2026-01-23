@@ -22,11 +22,15 @@ export default async function page() {
 
   if (!orgId) {
     return (
-      <div className="grid place-content-center mt-40 h-96">
-        <p className="text-center my-10">
-          Please create your organization or login to an invited one
-        </p>
-        <OrganizationSwitcher hidePersonal={true} />
+      <div className="grid place-content-center min-h-[80dvh]">
+        <div className="px-4 py-8 max-w-xl mx-auto border rounded-md">
+          <p className="text-center my-10">
+            Please create your organization or login to an invited one
+          </p>
+          <div className="grid place-content-center">
+            <OrganizationSwitcher hidePersonal={true} />
+          </div>
+        </div>
       </div>
     );
   }
@@ -37,7 +41,7 @@ export default async function page() {
 
   const employerSubscriptionDetails: subscriptionDetailsProps[] =
     await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
-  console.log("EMPLOYER SUBSCRIPTION DETAILS:", employerSubscriptionDetails);
+  // console.log("EMPLOYER SUBSCRIPTION DETAILS:", employerSubscriptionDetails);
   const isValidSubscription = employerSubscriptionDetails?.some(
     (subscription) => {
       return ["active", "attention", "non-renewing", "completed"].includes(
