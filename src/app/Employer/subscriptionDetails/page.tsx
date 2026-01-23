@@ -2,7 +2,7 @@ import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/compon
 import { Button } from "@/components/ui/button";
 import { subscriptionDetailsProps } from "@/types/subscriptions";
 import { auth, clerkClient } from "@clerk/nextjs/server";
-import { CircleAlert, FileWarning } from "lucide-react";
+import { CircleAlert, CircleAlertIcon, FileWarning } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
@@ -36,6 +36,23 @@ export default async function page() {
 
   const employerSubscriptionDetails: subscriptionDetailsProps[] =
     await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
+
+  if(!employerSubscriptionDetails){
+    return(<>
+     <div className="grid place-content-center min-h-[80dvh] ">
+          <div className="px-4 py-8 max-w-xl mx-auto border rounded-md">
+            <p className="text-center text-xl">
+              <CircleAlertIcon className="text-orange-400 mx-auto" />
+              Only availabe to the admin
+            </p>
+            <p className="text-center text-sm mt-4">
+              Only the amin with the correct email address can view the subscription details and manage it
+            </p>
+          </div>
+        </div>
+    </>)
+  }
+
   const recentEmployerSubscriptionDetails = employerSubscriptionDetails.find(
     (subscription) =>
       (subscription.amount == 300000 || subscription.amount == 500000) &&

@@ -41,7 +41,7 @@ export default async function page() {
 
   const employerSubscriptionDetails: subscriptionDetailsProps[] =
     await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
-  console.log("EMPLOYER SUBSCRIPTION DETAILS:", employerSubscriptionDetails);
+  // console.log("EMPLOYER SUBSCRIPTION DETAILS:", employerSubscriptionDetails);
   const isValidSubscription = employerSubscriptionDetails?.some(
     (subscription) => {
       return ["active", "attention", "non-renewing", "completed"].includes(

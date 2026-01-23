@@ -10,9 +10,9 @@ import {
 import { GetCandidatesPool } from "@/db/queries/employerQuries";
 import { correctedParsedHTML } from "@/lib/utils";
 
-import { Mail, MapPin, PhoneIcon } from "lucide-react";
+import { Mail, MapPin, PhoneIcon, UserCircle } from "lucide-react";
 
-import Image from "next/image";
+// import Image from "next/image";
 
 export default async function CandidatesSection() {
   const candidates = await GetCandidatesPool();
@@ -76,7 +76,7 @@ export default async function CandidatesSection() {
                   </div>
                   <div className="border-t-2 pt-2 flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
-                      <Image
+                      {/* <Image
                         src={
                           candidate.photoLink ?? "/images/founder loarrine.jpeg"
                         }
@@ -84,7 +84,8 @@ export default async function CandidatesSection() {
                         height={50}
                         width={50}
                         className="bg-center bg-cover bg-no-repeat size-20 rounded-full border-2 border-bts-BrownFive"
-                      />
+                      /> */}
+                      <UserCircle size={80}/>
                       <div className="flex-col gap-2">
                         <p className="text-lg font-medium">
                           <span className="text-xs hidden">First Name:</span>

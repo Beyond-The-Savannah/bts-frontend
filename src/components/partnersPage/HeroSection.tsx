@@ -44,11 +44,11 @@ export default function HeroSection() {
                 </DialogHeader>
               </DialogContent>
             </Dialog>
-          {/* <Button variant="outline" size="lg" asChild>
+          <Button variant="outline" size="lg" asChild>
             <Link href="/Employer">
                 Sign In As Employer
             </Link>
-          </Button> */}
+          </Button>
         </div>
         </div>
         <div className="w-full md:w-6/12 2xl:max-h-[75dvh] -z-10">
