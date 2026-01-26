@@ -19,18 +19,22 @@ import { FormEvent, useState } from "react";
 // import axios from "axios";
 import { usePaystackPayment } from "react-paystack";
 import { AddEventToDb } from "@/app/actions/eventsForm";
+import axios from "axios";
 
 const paystackKey=process.env.NEXT_PUBLIC_PS_KEY!
 
 
 export default function EventForm() {
     const [open, setOpen] = useState(false);
+    const [emailAddress,setEamilAddress]=useState("")
+    const [firstName,setFirstName]=useState("")
+    const [lastName,setLastName]=useState("")
     
     
     const config={
         reference:new Date().getTime().toString(),
-        email:"test@mail.com",
-        amount:400000,
+        email:emailAddress,
+        amount:450000,
         currency:"KES",
         publicKey:paystackKey,
         metaData:{
@@ -38,25 +42,25 @@ export default function EventForm() {
                 {
                     display_name:"First Name",
                     variable_name:"first_name",
-                    value:"Test First Name"
+                    value:firstName
                 },
                 {
                     display_name:"Last Name",
                     variable_name:"last_name",
-                    value:"Test Last Name"
+                    value:lastName
                 }
             ],
         }
     }
     const eventPayment= async()=>{
         try {
-            // await axios.post(`/api/send`,{
-            //     email:config.email,
-            //     fristName:config.metaData.custom_fields[0].value,
-            //     amount:config.amount,
-            //     serviceName:"BTS March Mixer Event"
-            // })
-            toast.info(`Please check your email for more instrustions`,{duration:16000})
+            await axios.post(`/api/send-event-ticket`,{
+                email:config.email,
+                fristName:firstName,
+                amount:config.amount,
+                eventName:"Remote & Ready: A Remote Work Mixer"
+            })
+            toast.info(`Please check your email: ${emailAddress} for more instrustions`,{duration:16000})
         } catch (error) {
             console.log("Error in the eventPayment function",error)
         }
@@ -89,15 +93,15 @@ export default function EventForm() {
       <Drawer open={open} onOpenChange={setOpen}>
         <DrawerTrigger asChild>
           <Button
-            size="lg"
-            className="w-56 text-xl bg-bts-BrownThree hover:bg-bts-BrownFour hover:scale-105 transition ease-in duration-300"
+            // size="lg"
+            className="w-64  py-10 text-2xl font-bold bg-bts-BrownThree hover:bg-bts-BrownFour hover:scale-105 transition ease-in duration-300"
           >
             Register for Event
           </Button>
         </DrawerTrigger>
         <DrawerContent className="max-w-2xl mx-auto px-4">
           <DrawerHeader>
-            <DrawerTitle className="text-center">Registration Form</DrawerTitle>
+            <DrawerTitle className="text-center">Ticket Registration Form</DrawerTitle>
             <DrawerDescription className="text-center">
               Please fill in all the fields
             </DrawerDescription>
@@ -112,6 +116,7 @@ export default function EventForm() {
                       type="text"
                       name="firstName"
                       placeholder="Nadai"
+                      onChange={(e)=>setFirstName(e.target.value)}
                       required
                     />
                   </div>
@@ -121,6 +126,7 @@ export default function EventForm() {
                       type="text"
                       name="lastName"
                       placeholder="Amali"
+                      onChange={(e)=>setLastName(e.target.value)}
                       required
                     />
                   </div>
@@ -128,7 +134,7 @@ export default function EventForm() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="">
                     <Label htmlFor="email">Email</Label>
-                    <Input type="email" name="email" placeholder="yourEmailAddress@mail.com" required/>
+                    <Input type="email" name="email" placeholder="yourEmailAddress@mail.com" onChange={(e)=>setEamilAddress(e.target.value)} required/>
                   </div>
                   <div className="">
                     <Label htmlFor="phoneNumber">Phone Number</Label>
