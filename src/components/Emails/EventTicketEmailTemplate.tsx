@@ -38,10 +38,10 @@ export default function EventTicketEmailTemplate({
             <Section>
               <Text style={text}>Hi {firstName ?? "There"},</Text>
               <Text style={text}>
-                We&apos;re excited to have you be part of our mixer event.
+                We are excited for you to join our mixer event!
               </Text>
               <Text style={text}>
-                Please present your ticket on the day of the event to smooth
+                Please present your ticket on the day of the event for a smooth
                 admittance
               </Text>
 
@@ -63,8 +63,37 @@ export default function EventTicketEmailTemplate({
 
                   {/* Dashed Divider */}
                   <div style={divider} />
+                  <Section style={ticketInnerBody}>
+                    {/* Left Side: Details */}
+                    <td style={ticketColumn}>
+                      <Text style={ticketDetail}>
+                        <strong>Attendee:</strong> {firstName} {lastName}
+                      </Text>
+                      <Text style={ticketDetail}>
+                        <strong>Amount:</strong> KES {amount / 100}
+                      </Text>
+                      <Text style={ticketDetail}>
+                        <strong>Location:</strong> BaoBox
+                      </Text>
+                      <Text style={ticketDetail}>
+                        <strong>Time:</strong> 2:00 PM - 8:00 PM
+                      </Text>
+                      <Text style={ticketDetail}>
+                        <strong>Date:</strong> 14-March-2026
+                      </Text>
+                    </td>
 
-                  <Text style={ticketDetail}>
+                    {/* Right Side: Logo */}
+                    <td style={ticketColumnRight}>
+                      <Img
+                        src="https://res.cloudinary.com/dh8qlzbzk/image/upload/v1736518541/BTS_Logo_xa2iht.webp"
+                        width="120"
+                        alt="Logo"
+                        style={ticketLogoImg}
+                      />
+                    </td>
+                  </Section>
+                  {/* <Text style={ticketDetail}>
                     <strong>Attendee:</strong> {firstName} {lastName}
                   </Text>
                   <Text style={ticketDetail}>
@@ -78,7 +107,7 @@ export default function EventTicketEmailTemplate({
                   </Text>
                   <Text style={ticketDetail}>
                     <strong>Date:</strong> 14-March-2026
-                  </Text>
+                  </Text> */}
 
                   {/* <Text style={ticketFooter}>
                     Please present this at the entrance
@@ -132,7 +161,6 @@ const text = {
   lineHeight: "26px",
 };
 
-
 const anchor = {
   textDecoration: "underline",
 };
@@ -144,14 +172,15 @@ const ticketSection = {
   border: "1px solid #e0e0e0",
   backgroundColor: "#ffffff",
   // This creates the "stub" look on the left
-  borderLeft: "10px solid hsl(188, 34%, 17%)", 
-  borderRight: "10px solid hsl(188, 34%, 17%)", 
-  backgroundImage:"linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url(`https://res.cloudinary.com/dh8qlzbzk/image/upload/v1736518541/BTS_Logo_xa2iht.webp`)",
-  backgroundPosition:"bottom right",
-  backgroundRepeat:"no-repeat",
-  backgroundSize:"contain",
-  position:"relative" as const,
-  zIndex:"1",
+  borderLeft: "10px solid hsl(188, 34%, 17%)",
+  borderRight: "10px solid hsl(188, 34%, 17%)",
+  // backgroundImage:
+  //   "linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url(`https://res.cloudinary.com/dh8qlzbzk/image/upload/v1736518541/BTS_Logo_xa2iht.webp`)",
+  // backgroundPosition: "bottom right",
+  // backgroundRepeat: "no-repeat",
+  // backgroundSize: "contain",
+  // position: "relative" as const,
+  // zIndex: "1",
 };
 
 const ticketHeader = {
@@ -163,15 +192,38 @@ const ticketHeader = {
   fontWeight: "bold",
   letterSpacing: "2px",
   textAlign: "center" as const,
-  position:"relative" as const,
-  zIndex:"2",
+  position: "relative" as const,
+  zIndex: "2",
 };
 
 const ticketBody = {
   padding: "24px",
   textAlign: "left" as const,
-  position:"relative" as const,
-  zIndex:"2",
+  position: "relative" as const,
+  zIndex: "2",
+};
+const ticketInnerBody = {
+  display: "table", // Table layout is more robust for email
+  width: "100%",
+};
+
+const ticketColumn = {
+  display: "table-cell",
+  verticalAlign: "middle",
+  width: "60%", // Adjust width as needed
+};
+
+const ticketColumnRight = {
+  display: "table-cell",
+  verticalAlign: "middle",
+  textAlign: "right" as const,
+  width: "40%",
+};
+
+const ticketLogoImg = {
+  display: "inline-block",
+  borderRadius: "8px",
+  marginLeft: "auto",
 };
 
 const ticketTitle = {
@@ -179,25 +231,25 @@ const ticketTitle = {
   fontWeight: "bold",
   margin: "0 0 10px 0",
   color: "#1a1a1a",
-  textAlign:"center" as const,
-  position:"relative" as const,
-  zIndex:"2",
+  textAlign: "center" as const,
+  position: "relative" as const,
+  zIndex: "2",
 };
 
 const ticketDetail = {
   fontSize: "14px",
   margin: "4px 0",
   color: "#4a4a4a",
-  position:"relative" as const,
-  zIndex:"2",
+  position: "relative" as const,
+  zIndex: "2",
 };
 
 const divider = {
   borderBottom: "1px dashed #dbdbdb",
   margin: "15px 0",
   width: "100%",
-  position:"relative" as const,
-  zIndex:"2",
+  position: "relative" as const,
+  zIndex: "2",
 };
 
 // const ticketFooter = {
