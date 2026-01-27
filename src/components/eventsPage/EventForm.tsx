@@ -150,7 +150,7 @@ export default function EventForm() {
                 <Input
                       type="text"
                       name="eventName"
-                      defaultValue={"Beyond The Savannah March Mixer Event"}
+                      defaultValue={"Remote & Ready: A Remote Work Mixer"}
                       hidden
                       className="hidden"
                     />
