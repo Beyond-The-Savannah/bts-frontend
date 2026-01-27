@@ -1,7 +1,12 @@
 "use client"
 import dynamic from "next/dynamic";
+import EventSoldOutButton from "./EventSoldOutButton";
 
-export default function SupportSection() {
+export default function ExperienceSection({
+  eventAttendees,
+}: {
+  eventAttendees: number;
+}) {
   const EventForm = dynamic(() => import("@/components/eventsPage/EventForm"), {
     ssr: false,
   });
@@ -42,9 +47,10 @@ export default function SupportSection() {
             <div className="space-y-4 my-10">
               <p className="text-center text-xl font-medium">Ready to take your office to the world?</p>
               <p className="text-center">Space is limited to ensure quality networking opportunities. <br/>Don&apos;t miss your chance to meet the people who can help you land your next global role</p>
+              <p className="text-xs italic text-center">The venue has limited parking space, advised to use a cab.</p>
             </div>
               <div className="grid place-content-center">
-              <EventForm/>
+              {eventAttendees <= 60 ? <EventForm /> : <EventSoldOutButton />}
               </div>
           </div>
         </div>

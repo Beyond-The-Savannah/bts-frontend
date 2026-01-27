@@ -56,7 +56,8 @@ export default function EventForm() {
         try {
             await axios.post(`/api/send-event-ticket`,{
                 email:config.email,
-                fristName:firstName,
+                firstName:firstName,
+                lastName:lastName,
                 amount:config.amount,
                 eventName:"Remote & Ready: A Remote Work Mixer"
             })

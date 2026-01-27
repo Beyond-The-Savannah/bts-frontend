@@ -24,6 +24,11 @@ export const simpleNavigationMenuItems = [
     title: "Partners",
     link: "/partners",
   },
+  {
+    id: 6,
+    title: "Events",
+    link: "/events",
+  },
 ];
 
 export const NonSimpleNavigationMenuItems = [

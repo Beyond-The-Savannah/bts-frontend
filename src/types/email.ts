@@ -7,6 +7,7 @@ export interface EmailProps {
 export interface EventTicketEmailProps {
   email?: string;
   firstName: string;
+  lastName: string;
   amount: number;
   eventName: string;
 }
