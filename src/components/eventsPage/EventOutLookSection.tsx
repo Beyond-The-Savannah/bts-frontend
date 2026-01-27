@@ -29,7 +29,7 @@ export default function EventOutLookSection() {
               <li><Calendar className="inline"/> Date: <span className="font-medium">14-March-2026</span></li>
               <li><Timer className="inline"/> Time: <span className="font-medium">2:00 PM - 8:00 PM</span></li>
               <li><MapPin className="inline"/> Location: <span className="font-medium">BaoBox, Nairobi</span></li>
-              <li><PersonStanding className="inline"/> Dress Code: <span className="font-medium">Smart Casual (Look sharp, stay comfortable)</span></li>
+              <li><PersonStanding className="inline"/> Dress Code: <span className="font-medium">Smart casual (Look sharp, stay comfortable)</span></li>
             </ul>
           </div>
           <div className="border-2 rounded-xl px-8 py-10">
@@ -37,8 +37,8 @@ export default function EventOutLookSection() {
             <ul className="list-none space-y-4">
               <li><Cookie className="inline"/> Snacks: <span className="font-medium">Bitings and a drink</span></li>
               <li><ShoppingBag className="inline"/> Goodie Bag: <span className="font-medium">Something to remember us by</span></li>
-              {/* <li><Handshake className="inline"/> Hands-on Workshop: <span className="font-medium">Learn exactly how to script and film a high-converting Remote Work Introductory Video to wow international employers.</span></li> */}
-              <li><Handshake className="inline"/> Workshop: <span className="font-medium">Script & film a Remote Work Introductory Video</span></li>
+              {/* <li><Handshake className="inline"/> Workshop: <span className="font-medium">Script & film a Remote Work Introductory Video</span></li> */}
+              <li><Handshake className="inline"/> Quick Sync: <span className="font-medium">Mapping out your remote work intro video</span></li>
               <li><Martini className="inline"/> Cocktail: <span className="font-medium">To wind down the networking</span></li>
             </ul>
           </div>

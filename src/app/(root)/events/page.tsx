@@ -8,7 +8,7 @@ import { GetAllEvents } from "@/db/queries/eventsQuries";
 
 
 const url = getCldImageUrl({
-  src: "events-page_q5pg9k",
+  src: "events_open_graph_image_2_s0sbyx",
 });
 
 export const metadata: Metadata = {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 export default async function page() {
   const eventAttendees= await GetAllEvents()
-  console.log("records",eventAttendees.length)
+  // console.log("records",eventAttendees.length)
   return (
     <>
     <HeroSection eventAttendees={eventAttendees.length}/>

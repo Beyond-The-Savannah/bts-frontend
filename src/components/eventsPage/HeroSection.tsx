@@ -24,10 +24,10 @@ export default function HeroSection({
           {eventAttendees <= 60 ? <EventForm /> : <EventSoldOutButton />}
         </div>
         <DisplayImageFromNextCloudinary
-          src="hero-img_f9cfrb"
+          src="march_event_mixer_event_hero_img_ar0yxs"
           alt="Lorraine, Beyond The Savannah Founder"
           height={800}
-          width={700}
+          width={650}
           classname=" absolute hidden lg:block bottom-0 right-1 z object-cover "
         />
       </section>
