@@ -100,7 +100,7 @@ export default function EventForm() {
             Register for Event
           </Button>
         </DrawerTrigger>
-        <DrawerContent className="max-w-2xl mx-auto px-4">
+        <DrawerContent className="max-w-2xl mx-auto px-4 overflow-y-auto">
           <DrawerHeader>
             <DrawerTitle className="text-center">Ticket Registration Form</DrawerTitle>
             <DrawerDescription className="text-center">

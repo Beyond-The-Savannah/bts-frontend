@@ -8,7 +8,7 @@ export default function HeroSection() {
     <section className="">
       {/* <div className="min-h-[90dvh] flex flex-wrap-reverse md:flex-nowrap justify-between  gap-4 "> */}
       {/* <div className="min-h-[90dvh]  2xl:max-h-[40dvh]  flex flex-wrap-reverse md:flex-nowrap justify-between  gap-4 "> */}
-      <div className="xs:min-h-[99dvh] md:min-h-[90dvh] lg:min-h-[90dvh] xl:min-h-[90dvh] 2xl:min-h-[83dvh]   flex flex-wrap-reverse md:flex-nowrap justify-between  gap-4 ">
+      <div className="xs:min-h-[99dvh] md:min-h-[90dvh] lg:min-h-[99dvh] xl:min-h-[99dvh] 2xl:min-h-[99dvh]   flex flex-wrap-reverse md:flex-nowrap justify-between  gap-4 ">
         <div className="w-full md:w-6/12 px-4 md:px-12 flex flex-col justify-center items-start pb-10 pt-4 md:pt-2  xl:pt-80 gap-12">
           <h1 className="text-3xl md:text-5xl text-bts-GreenOne font-bold xl:-mt-80">
             Partnership that Empower
