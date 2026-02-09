@@ -38,6 +38,7 @@
     "add": "^2.0.6",
     "ai": "^4.3.12",
     "axios": "^1.9.0",
+    "calendar-link": "^2.11.0",
     "cheerio": "^1.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
