@@ -60,7 +60,7 @@ export default function ExperienceSection({
         {/* <div className="container mx-auto min-h-[80dvh] grid py-20 gap-4  px-4"> */}
         <div className="container mx-auto  py-20 gap-4  px-4">
           <h2 className="text-center text-5xl font-bold">The Experience</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 items-center  gap-8">
           <div className="flex flex-wrap  justify-center gap-4 my-10">
             <div className="w-full lg:w-10/12 border-2 rounded-xl px-4 py-8 space-y-8 bg-gradient-to-tr from-bts-BrownTwo via-bts-GreenOne/20 to-bts-GreenOne/5">
               <p className="text-center text-xl font-semibold">
@@ -90,12 +90,13 @@ export default function ExperienceSection({
             </div>
           </div>
           {/* <div className="bg-[url('https://res.cloudinary.com/dh8qlzbzk/image/upload/v1770644198/bts-march-mixer_panelist_udlm4g.png')] bg-cover bg-bottom bg-no-repeat h-[60dvh] w-full rounded-lg"> */}
-          <div className="bg-cover bg-bottom bg-no-repeat h-full md:h-[60dvh] w-full rounded-lg">
+          <div className="">
           <DisplayImageFromNextCloudinary
           src="bts-march-mixer_panelist_udlm4g"
           alt="bts march mixer panelist"
           height={400}
-          width={600} 
+          width={1200} 
+          classname="object-contain bg-bottom bg-no-repeat h-full w-full rounded-lg"
           />
           </div>
 
