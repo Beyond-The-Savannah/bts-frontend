@@ -85,7 +85,7 @@ export default function ExperienceSection({
                 Hear from two visionary keynote speakers who are leading the
                 charge in the remote work revolution. They will dive into the
                 future of digital nomadism, cross-border productivity, and how
-                to maintain a competitive edge from anywhere on the planet.
+                to maintain a competitive edge.
               </p>
             </div>
           </div>
