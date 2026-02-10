@@ -1,12 +1,10 @@
-// export const dynamic = "force-dynamic";
-
 import PackageOptionSection from "@/components/Customer/PackageOptionSection";
 import SubscriptionDetails from "@/components/Customer/SubscriptionDetails";
 import {
   AddNewSubscriberToDatabase,
   GetCustomerSubscriptionDetailsByCustomerIDFromPaystack,
 } from "@/components/Customer/UserSubscriptionInformation";
-// import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
+
 import DashboardPageLoader from "@/components/Loaders/DashboardPageLoader";
 import PackagesLoader from "@/components/Loaders/PackagesLoader";
 import { byPassEmailAddresses } from "@/staticData/Customer/byPassSubscriptionCheck";
@@ -15,15 +13,11 @@ import { currentUser } from "@clerk/nextjs/server";
 import { Suspense } from "react";
 
 export default async function CustomerDefaultPage() {
-  // const userSubscriptionInformation = await GetUserSubscriptionInformation();
-  // const userSubscriptionInformation:subscriptionDetailsProps[] = await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
-
   let userSubscriptionInformation: subscriptionDetailsProps[] | null = null;
 
   userSubscriptionInformation =
     await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
   // console.log("USER SUB INFO PAGE TSX", userSubscriptionInformation);
-    
 
   const user = await currentUser();
 
@@ -33,23 +27,20 @@ export default async function CustomerDefaultPage() {
   // console.log("BTS USER FROM CUSTOMER PAGE",validUser)
 
   const allowByPassUser = byPassEmailAddresses.includes(
-    user?.emailAddresses[0].emailAddress as string
+    user?.emailAddresses[0].emailAddress as string,
   );
 
-  const isValidSubscription = userSubscriptionInformation?.some(
-    (subscription) => {
+  const isValidSubscription = userSubscriptionInformation
+    ?.filter((subscriptionOne) => subscriptionOne.amount != 300000)
+    .some((subscription) => {
       return ["active", "attention", "non-renewing", "completed"].includes(
-        subscription.status.toLowerCase()
+        subscription.status.toLowerCase(),
       );
-    }
-  );
-  
+    });
 
   return (
     <>
-      
-
-      {(isValidSubscription==true || allowByPassUser == true )? (
+      {isValidSubscription == true || allowByPassUser == true ? (
         <Suspense fallback={<DashboardPageLoader />}>
           <SubscriptionDetails />
         </Suspense>
@@ -58,26 +49,6 @@ export default async function CustomerDefaultPage() {
           <PackageOptionSection />
         </Suspense>
       )}
-      {/* {(userSubscriptionInformation!=null || allowByPassUser == true )? (
-        <Suspense fallback={<DashboardPageLoader />}>
-          <SubscriptionDetails />
-        </Suspense>
-      ) : (
-        <Suspense fallback={<PackagesLoader />}>
-          <PackageOptionSection />
-        </Suspense>
-      )} */}
-      {/* {(userSubscriptionInformation!=null && userSubscriptionInformation[0].status !=="cancellled") || allowByPassUser == true ? (
-        <Suspense fallback={<DashboardPageLoader />}>
-          <SubscriptionDetails />
-        </Suspense>
-      ) : (
-        <Suspense fallback={<PackagesLoader />}>
-          <PackageOptionSection />
-        </Suspense>
-      )} */}
-
-      
     </>
   );
 }
