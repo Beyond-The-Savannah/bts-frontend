@@ -1,17 +1,19 @@
 import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/components/Customer/UserSubscriptionInformation";
 import InformationDashboardOverview from "@/components/Employer/InformationDashboardOverview";
 import PackagePricingEmployer from "@/components/Employer/PackagePricingEmployer";
+import EmployerCheckLoader from "@/components/Loaders/EmployerCheckLoader";
+
+import EmployerCheckLoader2 from "@/components/Loaders/EmployerCheckLoader2";
 import { subscriptionDetailsProps } from "@/types/subscriptions";
 import { OrganizationSwitcher, SignIn, SignInButton } from "@clerk/nextjs";
-import { auth,} from "@clerk/nextjs/server";
-import { Loader } from "lucide-react";
+import { auth, clerkClient } from "@clerk/nextjs/server";
+
 import { Suspense } from "react";
 
 export default async function page() {
-  const { isAuthenticated, orgId, } = await auth();
+  const { isAuthenticated, orgId,userId } = await auth();
+  const client=await clerkClient()
   
-
-  // console.log("ORG DETAILS IN EMPLOYER PAGE", organization);
 
   if (!isAuthenticated) {
     return (
@@ -36,23 +38,16 @@ export default async function page() {
   if (!orgId) {
     return (
       <>
-        <Suspense
-          fallback={
-            <div className="grid place-content-center min-h-[80dvh] max-w-xl mx-auto ">
-              <p className="border-2 px-4 py-12 rounded-md text-center text-sm flex items-center gap-2">
-                <Loader className="mx-auto animate-spin" />
-                <span>
-                  Please wait as we verify your organization details...
-                </span>
-              </p>
-            </div>
-          }
-        >
+        <Suspense fallback={<EmployerCheckLoader />}>
           <div className="grid place-content-center min-h-[80dvh]">
-            <div className="px-4 py-8 max-w-xl mx-auto border rounded-md">
-              <p className="text-center my-10">
+            <div className="px-4 py-8 max-w-xl mx-auto border text-center rounded-md space-y-3">
+              {/* <p className="text-center my-10">
                 Please create your organization or login to an invited one
-              </p>
+              </p> */}
+                <p className="c">Hi there, welcome onboard.</p>
+                <p className="c">We&apos;ve noticed that you haven&apos;t created any organization yet.</p>
+                <p className="c">Please create an organization to continue using the button below.</p>
+                <p className="c">If you got an invite then join the organization using button below.</p>
               <div className="grid place-content-center">
                 <OrganizationSwitcher hidePersonal={true} />
               </div>
@@ -63,6 +58,15 @@ export default async function page() {
     );
   }
 
+  //Check if the user is a member of the organization
+  const {data:organisationMemmbers}= await client.organizations.getOrganizationMembershipList({
+    organizationId: orgId!,
+    })
+    // console.log("ORGANISATION MEMBERS:", organisationMemmbers);
+
+    const isOrganisationMember=organisationMemmbers.some(member=>member.publicUserData?.userId===userId)
+
+    //check for valid subscription
   const employerSubscriptionDetails: subscriptionDetailsProps[] =
     await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
   // console.log("EMPLOYER SUBSCRIPTION DETAILS:", employerSubscriptionDetails);
@@ -74,21 +78,13 @@ export default async function page() {
       );
     });
 
-    // const isOrganisationMemmber=
+  
+
   return (
     <>
-      <Suspense
-        fallback={
-          <div className="grid place-content-center min-h-[80dvh] max-w-xl mx-auto ">
-            <p className="border-2 px-4 py-12 rounded-md text-center text-sm flex items-center gap-2">
-              <Loader className="mx-auto animate-spin" />
-              <span>Please wait as we verify your subscription status...</span>
-            </p>
-          </div>
-        }
-      >
+      <Suspense fallback={<EmployerCheckLoader2 />}>
         <section className="px-4">
-          {isValidSubscription || orgId!=null ? (
+          {isValidSubscription || isOrganisationMember ? (
             <>
               <InformationDashboardOverview />
             </>

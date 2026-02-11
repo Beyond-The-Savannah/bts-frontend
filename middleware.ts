@@ -31,7 +31,7 @@ import { NextResponse } from "next/server";
 const isNotPublicRoute = createRouteMatcher(["/Customer(.*)","/Admin(.*)",]);
 const isAdminRoute = createRouteMatcher([ "/Admin","/Admin/(.*)"]);
 const isCustomerRoute = createRouteMatcher([ "/Customer/(.*)"]);
-const isEmployerRoute = createRouteMatcher([ "/Employer","/Employer/(.*)"]);
+const isEmployerRoute = createRouteMatcher([ "/Employer/(.*)"]);
 
 export default clerkMiddleware(async (auth, request) => {
   const{pathname}=request.nextUrl
@@ -62,8 +62,12 @@ export default clerkMiddleware(async (auth, request) => {
    if (isCustomerRoute(request)) {
     return NextResponse.next();
   }
-  
+  //Handle employer routes
   if(isEmployerRoute(request)){
+    if(!userId){
+      const url=new URL("/Employer", request.url);
+      return NextResponse.redirect(url);
+    }
     return NextResponse.next();
   }
   // If user just signed in and is on sign-in page, redirect based on role

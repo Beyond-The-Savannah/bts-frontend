@@ -156,3 +156,40 @@ export interface ServiceProps {
   priceKESString: string;
   priceUSDString: string;
 }
+
+export interface OrganizationMembershipProp {
+  id: string;
+  role: 'org:admin' | 'org:member' | string;
+  permissions: string[];
+  publicMetadata: Record<string, unknown>;
+  privateMetadata: Record<string, unknown>;
+  createdAt: number;
+  updatedAt: number;
+  organization: OrganizationDetails;
+  publicUserData: PublicUserData;
+}
+
+export interface OrganizationDetails {
+  id: string;
+  name: string;
+  slug: string;
+  imageUrl: string;
+  hasImage: boolean;
+  createdAt: number;
+  updatedAt: number;
+  publicMetadata: Record<string, unknown>;
+  privateMetadata: Record<string, unknown>;
+  maxAllowedMemberships: number;
+  adminDeleteEnabled: boolean;
+  membersCount: number;
+  createdBy: string;
+}
+
+export interface PublicUserData {
+  identifier: string;
+  firstName: string | null;
+  lastName: string | null;
+  imageUrl: string;
+  hasImage: boolean;
+  userId: string;
+}

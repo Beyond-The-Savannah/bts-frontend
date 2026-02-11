@@ -65,20 +65,19 @@ export default async function page() {
 
   async function handleManageEmployerSubscription(formData: FormData) {
     "use server";
-    const subscriptionCode = formData.get("employerSubscriptionCode");
+    const employerSubscriptionCode = formData.get("employerSubscriptionCode");
     let paystackManageUrl = "";
     try {
       const response = await fetch(
-        `${PUBLIC_BASE_URL}/api/manage-subscriptions?code=${subscriptionCode}`,
+        `${PUBLIC_BASE_URL}/api/manage-subscriptions?code=${employerSubscriptionCode}`,
         { method: "GET" },
       );
       const responseUrl = await response.json();
-      paystackManageUrl = responseUrl.url;
+      paystackManageUrl = responseUrl;
     } catch (error) {
       console.log("Error fetching employermanage subscription URL:", error);
     }
     if (paystackManageUrl != "") {
-      console.log("", paystackManageUrl);
       redirect(paystackManageUrl);
     }
   }
@@ -195,7 +194,7 @@ export default async function page() {
                         type="hidden"
                         name="employerSubscriptionCode"
                         value={
-                          recentEmployerSubscriptionDetails.subscription_code
+                          recentEmployerSubscriptionDetails?.subscription_code
                         }
                       />
                       <Button variant="outline" size="sm" type="submit">
