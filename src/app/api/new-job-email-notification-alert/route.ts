@@ -15,6 +15,7 @@ export const { POST } = serve(async (context) => {
 
 //array of emails of users who don't what to be get email notifications
 const noNewJobsNotifications = [
+  "carolynmnjeri@gmail.com",
   "hassenga54@gmail.com",
   "mosesmwangi007@gmail.com",
   "riinyacynthia@gmail.com",
