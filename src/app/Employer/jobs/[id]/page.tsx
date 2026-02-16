@@ -1,12 +1,10 @@
 import CandidatesSection from "@/components/Employer/CandidatesPage/CandidatesSection";
 
-export default async function page({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function page({params, searchParams}: {params: Promise<{ id: string }>,searchParams: Promise<{ jobDepartment: string }>}) {
   const { id } = await params;
+  const { jobDepartment } = await searchParams;
   const jobTitle = decodeURIComponent(id);
+  
   return (
     <>
       <section className="container mx-auto px-4">
@@ -18,7 +16,7 @@ export default async function page({
           <div className="c">
             <p className="text-xl font-semibold">Applicants for the role</p>
           </div>
-          <CandidatesSection />
+          <CandidatesSection jobDepartment={jobDepartment} />
         </div>
       </section>
     </>

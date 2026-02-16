@@ -1,19 +1,23 @@
-import CandidatesProfile from "@/components/Customer/CandidatesProfile";
-import CandidatesSection from "@/components/Employer/CandidatesPage/CandidatesSection";
-import UploadCandidatesForm from "@/components/Employer/CandidatesPage/UploadCandidatesForm";
-import CompanyProfile from "@/components/Employer/CompanyProfile";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import CandidatesProfile from "@/components/Customer/CandidatesProfile";
+import AllCandidatesSection from "@/components/Employer/CandidatesPage/AllCandidatesSection";
+// import CandidatesSection from "@/components/Employer/CandidatesPage/CandidatesSection";
+// import UploadCandidatesForm from "@/components/Employer/CandidatesPage/UploadCandidatesForm";
+// import CompanyProfile from "@/components/Employer/CompanyProfile";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function page() {
   return (
     <>
-      {/* <section className="container mx-auto px-4">
-        <div className="c">
+      <section className="container mx-auto px-4">
+        <div className="mt-10">
             <h2 className="text-3xl font-semibold mb-10">All Candidates</h2>
         </div>
-        <CandidatesSection/>
-      </section> */}
-      <section className="container mx-auto px-4">
+        <div className="mt-10">
+            <AllCandidatesSection/>
+        </div>
+        
+      </section>
+      {/* <section className="container mx-auto px-4">
         <Tabs defaultValue="Candidates">
           <TabsList className="w-full">
             <TabsTrigger value="Candidates">Candidates</TabsTrigger>
@@ -25,7 +29,8 @@ export default function page() {
             <div className="c">
               <h2 className="text-3xl font-semibold mb-10">All Candidates</h2>
             </div>
-            <CandidatesSection />
+            
+            <AllCandidatesSection/>
           </TabsContent>
           <TabsContent value="Candidates Profile">
             <CandidatesProfile />
@@ -37,7 +42,7 @@ export default function page() {
             <CompanyProfile/>
           </TabsContent>
         </Tabs>
-      </section>
+      </section> */}
     </>
   );
 }
