@@ -40,7 +40,7 @@ export default async function PostJobs() {
             className="hover:scale-105 duration-300 transition ease-in"
           >
             {/* <Link href={`Employer/jobs/${job.role}`} > */}
-            <Link href={`/Employer/jobs/${job.role}`}>View Applicants</Link>
+            <Link href={`/Employer/jobs/${job.role}?jobDepartment=${job.department}`}>View Applicants</Link>
           </Button>
         </div>
       ))}
