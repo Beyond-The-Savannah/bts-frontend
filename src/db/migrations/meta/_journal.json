@@ -71,6 +71,20 @@
       "when": 1768983282102,
       "tag": "0009_moaning_red_skull",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1771318922753,
+      "tag": "0010_illegal_karma",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1771327213550,
+      "tag": "0011_naive_sir_ram",
+      "breakpoints": true
     }
   ]
 }

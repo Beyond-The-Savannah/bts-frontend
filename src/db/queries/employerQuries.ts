@@ -29,7 +29,7 @@ export async function GetRelevantCandidates(orgId: string) {
   const allCandidates = await GetCandidatesPool();
   
   const relavantCandidates = allCandidates.filter((candidate) =>
-    uniqueDepartments.includes(candidate.profession),
+    uniqueDepartments.includes(candidate.profession as string),
   );
   return relavantCandidates;
 }
