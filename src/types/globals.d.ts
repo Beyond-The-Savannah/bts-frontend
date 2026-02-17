@@ -1,3 +1,5 @@
+import { CandidateProp } from "@/db/schema";
+
 export {};
 
 export type Roles = "client" | "admin";
@@ -140,6 +142,22 @@ export interface JobDetailsProps {
   };
 }
 
+// export interface CandidateCSVDataProp {
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   phone: string;
+//   resumeLink: string;
+//   resumeName: string;
+//   photoLink: string;
+//   photoName: string;
+//   country: string;
+//   profession: string;
+//   experienceYears: number;
+//   certifications: string;
+//   workExperience: string;
+// }
+export type CandidateCSVDataProp = Omit<CandidateProp, 'id'|'createdAt'|'updatedAt'>
 export interface ServiceProps {
   id: number;
   title: string;

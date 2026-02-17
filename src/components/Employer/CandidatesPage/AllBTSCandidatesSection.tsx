@@ -7,54 +7,26 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  GetCandidatesPool,
-  GetEmployerJobsDepartmentOnly,
-} from "@/db/queries/employerQuries";
+import { GetCandidatesPool } from "@/db/queries/employerQuries";
 import { correctedParsedHTML } from "@/lib/utils";
-import { auth } from "@clerk/nextjs/server";
-import { google, office365, outlook, yahoo } from "calendar-link";
-import { Calendar, Mail, MapPin, PhoneIcon, UserCircle } from "lucide-react";
-import { Link } from "next-view-transitions";
+import { Mail, MapPin, PhoneIcon, UserCircle } from "lucide-react";
 
-export default async function AllCandidatesSection() {
-  const { orgId } = await auth();
-
-  const allJobsByEmployer = await GetEmployerJobsDepartmentOnly(orgId!);
-  const uniqueDepartments = [
-    ...new Set(allJobsByEmployer.map((job) => job.department)),
-  ];
-  // console.log("ALL CANDIATES PAGE SECTION",allJobsByEmployer,uniqueDepartments)
-  const allCanidates = await GetCandidatesPool();
-  const relavantCandidates = allCanidates.filter((candidate) =>
-    uniqueDepartments.includes(candidate.profession as string),
-  );
-
-  // console.log("RELEVANT CANDIDATES",relavantCandidates)
-  const currentYear = new Date().getFullYear();
-  const event = {
-    uuid: "",
-    title: "",
-    description: "",
-    start: `${currentYear}`,
-  };
-
+export default async function AllBTSCandidatesSection() {
+  const candidates = await GetCandidatesPool();
+  
   return (
     <>
       <div className="max-w-7xl mx-auto px-4">
-        {relavantCandidates.length === 0 ? (
+        {candidates.length === 0 ? (
           <div className="grid place-content-center h-96">
-            <p className="text-center text-lg">
-              Once you have job openings in your organization, candidates will
-              appear here
-            </p>
+            <p className="text-center text-lg">No candidates available</p>
           </div>
         ) : (
           <>
-            {relavantCandidates.map((candidate) => (
+            {candidates.map((candidate) => (
               <div
                 key={candidate.id}
-                className="bg-bts-BrownOne/25 rounded-md px-3 py-6 flex justify-between items-center  my-2 "
+                className="bg-bts-BrownOne rounded-md px-3 py-6 flex justify-between items-center border my-2 "
               >
                 <div className="flex flex-1 items-start gap-2">
                   <div className="flex-col">
@@ -140,69 +112,6 @@ export default async function AllCandidatesSection() {
                             {candidate.country}
                           </p>
                         </div>
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button className="bg-lime-200 hover:bg-lime-300 text-black">
-                              <Calendar className="mx-1" /> Schedule calendar
-                              event with {candidate.firstName}
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent className="max-w-4xl mx-auto">
-                            <DialogHeader>
-                              <DialogTitle></DialogTitle>
-                              <DialogDescription className="text-center">
-                                Schedule your sessions with the candidate using
-                                your prefered calendar below
-                              </DialogDescription>
-                            </DialogHeader>
-                            <div className=" flex flex-wrap items-center justify-center gap-4 my-10">
-                              <Button variant="outline" asChild>
-                                <Link
-                                  target="_blank"
-                                  href={google({
-                                    ...event,
-                                    guests: [candidate.email],
-                                  })}
-                                >
-                                  Google Calendar
-                                </Link>
-                              </Button>
-                              <Button variant="outline" asChild>
-                                <Link
-                                  target="_blank"
-                                  href={outlook({
-                                    ...event,
-                                    guests: [candidate.email],
-                                  })}
-                                >
-                                  Outlook Calendar
-                                </Link>
-                              </Button>
-                              <Button variant="outline" asChild>
-                                <Link
-                                  target="_blank"
-                                  href={office365({
-                                    ...event,
-                                    guests: [candidate.email],
-                                  })}
-                                >
-                                  Office 365 Calendar
-                                </Link>
-                              </Button>
-                              <Button variant="outline" asChild>
-                                <Link
-                                  target="_blank"
-                                  href={yahoo({
-                                    ...event,
-                                    guests: [candidate.email],
-                                  })}
-                                >
-                                  Yahoo Calendar
-                                </Link>
-                              </Button>
-                            </div>
-                          </DialogContent>
-                        </Dialog>
                       </div>
 
                       <p className="border-b-2  underline-offset-1 mt-10">
@@ -210,15 +119,16 @@ export default async function AllCandidatesSection() {
                       </p>
                       <div className=" max-w-5xl mx-auto  px-2 py-3 prose prose-sm">
                         <p className="text-center">
-                          Resume Name:{candidate.resumeName}
+                          Resume Name:{candidate.resumeName ??"No Resume Uploaded"}
                         </p>
+                        {candidate.resumeLink !== null ? (
                         <iframe
                           src={`${candidate.resumeLink}#view=fitH`}
                           title={candidate.resumeName as string}
                           name={candidate.resumeName as string}
                           width={900}
                           height={900}
-                        />
+                        />):(<><p className="text-center text-sm">No Resume Uploaded</p></>)}
                       </div>
                       <p className="border-b-2  underline-offset-1 mt-10">
                         Career Experience:
@@ -252,5 +162,4 @@ export default async function AllCandidatesSection() {
       </div>
     </>
   );
-  
 }

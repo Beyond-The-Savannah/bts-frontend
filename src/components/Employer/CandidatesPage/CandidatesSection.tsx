@@ -176,8 +176,8 @@ export default async function CandidatesSection({jobDepartment}:{jobDepartment:s
                       <iframe
                         
                         src={`${candidate.resumeLink}#view=fitH`}
-                        title={candidate.resumeName}
-                        name={candidate.resumeName}
+                        title={candidate.resumeName as string}
+                        name={candidate.resumeName as string}
                         width={900}
                         height={900}
                       />

@@ -1,0 +1,1 @@
+ALTER TABLE "candidate_pool" DROP CONSTRAINT "candidate_pool_email_unique";
