@@ -1,21 +1,26 @@
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+// import { Button } from "@/components/ui/button";
+// import {
+//   Dialog,
+//   DialogContent,
+//   DialogDescription,
+//   DialogHeader,
+//   DialogTitle,
+//   DialogTrigger,
+// } from "@/components/ui/dialog";
 import { GetCandidatesPool } from "@/db/queries/employerQuries";
-import { correctedParsedHTML } from "@/lib/utils";
-import { Mail, MapPin, PhoneIcon, UserCircle } from "lucide-react";
+// import { correctedParsedHTML } from "@/lib/utils";
+// import { Eye, Mail, MapPin, Pencil, PhoneIcon, UserCircle } from "lucide-react";
+
+// import CandidatesProfile from "@/components/Customer/CandidatesProfile";
+import VirtualBtsCandidatesList from "@/components/Admin/VirtualBtsCandidatesList";
 
 export default async function AllBTSCandidatesSection() {
   const candidates = await GetCandidatesPool();
+  // console.log("ALL BTS CANDIDATES:", candidates);
   
   return (
     <>
+    
       <div className="max-w-7xl mx-auto px-4">
         {candidates.length === 0 ? (
           <div className="grid place-content-center h-96">
@@ -23,7 +28,8 @@ export default async function AllBTSCandidatesSection() {
           </div>
         ) : (
           <>
-            {candidates.map((candidate) => (
+          <VirtualBtsCandidatesList candidates={candidates}/>
+            {/* {candidates.map((candidate) => (
               <div
                 key={candidate.id}
                 className="bg-bts-BrownOne rounded-md px-3 py-6 flex justify-between items-center border my-2 "
@@ -51,7 +57,8 @@ export default async function AllBTSCandidatesSection() {
                       variant="outline"
                       className="hover:scale-105 duration-300 transition ease-in"
                     >
-                      View candidate details
+                      
+                      <Eye/> details
                     </Button>
                   </DialogTrigger>
                   <DialogContent className="w-full md:max-w-[1200px] max-h-[90dvh] overflow-y-auto">
@@ -155,8 +162,23 @@ export default async function AllBTSCandidatesSection() {
                     </div>
                   </DialogContent>
                 </Dialog>
+
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="outline"> <Pencil/>details</Button>
+                  </DialogTrigger>
+                  <DialogContent className="w-full md:max-w-7xl max-h-[90dvh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle className="text-center">Edit Candidate Details</DialogTitle>
+                    <DialogDescription className="text-center">Editing <span className="font-bold">{candidate.firstName} {candidate.lastName}</span> profile details</DialogDescription>
+                  </DialogHeader>
+                <div>
+                  <CandidatesProfile candidateData={candidate}/>
+                </div>
+                </DialogContent>
+                </Dialog>
               </div>
-            ))}
+            ))} */}
           </>
         )}
       </div>

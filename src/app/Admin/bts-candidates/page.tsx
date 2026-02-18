@@ -11,6 +11,9 @@ export default function page() {
           <h2 className="text-3xl font-semibold mb-10">All Candidates</h2>
         </div> */}
 
+
+
+
         <Tabs defaultValue="Candidates">
           <TabsList className="w-full">
             <TabsTrigger value="Candidates">Candidates</TabsTrigger>
