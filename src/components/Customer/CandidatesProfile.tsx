@@ -4,7 +4,7 @@ import { ChangeEvent, useState } from "react";
 import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown} from "lucide-react";
 import {
   Command,
   CommandEmpty,
@@ -19,17 +19,40 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AddCandidatesProfile } from "@/app/actions/EmployerForms";
+import { AddCandidatesProfile, EditCandidateProfile } from "@/app/actions/EmployerForms";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
 import {  modules3 } from "@/lib/reactQuilSettings";
+
 
 const ReactQuill = dynamic(() => import("react-quill-new"), {
   ssr: false,
   loading: () => <p>Loading text editor...</p>,
 });
 
-export default function CandidatesProfile() {
+interface CandidateDataProps {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    resumeLink: string | null;
+    resumeName: string | null;
+    photoLink: string | null;
+    photoName: string | null;
+    country: string | null;
+    profession: string | null;
+    experienceYears: number | null;
+    certifications: string | null;
+    workExperience: string | null;
+    createdAt: string | Date;
+    updatedAt: string | Date;
+}
+interface AddCandidateProps{
+    candidateData?:CandidateDataProps
+}
+
+export default function CandidatesProfile({candidateData}:AddCandidateProps) {
   // const [open,setOpen]=useState(false)
   const [professionValue, setProfessionValue] = useState("");
   const [countryValue, setCountryValue] = useState("");
@@ -113,20 +136,45 @@ export default function CandidatesProfile() {
     setError,
     formState: { isSubmitting, errors },
   } = useForm<candidatesFormFields>({
+    defaultValues:candidateData?{
+      firstName:candidateData.firstName,
+      lastName:candidateData.lastName,
+      email:candidateData.email,
+      phone:candidateData.phone.toString(),
+      resumeLink:candidateData.resumeLink ?? "",
+      resumeName:candidateData.resumeName ?? "",
+      photoLink:candidateData.photoLink ?? "",
+      photoName:candidateData.photoName ?? "",
+      country:candidateData.country ?? "",
+      profession:candidateData.profession ?? "",
+      experienceYears:candidateData.experienceYears ?? 0,
+      certifications:candidateData.certifications ?? "",
+      workExperience:candidateData.workExperience ?? ""  
+    }:undefined,
     resolver: zodResolver(candidatesFormSchema),
   });
 
   async function formSubmit(data: candidatesFormFields) {
-    try {
-      console.log("Candidates Profile", data);
-      await AddCandidatesProfile(data);
-      toast.success("Profile Added");
-      reset();
-    } catch (error) {
-      toast.error(`Error in adding profile, please try again later`);
-      console.log("Error Adding Candidates Profile", error);
-      console.error("Form errors", errors);
-      setError("root", {});
+    if(candidateData){
+      try {
+        await EditCandidateProfile({...data, id:candidateData.id,createdAt: new Date(candidateData.createdAt), updatedAt: new Date()});
+        toast.success("Profile Details Updated");
+      } catch (error) {
+        console.log("Error updating candidate profile:", error);
+      }
+    }else{
+      try {
+        // console.log("Candidates Profile", data);
+        await AddCandidatesProfile(data);
+        toast.success("Profile Added");
+        reset();
+      } catch (error) {
+        toast.error(`Error in adding profile, please try again later`);
+        console.log("Error Adding Candidates Profile", error);
+        console.error("Form errors", errors);
+        setError("root", {});
+      }
+
     }
   }
   return (
@@ -350,7 +398,7 @@ export default function CandidatesProfile() {
                     id="resume"
                     accept="application/pdf"
                     onChange={handleResumeUpload}
-                    required
+                    // required
                   />
                 </div>
                 <div className="w-full md:flex-1">
@@ -362,7 +410,7 @@ export default function CandidatesProfile() {
                     id="photo"
                     accept="image/jpeg, image/png"
                     onChange={handlePhotoUpload}
-                    required
+                    // required
                   />
                 </div>
               
@@ -372,9 +420,10 @@ export default function CandidatesProfile() {
                 <label htmlFor="certificates">Certifications</label>
                 <ReactQuill
                   theme="snow"
-                  className="w-full md:w-[35dvw] rounded-lg border-4"
+                  className="w-full md:w-[33dvw] rounded-lg border-4"
                   placeholder="Enter your certifications then format them using the bulleted icon at the top"
-                  value={certificates}
+                  // value={certificates}
+                  defaultValue={candidateData? candidateData.certifications!:certificates}
                   // onChange={setCertificates}
                   onChange={(currentValue) => {
                     setCertificates(
@@ -390,9 +439,10 @@ export default function CandidatesProfile() {
                 <label htmlFor="workExperience">Work Experience</label>
                 <ReactQuill
                   theme="snow"
-                  className="w-full md:w-[35dvw] rounded-lg border-4"
+                  className="w-full md:w-[33dvw] rounded-lg border-4"
                   placeholder="Enter your work experience then format them using the bulleted icon at the top"
-                  value={workExperience}
+                  // value={workExperience}
+                  defaultValue={candidateData?candidateData.workExperience!:workExperience}
                   onChange={(currentValue) => {
                     setWorkExperience(
                       currentValue === workExperience ? "" : currentValue
@@ -410,13 +460,20 @@ export default function CandidatesProfile() {
               </div>
             )}
           </div>
-          <Button
+          {candidateData ?( <Button
+            disabled={isSubmitting}
+            type="submit"
+            className="bg-green-400 hover:bg-green-600"
+          >
+            {isSubmitting ? "Updating profile details..." : "Update Profile"}
+          </Button>):( <Button
             disabled={isSubmitting}
             type="submit"
             className="bg-green-400 hover:bg-green-600"
           >
             {isSubmitting ? "Submiting profile details..." : "Submit"}
-          </Button>
+          </Button>)}
+         
         </form>
       </section>
     </>

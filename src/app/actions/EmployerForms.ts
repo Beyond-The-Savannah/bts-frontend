@@ -72,6 +72,31 @@ try {
 }
 }
 
+export async function EditCandidateProfile(data:CandidateProp){
+  try {
+    await db.update(candidatePoolTable).set({
+      id:data.id,
+      firstName:data.firstName,
+      lastName:data.lastName,
+      email:data.email,
+      phone:data.phone,
+      resumeLink:data.resumeLink,
+      resumeName:data.resumeName,
+      photoLink:data.photoLink,
+      photoName:data.photoName,
+      country:data.country,
+      profession:data.profession,
+      experienceYears:data.experienceYears,
+      certifications:data.certifications,
+      workExperience:data.workExperience,
+      createdAt:data.createdAt,
+      updatedAt:data.updatedAt
+    }).where(eq(candidatePoolTable.id,data.id))
+  } catch (error) {
+    console.log("Error Editing Candidate Profile -CandidateProfile",error)
+  }
+}
+
 export async function AddCompanyProfile(data:Omit<CompanyProp, 'id'|'createdAt'|'updatedAt'>){
   try {
     await db.insert(companyTable).values({
