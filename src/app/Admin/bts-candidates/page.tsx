@@ -24,8 +24,9 @@ export default function page() {
             {/* <TabsTrigger value="Company Profile"> Company</TabsTrigger> */}
           </TabsList>
           <TabsContent value="Candidates">
-            <div className="c">
-              <h2 className="text-3xl font-semibold mb-10">All Candidates</h2>
+            <div className="mb-10">
+              <h2 className="text-3xl font-semibold">All Candidates</h2>
+              <div className="border-2 rounded-md border-bts-GreenOne w-36 mb-8"></div>
             </div>
             <AllBTSCandidatesSection/>
           </TabsContent>

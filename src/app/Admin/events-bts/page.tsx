@@ -12,6 +12,12 @@ export default async function page() {
             <h2 className="text-xl">BTS March Mixer Event</h2>
             <div className="border-2 rounded-md border-bts-GreenOne w-36 mb-8"></div>
         </div>
+        <div className="flex w-full items-center justify-end gap-4 mb-4">
+              <div className="border rounded-xl px-3 py-1">
+           Attendees:{" "}
+          <span className="font-bold">{attendees.length}/60</span>
+        </div>
+        </div>
         <div className="c">
             <Table>
                 <TableCaption>BTS March Mixer Event Attendees List</TableCaption>
