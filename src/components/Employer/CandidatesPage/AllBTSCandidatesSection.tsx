@@ -1,26 +1,13 @@
-// import { Button } from "@/components/ui/button";
-// import {
-//   Dialog,
-//   DialogContent,
-//   DialogDescription,
-//   DialogHeader,
-//   DialogTitle,
-//   DialogTrigger,
-// } from "@/components/ui/dialog";
 import { GetCandidatesPool } from "@/db/queries/employerQuries";
-// import { correctedParsedHTML } from "@/lib/utils";
-// import { Eye, Mail, MapPin, Pencil, PhoneIcon, UserCircle } from "lucide-react";
 
-// import CandidatesProfile from "@/components/Customer/CandidatesProfile";
 import VirtualBtsCandidatesList from "@/components/Admin/VirtualBtsCandidatesList";
 
 export default async function AllBTSCandidatesSection() {
   const candidates = await GetCandidatesPool();
   // console.log("ALL BTS CANDIDATES:", candidates);
-  
+
   return (
     <>
-    
       <div className="max-w-7xl mx-auto px-4">
         {candidates.length === 0 ? (
           <div className="grid place-content-center h-96">
@@ -28,157 +15,7 @@ export default async function AllBTSCandidatesSection() {
           </div>
         ) : (
           <>
-          <VirtualBtsCandidatesList candidates={candidates}/>
-            {/* {candidates.map((candidate) => (
-              <div
-                key={candidate.id}
-                className="bg-bts-BrownOne rounded-md px-3 py-6 flex justify-between items-center border my-2 "
-              >
-                <div className="flex flex-1 items-start gap-2">
-                  <div className="flex-col">
-                    <p className="">
-                      {candidate.firstName} <span className="px-1"></span>{" "}
-                      {candidate.lastName}
-                    </p>
-                    <p className="flex items-center gap-2 text-xs ml-2">
-                      {candidate.email}
-                    </p>
-                  </div>
-                </div>
-                <p className="w-full flex-1 text-sm font-semibold">
-                  <span className="font-thin text-xs">Profession :</span>
-
-                  {candidate.profession}
-                </p>
-
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className="hover:scale-105 duration-300 transition ease-in"
-                    >
-                      
-                      <Eye/> details
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="w-full md:max-w-[1200px] max-h-[90dvh] overflow-y-auto">
-                    <DialogHeader>
-                      <DialogTitle className="text-center">
-                        Candidates Profile
-                      </DialogTitle>
-                      <DialogDescription></DialogDescription>
-                    </DialogHeader>
-                    <div className="my-10">
-                      <div className="flex items-center justify-between">
-                        <p className="border rounded-xl px-3 py-1 hidden">
-                          Created on {candidate.createdAt.toLocaleDateString()}
-                        </p>
-                        <p className="border rounded-xl px-3 py-1 hidden">
-                          Deadline on {candidate.createdAt.toLocaleDateString()}
-                        </p>
-                      </div>
-                      <div className="border-t-2 pt-2 flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2">
-                          <UserCircle size={80} />
-                          <div className="flex-col gap-2">
-                            <p className="text-lg font-medium">
-                              <span className="text-xs hidden">
-                                First Name:
-                              </span>
-                              {candidate.firstName} {candidate.lastName}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="c">
-                          <p className="text-lg font-medium">
-                            <span className="font-thin text-sm">
-                              Profession :
-                            </span>
-                            {candidate.profession}
-                          </p>
-                        </div>
-                      </div>
-                      <p className="border-b-2  underline-offset-1 mt-10">
-                        Contact Details:
-                      </p>
-                      <div className="my-10 flex items-center justify-between">
-                        <div className="flex flex-col gap-2 text-sm">
-                          <p className="px-4 py-1 flex items-center gap-1">
-                            {" "}
-                            <Mail size={20} className="" />
-                            {candidate.email}
-                          </p>
-                          <p className="px-4 py-1 flex items-center gap-1">
-                            {" "}
-                            <PhoneIcon size={20} className="" />
-                            {candidate.phone}
-                          </p>
-                          <p className="px-4 py-1 flex items-center gap-1">
-                            {" "}
-                            <MapPin size={20} className="" />
-                            {candidate.country}
-                          </p>
-                        </div>
-                      </div>
-
-                      <p className="border-b-2  underline-offset-1 mt-10">
-                        Resume:
-                      </p>
-                      <div className=" max-w-5xl mx-auto  px-2 py-3 prose prose-sm">
-                        <p className="text-center">
-                          Resume Name:{candidate.resumeName ??"No Resume Uploaded"}
-                        </p>
-                        {candidate.resumeLink !== null ? (
-                        <iframe
-                          src={`${candidate.resumeLink}#view=fitH`}
-                          title={candidate.resumeName as string}
-                          name={candidate.resumeName as string}
-                          width={900}
-                          height={900}
-                        />):(<><p className="text-center text-sm">No Resume Uploaded</p></>)}
-                      </div>
-                      <p className="border-b-2  underline-offset-1 mt-10">
-                        Career Experience:
-                      </p>
-                      <div
-                        className="my-10 prose prose-sm md:prose-sm"
-                        dangerouslySetInnerHTML={{
-                          __html: correctedParsedHTML(
-                            candidate.workExperience as string,
-                          ),
-                        }}
-                      ></div>
-                      <p className="border-b-2  underline-offset-1 mt-10">
-                        Certifications:
-                      </p>
-                      <div
-                        className="my-10 prose prose-sm md:prose-sm"
-                        dangerouslySetInnerHTML={{
-                          __html: correctedParsedHTML(
-                            candidate.certifications as string,
-                          ),
-                        }}
-                      ></div>
-                    </div>
-                  </DialogContent>
-                </Dialog>
-
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="outline"> <Pencil/>details</Button>
-                  </DialogTrigger>
-                  <DialogContent className="w-full md:max-w-7xl max-h-[90dvh] overflow-y-auto">
-                  <DialogHeader>
-                    <DialogTitle className="text-center">Edit Candidate Details</DialogTitle>
-                    <DialogDescription className="text-center">Editing <span className="font-bold">{candidate.firstName} {candidate.lastName}</span> profile details</DialogDescription>
-                  </DialogHeader>
-                <div>
-                  <CandidatesProfile candidateData={candidate}/>
-                </div>
-                </DialogContent>
-                </Dialog>
-              </div>
-            ))} */}
+            <VirtualBtsCandidatesList candidates={candidates} />
           </>
         )}
       </div>
