@@ -1,6 +1,6 @@
 "use client"
 
-import { FilesIcon, FolderPlus, MessagesSquareIcon, ServerIcon, UserCog2 } from "lucide-react"
+import { FilesIcon, FolderPlus, MessagesSquareIcon, ServerIcon,  } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar"
 import { Link } from "next-view-transitions"
 import clsx from "clsx"
@@ -29,11 +29,11 @@ title:"Savannah Assistant",
 url:"/Customer/Savannah",
 icon:MessagesSquareIcon
 },
-{
-title:"Profile",
-url:"/Customer/candidateProfile",
-icon:UserCog2
-},
+// {
+// title:"Profile",
+// url:"/Customer/candidateProfile",
+// icon:UserCog2
+// },
 ]
 
 export default function CustomerSideBar2() {
