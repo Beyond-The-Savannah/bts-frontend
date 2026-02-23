@@ -178,8 +178,9 @@ export default async function CandidatesSection({jobDepartment}:{jobDepartment:s
                         src={`${candidate.resumeLink}#view=fitH`}
                         title={candidate.resumeName as string}
                         name={candidate.resumeName as string}
-                        width={900}
-                        height={900}
+                        // width={900}
+                        // height={900}
+                        className="w-full h-[70dvh] mx-auto"
                       />
                     </div>
                     <p className="border-b-2  underline-offset-1 mt-10">

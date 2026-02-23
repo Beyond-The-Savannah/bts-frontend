@@ -148,19 +148,25 @@ export default function VirtualBtsCandidatesList({
                           Resume Name:
                           {candidate.resumeName ?? "No Resume Uploaded"}
                         </p>
-                        {candidate.resumeLink !== null ? (
+                        {candidate.resumeLink !== "" ? (
                           <iframe
                             src={`${candidate.resumeLink}#view=fitH`}
                             title={candidate.resumeName as string}
                             name={candidate.resumeName as string}
-                            width={900}
-                            height={900}
+                            // width={900}
+                            // height={900}
+                            className="w-full h-[70dvh] mx-auto"
                           />
                         ) : (
                           <>
-                            <p className="text-center text-sm">
-                              No Resume Uploaded
-                            </p>
+                             <iframe
+                            src={`https://res.cloudinary.com/dh8qlzbzk/image/upload/v1771840409/Missing_Resume_ixxwlh.png`}
+                            title={candidate.resumeName as string}
+                            name={candidate.resumeName as string}
+                            // width={900}
+                            // height={900}
+                            className="w-full h-[70dvh] mx-auto"
+                          />
                           </>
                         )}
                       </div>
