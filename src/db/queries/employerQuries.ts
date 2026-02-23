@@ -17,6 +17,11 @@ export async function GetCandidatesPool(){
   return data
 }
 
+export async function GetCandidateBYEmail(email:string){
+  const data=await db.select().from(candidatePoolTable).where(eq(candidatePoolTable.email,email))
+  return data
+}
+
 export async function GetCandidatesBasedOnJobDepartment(jobDepartment:string){
   const data=await db.select().from(candidatePoolTable).where(eq(candidatePoolTable.profession,jobDepartment))
   return data
