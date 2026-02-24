@@ -283,6 +283,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
                           {Departments.map((depart) => (
                             <CommandItem
                               key={depart.value}
+                              
                               value={depart.value}
                               onSelect={(currentValue) => {
                                 setProfessionValue(

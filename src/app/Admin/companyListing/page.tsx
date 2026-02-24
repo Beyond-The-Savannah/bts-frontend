@@ -60,7 +60,7 @@ export default function CompanyListingAmdinPage() {
   return (
     <>
       <section className="mt-10 px-4">
-        <h2 className="text-xl">Company Listing</h2>
+        <h2 className="text-3xl font-semibold">Company Listing</h2>
         <div className="border-2 rounded-md border-bts-GreenOne w-36 mb-8"></div>
         <div className="grid place-content-center mt-2">
           {isLoading && <RemoteJobListingsLoadingUI />}

@@ -18,7 +18,7 @@ export default async function Page() {
   return (
     <>
       <section className="mt-10 px-4">
-        <h2 className="text-xl">Subscribed Users</h2>
+        <h2 className="text-3xl font-semibold">Subscribed Users</h2>
         <div className="border-2 rounded-md border-bts-GreenOne w-36 mb-8"></div>
 
         <div className="container mx-auto px-4 py-10">

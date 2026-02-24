@@ -9,7 +9,7 @@ export default async function page() {
     <>
     <section className="mt-10 px-4">
         <div className="c">
-            <h2 className="text-xl">BTS March Mixer Event</h2>
+            <h2 className="text-3xl font-semibold">BTS March Mixer Event</h2>
             <div className="border-2 rounded-md border-bts-GreenOne w-36 mb-8"></div>
         </div>
         <div className="flex w-full items-center justify-end gap-4 mb-4">
