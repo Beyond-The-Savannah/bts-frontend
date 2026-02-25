@@ -3,10 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { GetCandidateBYEmail } from "@/db/queries/employerQuries";
 import { correctedParsedHTML } from "@/lib/utils";
+import { currentUser } from "@clerk/nextjs/server";
 import { Mail, MapPin, Pencil, PhoneIcon, UserCircle } from "lucide-react";
 
 export default async function page() {
-  const candidate = await GetCandidateBYEmail("knjauwambui@gmail.com");
+  const user =await currentUser()
+
+  const candidate = await GetCandidateBYEmail(user?.primaryEmailAddress?.emailAddress as string);
   let candidatesResumeLink = "";
   if (candidate[0].resumeLink == null || candidate[0].resumeLink == "") {
     candidatesResumeLink =
