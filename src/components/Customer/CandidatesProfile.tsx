@@ -51,11 +51,29 @@ interface CandidateDataProps {
 interface AddCandidateProps{
     candidateData?:CandidateDataProps
 }
+const candidatesFormSchema = z.object({
+  firstName: z.string().min(1,"First Name is required"),
+  lastName: z.string().min(1,"Last Name is required"),
+  email: z.string().email().min(1, "Email Address is required"),
+  phone: z.string().min(1, "Phone Number is required"),
+  // resumeLink: z.instanceof(Buffer),
+  resumeLink: z.string().optional().default(""),
+  resumeName: z.string().optional().default(""),
+  photoLink: z.string().optional().default(""),
+  photoName: z.string().optional().default(""),
+  country: z.string().min(1, "Country is Required"),
+  profession: z.string().min(1,"Profession is required"),
+  experienceYears: z.number().int(),
+  // certifications: z.string(),
+  certifications: z.string().optional().default(""),
+  workExperience: z.string().optional().default(""),
+});
+type candidatesFormFields = z.infer<typeof candidatesFormSchema>;
 
 export default function CandidatesProfile({candidateData}:AddCandidateProps) {
-  // const [open,setOpen]=useState(false)
-  const [professionValue, setProfessionValue] = useState("");
-  const [countryValue, setCountryValue] = useState("");
+  
+  const [professionValue, setProfessionValue] = useState(candidateData?.profession||"");
+  const [countryValue, setCountryValue] = useState(candidateData?.country||"");
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [resumeName, setResumeName] = useState("");
   const [photoFile, setPhotoFile] = useState<File | null>(null);
@@ -63,25 +81,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
   const [certificates, setCertificates] = useState("");
   const [workExperience, setWorkExperience] = useState("");
 
-  const candidatesFormSchema = z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-    email: z.string().email(),
-    phone: z.string(),
-    // resumeLink: z.instanceof(Buffer),
-    resumeLink: z.string(),
-    resumeName: z.string(),
-    photoLink: z.string(),
-    photoName: z.string(),
-    country: z.string(),
-    profession: z.string(),
-    experienceYears: z.number().int(),
-    // certifications: z.string(),
-    certifications: z.string(),
-    workExperience: z.string(),
-  });
 
-  type candidatesFormFields = z.infer<typeof candidatesFormSchema>;
 
   function handlePhotoUpload(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files != null) {
@@ -182,6 +182,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
       <section className="px-4">
         <p className="font-bold text-3xl">Candidates Form</p>
 
+        {/* <form onSubmit={handleSubmit(formSubmit,(errors)=>console.log("VALIDATION ERRORS", errors))}> */}
         <form onSubmit={handleSubmit(formSubmit)}>
           <div className="space-y-16 border rounded-lg p-4 my-10">
             <div className="flex flex-wrap items-center gap-8">
@@ -263,7 +264,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
                       variant="outline"
                       role="combobox"
                       // aria-expanded={open}
-                      className="flex justify-between mx-2 w-full md:w-[450px]"
+                      className="flex justify-between mx-2 w-full md:w-[400px]"
                      
                     >
                       {professionValue
@@ -274,7 +275,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-full md:w-[450px]">
+                  <PopoverContent className="w-full md:w-[400px]">
                     <Command>
                       <CommandInput placeholder="Search Your Profession" />
                       <CommandList>
@@ -312,6 +313,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
                   </PopoverContent>
                 </Popover>
               </div>
+              {errors.profession && (<p className="text-sm text-red-400">{errors.profession.message}</p>)}
               <div className="w-full md:flex-1">
                 <label htmlFor="experienceYears">Experience In Years</label>
                 <Input
@@ -327,6 +329,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
                   required
                 />
               </div>
+              {errors.experienceYears && (<p className="text-sm text-red-400">{errors.experienceYears.message}</p>)}
               <div className="w-full md:flex-1 relative">
                 <label htmlFor="country">Country</label>
                 {/* <Popover open={open} onOpenChange={setOpen}> */}
@@ -336,7 +339,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
                     <Button
                       variant="outline"
                       role="combobox"
-                      className="flex justify-between mx-2 w-full md:w-[450px]"
+                      className="flex justify-between mx-2 w-full md:w-[400px]"
                      
                     >
                       {countryValue
@@ -347,7 +350,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-full md:w-[450px]">
+                  <PopoverContent className="w-full md:w-[400px]">
                     <Command>
                       <CommandInput
                         required
@@ -387,6 +390,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
                   </PopoverContent>
                 </Popover>
               </div>
+              {errors.country && (<p className="text-sm text-red-400">{errors.country.message}</p>)}
             </div>
             <div className="flex flex-wrap items-center gap-8">
               
@@ -401,6 +405,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
                     onChange={handleResumeUpload}
                     // required
                   />
+                  
                 </div>
                 <div className="w-full md:flex-1">
                   {/* <div className="w-96 mx-auto"> */}
