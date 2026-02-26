@@ -10,21 +10,13 @@ export function useShowCandidateProfileLink() {
 
   const userEmailAddress = user?.primaryEmailAddress?.emailAddress;
 
-  // useEffect(() => {
-  //     async function GetCurrentCandidateDetails() {
-  //       if (userEmailAddress !== undefined) {
-  //         const data = await GetCandidateDetailsBYEmail(userEmailAddress);
-  //         setCandidateDetails(data);
-  //       }
-  //     }
-  //     GetCurrentCandidateDetails();
-  //   }, [userEmailAddress]);
+
   useEffect(() => {
     async function GetCurrentCandidateDetails() {
       if (userEmailAddress !== undefined) {
         try {
           const data = await GetCandidateDetailsBYEmail(userEmailAddress);
-          console.log("Fetched candidate data:", data); // check production logs
+          // console.log("Fetched candidate data:", data); 
           setCandidateDetails(data);
         } catch (err) {
           console.error("Failed to fetch candidate details:", err);
