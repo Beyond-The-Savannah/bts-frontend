@@ -20,11 +20,9 @@ import {
 import { Link } from "next-view-transitions";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
-// import { SignedIn, UserButton, useUser } from "@clerk/clerk-react"
-import { useEffect, useState } from "react";
-import { SignedIn, UserButton, useUser } from "@clerk/nextjs";
-import { GetCandidateDetailsBYEmail } from "@/app/actions/BTSCandidatesForm";
-import { CandidateProp } from "@/db/schema";
+import { SignedIn, UserButton,} from "@clerk/nextjs";
+import { useShowCandidateProfileLink } from "@/hooks/useShowCandidateProfileLink";
+
 
 const customerSidebarLinks = [
   {
@@ -58,21 +56,9 @@ const customerSidbebarLinks2 = [
 
 export default function CustomerSideBar2() {
   const pathname = usePathname();
-  const {user} = useUser();
-  const userEmailAddress = user?.primaryEmailAddress?.emailAddress;
-  const [candidateDetails, setCandidateDetails] = useState<CandidateProp[]>([]);
+  const candidateDetails=useShowCandidateProfileLink()
 
-  useEffect(() => {
-    async function GetCurrentCandidateDetails() {
-      if (userEmailAddress !== undefined) {
-        const data = await GetCandidateDetailsBYEmail(userEmailAddress);
-        setCandidateDetails(data);
-      }
-    }
-    GetCurrentCandidateDetails();
-  }, [userEmailAddress]);
-
-//   console.log("CANDIDATES DETAILS", candidateDetails);
+  // console.log("CANDIDATES DETAILS", candidateDetails);
 
   return (
     <Sidebar>
