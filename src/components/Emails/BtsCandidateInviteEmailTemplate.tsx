@@ -69,6 +69,7 @@ export default function BtsCandidateInviteEmailTemplate({
               </Text>
               <Text style={text}>See you on the inside!</Text>
 
+                <br /><br /><br />
               <Text style={text}>
                 Regards, <br />
                 Beyond the Savannah Team

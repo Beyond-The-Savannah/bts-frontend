@@ -36,7 +36,8 @@ export default function CandidateInvite({
       <Button
         variant="secondary"
         onClick={handleSendInvite}
-        disabled={isSending}
+        disabled
+        // disabled={isSending}
       >
         {isSending ? "Sending email invites..." : "Send Email Invites"}
       </Button>
