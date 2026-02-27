@@ -97,6 +97,16 @@ export async function EditCandidateProfile(data:CandidateProp){
   }
 }
 
+export async function DeleteCandidateProfile(candidatesId:string){
+  try {
+   const deletedData= await db.delete(candidatePoolTable).where(eq(candidatePoolTable.id,candidatesId)).returning({deletedCandidateId:candidatePoolTable.id})
+   return deletedData
+    
+  } catch (error) {
+    console.log("Error Deleting Candidate Profile -VirtualBtsCandidatesList", error)
+  }
+}
+
 export async function AddCompanyProfile(data:Omit<CompanyProp, 'id'|'createdAt'|'updatedAt'>){
   try {
     await db.insert(companyTable).values({

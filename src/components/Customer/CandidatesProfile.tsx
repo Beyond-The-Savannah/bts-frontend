@@ -23,6 +23,7 @@ import { AddCandidatesProfile, EditCandidateProfile } from "@/app/actions/Employ
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
 import {  modules3 } from "@/lib/reactQuilSettings";
+import { useRouter } from "next/navigation";
 
 
 const ReactQuill = dynamic(() => import("react-quill-new"), {
@@ -80,6 +81,8 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
   const [photoName, setPhotoName] = useState("");
   const [certificates, setCertificates] = useState("");
   const [workExperience, setWorkExperience] = useState("");
+
+  const router=useRouter()
 
 
 
@@ -159,6 +162,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
       try {
         await EditCandidateProfile({...data, id:candidateData.id,createdAt: new Date(candidateData.createdAt), updatedAt: new Date()});
         toast.success("Profile Details Updated");
+        router.refresh()
       } catch (error) {
         console.log("Error updating candidate profile:", error);
       }
@@ -168,6 +172,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
         await AddCandidatesProfile(data);
         toast.success("Profile Added");
         reset();
+        router.refresh()
       } catch (error) {
         toast.error(`Error in adding profile, please try again later`);
         console.log("Error Adding Candidates Profile", error);

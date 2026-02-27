@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { db } from "../db";
 import { candidatePoolTable, jobsTable } from "../schema";
 
@@ -13,7 +13,7 @@ return data
 }
 
 export async function GetCandidatesPool(){
-  const data=await db.select().from(candidatePoolTable)
+  const data=await db.select().from(candidatePoolTable).orderBy(desc(candidatePoolTable.createdAt))
   return data
 }
 

@@ -21,7 +21,7 @@ export default function page() {
             <TabsTrigger value="Upload Candidates">
               Upload Candidates
             </TabsTrigger>
-            {/* <TabsTrigger value="Company Profile"> Company</TabsTrigger> */}
+            
           </TabsList>
           <TabsContent value="Candidates">
             <div className="mb-10">
@@ -36,9 +36,7 @@ export default function page() {
           <TabsContent value="Upload Candidates">
             <UploadCandidatesForm />
           </TabsContent>
-          {/* <TabsContent value="Company Profile">
-            <CompanyProfile/>
-          </TabsContent> */}
+          
         </Tabs>
       </section>
     </>

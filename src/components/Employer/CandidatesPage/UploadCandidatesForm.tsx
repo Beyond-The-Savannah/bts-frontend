@@ -46,8 +46,11 @@ export default function UploadCandidatesForm() {
   };
   return (
     <>
+    <section className="px-4">
+        <p className="font-bold text-3xl">Upload Candidates CSV Form</p>
+
       <div className="max-w-sm mx-auto">
-        <form onSubmit={submitUploadedCsvFile} className="space-y-2 mt-10">
+        <form onSubmit={submitUploadedCsvFile} className="space-y-2 mt-10 grid place-content-center">
           <Label htmlFor="csvFile"></Label>
           <Input
             type="file"
@@ -56,39 +59,13 @@ export default function UploadCandidatesForm() {
             required
             onChange={handleUpload}
           />
-          <Button variant="outline" type="submit" className="my-4">
+          <Button variant="outline" type="submit" className="my-4 bg-green-200 hover:bg-green-400">
             Upload
           </Button>
         </form>
       </div>
-      {/* <div className="grid place-content-center gap-2 max-w-7xl mx-auto border-4 rounded-lg my-4 px-2 py-4">
-        {csvData.length != 0 ? (
-          <>
-            <ul>
-              {csvData.map((csv, indx) => (
-                <div key={indx} className="flex items-center gap-x-2 gap-y-4">
-                  
-                  <li className="text-xs">{csv.firstName}</li>
-                  <li className="text-xs">{csv.lastName}</li>
-                  <li className="text-xs">{csv.email}</li>
-                  <li className="text-xs">{csv.phone}</li>
-                  <li className="text-xs">{csv.resumeLink}</li>
-                  <li className="text-xs">{csv.resumeName}</li>
-                  <li className="text-xs">{csv.photoLink}</li>
-                  <li className="text-xs">{csv.photoName}</li>
-                  <li className="text-xs">{csv.country}</li>
-                  <li className="text-xs">{csv.profession}</li>
-                  <li className="text-xs">{csv.experienceYears}</li>
-                  <li className="text-xs">{csv.certifications}</li>
-                  <li className="text-xs">{csv.workExperience}</li>
-                  
-                </div>
-              ))}
-            
-            </ul>
-          </>
-        ) : null}
-      </div> */}
+    </section>
+      
     </>
   );
 }

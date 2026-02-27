@@ -4,20 +4,34 @@ import { Virtuoso } from "react-virtuoso";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  
   DialogContent,
   DialogDescription,
+  
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { correctedParsedHTML } from "@/lib/utils";
-import { Eye, Mail, MapPin, Pencil, PhoneIcon, UserCircle } from "lucide-react";
+import {
+  Eye,
+  Mail,
+  MapPin,
+  Pencil,
+  PhoneIcon,
+  Trash2,
+  UserCircle,
+} from "lucide-react";
 import CandidatesProfile from "@/components/Customer/CandidatesProfile";
 import { Input } from "@/components/ui/input";
 import { CandidateProp } from "@/db/schema";
 import { useState } from "react";
 // import { toast } from "sonner";
 import { useDebounceSearch } from "@/hooks/useDebounceSearch";
+import { toast } from "sonner";
+import { DeleteCandidateProfile } from "@/app/actions/EmployerForms";
+import { useRouter } from "next/navigation";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
 
 export default function VirtualBtsCandidatesList({
   candidates,
@@ -26,9 +40,18 @@ export default function VirtualBtsCandidatesList({
 }) {
   const [searchEmail, setSearchEmail] = useState("");
   const debouncedSearchEmail = useDebounceSearch(searchEmail, 500);
+  const router=useRouter()
   const filteredCandidates = candidates.filter((candidate) =>
     candidate.email.toLowerCase().includes(debouncedSearchEmail.toLowerCase()),
   );
+  async function handleCandidateRemoval(candidateId: string) {
+    const deletedInfo=await DeleteCandidateProfile(candidateId)
+    
+    if(deletedInfo!=undefined && deletedInfo.length>0){
+      toast.success(`Deleted candidate:  ${deletedInfo[0].deletedCandidateId}`);
+      router.refresh()
+    }
+  }
 
   return (
     <>
@@ -159,14 +182,14 @@ export default function VirtualBtsCandidatesList({
                           />
                         ) : (
                           <>
-                             <iframe
-                            src={`https://res.cloudinary.com/dh8qlzbzk/image/upload/v1771840409/Missing_Resume_ixxwlh.png`}
-                            title={candidate.resumeName as string}
-                            name={candidate.resumeName as string}
-                            // width={900}
-                            // height={900}
-                            className="w-full h-[70dvh] mx-auto"
-                          />
+                            <iframe
+                              src={`https://res.cloudinary.com/dh8qlzbzk/image/upload/v1771840409/Missing_Resume_ixxwlh.png`}
+                              title={candidate.resumeName as string}
+                              name={candidate.resumeName as string}
+                              // width={900}
+                              // height={900}
+                              className="w-full h-[70dvh] mx-auto"
+                            />
                           </>
                         )}
                       </div>
@@ -222,6 +245,40 @@ export default function VirtualBtsCandidatesList({
                     </div>
                   </DialogContent>
                 </Dialog>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="outline">
+                      <Trash2 className="text-red-400" />
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle className="text-center hidden">
+                        Delete Candidates Details
+                      </AlertDialogTitle>
+                      <AlertDialogDescription className="text-center">
+                        Deleting{" "}
+                        <span className="font-bold">
+                          {candidate.firstName} {candidate.lastName}
+                        </span>{" "}
+                        profile details
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className="w-6/12 mx-auto flex justify-center items-center gap-4">
+                      <AlertDialogCancel asChild>
+                        <Button variant="outline">Close</Button>
+                      </AlertDialogCancel>
+                      <AlertDialogAction
+                      asChild
+                      className="bg-red-400 hover:bg-red-500"
+                        >
+                        <Button variant="destructive" onClick={() => handleCandidateRemoval(candidate.id)}>
+                        Delete Details
+                        </Button>
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </div>
             </div>
           </>
