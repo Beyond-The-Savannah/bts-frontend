@@ -32,6 +32,7 @@ import { toast } from "sonner";
 import { DeleteCandidateProfile } from "@/app/actions/EmployerForms";
 import { useRouter } from "next/navigation";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
+import CandidateInvite from "./CandidateInvite";
 
 export default function VirtualBtsCandidatesList({
   candidates,
@@ -64,9 +65,12 @@ export default function VirtualBtsCandidatesList({
             onChange={(e) => setSearchEmail(e.target.value)}
           />
         </div>
+        <div className="flex flex-col gap-4">
+        <CandidateInvite candidates={candidates}/>
         <div className="border rounded-xl px-3 py-1">
           Total Candidates:{" "}
           <span className="font-bold">{candidates.length}</span>
+        </div>
         </div>
       </div>
 
