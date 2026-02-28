@@ -13,7 +13,7 @@ return data
 }
 
 export async function GetCandidatesPool(){
-  const data=await db.select().from(candidatePoolTable).orderBy(desc(candidatePoolTable.createdAt))
+  const data=await db.select().from(candidatePoolTable).orderBy(desc(candidatePoolTable.updatedAt))
   return data
 }
 

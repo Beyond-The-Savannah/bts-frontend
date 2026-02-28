@@ -66,7 +66,8 @@ export default function VirtualBtsCandidatesList({
           />
         </div>
         <div className="flex flex-col gap-4">
-        <CandidateInvite candidates={candidates}/>
+        {/* <CandidateInvite candidates={candidates}/> */}
+        <CandidateInvite/>
         <div className="border rounded-xl px-3 py-1">
           Total Candidates:{" "}
           <span className="font-bold">{candidates.length}</span>

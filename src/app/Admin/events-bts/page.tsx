@@ -29,7 +29,7 @@ export default async function page() {
                         <TableHead>Phone Number</TableHead>
                         <TableHead className="w-48">Event Name</TableHead>
                         <TableHead className="w-48">Created At</TableHead>
-                        <TableHead className="w-48">Updated At</TableHead>
+                        {/* <TableHead className="w-48">Updated At</TableHead> */}
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -39,9 +39,9 @@ export default async function page() {
                             <TableCell >{attendee.lastName}</TableCell>
                             <TableCell >{attendee.email}</TableCell>
                             <TableCell >{attendee.phoneNumber}</TableCell>
-                            <TableCell className="text-[0.5rem] 2xl:text-xs">{attendee.eventName}</TableCell>
-                            <TableCell className="text-[0.5rem] 2xl:text-xs">{new Date(attendee.createdAt).toString()}</TableCell>
-                            <TableCell className="text-[0.5rem] 2xl:text-xs">{new Date(attendee.updatedAt).toString()}</TableCell>
+                            <TableCell className="text-[0.5rem] 2xl:text-[0.5rem]">{attendee.eventName}</TableCell>
+                            <TableCell className="text-[0.5rem] 2xl:text-xs">{new Date(attendee.createdAt).toLocaleDateString()} - {new Date(attendee.createdAt).toLocaleTimeString()}</TableCell>
+                            {/* <TableCell className="text-[0.5rem] 2xl:text-xs">{new Date(attendee.updatedAt).toLocaleDateString()} - {new Date(attendee.updatedAt).toLocaleTimeString()}</TableCell> */}
                     </TableRow>
                         ))}
                 </TableBody>

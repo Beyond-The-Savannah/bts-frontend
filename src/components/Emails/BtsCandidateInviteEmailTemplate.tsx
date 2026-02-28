@@ -23,7 +23,6 @@ export default function BtsCandidateInviteEmailTemplate({
     <>
       <Html>
         <Head />
-        {/* <Preview>Beyond The Savannah calendly session Link</Preview> */}
         <Preview>Beyond The Savannah, Candidate Profile Invite Setup</Preview>
         <Body style={main}>
           <Container style={container}>
@@ -49,7 +48,7 @@ export default function BtsCandidateInviteEmailTemplate({
                 1. Visit the our website: https://beyondthesavannah.co.ke
               </Text>
               <Text style={text}>
-                2. Sign up: Click the “Sign Up” button. Use this email:{email}{" "}
+                2. Sign up: Click the “Sign Up” button. Use this email: &quot;{email}&quot;
                 It is important that you register using the same email address
                 where you received this message to ensure your account is
                 correctly linked.
