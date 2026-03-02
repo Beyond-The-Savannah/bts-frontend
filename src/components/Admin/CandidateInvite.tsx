@@ -2,10 +2,11 @@
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 // import { CandidateProp } from "@/db/schema";
-import axios from "axios";
+// import axios from "axios";
 import { useState } from "react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
 import { Mail } from "lucide-react";
+import { SendAllCandidatesEmailInvites } from "@/app/actions/SendAllCandidatesEmailInvites";
 
 
 // export default function CandidateInvite({candidates,}: {candidates: CandidateProp[];}) {
@@ -34,9 +35,10 @@ export default function CandidateInvite() {
   async function handleSendInvite(){
     setIsSending(true)
     try {
-     const response= await axios.post(`/api/send-bts-candidates-invite`)
-      const {workflowId}=response.data
-      toast.success(`Sending Email Invites To All Candidates - ${workflowId}`)
+    //  const response= await axios.post(`/api/send-bts-candidates-invite`)
+    // const {workflowId}=response.data
+        const workflowRunId=await SendAllCandidatesEmailInvites()
+      toast.success(`Sending Email Invites To All Candidates - ${workflowRunId}`)
     } catch (error) {
             console.log("Error in handleSendInvite function", error);
             toast.error("Failed To Send Email Invites ")
