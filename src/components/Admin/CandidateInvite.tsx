@@ -35,8 +35,6 @@ export default function CandidateInvite() {
   async function handleSendInvite(){
     setIsSending(true)
     try {
-    //  const response= await axios.post(`/api/send-bts-candidates-invite`)
-    // const {workflowId}=response.data
         const workflowRunId=await SendAllCandidatesEmailInvites()
       toast.success(`Sending Email Invites To All Candidates - ${workflowRunId}`)
     } catch (error) {

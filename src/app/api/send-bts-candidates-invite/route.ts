@@ -13,7 +13,8 @@ export const { POST } = serve(async (context) => {
     // async (): Promise<CandidateProp[]> => {
     async (): Promise<string[]> => {
       const candidatesData=await GetCandidatesPool()
-      return candidatesData.map((candidate)=>candidate.email) //only store the emails
+      //only store the emails
+      return candidatesData.map((candidate)=>candidate.email) 
     }
   );
 
