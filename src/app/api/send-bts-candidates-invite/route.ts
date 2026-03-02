@@ -1,50 +1,55 @@
 import BtsCandidateInviteEmailTemplate from "@/components/Emails/BtsCandidateInviteEmailTemplate";
-import { GetCandidatesPool } from "@/db/queries/employerQuries";
-import { CandidateProp } from "@/db/schema";
+import { GetCandidateBYEmail, GetCandidatesPool } from "@/db/queries/employerQuries";
+// import { CandidateProp } from "@/db/schema";
 import { Resend } from "resend";
 import { serve } from "@upstash/workflow/nextjs";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const { POST } = serve(async (context) => {
-  // Step 1: Fetch all candidates
-  const allCandidates = await context.run(
+  // Step 1: Fetch ONLY emails — keep payload tiny for upstash and not exceed the max size
+  const allCandidatesEmails = await context.run(
     "fetch-all-candidates-and-send-email-invites",
-    async (): Promise<CandidateProp[]> => {
-      return await GetCandidatesPool();
+    // async (): Promise<CandidateProp[]> => {
+    async (): Promise<string[]> => {
+      const candidatesData=await GetCandidatesPool()
+      return candidatesData.map((candidate)=>candidate.email) //only store the emails
     }
   );
 
-  if (allCandidates.length === 0) {
-    console.log("No BTS candidates found, exiting.");
+  if (allCandidatesEmails.length === 0) {
+    console.log("No BTS candidates emails found, exiting.");
     return;
   }
 
-  // Step 2: Send each candidate their email as a separate durable step
-  for (const candidate of allCandidates) {
-    await context.run(`send-email-${candidate.email}`, async () => {
+  // Step 2: For each email, fetch fresh + send — data not stored in workflow state
+  for (const email of allCandidatesEmails) {
+    await context.run(`send-email-${email}`, async () => {
+      const candidate=await GetCandidateBYEmail(email)
+      if(!candidate)return
+
       const { error } = await resend.emails.send({
         from: `info@beyondthesavannah.co.ke`,
-        to: [candidate.email],
+        to: [candidate[0].email],
         subject: `Action Required: Please Set Up Your Candidate's Profile`,
         react: BtsCandidateInviteEmailTemplate({
-          email: candidate.email,
-          firstName: candidate.firstName,
+          email: candidate[0].email,
+          firstName: candidate[0].firstName,
         }),
       });
 
       if (error) {
         // Throwing causes Upstash to retry just this step
         throw new Error(
-          `Failed to send email to ${candidate.email}: ${JSON.stringify(error)}`
+          `Failed to send email to ${candidate[0].email}: ${JSON.stringify(error)}`
         );
       }
 
-      console.log(`Email sent successfully to ${candidate.email}`);
+      console.log(`Email sent successfully to ${candidate[0].email}`);
     });
 
     // Step 3: Rate limiting delay between sends
-    await context.sleep(`rate-limit-${candidate.email}`, 1);
+    await context.sleep(`rate-limit-${email}`, 1);
   }
 });
 
