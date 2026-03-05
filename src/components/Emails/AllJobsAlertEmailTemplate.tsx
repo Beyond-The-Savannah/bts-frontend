@@ -20,7 +20,7 @@ export default function AllJobsAlertEmailTemplate({
   jobs,
 }: {
   firstName: string;
-  jobs: ListingRemoteJobs[];
+  jobs: Pick<ListingRemoteJobs, 'jobsId'|'jobName'|'jobUrl'|'imageUrl'|'jobSubCategoryId'|'companyName'|'dateCreated'>[]
 }) {
   return (
     <>
@@ -163,7 +163,7 @@ const text = {
   fontSize: "16px",
   fontFamily:
     "'Open Sans', 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif",
-  fontWeight: "300",
+  fontWeight: "400",
   color: "#404040",
   lineHeight: "26px",
 };

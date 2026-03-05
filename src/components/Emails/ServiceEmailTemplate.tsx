@@ -144,7 +144,7 @@ const text = {
   fontSize: "16px",
   fontFamily:
     "'Open Sans', 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif",
-  fontWeight: "300",
+  fontWeight: "400",
   color: "#404040",
   lineHeight: "26px",
 };
