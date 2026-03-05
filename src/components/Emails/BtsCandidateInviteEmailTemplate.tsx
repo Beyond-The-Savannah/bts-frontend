@@ -64,7 +64,7 @@ export default function BtsCandidateInviteEmailTemplate({
                 the right organisations who need your expertise.
               </Text>
               <Text style={text}>
-                If you run into any issues, and let us know.
+                If you run into any issues, do let us know.
               </Text>
               <Text style={text}>See you on the inside!</Text>
 

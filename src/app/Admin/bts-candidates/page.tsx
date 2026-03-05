@@ -3,6 +3,8 @@ import AllBTSCandidatesSection from "@/components/Employer/CandidatesPage/AllBTS
 import UploadCandidatesForm from "@/components/Employer/CandidatesPage/UploadCandidatesForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+export const dynamic = "force-dynamic";
+
 export default function page() {
   return (
     <>

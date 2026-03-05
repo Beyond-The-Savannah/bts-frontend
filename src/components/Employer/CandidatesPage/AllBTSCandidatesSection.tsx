@@ -1,7 +1,6 @@
 import { GetCandidatesPool } from "@/db/queries/employerQuries";
 import VirtualBtsCandidatesList from "@/components/Admin/VirtualBtsCandidatesList";
 
-export const dynamic = "force-dynamic";
 
 export default async function AllBTSCandidatesSection() {
   const candidates = await GetCandidatesPool();
