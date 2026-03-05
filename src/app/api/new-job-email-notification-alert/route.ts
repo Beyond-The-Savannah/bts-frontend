@@ -6,11 +6,15 @@ import { serve } from "@upstash/workflow/nextjs";
 import { Resend } from "resend";
 
 export const { POST } = serve(async (context) => {
-  await context.run("Send Email Alert", async () => {
-    await sendNewJobAddedAlertEmail();
-  });
+  while(true){
+    await context.run("Send Email Alert", async () => {
+      await sendNewJobAddedAlertEmail();
+    });
+  
+    // await context.sleep("Run every 8hrs a day", 8 * 60 * 60 * 1000);
+    await context.sleep("Run every 8hrs a day", 8 * 60 * 60);
 
-  await context.sleep("Run every 8hrs a day", 8 * 60 * 60 * 1000);
+  }
 });
 
 //array of emails of users who don't what to be get email notifications
@@ -27,30 +31,53 @@ const noNewJobsNotifications = [
   "wairimunjoroge132@gmail.com",
   "yasmin.osman222@gmail.com",
   "bakhita.awuorba@gmail.com",
-  "louise.mutua@gmail.com"
+  "louise.mutua@gmail.com",
 ];
 
 async function sendNewJobAddedAlertEmail() {
   // get list of subscribed users from db and filter out the cancelled out users
   const response = await axiosInstance.get("/api/BydUsers/getAllUsers");
-  const userList: SubscribedUserProp[] = await response.data;
-  const usersEmailList = userList.filter(
-    (user) =>
-      user.status != "cancelled" &&
-      user.subscriptionPlan != "whatsapp community Annually" &&
-      !noNewJobsNotifications.includes(user.email)
-  );
+  const userList: Pick<SubscribedUserProp, 'firstName'|'email'|'career'|'status'|'subscriptionPlan'>[] = await response.data;
+  // const userList: SubscribedUserProp[] = await response.data;
+  // const usersEmailList = userList.filter(
+  //   (user) =>
+  //     user.status != "cancelled" &&
+  //     user.subscriptionPlan != "whatsapp community Annually" &&
+  //     !noNewJobsNotifications.includes(user.email)
+  // );
+  const usersEmailList = userList
+    .filter(
+      (user) =>
+        user.status != "cancelled" &&
+        user.subscriptionPlan != "whatsapp community Annually" &&
+        !noNewJobsNotifications.includes(user.email),
+    )
+    .map((user) => ({
+      firstName: user.firstName,
+      email: user.email,
+      career: user.career,
+    }));
 
   // get jobs listing and determine recently new added ones
   const jobListingResponse = await axiosInstance.get(
-    "/api/Jobs/getAllJobsByCompany"
+    "/api/Jobs/getAllJobsByCompany",
   );
-  const jobListing: ListingRemoteJobs[] = await jobListingResponse.data;
-  const sortedJobListingByDate = jobListing?.sort((a, b) => {
-    return (
-      new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
-    );
-  });
+  const jobListing: Pick<ListingRemoteJobs, 'jobsId'|'jobName'|'jobUrl'|'imageUrl'|'jobSubCategoryId'|'companyName'|'dateCreated'>[] = await jobListingResponse.data;
+  const sortedJobListingByDate = jobListing
+    ?.sort((a, b) => {
+      return (
+        new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
+      );
+    })
+    .map((sortedJobs) => ({
+      jobsId: sortedJobs.jobsId,
+      jobName: sortedJobs.jobName,
+      imageUrl:sortedJobs.imageUrl,
+      jobUrl: sortedJobs.jobUrl,
+      companyName:sortedJobs.companyName,
+      jobSubCategoryId: sortedJobs.jobSubCategoryId,
+      dateCreated: sortedJobs.dateCreated,
+    }));
 
   const now = new Date();
   const eightHoursAgo = new Date(now.getTime() - 8 * 60 * 60 * 1000);
@@ -69,23 +96,24 @@ async function sendNewJobAddedAlertEmail() {
 
   // Process each user and prepare personalized emails
   usersEmailList.forEach((user) => {
-    let userJobsList: ListingRemoteJobs[];
+    // let userJobsList: ListingRemoteJobs[];
+    let userJobsList: Pick<ListingRemoteJobs, 'jobsId'|'jobName'|'jobUrl'|'imageUrl'|'jobSubCategoryId'|'companyName'|'dateCreated'>[]
 
     // Filter jobs based on user's career preference
     if (user.career) {
       userJobsList = latestJobListing.filter(
-        (listing) => listing.jobSubCategoryId === user.career
-      );
+        (listing) => listing.jobSubCategoryId === user.career,
+      )
       console.log(
         `Filtered jobs for ${user.email} (career: ${user.career}):`,
-        userJobsList.length
+        userJobsList.length,
       );
     } else {
       // If no career preference, send all latest jobs
       userJobsList = latestJobListing;
       console.log(
         `All jobs for ${user.email} (no career preference):`,
-        userJobsList.length
+        userJobsList.length,
       );
     }
 
@@ -120,7 +148,7 @@ async function sendNewJobAddedAlertEmail() {
         }
       }
       console.log(
-        `Successfully sent ${batchEmails.length} personalized job alert emails`
+        `Successfully sent ${batchEmails.length} personalized job alert emails`,
       );
     } catch (error) {
       console.log("Error sending batch emails:", error);
