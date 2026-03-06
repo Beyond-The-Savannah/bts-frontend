@@ -5,19 +5,6 @@ import { EmailBatchProp, SubscribedUserProp } from "@/types/subscribedUser";
 import { serve } from "@upstash/workflow/nextjs";
 import { Resend } from "resend";
 
-export const { POST } = serve(async (context) => {
-  while(true){
-    await context.run("Send Email Alert", async () => {
-      await sendNewJobAddedAlertEmail();
-    });
-  
-    // await context.sleep("Run every 8hrs a day", 8 * 60 * 60 * 1000);
-    await context.sleep("Run every 8hrs a day", 8 * 60 * 60);
-
-  }
-});
-
-//array of emails of users who don't what to be get email notifications
 const noNewJobsNotifications = [
   "wangui.c.njeri@gmail.com",
   "a.wanjirunina@gmail.com",
@@ -33,127 +20,246 @@ const noNewJobsNotifications = [
   "bakhita.awuorba@gmail.com",
   "louise.mutua@gmail.com",
 ];
+export const { POST } = serve(async (context) => {
+  while (true) {
+    // Step 1: Fetch users
+    const usersEmailList = await context.run("Fetch subscribed users", async () => {
+      const response = await axiosInstance.get("/api/BydUsers/getAllUsers");
+      const userList: Pick <SubscribedUserProp,"firstName" | "email" | "career" | "status" | "subscriptionPlan">[] = response.data;
 
-async function sendNewJobAddedAlertEmail() {
-  // get list of subscribed users from db and filter out the cancelled out users
-  const response = await axiosInstance.get("/api/BydUsers/getAllUsers");
-  const userList: Pick<SubscribedUserProp, 'firstName'|'email'|'career'|'status'|'subscriptionPlan'>[] = await response.data;
-  // const userList: SubscribedUserProp[] = await response.data;
-  // const usersEmailList = userList.filter(
-  //   (user) =>
-  //     user.status != "cancelled" &&
-  //     user.subscriptionPlan != "whatsapp community Annually" &&
-  //     !noNewJobsNotifications.includes(user.email)
-  // );
-  const usersEmailList = userList
-    .filter(
-      (user) =>
-        user.status != "cancelled" &&
-        user.subscriptionPlan != "whatsapp community Annually" &&
-        !noNewJobsNotifications.includes(user.email),
-    )
-    .map((user) => ({
-      firstName: user.firstName,
-      email: user.email,
-      career: user.career,
-    }));
+      return userList
+        .filter(
+          (user) =>
+            user.status !== "cancelled" &&
+            user.subscriptionPlan !== "whatsapp community Annually" &&
+            !noNewJobsNotifications.includes(user.email),
+        )
+        .map((user) => ({
+          firstName: user.firstName,
+          email: user.email,
+          career: user.career,
+        }));
+    });
 
-  // get jobs listing and determine recently new added ones
-  const jobListingResponse = await axiosInstance.get(
-    "/api/Jobs/getAllJobsByCompany",
-  );
-  const jobListing: Pick<ListingRemoteJobs, 'jobsId'|'jobName'|'jobUrl'|'imageUrl'|'jobSubCategoryId'|'companyName'|'dateCreated'>[] = await jobListingResponse.data;
-  const sortedJobListingByDate = jobListing
-    ?.sort((a, b) => {
-      return (
-        new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
-      );
-    })
-    .map((sortedJobs) => ({
-      jobsId: sortedJobs.jobsId,
-      jobName: sortedJobs.jobName,
-      imageUrl:sortedJobs.imageUrl,
-      jobUrl: sortedJobs.jobUrl,
-      companyName:sortedJobs.companyName,
-      jobSubCategoryId: sortedJobs.jobSubCategoryId,
-      dateCreated: sortedJobs.dateCreated,
-    }));
+    // Step 2: Fetch latest jobs
+    const latestJobListing = await context.run("Fetch latest jobs", async () => {
+      const jobListingResponse = await axiosInstance.get("/api/Jobs/getAllJobsByCompany");
+      const jobListing: Pick<ListingRemoteJobs,"jobsId" | "jobName" | "jobUrl" | "imageUrl" | "jobSubCategoryId" | "companyName" | "dateCreated"
+      >[] = jobListingResponse.data;
 
-  const now = new Date();
-  const eightHoursAgo = new Date(now.getTime() - 8 * 60 * 60 * 1000);
-  const latestJobListing = sortedJobListingByDate.filter((job) => {
-    const createdTime = new Date(job.dateCreated);
-    return createdTime > eightHoursAgo;
-  });
+      const now = new Date();
+      const eightHoursAgo = new Date(now.getTime() - 8 * 60 * 60 * 1000);
 
-  if (latestJobListing.length === 0) {
-    console.log("No latest Jobs added within the latest 8 hours");
-    return;
-  }
+      return jobListing
+        .sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime())
+        .filter((job) => new Date(job.dateCreated) > eightHoursAgo);
+    });
 
-  const resend = new Resend(process.env.RESEND_API_KEY);
-  const batchEmails: EmailBatchProp[] = [];
+    if (latestJobListing.length > 0) {
+      // Step 3: Prepare email batch list (pure CPU work, no I/O — safe in context.run)
+      const batchEmails = await context.run("Prepare email batches", async () => {
+        const emails: EmailBatchProp[] = [];
 
-  // Process each user and prepare personalized emails
-  usersEmailList.forEach((user) => {
-    // let userJobsList: ListingRemoteJobs[];
-    let userJobsList: Pick<ListingRemoteJobs, 'jobsId'|'jobName'|'jobUrl'|'imageUrl'|'jobSubCategoryId'|'companyName'|'dateCreated'>[]
+        usersEmailList.forEach((user) => {
+          const userJobsList = user.career
+            ? latestJobListing.filter((listing) => listing.jobSubCategoryId === user.career)
+            : latestJobListing;
 
-    // Filter jobs based on user's career preference
-    if (user.career) {
-      userJobsList = latestJobListing.filter(
-        (listing) => listing.jobSubCategoryId === user.career,
-      )
-      console.log(
-        `Filtered jobs for ${user.email} (career: ${user.career}):`,
-        userJobsList.length,
-      );
-    } else {
-      // If no career preference, send all latest jobs
-      userJobsList = latestJobListing;
-      console.log(
-        `All jobs for ${user.email} (no career preference):`,
-        userJobsList.length,
-      );
-    }
+          if (userJobsList.length > 0) {
+            emails.push({
+              from: "info@beyondthesavannah.co.ke",
+              to: [user.email],
+              subject: "Beyond The Savannah New Jobs Alert",
+              react: AllJobsAlertEmailTemplate({
+                firstName: user.firstName ?? "There",
+                jobs: userJobsList,
+              }),
+            });
+          }
+        });
 
-    // Only send email if there are jobs to send
-    if (userJobsList.length > 0) {
-      batchEmails.push({
-        from: "info@beyondthesavannah.co.ke",
-        to: [user.email],
-        subject: "Beyond The Savannah New Jobs Alert",
-        react: AllJobsAlertEmailTemplate({
-          firstName: user.firstName ?? "There",
-          jobs: userJobsList,
-        }),
+        return emails;
       });
-    } else {
-      console.log(`No matching jobs found for ${user.email}`);
-    }
-  });
 
-  // Send emails in batches if there are any to send
-  if (batchEmails.length > 0) {
-    try {
+      // Step 4: Send each batch as its own step, with sleep between them
       const batchSize = 100;
       for (let i = 0; i < batchEmails.length; i += batchSize) {
-        const batch = batchEmails.slice(i, i + batchSize);
-        await resend.batch.send(batch);
-        console.log(`Sent batch of ${batch.length} emails`);
+        const batchIndex = Math.floor(i / batchSize);
 
-        // Add delay between batches to avoid rate limiting
+        await context.run(`Send email batch ${batchIndex}`, async () => {
+          const resend = new Resend(process.env.RESEND_API_KEY);
+          const batch = batchEmails.slice(i, i + batchSize);
+          await resend.batch.send(batch);
+          console.log(`Sent batch ${batchIndex} of ${batch.length} emails`);
+        });
+
+        // Sleep between batches (outside context.run — correct placement)
         if (i + batchSize < batchEmails.length) {
-          await new Promise((res) => setTimeout(res, 500));
+          await context.sleep(`Rate limit pause after batch ${batchIndex}`, 1);
         }
       }
-      console.log(
-        `Successfully sent ${batchEmails.length} personalized job alert emails`,
-      );
-    } catch (error) {
-      console.log("Error sending batch emails:", error);
+
+      console.log(`Successfully sent ${batchEmails.length} personalized job alert emails`);
+    } else {
+      console.log("No new jobs in the last 8 hours");
     }
-  } else {
-    console.log("No emails to send - no users have matching job preferences");
+
+    await context.sleep("Wait 8 hours", 8 * 60 * 60);
   }
-}
+});
+
+
+
+
+// import AllJobsAlertEmailTemplate from "@/components/Emails/AllJobsAlertEmailTemplate";
+// import { axiosInstance } from "@/remoteData/mutateData";
+// import { ListingRemoteJobs } from "@/types/remoteJobsListing";
+// import { EmailBatchProp, SubscribedUserProp } from "@/types/subscribedUser";
+// import { serve } from "@upstash/workflow/nextjs";
+// import { Resend } from "resend";
+
+// export const { POST } = serve(async (context) => {
+//   while(true){
+//     await context.run("Send Email Alert", async () => {
+//       await sendNewJobAddedAlertEmail();
+//     });
+
+//     // await context.sleep("Run every 8hrs a day", 8 * 60 * 60 * 1000);
+//     await context.sleep("Run every 8hrs a day", 8 * 60 * 60);
+
+//   }
+// });
+
+// //array of emails of users who don't what to be get email notifications
+// const noNewJobsNotifications = [
+//   "wangui.c.njeri@gmail.com",
+//   "a.wanjirunina@gmail.com",
+//   "carolynmnjeri@gmail.com",
+//   "hassenga54@gmail.com",
+//   "mosesmwangi007@gmail.com",
+//   "riinyacynthia@gmail.com",
+//   "jeanjesang@gmail.com",
+//   "slyburd@gmail.com",
+//   "keterlaureen@gmail.com",
+//   "wairimunjoroge132@gmail.com",
+//   "yasmin.osman222@gmail.com",
+//   "bakhita.awuorba@gmail.com",
+//   "louise.mutua@gmail.com",
+// ];
+
+// async function sendNewJobAddedAlertEmail() {
+//   // get list of subscribed users from db and filter out the cancelled out users
+//   const response = await axiosInstance.get("/api/BydUsers/getAllUsers");
+//   const userList: Pick<SubscribedUserProp, 'firstName'|'email'|'career'|'status'|'subscriptionPlan'>[] = await response.data;
+//   const usersEmailList = userList
+//     .filter(
+//       (user) =>
+//         user.status != "cancelled" &&
+//         user.subscriptionPlan != "whatsapp community Annually" &&
+//         !noNewJobsNotifications.includes(user.email),
+//     )
+//     .map((user) => ({
+//       firstName: user.firstName,
+//       email: user.email,
+//       career: user.career,
+//     }));
+
+//   // get jobs listing and determine recently new added ones
+//   const jobListingResponse = await axiosInstance.get(
+//     "/api/Jobs/getAllJobsByCompany",
+//   );
+//   const jobListing: Pick<ListingRemoteJobs, 'jobsId'|'jobName'|'jobUrl'|'imageUrl'|'jobSubCategoryId'|'companyName'|'dateCreated'>[] = await jobListingResponse.data;
+//   const sortedJobListingByDate = jobListing
+//     ?.sort((a, b) => {
+//       return (
+//         new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
+//       );
+//     })
+//     .map((sortedJobs) => ({
+//       jobsId: sortedJobs.jobsId,
+//       jobName: sortedJobs.jobName,
+//       imageUrl:sortedJobs.imageUrl,
+//       jobUrl: sortedJobs.jobUrl,
+//       companyName:sortedJobs.companyName,
+//       jobSubCategoryId: sortedJobs.jobSubCategoryId,
+//       dateCreated: sortedJobs.dateCreated,
+//     }));
+
+//   const now = new Date();
+//   const eightHoursAgo = new Date(now.getTime() - 8 * 60 * 60 * 1000);
+//   const latestJobListing = sortedJobListingByDate.filter((job) => {
+//     const createdTime = new Date(job.dateCreated);
+//     return createdTime > eightHoursAgo;
+//   });
+
+//   if (latestJobListing.length === 0) {
+//     console.log("No latest Jobs added within the latest 8 hours");
+//     return;
+//   }
+
+//   const resend = new Resend(process.env.RESEND_API_KEY);
+//   const batchEmails: EmailBatchProp[] = [];
+
+//   // Process each user and prepare personalized emails
+//   usersEmailList.forEach((user) => {
+//     // let userJobsList: ListingRemoteJobs[];
+//     let userJobsList: Pick<ListingRemoteJobs, 'jobsId'|'jobName'|'jobUrl'|'imageUrl'|'jobSubCategoryId'|'companyName'|'dateCreated'>[]
+
+//     // Filter jobs based on user's career preference
+//     if (user.career) {
+//       userJobsList = latestJobListing.filter(
+//         (listing) => listing.jobSubCategoryId === user.career,
+//       )
+//       console.log(
+//         `Filtered jobs for ${user.email} (career: ${user.career}):`,
+//         userJobsList.length,
+//       );
+//     } else {
+//       // If no career preference, send all latest jobs
+//       userJobsList = latestJobListing;
+//       console.log(
+//         `All jobs for ${user.email} (no career preference):`,
+//         userJobsList.length,
+//       );
+//     }
+
+//     // Only send email if there are jobs to send
+//     if (userJobsList.length > 0) {
+//       batchEmails.push({
+//         from: "info@beyondthesavannah.co.ke",
+//         to: [user.email],
+//         subject: "Beyond The Savannah New Jobs Alert",
+//         react: AllJobsAlertEmailTemplate({
+//           firstName: user.firstName ?? "There",
+//           jobs: userJobsList,
+//         }),
+//       });
+//     } else {
+//       console.log(`No matching jobs found for ${user.email}`);
+//     }
+//   });
+
+//   // Send emails in batches if there are any to send
+//   if (batchEmails.length > 0) {
+//     try {
+//       const batchSize = 100;
+//       for (let i = 0; i < batchEmails.length; i += batchSize) {
+//         const batch = batchEmails.slice(i, i + batchSize);
+//         await resend.batch.send(batch);
+//         console.log(`Sent batch of ${batch.length} emails`);
+
+//         // Add delay between batches to avoid rate limiting
+//         if (i + batchSize < batchEmails.length) {
+//           await new Promise((res) => setTimeout(res, 500));
+//         }
+//       }
+//       console.log(
+//         `Successfully sent ${batchEmails.length} personalized job alert emails`,
+//       );
+//     } catch (error) {
+//       console.log("Error sending batch emails:", error);
+//     }
+//   } else {
+//     console.log("No emails to send - no users have matching job preferences");
+//   }
+// }
