@@ -1,12 +1,9 @@
-// 
-
-
-
-// app/page.tsx
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import axios from "axios";
 import { SubscribedUserProp } from "@/types/subscribedUser";
+
+export const dynamic = "force-dynamic";
 
 const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
 
