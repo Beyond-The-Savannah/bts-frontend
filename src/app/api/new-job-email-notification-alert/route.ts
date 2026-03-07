@@ -52,7 +52,15 @@ export const { POST } = serve(async (context) => {
 
       return jobListing
         .sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime())
-        .filter((job) => new Date(job.dateCreated) > eightHoursAgo);
+        .filter((job) => new Date(job.dateCreated) > eightHoursAgo).map((job)=>({
+          jobsId:job.jobsId,
+          jobName:job.jobName,
+          jobUrl:job.jobUrl,
+          jobSubCategoryId:job.jobSubCategoryId,
+          imageUrl:job.imageUrl,
+          companyName:job.companyName,
+          dateCreated:job.dateCreated
+        }));
     });
 
     if (latestJobListing.length > 0) {
