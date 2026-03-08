@@ -7,7 +7,8 @@ import remarkGfm from "remark-gfm";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import { useEffect, useRef } from "react";
 
-import { useUser } from "@clerk/clerk-react";
+// import { useUser } from "@clerk/clerk-react";
+import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { Textarea } from "../ui/textarea";
 
