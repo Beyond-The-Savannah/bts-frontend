@@ -1,7 +1,8 @@
 import AllJobsAlertEmailTemplate from "@/components/Emails/AllJobsAlertEmailTemplate";
 import { axiosInstance } from "@/remoteData/mutateData";
 import { ListingRemoteJobs } from "@/types/remoteJobsListing";
-import { EmailBatchProp, SubscribedUserProp } from "@/types/subscribedUser";
+// import { EmailBatchProp, SubscribedUserProp } from "@/types/subscribedUser";
+import { SubscribedUserProp } from "@/types/subscribedUser";
 import { serve } from "@upstash/workflow/nextjs";
 import { Resend } from "resend";
 
@@ -64,17 +65,24 @@ export const { POST } = serve(async (context) => {
     });
 
     if (latestJobListing.length > 0) {
-      // Step 3: Prepare email batch list (pure CPU work, no I/O — safe in context.run)
-      const batchEmails = await context.run("Prepare email batches", async () => {
-        const emails: EmailBatchProp[] = [];
+      // FIX: Don't "Prepare" batches in a step. 
+      // Just calculate how many batches you need based on the usersEmailList length.
+      const batchSize = 50; // Smaller batches are safer for Resend & QStash
 
-        usersEmailList.forEach((user) => {
-          const userJobsList = user.career
-            ? latestJobListing.filter((listing) => listing.jobSubCategoryId === user.career)
-            : latestJobListing;
+      for (let i = 0; i < usersEmailList.length; i += batchSize) {
+        const batchIndex = Math.floor(i / batchSize);
 
-          if (userJobsList.length > 0) {
-            emails.push({
+        await context.run(`Send batch ${batchIndex}`, async () => {
+          const resend = new Resend(process.env.RESEND_API_KEY);
+          const currentUsers = usersEmailList.slice(i, i + batchSize);
+          
+          // MAP THE DATA HERE, inside the step, so it's not stored in the global state
+          const emailPayloads = currentUsers.map((user) => {
+            const userJobsList = user.career
+              ? latestJobListing.filter((l) => l.jobSubCategoryId === user.career)
+              : latestJobListing;
+
+            return {
               from: "info@beyondthesavannah.co.ke",
               to: [user.email],
               subject: "Beyond The Savannah New Jobs Alert",
@@ -82,35 +90,68 @@ export const { POST } = serve(async (context) => {
                 firstName: user.firstName ?? "There",
                 jobs: userJobsList,
               }),
-            });
+            };
+          }).filter(p => p !== null);
+
+          if (emailPayloads.length > 0) {
+            await resend.batch.send(emailPayloads);
           }
         });
 
-        return emails;
-      });
-
-      // Step 4: Send each batch as its own step, with sleep between them
-      const batchSize = 100;
-      for (let i = 0; i < batchEmails.length; i += batchSize) {
-        const batchIndex = Math.floor(i / batchSize);
-
-        await context.run(`Send email batch ${batchIndex}`, async () => {
-          const resend = new Resend(process.env.RESEND_API_KEY);
-          const batch = batchEmails.slice(i, i + batchSize);
-          await resend.batch.send(batch);
-          console.log(`Sent batch ${batchIndex} of ${batch.length} emails`);
-        });
-
-        // Sleep between batches (outside context.run — correct placement)
-        if (i + batchSize < batchEmails.length) {
-          await context.sleep(`Rate limit pause after batch ${batchIndex}`, 1);
+        if (i + batchSize < usersEmailList.length) {
+          await context.sleep(`Pause-batch-${batchIndex}`, 1);
         }
       }
-
-      console.log(`Successfully sent ${batchEmails.length} personalized job alert emails`);
-    } else {
-      console.log("No new jobs in the last 8 hours");
     }
+
+    // if (latestJobListing.length > 0) {
+    //   // Step 3: Prepare email batch list (pure CPU work, no I/O — safe in context.run)
+    //   const batchEmails = await context.run("Prepare email batches", async () => {
+    //     const emails: EmailBatchProp[] = [];
+
+    //     usersEmailList.forEach((user) => {
+    //       const userJobsList = user.career
+    //         ? latestJobListing.filter((listing) => listing.jobSubCategoryId === user.career)
+    //         : latestJobListing;
+
+    //       if (userJobsList.length > 0) {
+    //         emails.push({
+    //           from: "info@beyondthesavannah.co.ke",
+    //           to: [user.email],
+    //           subject: "Beyond The Savannah New Jobs Alert",
+    //           react: AllJobsAlertEmailTemplate({
+    //             firstName: user.firstName ?? "There",
+    //             jobs: userJobsList,
+    //           }),
+    //         });
+    //       }
+    //     });
+
+    //     return emails;
+    //   });
+
+    //   // Step 4: Send each batch as its own step, with sleep between them
+    //   const batchSize = 100;
+    //   for (let i = 0; i < batchEmails.length; i += batchSize) {
+    //     const batchIndex = Math.floor(i / batchSize);
+
+    //     await context.run(`Send email batch ${batchIndex}`, async () => {
+    //       const resend = new Resend(process.env.RESEND_API_KEY);
+    //       const batch = batchEmails.slice(i, i + batchSize);
+    //       await resend.batch.send(batch);
+    //       console.log(`Sent batch ${batchIndex} of ${batch.length} emails`);
+    //     });
+
+    //     // Sleep between batches (outside context.run — correct placement)
+    //     if (i + batchSize < batchEmails.length) {
+    //       await context.sleep(`Rate limit pause after batch ${batchIndex}`, 1);
+    //     }
+    //   }
+
+    //   console.log(`Successfully sent ${batchEmails.length} personalized job alert emails`);
+    // } else {
+    //   console.log("No new jobs in the last 8 hours");
+    // }
 
     await context.sleep("Wait 8 hours", 8 * 60 * 60);
   }
