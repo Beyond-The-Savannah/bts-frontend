@@ -12,6 +12,7 @@ import { GetCandidateBYEmail } from "@/db/queries/employerQuries";
 import { correctedParsedHTML } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
 import { Mail, MapPin, Pencil, PhoneIcon, UserCircle } from "lucide-react";
+import Image from "next/image";
 
 export default async function page() {
   const user = await currentUser();
@@ -77,18 +78,22 @@ export default async function page() {
               </div>
               <div className="border-t-2 pt-2 flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
-                  {candidate[0].photoLink !==null && candidate[0].photoLink!=="" ?
-                  (<>
-                    <iframe src={candidate[0].photoLink} className="rounded-full bg-cover bg-center size-40"/>
-                  </>)
-                  :
-                  (
+                  {candidate[0].photoLink !== null &&
+                  candidate[0].photoLink !== "" ? (
                     <>
-                    <UserCircle size={80} />
+                      <Image
+                        src={candidate[0].photoLink}
+                        alt="candidates head shot image"
+                        height={160}
+                        width={160}
+                        className="rounded-full bg-center bg-cover size-36"
+                      />
                     </>
-
-                  )
-                  }
+                  ) : (
+                    <>
+                      <UserCircle size={80} />
+                    </>
+                  )}
                   <div className="flex-col gap-2">
                     <p className="text-lg font-medium">
                       <span className="text-xs hidden">First Name:</span>

@@ -41,6 +41,7 @@ import {
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
 import CandidateInvite from "./CandidateInvite";
+import Image from "next/image";
 
 export default function VirtualBtsCandidatesList({
   candidates,
@@ -137,9 +138,12 @@ export default function VirtualBtsCandidatesList({
                           {candidate.photoLink !== null &&
                           candidate.photoLink !== "" ? (
                             <>
-                              <iframe
+                              <Image
                                 src={candidate.photoLink}
-                                className="rounded-full bg-cover bg-center size-40 "
+                                alt="candidates head shot image"
+                                height={160}
+                                width={160}
+                                className="rounded-full bg-center bg-cover size-36 "
                               />
                             </>
                           ) : (

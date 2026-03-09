@@ -16,6 +16,7 @@ import { auth } from "@clerk/nextjs/server";
 import { google, office365, outlook, yahoo } from "calendar-link";
 import { Calendar, Mail, MapPin, PhoneIcon, UserCircle } from "lucide-react";
 import { Link } from "next-view-transitions";
+import Image from "next/image";
 
 export default async function AllCandidatesSection() {
   const { orgId } = await auth();
@@ -100,7 +101,22 @@ export default async function AllCandidatesSection() {
                       </div>
                       <div className="border-t-2 pt-2 flex items-center justify-between gap-2">
                         <div className="flex items-center gap-2">
-                          <UserCircle size={80} />
+                          {candidate.photoLink !== null &&
+                          candidate.photoLink !== "" ? (
+                            <>
+                              <Image
+                                src={candidate.photoLink}
+                                alt="candidates head shot image"
+                                height={160}
+                                width={160}
+                                className="rounded-full bg-center bg-cover size-36"
+                              />
+                            </>
+                          ) : (
+                            <>
+                              <UserCircle size={80} />
+                            </>
+                          )}
                           <div className="flex-col gap-2">
                             <p className="text-lg font-medium">
                               <span className="text-xs hidden">
@@ -252,5 +268,4 @@ export default async function AllCandidatesSection() {
       </div>
     </>
   );
-  
 }
