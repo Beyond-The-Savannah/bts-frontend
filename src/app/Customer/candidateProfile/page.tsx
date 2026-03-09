@@ -77,7 +77,18 @@ export default async function page() {
               </div>
               <div className="border-t-2 pt-2 flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
-                  <UserCircle size={80} />
+                  {candidate[0].photoLink !==null && candidate[0].photoLink!=="" ?
+                  (<>
+                    <iframe src={candidate[0].photoLink} className="rounded-full bg-cover bg-center size-40"/>
+                  </>)
+                  :
+                  (
+                    <>
+                    <UserCircle size={80} />
+                    </>
+
+                  )
+                  }
                   <div className="flex-col gap-2">
                     <p className="text-lg font-medium">
                       <span className="text-xs hidden">First Name:</span>

@@ -12,7 +12,7 @@ import {
   SidebarMenuItem,
 } from "../ui/sidebar";
 import { Link } from "next-view-transitions";
-import { SignedIn, UserButton } from "@clerk/nextjs";
+import {  UserButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
@@ -81,12 +81,12 @@ export default function AppSidebar() {
               ))}
             </SidebarMenu>
             <SidebarMenu>
-              <SignedIn>
+              
                 <div className="bg-bts-BrownThree p-1 rounded-2xl flex gap-1 items-center">
                   <p>Signed In as </p>
                   <UserButton />
                 </div>
-              </SignedIn>
+              
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

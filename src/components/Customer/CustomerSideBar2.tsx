@@ -20,7 +20,7 @@ import {
 import { Link } from "next-view-transitions";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
-import { SignedIn, UserButton,} from "@clerk/nextjs";
+import {UserButton,} from "@clerk/nextjs";
 import { useShowCandidateProfileLink } from "@/hooks/useShowCandidateProfileLink";
 
 
@@ -111,12 +111,12 @@ export default function CustomerSideBar2() {
               ) : null}
             </SidebarMenu>
             <SidebarMenu>
-              <SignedIn>
+              
                 <div className="flex items-center gap-2">
                   <p>Signed in as</p>
                   <UserButton />
                 </div>
-              </SignedIn>
+              
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

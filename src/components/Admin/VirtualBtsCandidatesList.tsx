@@ -4,10 +4,8 @@ import { Virtuoso } from "react-virtuoso";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  
   DialogContent,
   DialogDescription,
-  
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -31,7 +29,17 @@ import { useDebounceSearch } from "@/hooks/useDebounceSearch";
 import { toast } from "sonner";
 import { DeleteCandidateProfile } from "@/app/actions/EmployerForms";
 import { useRouter } from "next/navigation";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 import CandidateInvite from "./CandidateInvite";
 
 export default function VirtualBtsCandidatesList({
@@ -41,16 +49,16 @@ export default function VirtualBtsCandidatesList({
 }) {
   const [searchEmail, setSearchEmail] = useState("");
   const debouncedSearchEmail = useDebounceSearch(searchEmail, 500);
-  const router=useRouter()
+  const router = useRouter();
   const filteredCandidates = candidates.filter((candidate) =>
     candidate.email.toLowerCase().includes(debouncedSearchEmail.toLowerCase()),
   );
   async function handleCandidateRemoval(candidateId: string) {
-    const deletedInfo=await DeleteCandidateProfile(candidateId)
-    
-    if(deletedInfo!=undefined && deletedInfo.length>0){
+    const deletedInfo = await DeleteCandidateProfile(candidateId);
+
+    if (deletedInfo != undefined && deletedInfo.length > 0) {
       toast.success(`Deleted candidate:  ${deletedInfo[0].deletedCandidateId}`);
-      router.refresh()
+      router.refresh();
     }
   }
 
@@ -66,12 +74,12 @@ export default function VirtualBtsCandidatesList({
           />
         </div>
         <div className="flex flex-col gap-4">
-        {/* <CandidateInvite candidates={candidates}/> */}
-        <CandidateInvite/>
-        <div className="border rounded-xl px-3 py-1">
-          Total Candidates:{" "}
-          <span className="font-bold">{candidates.length}</span>
-        </div>
+          {/* <CandidateInvite candidates={candidates}/> */}
+          <CandidateInvite />
+          <div className="border rounded-xl px-3 py-1">
+            Total Candidates:{" "}
+            <span className="font-bold">{candidates.length}</span>
+          </div>
         </div>
       </div>
 
@@ -126,7 +134,19 @@ export default function VirtualBtsCandidatesList({
                       </div>
                       <div className="border-t-2 pt-2 flex items-center justify-between gap-2">
                         <div className="flex items-center gap-2">
-                          <UserCircle size={80} />
+                          {candidate.photoLink !== null &&
+                          candidate.photoLink !== "" ? (
+                            <>
+                              <iframe
+                                src={candidate.photoLink}
+                                className="rounded-full bg-cover bg-center size-40 "
+                              />
+                            </>
+                          ) : (
+                            <>
+                              <UserCircle size={80} />
+                            </>
+                          )}
                           <div className="flex-col gap-2">
                             <p className="text-lg font-medium">
                               <span className="text-xs hidden">
@@ -274,11 +294,14 @@ export default function VirtualBtsCandidatesList({
                         <Button variant="outline">Close</Button>
                       </AlertDialogCancel>
                       <AlertDialogAction
-                      asChild
-                      className="bg-red-400 hover:bg-red-500"
+                        asChild
+                        className="bg-red-400 hover:bg-red-500"
+                      >
+                        <Button
+                          variant="destructive"
+                          onClick={() => handleCandidateRemoval(candidate.id)}
                         >
-                        <Button variant="destructive" onClick={() => handleCandidateRemoval(candidate.id)}>
-                        Delete Details
+                          Delete Details
                         </Button>
                       </AlertDialogAction>
                     </AlertDialogFooter>
