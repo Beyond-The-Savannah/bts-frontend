@@ -1,6 +1,6 @@
 'use client'
 
-import { Blinds, File, Home, Loader, Users } from "lucide-react"
+import { Blinds, File, Home, Users } from "lucide-react"
 import { Link } from "next-view-transitions";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar"
 import { usePathname } from "next/navigation";
@@ -10,7 +10,7 @@ import { OrganizationSwitcher, SignedIn,  UserButton } from "@clerk/nextjs";
 export default function EmployerSideBar() {
     const sidebarLinks=[
         {
-        title:"home",
+        title:"Home",
         url:"/Employer",
         icon:Home
         },
@@ -25,15 +25,15 @@ export default function EmployerSideBar() {
         icon:Users
         },
         {
-        title:"subscription details",
+        title:"Subscription Details",
         url:"/Employer/subscriptionDetails",
         icon:Blinds
         },
-        {
-        title:"Status",
-        url:"",
-        icon:Loader
-        },
+        // {
+        // title:"Status",
+        // url:"",
+        // icon:Loader
+        // },
 ]
 
 const pathname=usePathname()

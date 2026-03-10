@@ -11,25 +11,49 @@ import {
 } from "@/components/ui/dialog";
 import { GetEmpolyerJobs } from "@/db/queries/employerQuries";
 import { auth } from "@clerk/nextjs/server";
-import { CalendarOff, CalendarPlus, FolderX, Pencil,UserPen } from "lucide-react";
+import {
+  CalendarOff,
+  CalendarPlus,
+  FolderX,
+  Pencil,
+  UserPen,
+} from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 import rehypeRaw from "rehype-raw";
 import AddJobs from "./AddJobsForm";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty";
 
 // import Link from "next/link";
 
 export default async function Jobs() {
-  const{orgId}=await auth()
+  const { orgId } = await auth();
   const newJobs = await GetEmpolyerJobs(orgId!);
   return (
     <>
-    {newJobs.length===0 &&(
-      <div className="grid place-content-center gap-y-4 my-10 py-10 px-2 h-full border rounded-lg w-96 mx-auto">
-        <FolderX  className="text-red-200 mx-auto"/>
-        <p className="text-center c">No job postings found.</p>
-
-      </div>
+      {newJobs.length === 0 && (
+        <>
+          <Empty className="border border-dotted w-6/12 mx-auto mt-40">
+            <EmptyHeader>
+              <EmptyMedia variant="icon">
+                <FolderX className="text-orange-400"/>
+              </EmptyMedia>
+              <EmptyTitle>No job postings found</EmptyTitle>
+              <EmptyDescription className="w-full lg:w-[28dvw]">
+                Click on the tab link &quot;Add Job Opening&quot; to post a new
+                job position
+              </EmptyDescription>
+            </EmptyHeader>
+            <EmptyContent></EmptyContent>
+          </Empty>
+        </>
       )}
       {newJobs.map((job) => (
         <div
@@ -41,7 +65,6 @@ export default async function Jobs() {
             <p className="text-xs">{job.department}</p>
           </div>
           <div className="flex items-center gap-2">
-            
             <div className="c">
               <Dialog>
                 <DialogTrigger asChild>
@@ -49,7 +72,9 @@ export default async function Jobs() {
                 </DialogTrigger>
                 <DialogContent className="w-full md:max-w-[1200px] max-h-[70dvh] overflow-y-auto">
                   <DialogHeader>
-                    <DialogTitle className="text-center">{job.role}</DialogTitle>
+                    <DialogTitle className="text-center">
+                      {job.role}
+                    </DialogTitle>
                     <DialogDescription className="text-center">
                       @ {job.companyName}
                     </DialogDescription>
@@ -57,22 +82,21 @@ export default async function Jobs() {
                   <div className="my-10">
                     <div className="flex items-center justify-between">
                       <div className=" px-3 py-1 flex items-center gap-2 ">
-                        <CalendarPlus size={24} className="text-green-400"/> 
+                        <CalendarPlus size={24} className="text-green-400" />
                         <p className="flex-col">
                           <span className="text-xs block">Created on</span>
                           {new Date(job.createdAt).toDateString()}
                         </p>
                       </div>
                       <div className=" px-3 py-1 flex items-center gap-2 ">
-                        <UserPen size={24} className="text-green-4000"/> 
+                        <UserPen size={24} className="text-green-4000" />
                         <p className="flex-col">
                           <span className="text-xs block">Published by</span>
                           <span className="text-sm block">{job.author}</span>
-                          
                         </p>
                       </div>
                       <div className=" px-3 py-1 flex items-center gap-2 ">
-                        <CalendarOff size={24} className="text-red-400"/> 
+                        <CalendarOff size={24} className="text-red-400" />
                         <p className="flex-col">
                           <span className="text-xs block">Deadline on</span>
                           {new Date(job.deadLine).toDateString()}
@@ -85,19 +109,19 @@ export default async function Jobs() {
                     <div className="my-10 flex items-center justify-between">
                       {/* <p className="c">Department Hiring :{job.department}</p> */}
                       <p className="flex-col border rounded-lg px-3 py-1 w-[30%]">
-                          <span className="text-xs block">Department:</span>
-                          {job.department}
-                        </p>
+                        <span className="text-xs block">Department:</span>
+                        {job.department}
+                      </p>
                       {/* <p className="c">Job Type :{job.jobType}</p> */}
                       <p className="flex-col border rounded-lg px-3 py-1 w-[30%]">
-                          <span className="text-xs block">Job type:</span>
-                          {job.jobType}
-                        </p>
+                        <span className="text-xs block">Job type:</span>
+                        {job.jobType}
+                      </p>
                       {/* <p className="c">Work Mode :{job.workMode}</p> */}
                       <p className="flex-col border rounded-lg px-3 py-1 w-[30%]">
-                          <span className="text-xs block">Work mode:</span>
-                          {job.workMode}
-                        </p>
+                        <span className="text-xs block">Work mode:</span>
+                        {job.workMode}
+                      </p>
                       {/* <p className="text-xs">Job Posted by :{job.author}</p> */}
                       {/* <p className="flex-col">
                           <span className="text-xs block">Posted by:</span>
@@ -120,19 +144,27 @@ export default async function Jobs() {
             </div>
             <div className="c">
               <Dialog>
-                <DialogTrigger asChild><Button variant="link">Edit Job<Pencil/></Button></DialogTrigger>
+                <DialogTrigger asChild>
+                  <Button variant="link">
+                    Edit Job
+                    <Pencil />
+                  </Button>
+                </DialogTrigger>
                 <DialogContent className="w-full md:max-w-[1200px] max-h-[70dvh] overflow-y-auto">
                   <DialogHeader>
-                    <DialogTitle className="text-center">{job.role} @ {job.companyName}</DialogTitle>
-                    <DialogDescription className="text-center">Your are currently editing the {job.role} job opening</DialogDescription>
+                    <DialogTitle className="text-center">
+                      {job.role} @ {job.companyName}
+                    </DialogTitle>
+                    <DialogDescription className="text-center">
+                      Your are currently editing the {job.role} job opening
+                    </DialogDescription>
                   </DialogHeader>
                   <div>
-                    <AddJobs employerJobsData={job}/>
+                    <AddJobs employerJobsData={job} />
                   </div>
                 </DialogContent>
               </Dialog>
             </div>
-
           </div>
         </div>
       ))}
