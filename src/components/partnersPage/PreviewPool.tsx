@@ -18,8 +18,8 @@ export default function PreviewPool() {
           <DialogTrigger asChild className="">
             <Button variant="outline">Preview our pool of candidates</Button>
           </DialogTrigger>
-          {/* <DialogContent className="max-w-[36rem]"> */}
-          <DialogContent className="max-w-[46rem]">
+          {/* <DialogContent className="max-w-xl"> */}
+          <DialogContent className="max-w-184">
             <DialogHeader>
               <DialogHeader>
                 <DialogTitle className="text-center">Our pool of candidates includes:</DialogTitle>

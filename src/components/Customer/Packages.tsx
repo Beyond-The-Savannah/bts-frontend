@@ -112,7 +112,7 @@ export default function Packages({ email }: { email: string }) {
             {AnualSubscriptionPackages.map((sub) => (
               <div
                 key={sub.id}
-                className="min-h-[25rem] w-full md:w-64 lg:w-64 xl:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
+                className="min-h-100 w-full md:w-64 lg:w-64 xl:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
                 // className="h-full w-full md:w-64 lg:w-64 border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
                 // className="h-full w-full md:w-64 lg:w-56 border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
               >
@@ -207,7 +207,7 @@ export default function Packages({ email }: { email: string }) {
             {SubscriptionPackages.map((sub) => (
               <div
                 key={sub.id}
-                className="min-h-[25rem] w-full md:w-64 lg:w-64 xl:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
+                className="min-h-100 w-full md:w-64 lg:w-64 xl:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
                 // className="h-full w-full md:w-64 lg:w-64 xl:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
                 // className={clsx("h-full w-full md:w-64 lg:w-56 border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between",
                   

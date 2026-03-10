@@ -32,8 +32,8 @@ export default function CarreerServices() {
         {servicesList.map((service) => (
           <div
             key={service.id}
-            // className=" bg-white rounded-lg  w-full md:w-10/12 lg:w-[28rem] border hover:shadow-bts-BrownFour hover:shadow-md duration-700"
-            className=" bg-white rounded-lg  w-full md:w-10/12 lg:w-[19.5rem] 2xl:w-[28rem] border hover:shadow-bts-BrownFour hover:shadow-md duration-700"
+            // className=" bg-white rounded-lg  w-full md:w-10/12 lg:w-md border hover:shadow-bts-BrownFour hover:shadow-md duration-700"
+            className=" bg-white rounded-lg  w-full md:w-10/12 lg:w-78 2xl:w-md border hover:shadow-bts-BrownFour hover:shadow-md duration-700"
           >
             <div className="grid content-between h-full lg:h-full pb-4">
               <DisplayImageFromNextCloudinary

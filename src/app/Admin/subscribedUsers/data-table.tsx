@@ -157,7 +157,7 @@ export function DataTable<TData, TValue>({
             return(
               <Button
               key={index}
-              variant={isActive? "default":"outline"}
+              variant={isActive? "default":"outline-solid"}
               size="sm"
               onClick={()=>table.setPageIndex(index)}
               >

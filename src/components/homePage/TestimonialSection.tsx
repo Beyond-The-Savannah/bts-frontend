@@ -27,7 +27,7 @@ export default function TestimonialSection() {
               {clientTestimonials.map((testimonial) => (
                 <CarouselItem key={testimonial.id} className="basis-11/12 lg:basis-2/3">
                   <div className="bg-bts-BrownTwo rounded-lg px-8 py-4 h-full lg:h-96 flex flex-col md:flex-row gap-4 items-center">
-                    <div className="w-full md:w-[25rem] grid place-content-center">
+                    <div className="w-full md:w-100 grid place-content-center">
                       <DisplayImageFromNextCloudinary 
                        src={testimonial.imgSource}
                        width={200}
@@ -40,7 +40,7 @@ export default function TestimonialSection() {
                         {testimonial.name}
                       </p>
                     </div>
-                    <div className="w-full flex flex-col items-center justify-center gap-4 md:items-start md:w-[55rem]">
+                    <div className="w-full flex flex-col items-center justify-center gap-4 md:items-start md:w-220">
                       <QuoteIcon className="rotate-180" size={28} />
                       <p className="ml-6 lg:ml-12 text-balance text leading-7">
                         {testimonial.details}

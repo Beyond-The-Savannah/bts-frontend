@@ -3,7 +3,7 @@ import { CirclePlus } from "lucide-react";
 
 export default function WhyPartnerships() {
   return (
-    <section className="min-h-[60dvh] bg-bts-BrownOne -mt-0 md:-mt-20 z-10">
+    <section className="min-h-[60dvh] bg-bts-BrownOne mt-0 md:-mt-20 z-10">
       <div className="container mx-auto px-4 pb-20">
         <div className="py-10">
           <p className="text-l">Partnerships Matter</p>

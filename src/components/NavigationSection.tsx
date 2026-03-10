@@ -221,7 +221,7 @@ export default function NavigationSection() {
                   <NavigationMenuItem key={menuItem.id} className="">
                     <Link
                       href={`${menuItem.link}`}
-                      className="font-semibold flex hover:scale-110 transition ease-in focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
+                      className="font-semibold flex hover:scale-110 transition ease-in focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
                     >
                       {menuItem.title}
                     </Link>
@@ -232,7 +232,7 @@ export default function NavigationSection() {
               {NonSimpleNavigationMenuItems.map((item) => (
                 <NavigationMenuItem key={item.id} className="lg:pr-20">
                   <NavigationMenuTrigger 
-                    className="font-semibold text-base relative bg-transparent hover:bg-transparent hover:scale-110 transition ease-in focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
+                    className="font-semibold text-base relative bg-transparent hover:bg-transparent hover:scale-110 transition ease-in focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
@@ -244,7 +244,7 @@ export default function NavigationSection() {
                         <li key={sublink.title}>
                           <Link
                             href={sublink.link}
-                            className="flex hover:scale-105 transition ease-in focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
+                            className="flex hover:scale-105 transition ease-in focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
                           >
                             {sublink.title}
                           </Link>
@@ -259,7 +259,7 @@ export default function NavigationSection() {
                 <Button variant="outline" asChild>
                   <Link 
                     href="/Customer"
-                    className="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    className="focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                   >
                     Sign-in
                   </Link>
@@ -269,7 +269,7 @@ export default function NavigationSection() {
                 <Button variant="secondary" asChild>
                   <Link 
                     href="/sign-up"
-                    className="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    className="focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                   >
                     Sign-up
                   </Link>
@@ -282,7 +282,7 @@ export default function NavigationSection() {
               <Sheet>
                 <SheetTrigger 
                   aria-label="Open mobile navigation menu"
-                  className="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md p-1"
+                  className="focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md p-1"
                 >
                   <MenuSquareIcon className="" size={32} />
                 </SheetTrigger>
@@ -304,7 +304,7 @@ export default function NavigationSection() {
                             <SheetClose asChild>
                               <Link
                                 href={`${menuItem.link}`}
-                                className="font-semibold hover:scale-110 transition ease-in focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
+                                className="font-semibold hover:scale-110 transition ease-in focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
                               >
                                 {menuItem.title}
                               </Link>
@@ -318,7 +318,7 @@ export default function NavigationSection() {
                             className="list-none"
                           >
                             <NavigationMenuTrigger 
-                              className="px-0 font-semibold text-base relative bg-transparent hover:bg-transparent hover:scale-110 transition ease-in focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
+                              className="px-0 font-semibold text-base relative bg-transparent hover:bg-transparent hover:scale-110 transition ease-in focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
                               aria-haspopup="true"
                               aria-expanded="false"
                             >
@@ -331,7 +331,7 @@ export default function NavigationSection() {
                                     <SheetClose asChild className="">
                                       <Link
                                         href={sublink.link}
-                                        className="flex hover:scale-105 transition ease-in focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
+                                        className="flex hover:scale-105 transition ease-in focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
                                       >
                                         {sublink.title}
                                       </Link>
@@ -347,7 +347,7 @@ export default function NavigationSection() {
                           <Button variant="outline" asChild>
                             <Link 
                               href="/Customer"
-                              className="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                              className="focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                             >
                               Sign-in
                             </Link>
@@ -357,7 +357,7 @@ export default function NavigationSection() {
                           <Button variant="secondary" asChild>
                             <Link 
                               href="/sign-up"
-                              className="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                              className="focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                             >
                               Sign-up
                             </Link>

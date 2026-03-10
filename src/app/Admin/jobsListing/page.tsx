@@ -90,7 +90,7 @@ export default function JobsListingAdminPage() {
           {sortedJobsByDate?.map((job, index) => (
             <div
               key={index}
-              className=" border-bts-BrownTwo/50 border-2 rounded-xl w-full md:w-[22rem] lg:w-5/12 bg-bts-BrownTwo/50 hover:shadow-bts-BrownFour hover:shadow-md hover:bg-bts-BrownFive/50 duration-700 px-8 py-4"
+              className=" border-bts-BrownTwo/50 border-2 rounded-xl w-full md:w-88 lg:w-5/12 bg-bts-BrownTwo/50 hover:shadow-bts-BrownFour hover:shadow-md hover:bg-bts-BrownFive/50 duration-700 px-8 py-4"
             >
               <div className="flex items-center gap-2">
                 <Image

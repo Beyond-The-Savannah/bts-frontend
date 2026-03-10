@@ -16,7 +16,7 @@ export default function FooterSection() {
     <>
       <footer className="bg-bts-GreenOne">
         <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-8 gap-x-12 px-12 py-24">
-          <div className="w-full md:w-56 lg:w-[100%]">
+          <div className="w-full md:w-56 lg:w-full">
             <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               BEYOND THE SAVANNAH
             </p>
@@ -35,7 +35,7 @@ export default function FooterSection() {
             </Link>
           </div>
 
-          <div className="w-full md:w-56 lg:w-[100%]">
+          <div className="w-full md:w-56 lg:w-full">
             <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               SERVICES
             </p>
@@ -53,7 +53,7 @@ export default function FooterSection() {
             </ul>
           </div>
 
-          <div className="w-full md:w-56 lg:w-[100%]">
+          <div className="w-full md:w-56 lg:w-full">
             <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               USEFUL LINKS
             </p>
@@ -101,7 +101,7 @@ export default function FooterSection() {
             </ul>
           </div>
 
-          <div className="w-full md:w-56 lg:w-[100%]">
+          <div className="w-full md:w-56 lg:w-full">
             <p className=" text-bts-BrownFour uppercase font-semibold mb-2">
               CONTACT
             </p>
