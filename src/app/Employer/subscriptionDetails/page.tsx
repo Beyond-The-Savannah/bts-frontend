@@ -1,5 +1,6 @@
 import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/components/Customer/UserSubscriptionInformation";
 import { Button } from "@/components/ui/button";
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { subscriptionDetailsProps } from "@/types/subscriptions";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { CircleAlert, CircleAlertIcon, FileWarning } from "lucide-react";
@@ -14,18 +15,23 @@ export default async function page() {
   if (!orgId) {
     return (
       <>
-        <div className="grid place-content-center min-h-[80dvh] ">
-          <div className="px-4 py-8 max-w-xl mx-auto border rounded-md">
-            <p className="text-center text-xl">
-              <FileWarning className="text-orange-400 mx-auto" />
-              No Organisation has be identified
-            </p>
-            <p className="text-center text-sm mt-4">
-              please create one by clicking on the home link on the sidebar or
-              the no-organisation seleted on the sidebar
-            </p>
-          </div>
-        </div>
+         <>
+          <Empty className="border border-dotted w-6/12 mx-auto mt-40">
+            <EmptyHeader>
+              <EmptyMedia variant="icon">
+                <FileWarning  className="text-orange-400"/>
+              </EmptyMedia>
+              <EmptyTitle>No Organisation has be identified</EmptyTitle>
+              <EmptyDescription className="w-full lg:w-[48dvw]">
+                Please create one by clicking on the &quot;Home&quot; link on the sidebar <br/> or
+                Click on the grayed out link &quot;No-organisation seleted&quot; on the sidebar
+                
+              </EmptyDescription>
+            </EmptyHeader>
+            <EmptyContent></EmptyContent>
+          </Empty>
+        </>
+        
       </>
     );
   }

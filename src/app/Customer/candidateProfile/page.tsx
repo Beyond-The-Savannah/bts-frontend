@@ -86,7 +86,7 @@ export default async function page() {
                         alt="candidates head shot image"
                         height={160}
                         width={160}
-                        className="rounded-full bg-center bg-cover size-36"
+                        className="rounded-full bg-center bg-cover size-36 border border-bts-BrownFive"
                       />
                     </>
                   ) : (

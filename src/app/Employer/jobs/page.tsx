@@ -10,7 +10,7 @@ export default function page() {
           <Tabs defaultValue="Jobs">
             <TabsList className="w-full">
               <TabsTrigger value="Jobs">Jobs</TabsTrigger>
-              <TabsTrigger value="AddJobForm">Add Job Openning</TabsTrigger>
+              <TabsTrigger value="AddJobForm">Add Job Opening</TabsTrigger>
             </TabsList>
             <TabsContent value="Jobs"><Jobs/></TabsContent>
             <TabsContent value="AddJobForm"><AddJobs/></TabsContent>
