@@ -19,7 +19,7 @@ export default function PartnershipTypes() {
             <div
               key={type.id}
             //   className="w-full min-h-[54dvh] md:w-5/12 bg-white rounded-lg px-4 py-8 space-y-8 shadow-md hover:shadow-2xl hover:scale-105 transition duration-500"
-              className="w-full min-h-[28rem] lg:w-[48%] bg-white rounded-lg px-4 py-8 space-y-8 shadow-md hover:shadow-2xl hover:scale-105 transition duration-500"
+              className="w-full min-h-112 lg:w-[48%] bg-white rounded-lg px-4 py-8 space-y-8 shadow-md hover:shadow-2xl hover:scale-105 transition duration-500"
             >
               <p className="text-xl font-semibold">{type.heading}</p>
               <div className="border-2 rounded-md border-bts-BrownTwo w-full -mt-20"></div>

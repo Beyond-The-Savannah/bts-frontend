@@ -85,7 +85,7 @@ export default function VirtualBtsCandidatesList({
       </div>
 
       <Virtuoso
-        className="!h-[75dvh] max-w-7xl mx-auto mt-4"
+        className="h-[75dvh]! max-w-7xl mx-auto mt-4"
         data={searchEmail != "" ? filteredCandidates : candidates}
         totalCount={candidates.length}
         itemContent={(_, candidate) => (

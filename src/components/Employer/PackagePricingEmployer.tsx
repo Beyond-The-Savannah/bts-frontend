@@ -97,7 +97,7 @@ export default function PackagePricingEmployer() {
           {packagesList.map((pckage) => (
             <div
               key={pckage.id}
-              className="flex flex-col items-center justify-between min-h-[24rem] py-4 px-2 w-8/12 lg:w-5/12 border rounded-lg p-6 mb-6 hover:shadow-lg transition-shadow duration-300"
+              className="flex flex-col items-center justify-between min-h-96 py-4 px-2 w-8/12 lg:w-5/12 border rounded-lg p-6 mb-6 hover:shadow-lg transition-shadow duration-300"
             >
               <p className="text-center text-base font-medium">
                 {pckage.packageName}

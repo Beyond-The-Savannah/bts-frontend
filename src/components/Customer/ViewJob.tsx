@@ -76,6 +76,8 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
       getLoggedUserData();
     }
   }, [user?.primaryEmailAddress?.emailAddress]);
+
+  // console.log("VIEW_JOB_LOG",singleJob?.[0].sectionDescription)
   return (
     <>
       <section className="container mx-auto   min-h-screen pt-2 md:pt-4 px-4">
@@ -196,12 +198,19 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                       {listing.sectionName}
                     </h3>
 
-                    <div
+                    {/* <div
                       className="prose prose-sm md:prose-base"
                       dangerouslySetInnerHTML={{
                         __html: correctedParsedHTML(listing.sectionDescription),
                       }}
-                    ></div>
+                    ></div> */}
+                  <div
+                    className="prose prose-sm md:prose-base "
+                    dangerouslySetInnerHTML={{
+                      __html: correctedParsedHTML(listing.sectionDescription),
+                    }}
+                  />
+                  
                   </article>
                 ))}
               </>

@@ -81,7 +81,7 @@ export default function ResumeAnalyseBtn({loggedUser,singleJob,generation, setGe
           }
         }}
         disabled={isAnalyzing || generation != ""}
-        className="bg-bts-GreenOne hover:scale-105 transition duration-500 rounded  md:w-[19rem] flex"
+        className="bg-bts-GreenOne hover:scale-105 transition duration-500 rounded  md:w-76 flex"
       >
         {isAnalyzing
           ? "Analysing your resume..."
