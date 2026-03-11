@@ -7,8 +7,8 @@ import {
 import SingleJobLoadingErrorUI from "../Loaders/SingleJobLoadingErrorUI";
 import SingleJobLoadingUI from "../Loaders/SingleJobLoadingUI";
 import Image from "next/image";
-import { correctedParsedHTML, DateFormatter } from "@/lib/utils";
-import DOMPurify from "dompurify"
+import {DateFormatter } from "@/lib/utils";
+import DOMPurify from "isomorphic-dompurify";
 import { Button } from "../ui/button";
 import { Link } from "next-view-transitions";
 import { ArrowUpRight, CalendarPlus, CalendarX, MapPin } from "lucide-react";
@@ -49,26 +49,26 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
   const { data: remoteJobs } = useGetRemoteListingJobsUsingTanstack();
 
   const filteredRemoteJob = remoteJobs?.find(
-    (job) => job.jobsId == parseInt(`${jobsId}`)
+    (job) => job.jobsId == parseInt(`${jobsId}`),
   );
 
   const [generation, setGeneration] = useState("");
   // const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [loggedUser, setLoggedUser] = useState<SubscribedUserProp | undefined>(
-    undefined
+    undefined,
   );
 
   useEffect(() => {
     async function getLoggedUserData() {
       try {
         const result = await axiosInstance.get<SubscribedUserProp>(
-          `/api/BydUsers/getUserDetailsByEmail?email=${user?.primaryEmailAddress?.emailAddress}`
+          `/api/BydUsers/getUserDetailsByEmail?email=${user?.primaryEmailAddress?.emailAddress}`,
         );
         setLoggedUser(result.data);
       } catch (error) {
         console.log(
           "Error Getting logged User subscription information in resume upload",
-          error
+          error,
         );
       }
     }
@@ -78,7 +78,7 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
     }
   }, [user?.primaryEmailAddress?.emailAddress]);
 
-  // console.log("VIEW_JOB_LOG",singleJob?.[0].sectionDescription)
+  // console.log("VIEW_JOB_LOG", singleJob?.[0].sectionDescription);
   return (
     <>
       <section className="container mx-auto   min-h-screen pt-2 md:pt-4 px-4">
@@ -147,7 +147,7 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                     className={clsx(
                       "w-72 my-8 flex text-black border-bts-BrownFour bg-bts-BrownFour hover:bg-bts-BrownThree hover:text-white hover:scale-105 transition duration-500 text-base",
                       filteredRemoteJob.companyName == "Beyond the Savannah" &&
-                        "hidden"
+                        "hidden",
                     )}
                   >
                     <Link
@@ -187,7 +187,7 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
               </div>
             )}
           </div>
-          <div className="w-full  space-y-12 grid grid-cols-1 md:grid-cols-1 items-end justify-center gap-4">
+          <div className="w-full grid grid-cols-1 md:grid-cols-1 items-end justify-center gap-4">
             {singleJob && (
               <>
                 {singleJob.map((listing) => (
@@ -205,13 +205,13 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                         __html: correctedParsedHTML(listing.sectionDescription),
                       }}
                     ></div> */}
-                  <div
-                    className="prose prose-sm md:prose-base "
-                    dangerouslySetInnerHTML={{
-                      __html:DOMPurify.sanitize(correctedParsedHTML(listing.sectionDescription))
-                    }}
-                  />
-                  
+                 
+                    <div
+                      className="prose prose-sm leading-7 max-w-none w-full wrap-break-word "
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(listing.sectionDescription),
+                      }}
+                    />
                   </article>
                 ))}
               </>
