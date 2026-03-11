@@ -38,7 +38,7 @@ export default function HeroSection({
               Remote & Ready:
               <br /> A Remote Work Mixer
             </h1>
-            {eventAttendees <= 60 ? <EventForm /> : <EventSoldOutButton />}
+            {eventAttendees <= 52 ? <EventForm /> : <EventSoldOutButton />}
           </div>
           <div className="cols-span-12  md:col-span-4">
             <DisplayImageFromNextCloudinary
