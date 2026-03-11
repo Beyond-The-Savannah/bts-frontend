@@ -108,7 +108,7 @@ export default function ExperienceSection({
               <p className="text-sm italic text-center">The venue has limited parking space, advised to use a cab.</p>
             </div>
               <div className="grid place-content-center">
-              {eventAttendees <= 60 ? <EventForm /> : <EventSoldOutButton />}
+              {eventAttendees <= 52 ? <EventForm /> : <EventSoldOutButton />}
               </div>
           </div>
         </div>

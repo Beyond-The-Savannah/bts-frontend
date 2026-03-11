@@ -8,6 +8,7 @@ import SingleJobLoadingErrorUI from "../Loaders/SingleJobLoadingErrorUI";
 import SingleJobLoadingUI from "../Loaders/SingleJobLoadingUI";
 import Image from "next/image";
 import { correctedParsedHTML, DateFormatter } from "@/lib/utils";
+import DOMPurify from "dompurify"
 import { Button } from "../ui/button";
 import { Link } from "next-view-transitions";
 import { ArrowUpRight, CalendarPlus, CalendarX, MapPin } from "lucide-react";
@@ -207,7 +208,7 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                   <div
                     className="prose prose-sm md:prose-base "
                     dangerouslySetInnerHTML={{
-                      __html: correctedParsedHTML(listing.sectionDescription),
+                      __html:DOMPurify.sanitize(correctedParsedHTML(listing.sectionDescription))
                     }}
                   />
                   
