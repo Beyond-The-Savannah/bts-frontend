@@ -87,7 +87,7 @@ export const { POST } = serve(async (context) => {
               to: [user.email],
               subject: "Beyond The Savannah New Jobs Alert",
               react: AllJobsAlertEmailTemplate({
-                firstName: user.firstName ?? "There",
+                firstName: "There",
                 jobs: userJobsList,
               }),
             };
