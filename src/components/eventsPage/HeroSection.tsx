@@ -1,18 +1,16 @@
 "use client";
 
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
-import EventSoldOutButton from "./EventSoldOutButton";
+// import EventSoldOutButton from "./EventSoldOutButton";
 
-const EventForm = dynamic(() => import("@/components/eventsPage/EventForm"), {
-  ssr: false,
-});
+// const EventForm = dynamic(() => import("@/components/eventsPage/EventForm"), {
+//   ssr: false,
+// });
 
-export default function HeroSection({
-  eventAttendees,
-}: {
-  eventAttendees: number;
-}) {
+// export default function HeroSection({eventAttendees,}: {eventAttendees: number;}) 
+export default function HeroSection() 
+{
   return (
     <>
     
@@ -23,7 +21,7 @@ export default function HeroSection({
               Remote & Ready:
               <br /> A Remote Work Mixer
             </h1>
-            {eventAttendees <= 51 ? <EventForm /> : <EventSoldOutButton />}
+            {/* {eventAttendees <= 51 ? <EventForm /> : <EventSoldOutButton />} */}
           </div>
           <div className="cols-span-12  md:col-span-4">
             <DisplayImageFromNextCloudinary

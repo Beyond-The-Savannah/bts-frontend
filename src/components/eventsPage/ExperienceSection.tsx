@@ -1,16 +1,14 @@
 "use client"
-import dynamic from "next/dynamic";
-import EventSoldOutButton from "./EventSoldOutButton";
+// import dynamic from "next/dynamic";
+// import EventSoldOutButton from "./EventSoldOutButton";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 
-export default function ExperienceSection({
-  eventAttendees,
-}: {
-  eventAttendees: number;
-}) {
-  const EventForm = dynamic(() => import("@/components/eventsPage/EventForm"), {
-    ssr: false,
-  });
+// export default function ExperienceSection({eventAttendees,}: {eventAttendees: number;}) 
+export default function ExperienceSection() 
+{
+  // const EventForm = dynamic(() => import("@/components/eventsPage/EventForm"), {
+  //   ssr: false,
+  // });
   return (
     <>
     
@@ -66,7 +64,7 @@ export default function ExperienceSection({
               <p className="text-sm italic text-center">The venue has limited parking space, advised to use a cab.</p>
             </div>
               <div className="grid place-content-center">
-              {eventAttendees <= 51 ? <EventForm /> : <EventSoldOutButton />}
+              {/* {eventAttendees <= 51 ? <EventForm /> : <EventSoldOutButton />} */}
               </div>
           </div>
         </div>

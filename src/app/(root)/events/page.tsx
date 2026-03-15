@@ -4,7 +4,7 @@ import { getCldImageUrl } from "next-cloudinary";
 import HeroSection from "@/components/eventsPage/HeroSection";
 import EventOutLookSection from "@/components/eventsPage/EventOutLookSection";
 import ExperienceSection from "@/components/eventsPage/ExperienceSection";
-import { GetAllEvents } from "@/db/queries/eventsQuries";
+// import { GetAllEvents } from "@/db/queries/eventsQuries";
 
 
 const url = getCldImageUrl({
@@ -27,13 +27,15 @@ export const metadata: Metadata = {
 };
 
 export default async function page() {
-  const eventAttendees= await GetAllEvents()
+  // const eventAttendees= await GetAllEvents()
   // console.log("records",eventAttendees.length)
   return (
     <>
-    <HeroSection eventAttendees={eventAttendees.length}/>
+    {/* <HeroSection eventAttendees={eventAttendees.length}/> */}
+    <HeroSection />
     <EventOutLookSection/>
-    <ExperienceSection eventAttendees={eventAttendees.length}/>
+    {/* <ExperienceSection eventAttendees={eventAttendees.length}/> */}
+    <ExperienceSection />
     </>
   )
 }
