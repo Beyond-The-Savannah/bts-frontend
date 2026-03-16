@@ -19,10 +19,10 @@ export default function PartnershipTypes() {
             <div
               key={type.id}
             //   className="w-full min-h-[54dvh] md:w-5/12 bg-white rounded-lg px-4 py-8 space-y-8 shadow-md hover:shadow-2xl hover:scale-105 transition duration-500"
-              className="w-full min-h-112 lg:w-[48%] bg-white rounded-lg px-4 py-8 space-y-8 shadow-md hover:shadow-2xl hover:scale-105 transition duration-500"
+              className="w-full min-h-112 lg:w-[48%] bg-white rounded-lg px-4 py-8 space-y-8 shadow-md hover:shadow-2xl transition duration-500"
             >
               <p className="text-xl font-semibold">{type.heading}</p>
-              <div className="border-2 rounded-md border-bts-BrownTwo w-full -mt-20"></div>
+              <div className="border-2 rounded-md border-bts-BrownTwo w-full -mt-4"></div>
 
               <p className="pl-6">
                 <span className="font-semibold px-1">Who are you:</span>
@@ -31,6 +31,7 @@ export default function PartnershipTypes() {
         
               <div className="pl-6  space-y-4 ">
                 <span className="font-semibold px-1">How you benefit:</span>
+                <div className="mb-4"></div>
                 {type.benefits.map((benefit) => (
                   <div key={benefit.id} className="flex gap-2 items-center text-sm">
                     <p>

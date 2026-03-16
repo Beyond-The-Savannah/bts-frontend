@@ -51,7 +51,8 @@ export default function HeroSection() {
           </Button> */}
         </div>
         </div>
-        <div className="w-full md:w-6/12 2xl:max-h-[75dvh] -z-10">
+        {/* <div className="w-full md:w-6/12 2xl:max-h-[75dvh] -z-10"> */}
+        <div className="w-full md:w-6/12 2xl:max-h-[90dvh] -z-10">
           <DisplayImageFromNextCloudinary
             src="partnership_Hero_Image_ozntgb"
             height={800}

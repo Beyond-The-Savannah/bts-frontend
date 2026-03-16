@@ -16,7 +16,7 @@ export default function FeaturedPartners() {
             </div>
             <div className="flex flex-wrap justify-evenly items-center gap-4 md:gap-20 mt-10 mb-40">
                 {brands.map((brand)=>(
-                    <div key={brand.id} className="w-3/12 md:w-2/12 h-[20dvh] bg-purple-3000 hover:shadow-md  duration-700 rounded-lg">
+                    <div key={brand.id} className="w-3/12 md:w-2/12 h-[20dvh] ">
                         <DisplayImageFromNextCloudinary
                             src={brand.imageSrc}
                             height={800}
