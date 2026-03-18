@@ -22,140 +22,233 @@ const noNewJobsNotifications = [
   "louise.mutua@gmail.com",
 ];
 export const { POST } = serve(async (context) => {
-  while (true) {
-    // Step 1: Fetch users
-    const usersEmailList = await context.run("Fetch subscribed users", async () => {
-      const response = await axiosInstance.get("/api/BydUsers/getAllUsers");
-      const userList: Pick <SubscribedUserProp,"firstName" | "email" | "career" | "status" | "subscriptionPlan">[] = response.data;
+  // 1. Fetch users (Runs once per trigger)
+  const usersEmailList = await context.run("Fetch subscribed users", async () => {
+    const response = await axiosInstance.get("/api/BydUsers/getAllUsers");
+    const userList: Pick<SubscribedUserProp, "firstName" | "email" | "career" | "status" | "subscriptionPlan">[] = response.data;
 
-      return userList
-        .filter(
-          (user) =>
-            user.status !== "cancelled" &&
-            user.subscriptionPlan !== "whatsapp community Annually" &&
-            !noNewJobsNotifications.includes(user.email),
-        )
-        .map((user) => ({
-          firstName: user.firstName,
-          email: user.email,
-          career: user.career,
-        }));
-    });
+    return userList
+      .filter(
+        (user) =>
+          user.status !== "cancelled" &&
+          user.subscriptionPlan !== "whatsapp community Annually" &&
+          !noNewJobsNotifications.includes(user.email),
+      )
+      .map((user) => ({
+        firstName: user.firstName,
+        email: user.email,
+        career: user.career,
+      }));
+  });
 
-    // Step 2: Fetch latest jobs
-    const latestJobListing = await context.run("Fetch latest jobs", async () => {
-      const jobListingResponse = await axiosInstance.get("/api/Jobs/getAllJobsByCompany");
-      const jobListing: Pick<ListingRemoteJobs,"jobsId" | "jobName" | "jobUrl" | "imageUrl" | "jobSubCategoryId" | "companyName" | "dateCreated"
-      >[] = jobListingResponse.data;
+  // 2. Fetch latest jobs
+  const latestJobListing = await context.run("Fetch latest jobs", async () => {
+    const jobListingResponse = await axiosInstance.get("/api/Jobs/getAllJobsByCompany");
+    const jobListing: Pick<ListingRemoteJobs, "jobsId" | "jobName" | "jobUrl" | "imageUrl" | "jobSubCategoryId" | "companyName" | "dateCreated">[] = jobListingResponse.data;
 
-      const now = new Date();
-      const eightHoursAgo = new Date(now.getTime() - 8 * 60 * 60 * 1000);
+    const now = new Date();
+    // Look back slightly more than 8 hours (e.g., 8h 5m) to ensure no overlap gaps
+    // const lookbackPeriod = new Date(now.getTime() - (8 * 60 + 5) * 60 * 1000);
+    
+    const lookbackPeriod = new Date(now.getTime() - 8 * 60  * 60 * 1000);
 
-      return jobListing
-        .sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime())
-        .filter((job) => new Date(job.dateCreated) > eightHoursAgo).map((job)=>({
-          jobsId:job.jobsId,
-          jobName:job.jobName,
-          jobUrl:job.jobUrl,
-          jobSubCategoryId:job.jobSubCategoryId,
-          imageUrl:job.imageUrl,
-          companyName:job.companyName,
-          dateCreated:job.dateCreated
-        }));
-    });
+    return jobListing
+      .sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime())
+      .filter((job) => new Date(job.dateCreated) > lookbackPeriod)
+      .map((job) => ({
+        jobsId: job.jobsId,
+        jobName: job.jobName,
+        jobUrl: job.jobUrl,
+        jobSubCategoryId: job.jobSubCategoryId,
+        imageUrl: job.imageUrl,
+        companyName: job.companyName,
+        dateCreated: job.dateCreated
+      }));
+  });
 
-    if (latestJobListing.length > 0) {
-      // FIX: Don't "Prepare" batches in a step. 
-      // Just calculate how many batches you need based on the usersEmailList length.
-      const batchSize = 50; // Smaller batches are safer for Resend & QStash
+  // 3. Process Batches
+  if (latestJobListing.length > 0) {
+    const batchSize = 50;
 
-      for (let i = 0; i < usersEmailList.length; i += batchSize) {
-        const batchIndex = Math.floor(i / batchSize);
+    for (let i = 0; i < usersEmailList.length; i += batchSize) {
+      const batchIndex = Math.floor(i / batchSize);
 
-        await context.run(`Send batch ${batchIndex}`, async () => {
-          const resend = new Resend(process.env.RESEND_API_KEY);
-          const currentUsers = usersEmailList.slice(i, i + batchSize);
-          
-          // MAP THE DATA HERE, inside the step, so it's not stored in the global state
-          const emailPayloads = currentUsers.map((user) => {
-            const userJobsList = user.career
-              ? latestJobListing.filter((l) => l.jobSubCategoryId === user.career)
-              : latestJobListing;
+      await context.run(`Send batch ${batchIndex}`, async () => {
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        const currentUsers = usersEmailList.slice(i, i + batchSize);
+        
+        const emailPayloads = currentUsers.map((user) => {
+          const userJobsList = user.career
+            ? latestJobListing.filter((l) => l.jobSubCategoryId === user.career)
+            : latestJobListing;
 
-            return {
-              from: "info@beyondthesavannah.co.ke",
-              to: [user.email],
-              subject: "Beyond The Savannah New Jobs Alert",
-              react: AllJobsAlertEmailTemplate({
-                firstName: "There",
-                jobs: userJobsList,
-              }),
-            };
-          }).filter(p => p !== null);
+          // Only send if there are jobs matching the user's career
+          if (userJobsList.length === 0) return null;
 
-          if (emailPayloads.length > 0) {
-            await resend.batch.send(emailPayloads);
-          }
-        });
+          return {
+            from: "info@beyondthesavannah.co.ke",
+            to: [user.email],
+            subject: "Beyond The Savannah New Jobs Alert",
+            react: AllJobsAlertEmailTemplate({
+              firstName: "There",
+              jobs: userJobsList,
+            }),
+          };
+        }).filter(p => p !== null);
 
-        if (i + batchSize < usersEmailList.length) {
-          await context.sleep(`Pause-batch-${batchIndex}`, 1);
+        if (emailPayloads.length > 0) {
+          await resend.batch.send(emailPayloads);
         }
+      });
+
+      // Rate limiting: sleep for 1 second between batches
+      if (i + batchSize < usersEmailList.length) {
+        await context.sleep(`Pause-batch-${batchIndex}`, 1);
       }
     }
-
-    // if (latestJobListing.length > 0) {
-    //   // Step 3: Prepare email batch list (pure CPU work, no I/O — safe in context.run)
-    //   const batchEmails = await context.run("Prepare email batches", async () => {
-    //     const emails: EmailBatchProp[] = [];
-
-    //     usersEmailList.forEach((user) => {
-    //       const userJobsList = user.career
-    //         ? latestJobListing.filter((listing) => listing.jobSubCategoryId === user.career)
-    //         : latestJobListing;
-
-    //       if (userJobsList.length > 0) {
-    //         emails.push({
-    //           from: "info@beyondthesavannah.co.ke",
-    //           to: [user.email],
-    //           subject: "Beyond The Savannah New Jobs Alert",
-    //           react: AllJobsAlertEmailTemplate({
-    //             firstName: user.firstName ?? "There",
-    //             jobs: userJobsList,
-    //           }),
-    //         });
-    //       }
-    //     });
-
-    //     return emails;
-    //   });
-
-    //   // Step 4: Send each batch as its own step, with sleep between them
-    //   const batchSize = 100;
-    //   for (let i = 0; i < batchEmails.length; i += batchSize) {
-    //     const batchIndex = Math.floor(i / batchSize);
-
-    //     await context.run(`Send email batch ${batchIndex}`, async () => {
-    //       const resend = new Resend(process.env.RESEND_API_KEY);
-    //       const batch = batchEmails.slice(i, i + batchSize);
-    //       await resend.batch.send(batch);
-    //       console.log(`Sent batch ${batchIndex} of ${batch.length} emails`);
-    //     });
-
-    //     // Sleep between batches (outside context.run — correct placement)
-    //     if (i + batchSize < batchEmails.length) {
-    //       await context.sleep(`Rate limit pause after batch ${batchIndex}`, 1);
-    //     }
-    //   }
-
-    //   console.log(`Successfully sent ${batchEmails.length} personalized job alert emails`);
-    // } else {
-    //   console.log("No new jobs in the last 8 hours");
-    // }
-
-    await context.sleep("Wait 8 hours", 8 * 60 * 60);
   }
+
+  // Logic ends here. The workflow terminates, and the Upstash CRON 
+  // will restart it at the next 8-hour interval.
 });
+
+
+
+// export const { POST } = serve(async (context) => {
+//   while (true) {
+//     // Step 1: Fetch users
+//     const usersEmailList = await context.run("Fetch subscribed users", async () => {
+//       const response = await axiosInstance.get("/api/BydUsers/getAllUsers");
+//       const userList: Pick <SubscribedUserProp,"firstName" | "email" | "career" | "status" | "subscriptionPlan">[] = response.data;
+
+//       return userList
+//         .filter(
+//           (user) =>
+//             user.status !== "cancelled" &&
+//             user.subscriptionPlan !== "whatsapp community Annually" &&
+//             !noNewJobsNotifications.includes(user.email),
+//         )
+//         .map((user) => ({
+//           firstName: user.firstName,
+//           email: user.email,
+//           career: user.career,
+//         }));
+//     });
+
+//     // Step 2: Fetch latest jobs
+//     const latestJobListing = await context.run("Fetch latest jobs", async () => {
+//       const jobListingResponse = await axiosInstance.get("/api/Jobs/getAllJobsByCompany");
+//       const jobListing: Pick<ListingRemoteJobs,"jobsId" | "jobName" | "jobUrl" | "imageUrl" | "jobSubCategoryId" | "companyName" | "dateCreated"
+//       >[] = jobListingResponse.data;
+
+//       const now = new Date();
+//       const eightHoursAgo = new Date(now.getTime() - 8 * 60 * 60 * 1000);
+
+//       return jobListing
+//         .sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime())
+//         .filter((job) => new Date(job.dateCreated) > eightHoursAgo).map((job)=>({
+//           jobsId:job.jobsId,
+//           jobName:job.jobName,
+//           jobUrl:job.jobUrl,
+//           jobSubCategoryId:job.jobSubCategoryId,
+//           imageUrl:job.imageUrl,
+//           companyName:job.companyName,
+//           dateCreated:job.dateCreated
+//         }));
+//     });
+
+//     if (latestJobListing.length > 0) {
+//       // FIX: Don't "Prepare" batches in a step. 
+//       // Just calculate how many batches you need based on the usersEmailList length.
+//       const batchSize = 50; // Smaller batches are safer for Resend & QStash
+
+//       for (let i = 0; i < usersEmailList.length; i += batchSize) {
+//         const batchIndex = Math.floor(i / batchSize);
+
+//         await context.run(`Send batch ${batchIndex}`, async () => {
+//           const resend = new Resend(process.env.RESEND_API_KEY);
+//           const currentUsers = usersEmailList.slice(i, i + batchSize);
+          
+//           // MAP THE DATA HERE, inside the step, so it's not stored in the global state
+//           const emailPayloads = currentUsers.map((user) => {
+//             const userJobsList = user.career
+//               ? latestJobListing.filter((l) => l.jobSubCategoryId === user.career)
+//               : latestJobListing;
+
+//             return {
+//               from: "info@beyondthesavannah.co.ke",
+//               to: [user.email],
+//               subject: "Beyond The Savannah New Jobs Alert",
+//               react: AllJobsAlertEmailTemplate({
+//                 firstName: "There",
+//                 jobs: userJobsList,
+//               }),
+//             };
+//           }).filter(p => p !== null);
+
+//           if (emailPayloads.length > 0) {
+//             await resend.batch.send(emailPayloads);
+//           }
+//         });
+
+//         if (i + batchSize < usersEmailList.length) {
+//           await context.sleep(`Pause-batch-${batchIndex}`, 1);
+//         }
+//       }
+//     }
+
+//     // if (latestJobListing.length > 0) {
+//     //   // Step 3: Prepare email batch list (pure CPU work, no I/O — safe in context.run)
+//     //   const batchEmails = await context.run("Prepare email batches", async () => {
+//     //     const emails: EmailBatchProp[] = [];
+
+//     //     usersEmailList.forEach((user) => {
+//     //       const userJobsList = user.career
+//     //         ? latestJobListing.filter((listing) => listing.jobSubCategoryId === user.career)
+//     //         : latestJobListing;
+
+//     //       if (userJobsList.length > 0) {
+//     //         emails.push({
+//     //           from: "info@beyondthesavannah.co.ke",
+//     //           to: [user.email],
+//     //           subject: "Beyond The Savannah New Jobs Alert",
+//     //           react: AllJobsAlertEmailTemplate({
+//     //             firstName: user.firstName ?? "There",
+//     //             jobs: userJobsList,
+//     //           }),
+//     //         });
+//     //       }
+//     //     });
+
+//     //     return emails;
+//     //   });
+
+//     //   // Step 4: Send each batch as its own step, with sleep between them
+//     //   const batchSize = 100;
+//     //   for (let i = 0; i < batchEmails.length; i += batchSize) {
+//     //     const batchIndex = Math.floor(i / batchSize);
+
+//     //     await context.run(`Send email batch ${batchIndex}`, async () => {
+//     //       const resend = new Resend(process.env.RESEND_API_KEY);
+//     //       const batch = batchEmails.slice(i, i + batchSize);
+//     //       await resend.batch.send(batch);
+//     //       console.log(`Sent batch ${batchIndex} of ${batch.length} emails`);
+//     //     });
+
+//     //     // Sleep between batches (outside context.run — correct placement)
+//     //     if (i + batchSize < batchEmails.length) {
+//     //       await context.sleep(`Rate limit pause after batch ${batchIndex}`, 1);
+//     //     }
+//     //   }
+
+//     //   console.log(`Successfully sent ${batchEmails.length} personalized job alert emails`);
+//     // } else {
+//     //   console.log("No new jobs in the last 8 hours");
+//     // }
+
+//     await context.sleep("Wait 8 hours", 8 * 60 * 60);
+//   }
+// });
 
 
 
