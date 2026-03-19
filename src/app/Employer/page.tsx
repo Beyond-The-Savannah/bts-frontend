@@ -1,4 +1,5 @@
-import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/components/Customer/UserSubscriptionInformation";
+// import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack, GetEmployerSubscriptionDetailsFromPaystack } from "@/components/Customer/UserSubscriptionInformation";
+import {  GetEmployerSubscriptionDetailsFromPaystack } from "@/components/Customer/UserSubscriptionInformation";
 import InformationDashboardOverview from "@/components/Employer/InformationDashboardOverview";
 import PackagePricingEmployer from "@/components/Employer/PackagePricingEmployer";
 import EmployerCheckLoader from "@/components/Loaders/EmployerCheckLoader";
@@ -77,27 +78,36 @@ export default async function page() {
     });
   // console.log("ORGANISATION MEMBERS:", organisationMemmbers);
 
-  const isOrganisationMember = organisationMemmbers.some(
-    (member) => member.publicUserData?.userId === userId,
-  );
+  // Find the admin who likely owns the subscription
+const adminMemmber=organisationMemmbers.find((member)=>member.role=="org:admin")
+const adminEmail=adminMemmber?.publicUserData?.identifier
+const adminSubscriptionDetails:subscriptionDetailsProps[]=await GetEmployerSubscriptionDetailsFromPaystack(adminEmail as string)
+
+//check for valid subscription
+const isValidSubscription=adminSubscriptionDetails?.filter((subscriptionOne)=>subscriptionOne.amount===300000)
+.some((subscription)=>{return ["active", "attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase(),)})
+
+//check for organisation members
+  const isOrganisationMember = organisationMemmbers.some((member) => member.publicUserData?.userId === userId,);
 
   //check for valid subscription
-  const employerSubscriptionDetails: subscriptionDetailsProps[] =
-    await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
-  // console.log("EMPLOYER SUBSCRIPTION DETAILS:", employerSubscriptionDetails);
-  const isValidSubscription = employerSubscriptionDetails
-    ?.filter((subscriptionOne) => subscriptionOne.amount === 300000)
-    .some((subscription) => {
-      return ["active", "attention", "non-renewing", "completed"].includes(
-        subscription.status.toLowerCase(),
-      );
-    });
+  // const employerSubscriptionDetails: subscriptionDetailsProps[] =
+  //   await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
+  // // console.log("EMPLOYER SUBSCRIPTION DETAILS:", employerSubscriptionDetails);
+  // const isValidSubscription = employerSubscriptionDetails
+  //   ?.filter((subscriptionOne) => subscriptionOne.amount === 300000)
+  //   .some((subscription) => {
+  //     return ["active", "attention", "non-renewing", "completed"].includes(
+  //       subscription.status.toLowerCase(),
+  //     );
+  //   });
 
   return (
     <>
       <Suspense fallback={<EmployerCheckLoader2 />}>
         <section className="px-4">
-          {isValidSubscription || isOrganisationMember ? (
+          {/* {isValidSubscription || isOrganisationMember ? ( */}
+          {isValidSubscription && isOrganisationMember ? (
             <>
               <InformationDashboardOverview />
             </>

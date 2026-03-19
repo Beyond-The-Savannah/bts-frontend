@@ -32,24 +32,24 @@ export default function PackagePricingEmployer() {
       ],
       link: "/Employer",
     },
-    {
-      id: 2,
-      packageName: "Employer Growth",
-      packagePriceKE: "5,000",
-      packageFigureKE: 5000,
-      packagePriceUSD: "50",
-      packageFigureUSD: 50,
-      packagePlanCodeKE: "PLN_1ykvnbryfbyusxd",
-      packagePlanCodeUSD: "",
-      packageFeatures: [
-        "Access To Listed Jobs",
-        "NewsLetter",
-        "Curated Job Search Alerts",
-        "Unlimited Private Email Coaching",
-        "Access To A Job Search Accountability Partner",
-      ],
-      link: "/Employer",
-    },
+    // {
+    //   id: 2,
+    //   packageName: "Employer Growth",
+    //   packagePriceKE: "5,000",
+    //   packageFigureKE: 5000,
+    //   packagePriceUSD: "50",
+    //   packageFigureUSD: 50,
+    //   packagePlanCodeKE: "PLN_1ykvnbryfbyusxd",
+    //   packagePlanCodeUSD: "",
+    //   packageFeatures: [
+    //     "Access To Listed Jobs",
+    //     "NewsLetter",
+    //     "Curated Job Search Alerts",
+    //     "Unlimited Private Email Coaching",
+    //     "Access To A Job Search Accountability Partner",
+    //   ],
+    //   link: "/Employer",
+    // },
   ];
   
   if(!user){ return}

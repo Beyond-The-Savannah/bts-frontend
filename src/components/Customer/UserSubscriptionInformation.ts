@@ -118,6 +118,38 @@ export async function GetCustomerSubscriptionDetailsByCustomerIDFromPaystack() {
   }
 }
 
+export async function GetEmployerSubscriptionDetailsFromPaystack(email:string){
+  //fetch for the employer subscription idcode from paystack
+  let employerID=''
+  try {
+    const response=await fetch(`${PUBLIC_BASE_URL}/api/customer?email=${email.toLocaleLowerCase()}`)
+    if(!response.ok){return null}
+    employerID=await response.json()
+  } catch (error) {
+    console.error("Error in getting employer customer id", error)
+    return null
+  }
+
+  //fetch for the employer subscription details from paystack
+  if(employerID!==''){
+    try {
+      const response=await fetch(`${PUBLIC_BASE_URL}/api/subscriptions?idOrCode=${employerID}`)
+      if(!response.ok){return null}
+      const employerSubscriptionDetails=await response.json()
+      if(
+        employerSubscriptionDetails.data &&
+        employerSubscriptionDetails.data[0]&&
+        (employerSubscriptionDetails.data[0].status =="active"|| "attention" ||"non-renewing" ||"completed")
+      ){
+        return employerSubscriptionDetails.data
+      }
+    } catch (error) {
+      console.error("Error in getting empolyer subscription details",error)
+      return null
+    }
+  }
+}
+
 export async function AddNewSubscriberToDatabase() {
   const userSubscriptionInformation: subscriptionDetailsProps[] | null =
     await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();

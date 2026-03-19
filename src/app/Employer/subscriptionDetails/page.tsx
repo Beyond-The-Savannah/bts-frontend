@@ -1,4 +1,5 @@
 import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/components/Customer/UserSubscriptionInformation";
+import AccessDenied from "@/components/Employer/AccessDenied";
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { subscriptionDetailsProps } from "@/types/subscriptions";
@@ -10,7 +11,17 @@ import { redirect } from "next/navigation";
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 
 export default async function page() {
-  const { orgId } = await auth();
+  const { orgId,userId } = await auth();
+  const client=await clerkClient()
+  const { data: organisationMemmbers } =await client.organizations.getOrganizationMembershipList({organizationId: orgId!,});
+  const isOrganisationMember = organisationMemmbers.some((member) => member.publicUserData?.userId === userId,);
+   if(!isOrganisationMember){
+      return(
+        <>
+        <AccessDenied/>
+        </>
+      )
+    }
 
   if (!orgId) {
     return (
@@ -35,7 +46,7 @@ export default async function page() {
       </>
     );
   }
-  const client = await clerkClient();
+  
   const organization = await client.organizations.getOrganization({
     organizationId: orgId!,
   });
