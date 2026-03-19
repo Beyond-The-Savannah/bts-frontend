@@ -1,3 +1,4 @@
+import AccessDenied from "@/components/Employer/AccessDenied";
 import InfoCards from "@/components/Employer/HomeSection/InfoCards";
 import Interviews from "@/components/Employer/HomeSection/Interviews";
 import PostJobs from "@/components/Employer/HomeSection/PostJobs";
@@ -7,11 +8,21 @@ import { auth, clerkClient } from "@clerk/nextjs/server";
 import React from "react";
 
 export default async function page() {
-  const { orgId } = await auth();
+  const { orgId,userId } = await auth();
   const client = await clerkClient();
   const organization = await client.organizations.getOrganization({
     organizationId: orgId!,
   });
+  const { data: organisationMemmbers } =await client.organizations.getOrganizationMembershipList({organizationId: orgId!,});
+  const isOrganisationMember = organisationMemmbers.some((member) => member.publicUserData?.userId === userId,);
+  
+  if(!isOrganisationMember){
+      return(
+        <>
+        <AccessDenied/>
+        </>
+      )
+    }
 
   return (
     <>
