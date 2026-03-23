@@ -35,6 +35,7 @@ import clsx from "clsx";
 import { format } from "date-fns";
 import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -69,6 +70,7 @@ interface AddJobsProps {
 export default function AddJobs({ employerJobsData }: AddJobsProps) {
   const { user } = useUser();
   const { organization } = useOrganization();
+  const router=useRouter()
   // let currentUserEmail
   // if (user !=null && user !=undefined){currentUserEmail=user.emailAddresses[0].emailAddress}
   // const currentUserEmail=user?.emailAddresses[0].emailAddress
@@ -134,6 +136,7 @@ export default function AddJobs({ employerJobsData }: AddJobsProps) {
           applicationLink: data.applicationLink ?? null,
         });
         toast.success("Updated Job Details")
+        router.refresh()
       } catch (error) {
         console.log("Edit Form Error:", error);
       }
@@ -146,6 +149,7 @@ export default function AddJobs({ employerJobsData }: AddJobsProps) {
         });
         reset();
         toast.success("New Job Add");
+        router.refresh()
       } catch (error) {
         toast.error(`Cannot add new job:${error}`);
         console.log("Form errors:", errors);
@@ -155,7 +159,7 @@ export default function AddJobs({ employerJobsData }: AddJobsProps) {
 
   return (
     <>
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto mb-12">
         {/* <Tabs defaultValue="addJob1">
           <TabsList className="w-full">
             <TabsTrigger value="addJob1">Add Job Openning</TabsTrigger>
@@ -463,7 +467,7 @@ export default function AddJobs({ employerJobsData }: AddJobsProps) {
             <Button
               disabled={isSubmitting}
               type="submit"
-              className="bg-green-300 hover:bg-green-500"
+              className="bg-green-300 hover:bg-green-500 pointer"
             >
               {isSubmitting ? "Updating job..." : "Edit job"}
             </Button>
