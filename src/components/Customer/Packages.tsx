@@ -23,13 +23,13 @@ export interface subScriptionProps {
   amount: number;
   plan: string;
   name: string;
-  currency:string;
+  currency: string;
   firstName: string;
 }
 export default function Packages({ email }: { email: string }) {
   const pathName = usePathname();
   const router = useRouter();
-  const currencyValue=useCurrencyBasedOnLocation()
+  const currencyValue = useCurrencyBasedOnLocation();
   const [anual, setAnual] = useState(false);
   const user = useUser();
   const userFirstName = user.user?.firstName as string;
@@ -69,7 +69,7 @@ export default function Packages({ email }: { email: string }) {
           amount: subscriptionOptions.amount,
           plan: subscriptionOptions.plan,
           firstName: user.user?.firstName,
-          currency:currencyValue,
+          currency: currencyValue,
           // name: subscriptionOptions.name,
           whatsAppExpiringLink: expiringLink,
         });
@@ -100,35 +100,37 @@ export default function Packages({ email }: { email: string }) {
 
   return (
     <>
-    <div className="w-full flex items-center justify-end gap-1 ">
-    Annual charges
-    <Switch checked={anual} onCheckedChange={()=>setAnual(!anual)} className="accent-emerald-400"/>
-    </div>
+      <div className="w-full flex items-center justify-end gap-1 ">
+        Annual charges
+        <Switch
+          checked={anual}
+          onCheckedChange={() => setAnual(!anual)}
+          className="accent-emerald-400"
+        />
+      </div>
       {anual ? (
         <>
           <div className="flex flex-wrap xl:flex-nowrap gap-x-2 gap-y-4 items-center justify-evenly pt-12">
-          {/* <div className="flex flex-wrap  gap-x-2 gap-y-4 items-center justify-evenly pt-12"> */}
-          {/* <div className="flex flex-wrap  gap-x-2 gap-y-4 items-start justify-evenly pt-12"> */}
             {AnualSubscriptionPackages.map((sub) => (
               <div
                 key={sub.id}
                 className="min-h-100 w-full md:w-64 lg:w-64 xl:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
-                // className="h-full w-full md:w-64 lg:w-64 border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
-                // className="h-full w-full md:w-64 lg:w-56 border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
               >
-                {/* <div className="flex flex-wrap gap-4 items-center  justify-evenly"> */}
                 <div className="flex flex-col gap-4 items-center justify-center text-center">
                   <p className="font-semibold w-full">{sub.packageName}</p>
                   <p className="font-semibold w-full">
-                    {currencyValue=="KES" ? (<>
-                     <span className="text-xs mr-1 ">KSH</span>
-                    {sub.packagePriceKE}
-                    </>):(<>
-                     <span className="text-xs mr-1 ">$ </span>
-                    {sub.packagePriceUSD}
-                    </>)}
-                     {/* <span className="text-xs mr-1 ">KSH</span> */}
-                    {/* {sub.packagePrice} */}
+                    {currencyValue == "KES" ? (
+                      <>
+                        <span className="text-xs mr-1 ">KSH</span>
+                        {sub.packagePriceKE}
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-xs mr-1 ">$ </span>
+                        {sub.packagePriceUSD}
+                      </>
+                    )}
+
                     <span className="font-normal"> / year</span>
                   </p>
                 </div>
@@ -141,11 +143,21 @@ export default function Packages({ email }: { email: string }) {
                       >
                         <Check className="size-4" />
                         <li>{good}</li>
-                        {(good=='Unlimited Private Email Coaching'|| good=='Limited Private Email Coaching')  && (<>
-                        <Popover>
-                          <PopoverTrigger><BadgeAlert size={16}/></PopoverTrigger>
-                          <PopoverContent className="text-xs">Please email us about what you want to coached about in order for us to best carter to your unique challenges and need</PopoverContent>
-                          </Popover></>)}
+                        {(good == "Unlimited Private Email Coaching" ||
+                          good == "Limited Private Email Coaching") && (
+                          <>
+                            <Popover>
+                              <PopoverTrigger>
+                                <BadgeAlert size={16} />
+                              </PopoverTrigger>
+                              <PopoverContent className="text-xs">
+                                Please email us about what you want to coached
+                                about in order for us to best carter to your
+                                unique challenges and need
+                              </PopoverContent>
+                            </Popover>
+                          </>
+                        )}
                       </ul>
                     ))}
                   </div>
@@ -160,40 +172,39 @@ export default function Packages({ email }: { email: string }) {
                 )}
                 {pathName != "/packages" && (
                   <>
-                  {currencyValue=='KES' ? 
-                  (<Button
-                    onClick={() =>
-                      handlePurchasePackage({
-                        email: email,
-                        amount: sub.packageFigureKE,
-                        plan: sub.packagePlanCodeKE,
-                        name: sub.packageName,
-                        currency:'KES',
-                        firstName: userFirstName,
-                      })
-                    }
-                    className="bg-bts-GreenOne hover:bg-green-900"
-                  >
-                    Purchase
-                  </Button>)
-                  :
-                  (<Button
-                    onClick={() =>
-                      handlePurchasePackage({
-                        email: email,
-                        amount: sub.packageFigureUSD,
-                        plan: sub.packagePlanCodeUSD,
-                        name: sub.packageName,
-                        currency:'USD',
-                        firstName: userFirstName,
-                      })
-                    }
-                    className="bg-bts-GreenOne hover:bg-green-900"
-                  >
-                    Purchase
-                  </Button>)
-                  }
-                  
+                    {currencyValue == "KES" ? (
+                      <Button
+                        onClick={() =>
+                          handlePurchasePackage({
+                            email: email,
+                            amount: sub.packageFigureKE,
+                            plan: sub.packagePlanCodeKE,
+                            name: sub.packageName,
+                            currency: "KES",
+                            firstName: userFirstName,
+                          })
+                        }
+                        className="bg-bts-GreenOne hover:bg-green-900"
+                      >
+                        Purchase
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() =>
+                          handlePurchasePackage({
+                            email: email,
+                            amount: sub.packageFigureUSD,
+                            plan: sub.packagePlanCodeUSD,
+                            name: sub.packageName,
+                            currency: "USD",
+                            firstName: userFirstName,
+                          })
+                        }
+                        className="bg-bts-GreenOne hover:bg-green-900"
+                      >
+                        Purchase
+                      </Button>
+                    )}
                   </>
                 )}
               </div>
@@ -203,29 +214,26 @@ export default function Packages({ email }: { email: string }) {
       ) : (
         <>
           <div className="flex flex-wrap xl:flex-nowrap gap-x-2 gap-y-4 items-center justify-evenly pt-12">
-          {/* <div className="flex flex-wrap  gap-x-2 gap-y-4 items-start justify-evenly pt-12"> */}
             {SubscriptionPackages.map((sub) => (
               <div
                 key={sub.id}
                 className="min-h-100 w-full md:w-64 lg:w-64 xl:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
-                // className="h-full w-full md:w-64 lg:w-64 xl:w-full border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between"
-                // className={clsx("h-full w-full md:w-64 lg:w-56 border bg-bts-BrownOne rounded-lg space-y-4 px-4 py-6 flex flex-col justify-between",
-                  
-                // )}
               >
-                {/* <div className="flex flex-wrap gap-4 items-center  justify-evenly"> */}
                 <div className="flex flex-col gap-4 items-center justify-center text-center">
                   <p className="font-semibold w-full">{sub.packageName}</p>
                   <p className="font-semibold w-full">
-                      {currencyValue=="KES" ? (<>
-                     <span className="text-xs mr-1 ">KSH </span>
-                    {sub.packagePriceKE}
-                    </>):(<>
-                     <span className="text-xs mr-1 ">$ </span>
-                    {sub.packagePriceUSD}
-                    </>)}
-                    {/* <span className="text-xs mr-1 ">KSH</span>
-                    {sub.packagePrice} */}
+                    {currencyValue == "KES" ? (
+                      <>
+                        <span className="text-xs mr-1 ">KSH </span>
+                        {sub.packagePriceKE}
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-xs mr-1 ">$ </span>
+                        {sub.packagePriceUSD}
+                      </>
+                    )}
+
                     <span className="font-normal"> / month</span>
                   </p>
                 </div>
@@ -238,11 +246,21 @@ export default function Packages({ email }: { email: string }) {
                       >
                         <Check className="size-4" />
                         <li>{good}</li>
-                         {(good=='Unlimited Private Email Coaching'|| good=='Limited Private Email Coaching')  && (<>
-                        <Popover>
-                          <PopoverTrigger><BadgeAlert size={16} /></PopoverTrigger>
-                          <PopoverContent className="text-xs">Please email us about what you want to be coached about in order for us to best carter to your unique challenges and needs.</PopoverContent>
-                          </Popover></>)}
+                        {(good == "Unlimited Private Email Coaching" ||
+                          good == "Limited Private Email Coaching") && (
+                          <>
+                            <Popover>
+                              <PopoverTrigger>
+                                <BadgeAlert size={16} />
+                              </PopoverTrigger>
+                              <PopoverContent className="text-xs">
+                                Please email us about what you want to be
+                                coached about in order for us to best carter to
+                                your unique challenges and needs.
+                              </PopoverContent>
+                            </Popover>
+                          </>
+                        )}
                       </ul>
                     ))}
                   </div>
@@ -257,39 +275,39 @@ export default function Packages({ email }: { email: string }) {
                 )}
                 {pathName != "/packages" && (
                   <>
-               {currencyValue=='KES' ? 
-                  (<Button
-                    onClick={() =>
-                      handlePurchasePackage({
-                        email: email,
-                        amount: sub.packageFigureKE,
-                        plan: sub.packagePlanCodeKE,
-                        name: sub.packageName,
-                        currency:'KES',
-                        firstName: userFirstName,
-                      })
-                    }
-                    className="bg-bts-GreenOne hover:bg-green-900"
-                  >
-                    Purchase
-                  </Button>)
-                  :
-                  (<Button
-                    onClick={() =>
-                      handlePurchasePackage({
-                        email: email,
-                        amount: sub.packageFigureUSD,
-                        plan: sub.packagePlanCodeUSD,
-                        name: sub.packageName,
-                        currency:'USD',
-                        firstName: userFirstName,
-                      })
-                    }
-                    className="bg-bts-GreenOne hover:bg-green-900"
-                  >
-                    Purchase
-                  </Button>)
-                  }
+                    {currencyValue == "KES" ? (
+                      <Button
+                        onClick={() =>
+                          handlePurchasePackage({
+                            email: email,
+                            amount: sub.packageFigureKE,
+                            plan: sub.packagePlanCodeKE,
+                            name: sub.packageName,
+                            currency: "KES",
+                            firstName: userFirstName,
+                          })
+                        }
+                        className="bg-bts-GreenOne hover:bg-green-900"
+                      >
+                        Purchase
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() =>
+                          handlePurchasePackage({
+                            email: email,
+                            amount: sub.packageFigureUSD,
+                            plan: sub.packagePlanCodeUSD,
+                            name: sub.packageName,
+                            currency: "USD",
+                            firstName: userFirstName,
+                          })
+                        }
+                        className="bg-bts-GreenOne hover:bg-green-900"
+                      >
+                        Purchase
+                      </Button>
+                    )}
                   </>
                 )}
               </div>
