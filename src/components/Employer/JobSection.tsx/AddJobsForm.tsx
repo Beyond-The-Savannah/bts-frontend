@@ -236,7 +236,7 @@ export default function AddJobs({ employerJobsData }: AddJobsProps) {
                   <Button
                     variant="outline"
                     role="combobox"
-                    className="flex justify-between mx-2 w-full md:w-[300px]"
+                    className="flex justify-between mx-2 w-full md:w-75"
                   >
                     {workModeValue
                       ? workModes.find(
@@ -246,7 +246,7 @@ export default function AddJobs({ employerJobsData }: AddJobsProps) {
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-full md:w-[300px]">
+                <PopoverContent className="w-full md:w-75">
                   <Command>
                     <CommandInput placeholder="Search Work Mode" />
                     <CommandList>
@@ -299,7 +299,7 @@ export default function AddJobs({ employerJobsData }: AddJobsProps) {
                   <Button
                     variant="outline"
                     role="combobox"
-                    className="flex justify-between mx-2 w-full md:w-[300px]"
+                    className="flex justify-between mx-2 w-full md:w-75"
                   >
                     {jobTypeValue
                       ? JobTypes.find(
@@ -309,7 +309,7 @@ export default function AddJobs({ employerJobsData }: AddJobsProps) {
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-full md:w-[300px]">
+                <PopoverContent className="w-full md:w-75">
                   <Command>
                     <CommandInput placeholder="Search Work Mode" />
                     <CommandList>
@@ -357,7 +357,7 @@ export default function AddJobs({ employerJobsData }: AddJobsProps) {
                   <Button
                     variant="outline"
                     role="combobox"
-                    className="flex justify-between w-full md:w-[500px]"
+                    className="flex justify-between w-full md:w-125"
                   >
                     {departmentValue
                       ? Departments.find(
@@ -367,7 +367,7 @@ export default function AddJobs({ employerJobsData }: AddJobsProps) {
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-full md:w-[500px]">
+                <PopoverContent className="w-full md:w-125">
                   <Command>
                     <CommandInput
                       placeholder="Search Department"

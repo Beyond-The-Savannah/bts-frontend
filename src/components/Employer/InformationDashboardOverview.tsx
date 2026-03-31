@@ -1,21 +1,21 @@
-import { auth, clerkClient } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import PostJobs from "./HomeSection/PostJobs";
 // import Interviews from "./HomeSection/Interviews";
 import InfoCards from "./HomeSection/InfoCards";
+import { GetEmployerSubscriprionDetails } from "./EmployerSubscriptionInforamtionCheck";
 
 export default async function InformationDashboardOverview() {
+  
   const { orgId } = await auth();
-  const client = await clerkClient();
-  const organization = await client.organizations.getOrganization({
-    organizationId: orgId!,
-  });
+  const { organizationName } = await GetEmployerSubscriprionDetails({orgId: orgId as string,});
+
   return (
     <>
       <div className="c">
         <h2 className="text-3xl font-semibold mb-10">
-          {organization.name} Dashboard
+          {organizationName} Dashboard
         </h2>
-        <InfoCards/>
+        <InfoCards />
       </div>
       <div className="flex flex-wrap lg:flex-nowrap gap-8">
         <div className="w-full  lg:w-10/12 mx-auto bg-slate-100/50 rounded-md my-10 px-4">

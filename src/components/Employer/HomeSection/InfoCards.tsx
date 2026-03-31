@@ -6,7 +6,7 @@ import { FileStackIcon, Users } from "lucide-react"
 export default async function InfoCards() {
     const{orgId}=await auth()
     const postedJobsCount = await GetEmpolyerJobs(orgId!)
-    const relavantCandidatesCount = await (await GetRelevantCandidates(orgId!)).length
+    const relavantCandidatesCount = (await GetRelevantCandidates(orgId!)).length
 
   return (
     <>

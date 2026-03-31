@@ -1,15 +1,15 @@
 
 import AccessDenied from "@/components/Employer/AccessDenied";
 import AllCandidatesSection from "@/components/Employer/CandidatesPage/AllCandidatesSection";
+import { GetEmployerSubscriprionDetails } from "@/components/Employer/EmployerSubscriptionInforamtionCheck";
 
-import { auth, clerkClient } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 export default async function page() {
-  const {orgId,userId}=await auth()
-  const client=await clerkClient()
-    const { data: organisationMemmbers } =await client.organizations.getOrganizationMembershipList({organizationId: orgId!,});
-    const isOrganisationMember = organisationMemmbers.some((member) => member.publicUserData?.userId === userId,);
   
-    if(!isOrganisationMember){
+ const { orgId, userId } = await auth();
+  const { isValidSubscription, isOrganisationMember } = await GetEmployerSubscriprionDetails({orgId: orgId as string,userId: userId as string,});
+  
+    if(!isOrganisationMember || !isValidSubscription){
       return(
         <>
         <AccessDenied/>

@@ -15,31 +15,15 @@ export default function PackagePricingEmployer() {
   const email=user.user?.emailAddresses[0].emailAddress as string;
   const firstName=user.user?.firstName as string;
   const packagesList = [
-    // {
-    //   id: 1,
-    //   packageName: "Employer Starter",
-    //   packagePriceKE: "3,000",
-    //   packageFigureKE: 3000,
-    //   packagePriceUSD: "15",
-    //   packageFigureUSD: 15,
-    //   packagePlanCodeKE: "PLN_n13c2lrs1j3kjxk",
-    //   packagePlanCodeUSD: "",
-    //   packageFeatures: [
-    //     "Access to curated candidate pool",
-    //     "Up to 2 new member per organisation",
-        
-    //   ],
-    //   link: "/Employer",
-    // },
     {
       id: 1,
       packageName: "Employer Starter",
-      packagePriceKE: "20,000",
-      packageFigureKE: 20000,
-      packagePriceUSD: "200",
-      packageFigureUSD: 200,
-      packagePlanCodeKE: "",
-      packagePlanCodeUSD: "PLN_jat3s9tnpwdwa7i",
+      packagePriceKE: "3,000",
+      packageFigureKE: 3000,
+      packagePriceUSD: "15",
+      packageFigureUSD: 15,
+      packagePlanCodeKE: "PLN_n13c2lrs1j3kjxk",
+      packagePlanCodeUSD: "",
       packageFeatures: [
         "Access to curated candidate pool",
         "Up to 2 new member per organisation",
@@ -47,6 +31,22 @@ export default function PackagePricingEmployer() {
       ],
       link: "/Employer",
     },
+    // {
+    //   id: 1,
+    //   packageName: "Employer Starter",
+    //   packagePriceKE: "20,000",
+    //   packageFigureKE: 20000,
+    //   packagePriceUSD: "200",
+    //   packageFigureUSD: 200,
+    //   packagePlanCodeKE: "",
+    //   packagePlanCodeUSD: "PLN_jat3s9tnpwdwa7i",
+    //   packageFeatures: [
+    //     "Access to curated candidate pool",
+    //     "Up to 2 new member per organisation",
+        
+    //   ],
+    //   link: "/Employer",
+    // },
     // {
     //   id: 2,
     //   packageName: "Employer Growth",
@@ -118,8 +118,8 @@ export default function PackagePricingEmployer() {
                 {pckage.packageName}
               </p>
               <p className="text-center text-xl font-bold">
-                {/* {pckage.packagePriceKE} /month */}
-                $ {pckage.packagePriceUSD} /month
+                {pckage.packagePriceKE} /month
+                {/* $ {pckage.packagePriceUSD} /month */}
               </p>
               <ul className="list-disc my-10 px-4">
                 {pckage.packageFeatures.map((feature, index) => (
@@ -130,13 +130,14 @@ export default function PackagePricingEmployer() {
                 onClick={() =>
                   handlePurchaseEmployerPackage({
                     email,
-                    // amount: pckage.packageFigureKE,
-                    amount: pckage.packageFigureUSD,
-                    // plan: pckage.packagePlanCodeKE,
-                    plan: pckage.packagePlanCodeUSD,
+                    amount: pckage.packageFigureKE,
+                    plan: pckage.packagePlanCodeKE,
                     name: pckage.packageName,
-                    // currency: "KES",
-                    currency: "USD",
+                    currency: "KES",
+                    // amount: pckage.packageFigureUSD,
+                    // plan: pckage.packagePlanCodeUSD,
+                    // name: pckage.packageName,
+                    // currency: "USD",
                     firstName,
                   })
                 }

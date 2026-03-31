@@ -1,4 +1,4 @@
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, ilike } from "drizzle-orm";
 import { db } from "../db";
 import { candidatePoolTable, jobsTable } from "../schema";
 
@@ -23,7 +23,7 @@ export async function GetCandidateBYEmail(email:string){
 }
 
 export async function GetCandidatesBasedOnJobDepartment(jobDepartment:string){
-  const data=await db.select().from(candidatePoolTable).where(eq(candidatePoolTable.profession,jobDepartment))
+  const data=await db.select().from(candidatePoolTable).where(ilike(candidatePoolTable.profession,`%${jobDepartment}%`))
   return data
 }
 

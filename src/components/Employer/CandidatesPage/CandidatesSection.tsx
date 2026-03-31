@@ -69,7 +69,7 @@ export default async function CandidatesSection({jobDepartment}:{jobDepartment:s
                     View candidate details
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="w-full md:max-w-[1200px] max-h-[90dvh] overflow-y-auto">
+                <DialogContent className="w-full md:max-w-300 max-h-[90dvh] overflow-y-auto">
                   <DialogHeader>
                     <DialogTitle className="text-center">
                       Candidates Profile

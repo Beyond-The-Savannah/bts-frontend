@@ -1,5 +1,6 @@
 import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/components/Customer/UserSubscriptionInformation";
 import AccessDenied from "@/components/Employer/AccessDenied";
+import { GetEmployerSubscriprionDetails } from "@/components/Employer/EmployerSubscriptionInforamtionCheck";
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { subscriptionDetailsProps } from "@/types/subscriptions";
@@ -12,10 +13,10 @@ const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 
 export default async function page() {
   const { orgId,userId } = await auth();
-  const client=await clerkClient()
-  const { data: organisationMemmbers } =await client.organizations.getOrganizationMembershipList({organizationId: orgId!,});
-  const isOrganisationMember = organisationMemmbers.some((member) => member.publicUserData?.userId === userId,);
-   if(!isOrganisationMember){
+  const client =await clerkClient()
+  const { isValidSubscription, isOrganisationMember } = await GetEmployerSubscriprionDetails({orgId: orgId as string,userId: userId as string,});
+  
+  if(!isOrganisationMember || !isValidSubscription){
       return(
         <>
         <AccessDenied/>

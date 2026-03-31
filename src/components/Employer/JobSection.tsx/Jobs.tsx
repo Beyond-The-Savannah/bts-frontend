@@ -30,6 +30,7 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
+import { Link } from "next-view-transitions";
 
 // import Link from "next/link";
 
@@ -65,12 +66,15 @@ export default async function Jobs() {
             <p className="text-xs">{job.department}</p>
           </div>
           <div className="flex items-center gap-2">
+            <Button asChild variant="outline" className="bg-bts-GreenOne hover:bg-green-900 text-white hover:text-slate-100 hover:scale-100 duration-200 transition ease-in">
+              <Link href={`/Employer/jobs/${job.role}?jobDepartment=${job.department}`}>View Applicants</Link>
+            </Button>
             <div className="c">
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="outline">View Job Details</Button>
+                  <Button variant="outline" className="hover:cursor-pointer">View Job Details</Button>
                 </DialogTrigger>
-                <DialogContent className="w-full md:max-w-[1200px] max-h-[70dvh] overflow-y-auto">
+                <DialogContent className="w-full md:max-w-300 max-h-[70dvh] overflow-y-auto">
                   <DialogHeader>
                     <DialogTitle className="text-center">
                       {job.role}
@@ -145,12 +149,12 @@ export default async function Jobs() {
             <div className="c">
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="link">
+                  <Button variant="link" className="hover:cursor-pointer">
                     Edit Job
                     <Pencil />
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="w-full md:max-w-[1200px] max-h-[70dvh] overflow-y-auto">
+                <DialogContent className="w-full md:max-w-300 max-h-[70dvh] overflow-y-auto">
                   <DialogHeader>
                     <DialogTitle className="text-center">
                       {job.role} @ {job.companyName}
