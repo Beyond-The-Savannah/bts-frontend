@@ -62,8 +62,8 @@ export default async function Jobs() {
           className="bg-bts-BrownOne rounded-md px-3 py-6 flex justify-between items-center border my-2 "
         >
           <div className="flex flex-col">
-            <p className="c">{job.role}</p>
             <p className="text-xs">{job.department}</p>
+            <p className="c">{job.role}</p>
           </div>
           <div className="flex items-center gap-2">
             <Button asChild variant="outline" className="bg-bts-GreenOne hover:bg-green-900 text-white hover:text-slate-100 hover:scale-105 duration-300 transition ease-in">

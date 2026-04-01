@@ -14,7 +14,7 @@ export default async function page({params, searchParams}: {params: Promise<{ id
         </div>
         <div className="bg-slate-100/60 my-12 py-10 px-8 rounded-md">
           <div className="c">
-            <p className="text-xl font-semibold">Applicants for the role</p>
+            {/* <p className="text-xl font-semibold">Applicants for the role</p> */}
           </div>
           <CandidatesSection jobDepartment={jobDepartment} />
         </div>

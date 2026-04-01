@@ -36,6 +36,7 @@ export default async function CandidatesSection({jobDepartment}:{jobDepartment:s
             <p className="text-center text-lg">No candidates have applied for this role yet</p>
           </div>
         ) : (<>
+        <p className="text-xl font-semibold">{candidates.length} - Applicants for the role</p>
           {candidates.map((candidate) => (
             <div
               key={candidate.id}
@@ -44,8 +45,11 @@ export default async function CandidatesSection({jobDepartment}:{jobDepartment:s
               <div className="flex flex-1 items-start gap-2">
                 
                 <div className="flex-col">
-                  <p className="flex items-center gap-2 text-xs ">
+                  {/* <p className="flex items-center gap-2 text-xs ">
                     {candidate.email}
+                  </p> */}
+                  <p className="flex items-center gap-2 text-xs ">
+                    Name:
                   </p>
                   <p className="">
                     {candidate.firstName} <span className="px-1"></span>{" "}

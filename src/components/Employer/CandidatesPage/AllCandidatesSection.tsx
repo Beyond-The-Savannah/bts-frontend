@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/dialog";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import {
-  GetCandidatesPool,
-  GetEmployerJobsDepartmentOnly,
+  
+  GetRelevantCandidates,
 } from "@/db/queries/employerQuries";
 import { correctedParsedHTML } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
@@ -22,17 +22,9 @@ import Image from "next/image";
 export default async function AllCandidatesSection() {
   const { orgId } = await auth();
 
-  const allJobsByEmployer = await GetEmployerJobsDepartmentOnly(orgId!);
-  const uniqueDepartments = [
-    ...new Set(allJobsByEmployer.map((job) => job.department)),
-  ];
-  // console.log("ALL CANDIATES PAGE SECTION",allJobsByEmployer,uniqueDepartments)
-  const allCanidates = await GetCandidatesPool();
-  const relavantCandidates = allCanidates.filter((candidate) =>
-    uniqueDepartments.includes(candidate.profession as string),
-  );
+  const relavantCandidates=await GetRelevantCandidates(orgId!) 
 
-  // console.log("RELEVANT CANDIDATES",relavantCandidates)
+  console.log("RELEVANT CANDIDATES",relavantCandidates)
   const currentYear = new Date().getFullYear();
   const event = {
     uuid: "",
@@ -69,16 +61,19 @@ export default async function AllCandidatesSection() {
                 <div className="flex flex-1 items-start gap-2">
                   <div className="flex-col">
                     <p className="">
+                    {/* <span className="flex items-center gap-2 text-xs ">
+                      {candidate.email}
+                    </span> */}
+                    <span className="flex items-center gap-2 text-xs ">
+                      Name:
+                    </span>
                       {candidate.firstName} <span className="px-1"></span>{" "}
                       {candidate.lastName}
                     </p>
-                    <p className="flex items-center gap-2 text-xs ml-2">
-                      {candidate.email}
-                    </p>
                   </div>
                 </div>
-                <p className="w-full flex-1 text-sm font-semibold">
-                  <span className="font-thin text-xs">Profession :</span>
+                <p className="w-full flex-1 flex-col text-sm font-semibold ">
+                  <span className="block font-thin text-xs ">Profession :</span>
 
                   {candidate.profession}
                 </p>
@@ -92,7 +87,7 @@ export default async function AllCandidatesSection() {
                       View candidate details
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="w-full md:max-w-[1200px] max-h-[90dvh] overflow-y-auto">
+                  <DialogContent className="w-full md:max-w-300 max-h-[90dvh] overflow-y-auto">
                     <DialogHeader>
                       <DialogTitle className="text-center">
                         Candidates Profile

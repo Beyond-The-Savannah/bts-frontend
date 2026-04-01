@@ -27,14 +27,32 @@ export async function GetCandidatesBasedOnJobDepartment(jobDepartment:string){
   return data
 }
 
-// lib/data.ts
+// export async function GetRelevantCandidates(orgId: string) {
+//   const allJobsByEmployer = await GetEmployerJobsDepartmentOnly(orgId);
+//   const allCandidates = await GetCandidatesPool();
+//   const uniqueDepartments = [...new Set(allJobsByEmployer.map(job => job.department))];
+  
+//   const relavantCandidates = allCandidates.filter((candidate) =>
+//     uniqueDepartments.includes(candidate.profession as string),
+//   );
+//   return relavantCandidates;
+// }
+
+
 export async function GetRelevantCandidates(orgId: string) {
   const allJobsByEmployer = await GetEmployerJobsDepartmentOnly(orgId);
-  const uniqueDepartments = [...new Set(allJobsByEmployer.map(j => j.department))];
   const allCandidates = await GetCandidatesPool();
+  const uniqueDepartments = [...new Set(allJobsByEmployer.map(job => job.department))];
   
-  const relavantCandidates = allCandidates.filter((candidate) =>
-    uniqueDepartments.includes(candidate.profession as string),
+  const relavantCandidates = allCandidates.filter((candidate) =>{
+    const profession=(candidate.profession as string).toLowerCase()
+    /*The some method checks if any of the unique departments from the employer's jobs are included in 
+    the candidate's profession. It returns true if there is a match, indicating that the candidate is
+     relevant to at least one of the job departments, and false otherwise. The includes then checks
+     if a substring of the deparyment name exists within the candidate's profession*/
+    return uniqueDepartments.some(department=>profession.includes(department.toLowerCase()))
+
+  }
   );
   return relavantCandidates;
 }

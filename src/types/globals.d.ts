@@ -211,3 +211,22 @@ export interface PublicUserData {
   hasImage: boolean;
   userId: string;
 }
+
+export interface CandidateProfileProp {
+  id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    resumeLink: string | null;
+    resumeName: string | null;
+    photoLink: string | null;
+    photoName: string | null;
+    country: string | null;
+    profession: string | null;
+    experienceYears: number | null;
+    certifications: string | null;
+    workExperience: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+}
