@@ -24,7 +24,7 @@ export default async function AllCandidatesSection() {
 
   const relavantCandidates=await GetRelevantCandidates(orgId!) 
 
-  console.log("RELEVANT CANDIDATES",relavantCandidates)
+  // console.log("RELEVANT CANDIDATES",relavantCandidates)
   const currentYear = new Date().getFullYear();
   const event = {
     uuid: "",

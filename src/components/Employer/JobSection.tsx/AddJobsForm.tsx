@@ -136,7 +136,7 @@ export default function AddJobs({ employerJobsData }: AddJobsProps) {
           applicationLink: data.applicationLink ?? null,
         });
         toast.success("Updated Job Details")
-        router.refresh()
+        router.push("/Employer/jobs")
       } catch (error) {
         console.log("Edit Form Error:", error);
       }
@@ -148,8 +148,9 @@ export default function AddJobs({ employerJobsData }: AddJobsProps) {
           applicationLink: data.applicationLink ?? null,
         });
         reset();
+        setJobDetailsValue("");
         toast.success("New Job Add");
-        router.refresh()
+        router.push("/Employer/jobs")
       } catch (error) {
         toast.error(`Cannot add new job:${error}`);
         console.log("Form errors:", errors);
