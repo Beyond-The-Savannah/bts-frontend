@@ -15,16 +15,19 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
-import { OrganizationSwitcher, SignIn, SignInButton } from "@clerk/nextjs";
+import { OrganizationSwitcher, SignIn, SignInButton, } from "@clerk/nextjs";
 import { auth,  } from "@clerk/nextjs/server";
 import { Cog } from "lucide-react";
+// import { redirect } from "next/navigation";
 
 import { Suspense } from "react";
 
 export default async function page() {
   // const client = await clerkClient();
   const { isAuthenticated, orgId, userId } = await auth();
-  const {isValidSubscription,isOrganisationMember}=await GetEmployerSubscriprionDetails({orgId:orgId as string, userId:userId as string})
+
+  // if(!isAuthenticated || !userId){redirect("/Employer/sign-in")}
+
 
   if (!isAuthenticated) {
     return (
@@ -45,6 +48,7 @@ export default async function page() {
       </div>
     );
   }
+  
 
   if (!orgId) {
     return (
@@ -103,6 +107,7 @@ export default async function page() {
   //       subscription.status.toLowerCase(),
   //     );
   //   });
+  const {isValidSubscription,isOrganisationMember}=await GetEmployerSubscriprionDetails({orgId:orgId as string, userId:userId as string})
 
   return (
     <>

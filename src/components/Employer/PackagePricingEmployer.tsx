@@ -118,8 +118,8 @@ export default function PackagePricingEmployer() {
                 {pckage.packageName}
               </p>
               <p className="text-center text-xl font-bold">
-                {pckage.packagePriceKE} /month
-                {/* $ {pckage.packagePriceUSD} /month */}
+                {/* {pckage.packagePriceKE} /month */}
+                $ {pckage.packagePriceUSD} / month
               </p>
               <ul className="list-disc my-10 px-4">
                 {pckage.packageFeatures.map((feature, index) => (
