@@ -41,6 +41,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
+        <head>
+          <meta name="google-site-verification" content="aqkKr0tpC8-ysRg4eUyHliw-26AqqaMgyiDUZI3gOAM" />
+        </head>
         <body
           className={`${montserrat.className} antialiased`}
         >
