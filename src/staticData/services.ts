@@ -224,20 +224,20 @@ export const servicesList = [
     servicePolicy:
       "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
     valueProposal:
-      // "With our Remote Work Starter Bundle, you'll gain the edge you need to succeed in today's worldwide job landscape.",
-      "September Hiring Surge is Here! Companies are ramping up recruitment and this is your moment to shine. At Beyond the Savannah, we're helping you stay ahead of the curve by aligning your professional brand designed to position you for success.",
+      "With our Remote Work Starter Bundle, you'll gain the edge you need to succeed in today's worldwide job landscape.",
+      // "September Hiring Surge is Here! Companies are ramping up recruitment and this is your moment to shine. At Beyond the Savannah, we're helping you stay ahead of the curve by aligning your professional brand designed to position you for success.",
     // "Easter is here and we have a basket full of goodies! Enjoy the same package at a slashed price of 20,000 instead of 26,000! Take advantage of this offer running until the end of April.",
     // "This season, we're honoring the bold, the brave, and the visionary founders across the globe who dared to start. In the spirit of freedom and building something from scratch, we're offering an exclusive discount on our services to support your journey.",
-    // price: 26000,
-    // priKEce: 26000,
-    // priKEcUSD 2600,
-    // priceSKEtring: "26,000",
-    // priceSUSDtring: "26,00",
+    price: 26000,
+    priceKE: 26000,
+    priceUSD: 260,
+    priceKESString: "26,000",
+    priceUSDString: "260",
     // price: 20000,
-    priceKE: 20000,
-    priceUSD: 200,
-    priceKESString: "20,000",
-    priceUSDString: "200",
+    // priceKE: 20000,
+    // priceUSD: 200,
+    // priceKESString: "20,000",
+    // priceUSDString: "200",
   },
   {
     id: 10,
@@ -261,6 +261,32 @@ export const servicesList = [
     priceUSD: 60,
     priceKESString: "6,000",
     priceUSDString: "60",
+  },
+  {
+    id: 11,
+    title: "Remote Work Bundle Plus",
+    titleSlug: "remote-work-bundle-plus",
+    subheading: "CV Revamp + Cover Letter + LinkedIn Optimization + Introductory Video + Jobs Listing Access",
+    img: "remoter_bundle_plus_m4phly",
+    openGraphImg: "remoter_bundle_plus_m4phly",
+    details:
+      "Stop struggling to find remote roles! Our Remote Work Starter Bundle is built to get you hired, offering you with job listings access to over 200 listed jobs to jumpstart your search.",
+    benefits: [
+      "CV Revamp - A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation call CV Revamp ",
+      "LinkedIn Optimization - We'll transform your LinkedIn profile into a magnet for job opportunities, ensuring it ranks higher in recruiter searches + 15 minutes consultation call",
+      "Introductory Video - Pointers on how to make a polished video to introduce yourself professionally, making you memorable to potential employers.",
+      "Jobs Access - One month access to over 200 listed remote jobs to jumpstart your search.",
+    ],
+    servicePolicy:
+      "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
+    valueProposal:
+      "Companies are ramping up recruitment and this is your moment to shine. At Beyond the Savannah, we're helping you stay ahead of the curve by aligning your professional brand designed to position you for success.",
+    price: 23000,
+    priceKE: 23000,
+    priceUSD: 230,
+    priceKESString: "23,000",
+    priceUSDString: "230",
+    
   },
   
 ];
@@ -319,8 +345,14 @@ export const servicesCalendlyLinks = [
   {
     id: 9,
     serviceName: "Remote Work Starter Bundle",
-    // amount: 2600000,
-    amount: 2000000,
+    amount: 2600000,
+    // amount: 2000000,
+    link: "",
+  },
+  {
+    id: 9,
+    serviceName: "Remote Bundle Plus",
+    amount: 2300000,
     link: "",
   },
  

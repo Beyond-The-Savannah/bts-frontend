@@ -46,7 +46,7 @@ export default function ServiceDetails({
                 width={800}
                 priority
                 alt={`beyond the savannah, ${specificService.title} service image`}
-                classname="object-cover object-center w-full lg:w-160 mx-auto  bg-bts-BrownOne h-[40vh] rounded-xl"
+                classname="object-cover object-center w-full lg:w-160 mx-auto  bg-bts-BrownOne h-[48dvh] rounded-xl"
                 
               />
             )}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 // import { Montserrat } from "next/font/google";
-import "../globals.css";
+// import "../globals.css";
+import "../../app/globals.css";
 import NavigationSection from "@/components/NavigationSection";
 import FooterSection from "@/components/FooterSection";
 // import { ViewTransitions } from "next-view-transitions";
@@ -50,7 +51,8 @@ export default function RootLayout({
       <NavigationSection />
       <div className="relative z-20">
         {/* <div className="absolute top-152 md:top-152 lg:top-152 right-44  "> */}
-        <div className="absolute top-152 xl:top-176 right-44  ">
+        {/* <div className="absolute top-152 xl:top-176 right-44  "> */}
+        <div className="absolute top-132 xl:top-158 right-44  ">
           <div className="fixed bg-bts-GreenOne px-4 py-1 hover:scale-105 rounded-xl">
             {/* <SavannahChatUI1 /> */}
             <SavannahChatUI2/>

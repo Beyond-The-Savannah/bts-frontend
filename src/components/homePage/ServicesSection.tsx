@@ -14,6 +14,7 @@ import { Button } from "../ui/button";
 import { Link } from "next-view-transitions";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import { useCurrencyBasedOnLocation } from "@/hooks/useCurrencyBasedOnLocation";
+import clsx from "clsx";
 
 export default function ServicesSection() {
   const currencyValue = useCurrencyBasedOnLocation();
@@ -41,7 +42,11 @@ export default function ServicesSection() {
                     width={600}
                     alt={service.title}
                     sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw, 33vw"
-                    classname="object-cover object-center w-full h-48 rounded-t-md"
+                    // classname="object-cover object-center w-full h-48 rounded-t-md"
+                    classname={clsx(
+                      "object-cover w-full h-56 rounded-t-md",
+                      service.id === 11 ? "object-top" : "object-center"
+                    )}
                   />
                   <div className="space-y-2 py-4 px-8 md:min-h-52">
                     <div className="flex gap-1 items-center justify-between">

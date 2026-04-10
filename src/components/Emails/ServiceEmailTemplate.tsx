@@ -66,6 +66,16 @@ export default function ServiceEmailTemplate({
                 ) : (
                   <></>
                 )}
+                {serviceName === "Remote Bundle Plus" ? (
+                  <>
+                    <Text style={text}>
+                      In order to access the job listings included in the Remote
+                      Bundle Plus service, please reach out to our team using
+                      the email: info@beyondthesavannah.co.ke or phone number:
+                      0737 120 764.
+                    </Text>
+                  </>
+                ):(<></>)}
 
                 {specificCalendlyLink.link != "" ? (
                   <>
@@ -85,7 +95,7 @@ export default function ServiceEmailTemplate({
                 ) : (
                   <>
                     <Text style={text}>
-                      Please reach out to our team using the email :
+                      Please reach out to our team using the email:
                       info@beyondthesavannah.co.ke or give us a call on 0737 120
                       764 for us to send you the correct calendly link.
                     </Text>
