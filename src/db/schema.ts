@@ -59,6 +59,7 @@ export const candidatePoolTable = pgTable("candidate_pool", {
   lastName: text("last_name").notNull(),
   email: text("email").notNull(),
   phone: text("phone").notNull(),
+  linkedInLink:text("linked_in_link"),
   resumeLink: text("resume_link"),
   resumeName: text("resume_name"),
   photoLink: text("photo_link"),
