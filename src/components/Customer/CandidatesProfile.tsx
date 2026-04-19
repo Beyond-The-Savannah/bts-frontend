@@ -37,6 +37,7 @@ interface CandidateDataProps {
     lastName: string;
     email: string;
     phone: string;
+    linkedInLink:string | null;
     resumeLink: string | null;
     resumeName: string | null;
     photoLink: string | null;
@@ -57,6 +58,7 @@ const candidatesFormSchema = z.object({
   lastName: z.string().min(1,"Last Name is required"),
   email: z.string().email().min(1, "Email Address is required"),
   phone: z.string().min(1, "Phone Number is required"),
+  linkedInLink:z.string().url({message:"please provide a valid link"}),
   // resumeLink: z.instanceof(Buffer),
   resumeLink: z.string().optional().default(""),
   resumeName: z.string().optional().default(""),
@@ -144,6 +146,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
       lastName:candidateData.lastName,
       email:candidateData.email,
       phone:candidateData.phone.toString(),
+      linkedInLink:candidateData.linkedInLink ?? "",
       resumeLink:candidateData.resumeLink ?? "",
       resumeName:candidateData.resumeName ?? "",
       photoLink:candidateData.photoLink ?? "",
@@ -258,6 +261,25 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
                 )}
               </div>
             </div>
+            <div className="flex flex-wrap items-center gap-8">
+                <div className="w-full md:flex-1">
+                <label htmlFor="lastName">LinkedIn Profile Link</label>
+                <Input
+                  type="url"
+                  {...register("linkedInLink", {
+                    required: "LinkedIn Profile Link is required",
+                  })}
+                  name="linkedInLink"
+                  id="linkedInLink"
+                  required
+                />
+                {errors.linkedInLink && (
+                  <p className="text-sm text-red-400">
+                    {errors.linkedInLink.message}
+                  </p>
+                )}
+              </div>
+            </div>
             <div className="flex flex-wrap items-center relative gap-8">
               <input tabIndex={-1} type="text" autoComplete="off" value={professionValue} required onChange={()=>{}} className="pointer-events-none opacity-0 absolute"/>
               <div className="w-full md:flex-1">
@@ -269,7 +291,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
                       variant="outline"
                       role="combobox"
                       // aria-expanded={open}
-                      className="flex justify-between mx-2 w-full md:w-[400px]"
+                      className="flex justify-between mx-2 w-full md:w-100"
                      
                     >
                       {professionValue
@@ -280,7 +302,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-full md:w-[400px]">
+                  <PopoverContent className="w-full md:w-100">
                     <Command>
                       <CommandInput placeholder="Search Your Profession" />
                       <CommandList>
@@ -344,7 +366,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
                     <Button
                       variant="outline"
                       role="combobox"
-                      className="flex justify-between mx-2 w-full md:w-[400px]"
+                      className="flex justify-between mx-2 w-full md:w-100"
                      
                     >
                       {countryValue
@@ -355,7 +377,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-full md:w-[400px]">
+                  <PopoverContent className="w-full md:w-100">
                     <Command>
                       <CommandInput
                         required

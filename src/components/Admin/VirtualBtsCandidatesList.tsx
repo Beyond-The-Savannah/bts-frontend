@@ -13,6 +13,7 @@ import {
 import { correctedParsedHTML } from "@/lib/utils";
 import {
   Eye,
+  Linkedin,
   Mail,
   MapPin,
   Pencil,
@@ -90,7 +91,7 @@ export default function VirtualBtsCandidatesList({
         totalCount={candidates.length}
         itemContent={(_, candidate) => (
           <>
-            <div className="bg-bts-BrownOne rounded-md w-11/12 mx-auto px-3 py-6 flex justify-between items-center border my-2 ">
+            <div className="bg-bts-BrownOne/20 hover:bg-bts-BrownOne/40 hover:transition-colors  rounded-md w-11/12 mx-auto px-3 py-6 flex justify-between items-center border my-2 ">
               <div className="flex flex-1 items-start gap-2">
                 <div className="flex-col">
                   <p className="">
@@ -117,7 +118,7 @@ export default function VirtualBtsCandidatesList({
                       <Eye /> details
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="w-full md:max-w-[1200px] max-h-[90dvh] overflow-y-auto">
+                  <DialogContent className="w-full md:max-w-300 max-h-[90dvh] overflow-y-auto">
                     <DialogHeader>
                       <DialogTitle className="text-center">
                         Candidates Profile
@@ -174,6 +175,12 @@ export default function VirtualBtsCandidatesList({
                       </p>
                       <div className="my-10 flex items-center justify-between">
                         <div className="flex flex-col gap-2 text-sm">
+                          <p className="px-4 py-1 flex items-center gap-1">
+                            {" "}
+                            <Linkedin size={20} className="" />
+                            <a href={`$candidate.linkedInLink`} target="_blank" rel="noopener noreferrer">{candidate.linkedInLink}</a>
+                            
+                          </p>
                           <p className="px-4 py-1 flex items-center gap-1">
                             {" "}
                             <Mail size={20} className="" />

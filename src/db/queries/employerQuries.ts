@@ -1,28 +1,42 @@
-import { desc, eq, ilike } from "drizzle-orm";
+import { desc, eq, ilike, ne } from "drizzle-orm";
 import { db } from "../db";
 import { candidatePoolTable, jobsTable } from "../schema";
 
 export async function GetEmpolyerJobs(orgId:string) {
+  "use cache"
   const data = await db.select().from(jobsTable).where(eq(jobsTable.companyOrganizationId,orgId));
   return data;
 }
 
 export async function GetEmployerJobsDepartmentOnly(orgId:string){
+  "use cache"
 const data=await db.select({department:jobsTable.department}).from(jobsTable).where(eq(jobsTable.companyOrganizationId,orgId))
 return data
 }
 
 export async function GetCandidatesPool(){
+  "use cache"
   const data=await db.select().from(candidatePoolTable).orderBy(desc(candidatePoolTable.updatedAt))
   return data
 }
-
+export async function GetCandidatesWithResume(){
+  "use cache"
+  const data= await db.select().from(candidatePoolTable).where(ne(candidatePoolTable.resumeLink,''))
+  return data
+}
+export async function GetCandidatesWithOutResume(){
+  "use cache"
+  const data= await db.select().from(candidatePoolTable).where(eq(candidatePoolTable.resumeLink,''))
+  return data
+}
 export async function GetCandidateBYEmail(email:string){
+  "use cache"
   const data=await db.select().from(candidatePoolTable).where(eq(candidatePoolTable.email,email))
   return data
 }
 
 export async function GetCandidatesBasedOnJobDepartment(jobDepartment:string){
+  "use cache"
   const data=await db.select().from(candidatePoolTable).where(ilike(candidatePoolTable.profession,`%${jobDepartment}%`))
   return data
 }
@@ -40,6 +54,7 @@ export async function GetCandidatesBasedOnJobDepartment(jobDepartment:string){
 
 
 export async function GetRelevantCandidates(orgId: string) {
+  "use cache"
   const allJobsByEmployer = await GetEmployerJobsDepartmentOnly(orgId);
   const allCandidates = await GetCandidatesPool();
   const uniqueDepartments = [...new Set(allJobsByEmployer.map(job => job.department))];
