@@ -25,8 +25,8 @@ export default async function AllBTSCandidatesSection() {
           </div>
         ) : (
           <>
-            <Tabs defaultValue="CandidatesWithResume">
-              <TabsList className="w-full">
+            <Tabs defaultValue="CandidatesWithResume" >
+              <TabsList className="w-full bg-transparent">
                 <TabsTrigger value="CandidatesWithResume">
                   Candidates With Resume
                 </TabsTrigger>
