@@ -14,6 +14,7 @@ import { useState } from "react";
 import { Switch } from "../ui/switch";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useCurrencyBasedOnLocation } from "@/hooks/useCurrencyBasedOnLocation";
+import MpesaGlobalCardDialog from "./MpesaGlobalCardDialog";
 
 // import { currentUser } from "@clerk/nextjs/server";
 
@@ -148,7 +149,10 @@ export default function Packages({ email }: { email: string }) {
                           <>
                             <Popover>
                               <PopoverTrigger>
-                                <BadgeAlert size={16} />
+                                <BadgeAlert
+                                  size={16}
+                                  className="cursor-pointer"
+                                />
                               </PopoverTrigger>
                               <PopoverContent className="text-xs">
                                 Please email us about what you want to coached
@@ -251,9 +255,12 @@ export default function Packages({ email }: { email: string }) {
                           <>
                             <Popover>
                               <PopoverTrigger>
-                                <BadgeAlert size={16} />
+                                <BadgeAlert
+                                  size={16}
+                                  className="cursor-pointer"
+                                />
                               </PopoverTrigger>
-                              <PopoverContent className="text-xs">
+                              <PopoverContent className="text-xs ">
                                 Please email us about what you want to be
                                 coached about in order for us to best carter to
                                 your unique challenges and needs.
@@ -315,6 +322,9 @@ export default function Packages({ email }: { email: string }) {
           </div>
         </>
       )}
+      <div className="grid place-content-center">
+        <MpesaGlobalCardDialog />
+      </div>
     </>
   );
 }
