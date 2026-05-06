@@ -23,14 +23,13 @@ export default function MpesaGlobalCardDialog() {
         </DialogTrigger>
         <DialogContent className="w-full px-4 py-6">
           <iframe
-            // src="https://www.youtube.com/embed/FXkIjEWUT-0?si=mcYjGzJcS2Rg1cfr"
-            src="https://www.youtube.com/embed/DhNvgG7AmnU?si=7wP4AiDZaInoKccw"
+            src="https://www.youtube.com/embed/DhNvgG7AmnU?si=7wP4AiDZaInoKccw&amp;controls=0"
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
-            className="aspect-square  m-6 rounded-md"
+            className="aspect-square  m-3 rounded-md"
           />
         </DialogContent>
       </Dialog>
