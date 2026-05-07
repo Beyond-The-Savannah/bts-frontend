@@ -14,6 +14,9 @@ const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 export default async function page() {
   const { orgId,userId } = await auth();
   const client =await clerkClient()
+  if (!orgId || !userId) {
+    redirect("/Employer");
+  }
   const { isValidSubscription, isOrganisationMember } = await GetEmployerSubscriprionDetails({orgId: orgId as string,userId: userId as string,});
   
   if(!isOrganisationMember || !isValidSubscription){
@@ -73,7 +76,7 @@ export default async function page() {
 
   const recentEmployerSubscriptionDetails = employerSubscriptionDetails.find(
     (subscription) =>
-      (subscription.amount == 300000 || subscription.amount == 500000) &&
+      (subscription.amount == 300000 || subscription.amount == 500000 || subscription.amount == 20000) &&
       ["active", "attention", "non-renewing", "completed"].includes(
         subscription.status.toLowerCase(),
       ),
