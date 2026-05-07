@@ -11,10 +11,13 @@ export default async function InformationDashboardOverview() {
 
   return (
     <>
-      <div className="c">
-        <h2 className="text-3xl font-semibold mb-10">
-          {organizationName} Dashboard
-        </h2>
+      <div className="container mt-10 mx-auto">
+        <div className="mb-10">
+          <h2 className="text-3xl font-semibold ">
+            {organizationName} Dashboard
+          </h2>
+          <div className="border-2 rounded-md border-bts-BrownThree w-36 mt-2" />
+        </div>
         <InfoCards />
       </div>
       <div className="flex flex-wrap lg:flex-nowrap gap-8">

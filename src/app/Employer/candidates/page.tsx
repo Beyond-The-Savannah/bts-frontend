@@ -4,9 +4,13 @@ import AllCandidatesSection from "@/components/Employer/CandidatesPage/AllCandid
 import { GetEmployerSubscriprionDetails } from "@/components/Employer/EmployerSubscriptionInforamtionCheck";
 
 import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 export default async function page() {
   
  const { orgId, userId } = await auth();
+ if (!orgId || !userId) {
+     redirect("/Employer");
+   }
   const { isValidSubscription, isOrganisationMember } = await GetEmployerSubscriprionDetails({orgId: orgId as string,userId: userId as string,});
   
     if(!isOrganisationMember || !isValidSubscription){
@@ -19,8 +23,9 @@ export default async function page() {
   return (
     <>
       <section className="container mx-auto px-4">
-        <div className="mt-10">
-            <h2 className="text-3xl font-semibold mb-10">All Candidates</h2>
+        <div className="my-10">
+            <h2 className="text-3xl font-semibold ">All Candidates</h2>
+            <div className="border-2 rounded-md border-bts-BrownThree w-36 mt-2" />
         </div>
         <div className="mt-10">
             <AllCandidatesSection/>
