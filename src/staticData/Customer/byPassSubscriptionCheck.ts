@@ -5,8 +5,9 @@ export const byPassEmailAddresses = [
 `linda.nyuguto@gmail.com`, //23-04-26
 `omabenenaftali@gmail.com`, //05-05-26
 `lynmws@googlemail.com`, //05-05-26
+`victoria.wakiini@gmail.com`, //12-05-26
 
-  `hannahmwangi866@gmail.com`,
+  // `hannahmwangi866@gmail.com`,
   // `nancynyarige01@gmail.com`,
   // `kiringakabaka@yahoo.com`,
   `gitoshmbae@gmail.com`,
