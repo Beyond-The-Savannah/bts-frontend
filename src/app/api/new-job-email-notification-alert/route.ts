@@ -7,6 +7,7 @@ import { serve } from "@upstash/workflow/nextjs";
 import { Resend } from "resend";
 
 const noNewJobsNotifications = [
+  "kanaliokusi@gmail.com",
   "james.muendo@gmail.com",
   "g.t.kadzere@gmail.com",
   "leonkadzere1@gmail.com",
