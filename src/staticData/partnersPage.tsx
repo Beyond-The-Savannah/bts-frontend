@@ -10,7 +10,7 @@ export const reasonsForPartnership=[
     },
     {
         id:3,
-        point:"Offer mentorship, training, and job readiness resources",
+        point:"Offer consultation, training, and job readiness resources",
     },
     {
         id:4,
