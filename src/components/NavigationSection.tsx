@@ -286,7 +286,7 @@ export default function NavigationSection() {
                 >
                   <MenuSquareIcon className="" size={32} />
                 </SheetTrigger>
-                <SheetContent className="  overflow-auto" role="dialog" aria-modal="true">
+                <SheetContent className="  overflow-auto min-w-[80dvw] md:min-w-[40dvw]" role="dialog" aria-modal="true">
                   <SheetHeader>
                     <SheetTitle className="sr-only">Mobile Navigation Menu</SheetTitle>
                     <SheetDescription className="sr-only">
@@ -295,7 +295,7 @@ export default function NavigationSection() {
                   </SheetHeader>
                   <div className="">
                     <NavigationMenu>
-                      <NavigationMenuList className="flex flex-col items-end ml-36 md:ml-60 lg:ml-52 gap-8 pt-8">
+                      <NavigationMenuList className="flex flex-col items-end ml-24 sm:ml-36 md:ml-46 lg:ml-52 gap-8 pt-8">
                         {simpleNavigationMenuItems.map((menuItem) => (
                           <NavigationMenuItem
                             key={menuItem.id}
@@ -324,14 +324,14 @@ export default function NavigationSection() {
                             >
                               {item.title}
                             </NavigationMenuTrigger>
-                            <NavigationMenuContent className="min-w-[52dvw] md:min-w-[36dvw] lg:min-w-[28dvw]  ">
+                            <NavigationMenuContent className="min-w-[36dvw] md:min-w-[36dvw] lg:min-w-[28dvw]  ">
                               <ul className="flex flex-col px-4 py-2 space-y-4">
                                 {item.subLinks.map((sublink) => (
                                   <li key={sublink.title}>
                                     <SheetClose asChild className="">
                                       <Link
                                         href={sublink.link}
-                                        className="flex hover:scale-105 transition ease-in focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
+                                        className="flex text-sm font-medium hover:scale-105 transition ease-in focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
                                       >
                                         {sublink.title}
                                       </Link>

@@ -17,7 +17,7 @@ export default function HeroSection() {
             We collaborate with organizations committed to empowering global
             talent and transforming remote opportunities into thriving careers.
           </p>
-        <div className="flex items-center  gap-2">
+        <div className="flex flex-wrap items-center  gap-x-2 gap-y-4">
            <Dialog>
               <DialogTrigger asChild>
                 <Link
@@ -32,7 +32,7 @@ export default function HeroSection() {
                   </Button>
                 </Link>
               </DialogTrigger>
-              <DialogContent className="min-h-[80dvh] max-w-[70dvw]">
+              <DialogContent className="min-h-[80dvh] max-w-[99dvw] md:max-w-[70dvw]">
                 <DialogHeader>
                   <DialogTitle></DialogTitle>
                   <DialogDescription></DialogDescription>
@@ -45,7 +45,7 @@ export default function HeroSection() {
               </DialogContent>
             </Dialog>
           <Button variant="outline" size="lg" asChild>
-            <Link href="/Employer">
+            <Link href="/Employer" className="w-[15.4rem]">
                 Sign In As Employer
             </Link>
           </Button>
