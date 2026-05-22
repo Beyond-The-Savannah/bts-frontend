@@ -9,7 +9,7 @@ export default function PoolOfCandidates() {
           <p className="text-l">Talent ready for your business needs</p>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
           <h2 className="text-4xl font-bold text-bts-GreenOne mt-2">
-            Pool of Canidates
+            Pool of Candidates
           </h2>
           <div className="flex flex-nowrap  gap-x-12 gap-y-12 overflow-x-auto scrollbar-thin scrollbar-thumb-bts-BrownFive scrollbar-track-bts-BrownTwo py-10 mt-10">
             {poolCandidateGroup3.map((candidate) => (

@@ -5,6 +5,11 @@ export const simpleNavigationMenuItems = [
     link: "/",
   },
   {
+    id: 5,
+    title: "For Companies",
+    link: "/partners",
+  },
+  {
     id: 2,
     title: "About",
     link: "/about",
@@ -18,11 +23,6 @@ export const simpleNavigationMenuItems = [
     id: 4,
     title: "Packages",
     link: "/packages",
-  },
-  {
-    id: 5,
-    title: "Partners",
-    link: "/partners",
   },
   {
     id: 6,
