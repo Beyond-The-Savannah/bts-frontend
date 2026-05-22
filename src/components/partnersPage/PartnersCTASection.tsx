@@ -11,7 +11,7 @@ import {
 
 export default function PartnersCTASection() {
   return (
-    <section className="min-h-[50dvh]">
+    <section className="min-h-[50dvh] bg-bts-BrownTwo/30">
       <div className="container mx-auto px-4">
         <div className="py-10">
           {/* <p className="text-l">Let&apos;s Build the Future of Work  Together</p> */}
