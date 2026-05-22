@@ -11,7 +11,7 @@ export default function HeroSection() {
       <div className="xs:min-h-[99dvh] md:min-h-[90dvh] lg:min-h-[99dvh] xl:min-h-[99dvh] 2xl:min-h-[99dvh]   flex flex-wrap-reverse md:flex-nowrap justify-between  gap-4 ">
         <div className="w-full md:w-6/12 px-4 md:px-12 flex flex-col justify-center items-start pb-10 pt-4 md:pt-2  xl:pt-80 gap-12">
           <h1 className="text-3xl md:text-5xl text-bts-GreenOne font-bold xl:-mt-80">
-            Partnership that<br/> Empower Companies
+            Partnership That<br/> Empower Companies
           </h1>
           <p className="text-lg text-balance leading-7 ">
             We collaborate with organizations committed to empowering global
