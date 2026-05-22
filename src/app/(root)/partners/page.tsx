@@ -31,8 +31,8 @@ export default function page() {
     <>
       <HeroSection />
       <WhyPartnerships />
-      <FeaturedPartners />
       <PoolOfCandidates/>
+      <FeaturedPartners />
       <PartnershipTypes />
       <PartnersCTASection />
     </>

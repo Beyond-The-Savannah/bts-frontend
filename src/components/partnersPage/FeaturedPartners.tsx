@@ -4,7 +4,7 @@ import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 
 export default function FeaturedPartners() {
   return (
-    <section className="min-h-screen">
+    <section className="min-h-screen bg-bts-BrownTwo/30 pb-10">
         <div className="container mx-auto px-4">
             <div className="py-10">
                 <p className="text-l">Our Collaborators</p>

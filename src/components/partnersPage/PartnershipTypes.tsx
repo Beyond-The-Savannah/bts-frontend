@@ -4,7 +4,7 @@ import { SquarePlus } from "lucide-react";
 
 export default function PartnershipTypes() {
   return (
-    <section className="min-h-[60dvh] bg-bts-BrownTwo">
+    <section className="min-h-[60dvh] ">
       <div className="container mx-auto px-4 pb-20">
         <div className="py-10">
           <p className="text-l">Collaboration in Many Forms</p>
