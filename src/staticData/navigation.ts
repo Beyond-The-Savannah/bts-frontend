@@ -78,8 +78,8 @@ export const NonSimpleNavigationMenuItems = [
         link: "/service/beyond-the-savannah-whatsApp-community",
       },
       {
-        title: "Remote Work Bundle Plus",
-        link: "/service/remote-work-bundle-plus",
+        title: "September Hiring Surge,Readiness Bundle",
+        link: "/service/september-hiring-surge-readiness-bundle",
       },
      
     ],

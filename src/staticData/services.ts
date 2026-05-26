@@ -272,7 +272,7 @@ export const servicesList = [
     img: "september-hiring-surge-readiness-bundle_oiyanf",
     openGraphImg: "september-hiring-surge-readiness-bundle_oiyanf",
     details:
-      "Stop struggling to find remote roles! Our Remote Work Starter Bundle is built to get you hired, offering you with job listings access to over 200 listed jobs to jumpstart your search.",
+      "Stop struggling to find remote roles! Our September Hiring Surge,Readiness Bundle is built to get you hired, offering you with job listings access to over 200 listed jobs to jumpstart your search.",
     benefits: [
       "CV Revamp - A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation call CV Revamp ",
       "LinkedIn Optimization - We'll transform your LinkedIn profile into a magnet for job opportunities, ensuring it ranks higher in recruiter searches + 15 minutes consultation call",
