@@ -264,29 +264,30 @@ export const servicesList = [
   },
   {
     id: 11,
-    title: "Remote Work Bundle Plus",
-    titleSlug: "remote-work-bundle-plus",
+    
+    title: "September Hiring Surge,Readiness Bundle",
+    titleSlug: "september-hiring-surge-readiness-bundle",
     subheading:
-      "CV Revamp + Cover Letter + LinkedIn Optimization + Introductory Video + Jobs Listing Access",
-    img: "remoter_bundle_plus_m4phly",
-    openGraphImg: "remoter_bundle_plus_m4phly",
+      "CV Revamp + Cover Letter + LinkedIn Optimization + Introductory Video + Master Class",
+    img: "september-hiring-surge-readiness-bundle_oiyanf",
+    openGraphImg: "september-hiring-surge-readiness-bundle_oiyanf",
     details:
       "Stop struggling to find remote roles! Our Remote Work Starter Bundle is built to get you hired, offering you with job listings access to over 200 listed jobs to jumpstart your search.",
     benefits: [
       "CV Revamp - A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation call CV Revamp ",
       "LinkedIn Optimization - We'll transform your LinkedIn profile into a magnet for job opportunities, ensuring it ranks higher in recruiter searches + 15 minutes consultation call",
       "Introductory Video - Pointers on how to make a polished video to introduce yourself professionally, making you memorable to potential employers.",
-      "Jobs Access - One month access to over 200 listed remote jobs to jumpstart your search.",
+      "Master Class - A two hour intensive virtual class covering how to apply for remote jobs and navigate the remote ecosystem",
     ],
     servicePolicy:
       "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
     valueProposal:
       "Companies are ramping up recruitment and this is your moment to shine. At Beyond the Savannah, we're helping you stay ahead of the curve by aligning your professional brand designed to position you for success.",
-    price: 23000,
-    priceKE: 23000,
-    priceUSD: 230,
-    priceKESString: "23,000",
-    priceUSDString: "230",
+    price: 24000,
+    priceKE: 24000,
+    priceUSD: 240,
+    priceKESString: "24,000",
+    priceUSDString: "240",
   },
 ];
 
