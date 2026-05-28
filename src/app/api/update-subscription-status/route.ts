@@ -1,5 +1,6 @@
 
 
+import { SubscribedUser } from "@/types/globals";
 import { SubscribedUserProp } from "@/types/subscribedUser";
 import { serve } from "@upstash/workflow/nextjs";
 import axios from "axios";
@@ -11,9 +12,8 @@ export const { POST } = serve(async (context) => {
     async () => {
       const response = await axios.get(`${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/getAllUsers`);
       //   const dataBaseUserList: Pick<SubscribedUserProp,"email" | "status" | "subscriptionPlan"> = response.data;
-      const dataBaseUserList: Array<
-        Pick<SubscribedUserProp, "id" |"email" | "status" | "subscriptionPlan">
-      > = response.data;
+      const dataBaseUserList: Array<Pick<SubscribedUserProp, "id" |"email" | "status" >> = 
+      response.data.map((user:SubscribedUserProp)=>({id:user.id,email:user.email,status:user.status}));
       return dataBaseUserList;
     },
   );
@@ -26,10 +26,8 @@ export const { POST } = serve(async (context) => {
         `${process.env.PUBLIC_BASE_URL}/api/subscription-details-by-plan-codes`,
       );
       // const paystackUsersList:Pick<SubscribedUser,"status"|"customer.email">=response.data
-      const paystackUsersList: Array<{
-        status: string;
-        customer: { email: string };
-      }> = response.data;
+      const paystackUsersList: Array<{status: string;customer: { email: string };}> = 
+      response.data.map((user:SubscribedUser)=>({status:user.status,email:user.customer.email}));
       return paystackUsersList;
     },
   );
