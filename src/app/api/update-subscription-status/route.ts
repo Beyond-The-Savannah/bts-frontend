@@ -31,10 +31,10 @@ export const { POST } = serve(async (context) => {
       );
         // Check if response.data.data is an array
       if (!Array.isArray(response.data.data)) {
-        console.error("Paystack API response.data.data is not an array:", response.data);
+        console.error("Paystack API response.data.data is not an array:", response.data.data);
         return [];
       }
-      const paystackUsersList: Array<{status: string;customer: { email: string };}> = 
+      const paystackUsersList: Array<{status: string; email: string }> = 
       response.data.data.map((user:SubscribedUser)=>({status:user.status,email:user.customer.email}));
       return paystackUsersList;
     },
@@ -43,7 +43,8 @@ export const { POST } = serve(async (context) => {
   // Find matches
   const usersToUpdate=[]
   for(const paystackUser of paystackUsers){
-    const mactchedDatabaseUser=dataBaseUsers.find((dataBaseUser)=>{return dataBaseUser.email==paystackUser.customer.email})
+    // const mactchedDatabaseUser=dataBaseUsers.find((dataBaseUser)=>{return dataBaseUser.email==paystackUser.customer.email})
+    const mactchedDatabaseUser=dataBaseUsers.find((dataBaseUser)=>{return dataBaseUser.email==paystackUser.email})
     if(mactchedDatabaseUser){
       usersToUpdate.push({id:mactchedDatabaseUser.id,email:mactchedDatabaseUser.email,status:mactchedDatabaseUser.status,})
     }
