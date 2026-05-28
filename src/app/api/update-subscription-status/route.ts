@@ -11,7 +11,11 @@ export const { POST } = serve(async (context) => {
     "Get Subscribed Uses from BTS DataBase",
     async () => {
       const response = await axios.get(`${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/getAllUsers`);
-      //   const dataBaseUserList: Pick<SubscribedUserProp,"email" | "status" | "subscriptionPlan"> = response.data;
+       // Check if response.data is an array
+      if (!Array.isArray(response.data)) {
+        console.error("Database API response.data is not an array:", response.data);
+        return [];
+      }
       const dataBaseUserList: Array<Pick<SubscribedUserProp, "id" |"email" | "status" >> = 
       response.data.map((user:SubscribedUserProp)=>({id:user.id,email:user.email,status:user.status}));
       return dataBaseUserList;
@@ -25,9 +29,13 @@ export const { POST } = serve(async (context) => {
       const response = await axios.get(
         `${process.env.PUBLIC_BASE_URL}/api/subscription-details-by-plan-codes`,
       );
-      // const paystackUsersList:Pick<SubscribedUser,"status"|"customer.email">=response.data
+        // Check if response.data.data is an array
+      if (!Array.isArray(response.data.data)) {
+        console.error("Paystack API response.data.data is not an array:", response.data);
+        return [];
+      }
       const paystackUsersList: Array<{status: string;customer: { email: string };}> = 
-      response.data.map((user:SubscribedUser)=>({status:user.status,email:user.customer.email}));
+      response.data.data.map((user:SubscribedUser)=>({status:user.status,email:user.customer.email}));
       return paystackUsersList;
     },
   );
