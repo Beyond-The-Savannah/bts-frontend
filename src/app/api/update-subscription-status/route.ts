@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/remoteData/mutateData";
+
 
 import { SubscribedUserProp } from "@/types/subscribedUser";
 import { serve } from "@upstash/workflow/nextjs";
@@ -9,7 +9,7 @@ export const { POST } = serve(async (context) => {
   const dataBaseUsers = await context.run(
     "Get Subscribed Uses from BTS DataBase",
     async () => {
-      const response = await axiosInstance.get("/api/BydUsers/getAllUsers");
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/getAllUsers`);
       //   const dataBaseUserList: Pick<SubscribedUserProp,"email" | "status" | "subscriptionPlan"> = response.data;
       const dataBaseUserList: Array<
         Pick<SubscribedUserProp, "id" |"email" | "status" | "subscriptionPlan">
@@ -35,18 +35,18 @@ export const { POST } = serve(async (context) => {
   );
 
   // Find matches
-  // const usersToUpdate=[]
-  // for(const paystackUser of paystackUsers){
-  //   const mactchedDatabaseUser=dataBaseUsers.find((dataBaseUser)=>{return dataBaseUser.email==paystackUser.customer.email})
-  //   if(mactchedDatabaseUser){
-  //     usersToUpdate.push({email:mactchedDatabaseUser.email,status:mactchedDatabaseUser.status,})
-  //   }
-  // }
+  const usersToUpdate=[]
+  for(const paystackUser of paystackUsers){
+    const mactchedDatabaseUser=dataBaseUsers.find((dataBaseUser)=>{return dataBaseUser.email==paystackUser.customer.email})
+    if(mactchedDatabaseUser){
+      usersToUpdate.push({id:mactchedDatabaseUser.id,email:mactchedDatabaseUser.email,status:mactchedDatabaseUser.status,})
+    }
+  }
 
-  const usersToUpdate = paystackUsers.flatMap((paystackUser) => {
-    const matched = dataBaseUsers.find((dataBaseuser) => dataBaseuser.email === paystackUser.customer.email,);
-    return matched ? [{ ...matched, status: paystackUser.status }] : [];
-  });
+  // const usersToUpdate = paystackUsers.flatMap((paystackUser) => {
+  //   const matched = dataBaseUsers.find((dataBaseuser) => dataBaseuser.email === paystackUser.customer.email,);
+  //   return matched ? [{ ...matched, status: paystackUser.status }] : [];
+  // });
 
   // Batch process updates
  if(usersToUpdate.length>0){
@@ -67,7 +67,6 @@ export const { POST } = serve(async (context) => {
                 {status:userToUpdate.status},
                 {
                   headers: { "Content-Type": "application/json" },
-                  timeout: 10000,
                 },
               );
               console.log("Updated user record", {
