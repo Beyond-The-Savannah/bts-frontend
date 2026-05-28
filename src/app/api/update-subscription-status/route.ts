@@ -12,7 +12,7 @@ export const { POST } = serve(async (context) => {
       const response = await axiosInstance.get("/api/BydUsers/getAllUsers");
       //   const dataBaseUserList: Pick<SubscribedUserProp,"email" | "status" | "subscriptionPlan"> = response.data;
       const dataBaseUserList: Array<
-        Pick<SubscribedUserProp, "email" | "status" | "subscriptionPlan">
+        Pick<SubscribedUserProp, "id" |"email" | "status" | "subscriptionPlan">
       > = response.data;
       return dataBaseUserList;
     },
@@ -44,105 +44,53 @@ export const { POST } = serve(async (context) => {
   // }
 
   const usersToUpdate = paystackUsers.flatMap((paystackUser) => {
-    const matched = dataBaseUsers.find(
-      (dataBaseuser) => dataBaseuser.email === paystackUser.customer.email,
-    );
+    const matched = dataBaseUsers.find((dataBaseuser) => dataBaseuser.email === paystackUser.customer.email,);
     return matched ? [{ ...matched, status: paystackUser.status }] : [];
   });
 
   // Batch process updates
-  const batchSize = 50;
+ if(usersToUpdate.length>0){
 
-  for (let i = 0; i <= usersToUpdate.length; i += batchSize) {
-    const batchIndex = Math.floor(i / batchSize);
-    const batch = usersToUpdate.slice(i, i + batchSize);
-
-    await context.run(`Process update batch ${batchIndex}`, async () => {
-      await Promise.all(
-        batch.map(async (userToUpdate) => {
-          try {
-            const response = await axios.put(
-              `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/updateUserDetails?email=${userToUpdate.email}`,
-              {status:userToUpdate.status},
-              {
-                headers: { "Content-Type": "application/json" },
-                timeout: 10000,
-              },
-            );
-            console.log("Updated user record", {
-              email: userToUpdate.email,
-              status: response.status,
-              statusText: response.statusText,
-            });
-          } catch (error) {
-            console.log(
-              `Failed to update user record - ${userToUpdate.email}`,
-              error,
-            );
-          }
-        }),
-      );
-    });
-
-    if (i + batchSize < usersToUpdate.length) {
-      await context.sleep(`Pause-batch-${batchIndex}`, 1);
+    const batchSize = 50;
+  
+    for (let i = 0; i < usersToUpdate.length; i += batchSize) {
+      const batchIndex = Math.floor(i / batchSize);
+      const batch = usersToUpdate.slice(i, i + batchSize);
+  
+      await context.run(`Process update batch ${batchIndex}`, async () => {
+        await Promise.all(
+          batch.map(async (userToUpdate) => {
+            try {
+              const response = await axios.put(
+                // `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/updateUserDetails?email=${userToUpdate.email}`,
+                `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/updateUser?id=${userToUpdate.id}`,
+                {status:userToUpdate.status},
+                {
+                  headers: { "Content-Type": "application/json" },
+                  timeout: 10000,
+                },
+              );
+              console.log("Updated user record", {
+                email: userToUpdate.email,
+                status: response.status,
+                statusText: response.statusText,
+              });
+            } catch (error) {
+              console.log(
+                `Failed to update user record - ${userToUpdate.email}`,
+                error,
+              );
+            }
+          }),
+        );
+      });
+  
+      if (i + batchSize < usersToUpdate.length) {
+        await context.sleep(`Pause-batch-${batchIndex}`, 1);
+      }
     }
-  }
 
-  // paystackUsers.forEach(async (paystackUser) => {
-  //   const matchedDataBaseUser = dataBaseUsers.find((dataBaseUser) => {
-  //     return dataBaseUser.email == paystackUser.customer.email;
-  //   });
-  //   if (!matchedDataBaseUser)
-  //     return "No matched user found between paystackSubscribedUsers and BTSDataBaseUsers";
-  //   try {
-  //     const response = await axios.put(
-  //       `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/updateUserDetails?email=${matchedDataBaseUser.email}`,
-  //       { ...matchedDataBaseUser, status: matchedDataBaseUser.status },
-  //       {
-  //         headers: { "Content-Type": "multipart/form-data" },
-  //         timeout: 10000,
-  //       },
-  //     );
-  //     console.log("Update user record", {
-  //       responseStatus: response.status,
-  //       responseStatusText: response.statusText,
-  //     });
-  //     return {
-  //       responseStatus: response.status,
-  //       responseStatusText: response.statusText,
-  //     };
-  //   } catch (error) {
-  //     console.error("Failed to Update User subscription Status in DB", error);
-  //   }
-  // });
+ }
 
-  // const updateSubscriptionStatusPromises = paystackUsers.map(
-  //   async (paystackUser) => {
-  //     const matchedDataBaseUser = dataBaseUsers.find(
-  //       (dataUser) => {
-  //         return dataUser.email == paystackUser.customer.email;
-  //       },
-  //     );
-
-  //     if (!matchedDataBaseUser)
-  //       return "No matched user found between paystackSubscribedUsers and BTSDataBaseUsers";
-
-  //     try {
-  //       const response = await axios.put(
-  //         `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/updateUserDetails?email=${matchedDataBaseUser.email}`,
-  //         { ...matchedDataBaseUser, status: matchedDataBaseUser.status },
-  //         {
-  //           headers: { "Content-Type": "multipart/form-data" },
-  //           timeout: 10000,
-  //         },
-  //       );
-  //       return response;
-  //     } catch (error) {
-  //       console.error("Failed to Update User subscription Status in DB", error);
-  //     }
-  //   },
-  // );
-
-  // await Promise.all(updateSubscriptionStatusPromises);
+  
 });
