@@ -17,7 +17,7 @@ export const { POST } = serve(async (context) => {
 
   // Fetch Paystack users
   const paystackResponse=await context.call("Get all Paystack Subscribed Users from Paystack",{
-    url:`${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/getAllUsers`,
+    url:`${process.env.PUBLIC_BASE_URL}/api/subscription-details-by-plan-codes`,
     method:"GET"
   })
 
