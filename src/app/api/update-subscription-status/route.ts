@@ -15,15 +15,43 @@ export const { POST } = serve(async (context) => {
   const databaseUsers=Array.isArray(dbResponse.body)?
   (dbResponse.body as SubscribedUserProp[]).map((user)=>({id:user.id,email:user.email,status:user.status})):[]
 
-  // Fetch Paystack users
-  const paystackResponse=await context.call("Get all Paystack Subscribed Users from Paystack",{
-    url:`${process.env.PUBLIC_BASE_URL}/api/subscription-details-by-plan-codes`,
-    method:"GET"
-  })
+  // // Fetch Paystack users
+  // const paystackResponse=await context.call("Get all Paystack Subscribed Users from Paystack",{
+  //   url:`${process.env.PUBLIC_BASE_URL}/api/subscription-details-by-plan-codes`,
+  //   method:"GET"
+  // })
 
-  const paystackData = (paystackResponse.body as { data?: unknown })?.data
-  const paystackUsers=Array.isArray(paystackData)?
-  (paystackData as SubscribedUser[]).map((user)=>({email:user.customer.email, status:user.status})):[]
+  // const paystackData = (paystackResponse.body as { data?: unknown })?.data
+  // const paystackUsers=Array.isArray(paystackData)?
+  // (paystackData as SubscribedUser[]).map((user)=>({email:user.customer.email, status:user.status})):[]
+  // 2. Fetch Paystack users via Pagination to bypass the 1MB limit
+  let paystackUsers: { email: string; status: string }[] = [];
+  let page = 1;
+  let hasMore = true;
+  const perPage = 100; // Adjust based on your API capability
+
+  while (hasMore) {
+    const paystackResponse = await context.call(`Get Paystack Users Page ${page}`, {
+      url: `${process.env.PUBLIC_BASE_URL}/api/subscription-details-by-plan-codes?page=${page}&perPage=${perPage}`,
+      method: "GET"
+    });
+
+    const paystackData = (paystackResponse.body as { data?: unknown })?.data;
+    
+    if (Array.isArray(paystackData) && paystackData.length > 0) {
+      const mapped = (paystackData as SubscribedUser[]).map((user) => ({
+        email: user.customer.email,
+        status: user.status
+      }));
+      paystackUsers = paystackUsers.concat(mapped);
+      page++;
+    } else {
+      hasMore = false;
+    }
+    
+    // Safety check to avoid accidental infinite loops
+    if (page > 50) break; 
+  }
 
 
   // Find matches
@@ -40,7 +68,7 @@ if(usersToUpdate.length>0){
   const batchSize=50
 
   for(let i=0;i<usersToUpdate.length;i+=batchSize){
-    const batchIndex=Math.floor(1/batchSize)
+    const batchIndex=Math.floor(i/batchSize)
     const batch=usersToUpdate.slice(i,i+batchSize)
 
     await context.run(`Process update batch ${batchIndex}`, async ()=>{
