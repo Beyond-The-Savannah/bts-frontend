@@ -32,9 +32,10 @@ export const { POST } = serve(async (context) => {
     return matched ?[{id:matched.id,email:matched.email,status:matched.status}]:[]
   })
 
-  
+
   // Batch process updates
-  if(usersToUpdate.length===0) return
+  // if(usersToUpdate.length===0) return
+if(usersToUpdate.length>0){
 
   const batchSize=50
 
@@ -62,6 +63,7 @@ export const { POST } = serve(async (context) => {
       await context.sleep(`Pause-batch-${batchIndex}`, 1)
     }
   }
+}
 
 
 //   // Fetch database users
