@@ -13,11 +13,12 @@ export const { POST } = serve(async (context) => {
     // 1. Fetch DB Users directly via Axios (bypasses Upstash 1MB state tracking)
     const dbResponse = await axios.get(`${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/getAllUsers`);
     const databaseUsers = Array.isArray(dbResponse.data)
-      ? (dbResponse.data as SubscribedUserProp[]).map((user) => ({ 
-          id: user.id, 
-          email: user.email, 
-          status: user.status 
-        }))
+       ? dbResponse.data as SubscribedUserProp[]
+      //  (dbResponse.data as SubscribedUserProp[]).map((user) => ({ 
+      //     id: user.id, 
+      //     email: user.email, 
+      //     status: user.status 
+      //   }))
       : [];
 
     // 2. Fetch Paystack Users directly via Axios (bypasses Upstash 1MB state tracking)
@@ -33,7 +34,8 @@ export const { POST } = serve(async (context) => {
     // 3. Find matches completely in-memory
     const matches = paystackUsers.flatMap((paystackUser) => {
       const matched = databaseUsers.find((dbUser) => dbUser.email === paystackUser.email);
-      return matched ? [{ id: matched.id, email: matched.email, status: matched.status }] : [];
+      return matched ;
+      // return matched ? [{ id: matched.id, email: matched.email, status: matched.status }] : [];
     });
 
     // Upstash only saves this return value. 
@@ -43,7 +45,7 @@ export const { POST } = serve(async (context) => {
 
 
   // Step 2: Batch process updates (Your existing logic)
-  if (usersToUpdate && usersToUpdate.length > 0) {
+  if (usersToUpdate!==undefined && usersToUpdate.length > 0) {
     const batchSize = 50;
 
     for (let i = 0; i < usersToUpdate.length; i += batchSize) {
@@ -55,13 +57,32 @@ export const { POST } = serve(async (context) => {
           batch.map(async (userToUpdate) => {
             try {
               // Using standard axios here keeps individual step tracking lightweight
-              await axios.put(
-                `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/updateUser?id=${userToUpdate.id}`,
-                { status: userToUpdate.status },
-                { headers: { "Content-Type": "application/json" } }
+              const formData= new FormData()
+              formData.append("id", String(userToUpdate?.id))
+              formData.append("status", String(userToUpdate?.status))
+              formData.append("subscriptionPlan", String(userToUpdate?.subscriptionPlan))
+              formData.append("career", String(userToUpdate?.career))
+              formData.append("email", String(userToUpdate?.email))
+              formData.append("password", String(userToUpdate?.password))
+              formData.append("firstName", String(userToUpdate?.firstName))
+              formData.append("lastName", String(userToUpdate?.lastName))
+              formData.append("phoneNumber", String(userToUpdate?.phoneNumber))
+              formData.append("AttachmentName", String(userToUpdate?.attachmentName))
+              formData.append("file", String(userToUpdate?.file))
+              formData.append("ImageUrl", String(userToUpdate?.imageUrl))
+              formData.append("isActive", String(userToUpdate?.isActive))
+              formData.append("isDeleted", String(userToUpdate?.isDeleted))
+              const response=await axios.put(
+                // `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/updateUser?id=${userToUpdate?.id}`,
+                // { status: userToUpdate?.status },
+                // { headers: { "Content-Type": "application/json" } }
+                `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/updateUserDetails?email=${userToUpdate?.email}`,
+                formData,
+                {headers:{"Content-Type":"multipart/form-data"}}
               );
+                 console.log("Updated user record", {email: userToUpdate?.email,status: response.status,statusText: response.statusText,});
             } catch (error) {
-              console.error(`Failed to update user record - ${userToUpdate.email}`, error);
+              console.error(`Failed to update user record - ${userToUpdate?.email}`, error);
             }
           })
         );
