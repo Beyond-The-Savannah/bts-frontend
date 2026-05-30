@@ -6,46 +6,61 @@ import { serve } from "@upstash/workflow/nextjs";
 import axios from "axios";
 
 export const { POST } = serve(async (context) => {
-  // Step 1: Compute the updates purely inside a localized execution sandbox.
-  // Upstash will only store the final 'usersToUpdate' array, which is much smaller.
-  const usersToUpdate = await context.run("Fetch and Match Users", async () => {
-    
-    // 1. Fetch DB Users directly via Axios (bypasses Upstash 1MB state tracking)
-    const dbResponse = await axios.get(`${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/getAllUsers`);
-    const databaseUsers = Array.isArray(dbResponse.data)
-       ? dbResponse.data as SubscribedUserProp[]
-      //  (dbResponse.data as SubscribedUserProp[]).map((user) => ({ 
-      //     id: user.id, 
-      //     email: user.email, 
-      //     status: user.status 
-      //   }))
-      : [];
-
-    // 2. Fetch Paystack Users directly via Axios (bypasses Upstash 1MB state tracking)
-    const paystackResponse = await axios.get(`${process.env.PUBLIC_BASE_URL}/api/subscription-details-by-plan-codes`);
-    const paystackData = paystackResponse.data?.data;
-    const paystackUsers = Array.isArray(paystackData)
-      ? (paystackData as SubscribedUser[]).map((user) => ({ 
-          email: user.customer.email, 
-          status: user.status 
+  // Step 1a: Fetch DB users (separate, checkpointed step)
+  const databaseUsers = await context.run("Fetch DB Users", async () => {
+    const dbResponse = await axios.get(
+      `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/getAllUsers`,
+      { timeout: 15000 } // explicit timeout
+    );
+    return Array.isArray(dbResponse.data)
+      ? (dbResponse.data as SubscribedUserProp[]).map((u) => ({
+          id: u.id,
+          email: u.email,
+          status: u.status,
+          subscriptionPlan: u.subscriptionPlan,
+          career: u.career,
+          password: u.password,
+          firstName: u.firstName,
+          lastName: u.lastName,
+          phoneNumber: u.phoneNumber,
+          attachmentName: u.attachmentName,
+          imageUrl: u.imageUrl,
+          file:u.file,
+          isActive: u.isActive,
+          isDeleted: u.isDeleted,
         }))
       : [];
-
-    // 3. Find matches completely in-memory
-    const matches = paystackUsers.flatMap((paystackUser) => {
-      const matched = databaseUsers.find((dbUser) => dbUser.email === paystackUser.email);
-      return matched ;
-      // return matched ? [{ id: matched.id, email: matched.email, status: matched.status }] : [];
-    });
-
-    // Upstash only saves this return value. 
-    // Because it's a filtered array of simple objects, it will easily be under 1MB.
-    return matches;
   });
 
+  // Step 1b: Fetch Paystack users (separate, checkpointed step)
+  const paystackUsers = await context.run("Fetch Paystack Users", async () => {
+    const paystackResponse = await axios.get(
+      `${process.env.PUBLIC_BASE_URL}/api/subscription-details-by-plan-codes`,
+      { timeout: 15000 }
+    );
+    const paystackData = paystackResponse.data?.data;
+    return Array.isArray(paystackData)
+      ? (paystackData as SubscribedUser[]).map((u) => ({
+          email: u.customer.email,
+          status: u.status,
+        }))
+      : [];
+  });
 
-  // Step 2: Batch process updates (Your existing logic)
-  if (usersToUpdate!==undefined && usersToUpdate.length > 0) {
+  // Step 1c: Match in memory (fast, no I/O — fine in one step)
+  const usersToUpdate = await context.run("Match Users", async () => {
+    const dbByEmail = new Map(databaseUsers.map((u) => [u.email, u]));
+
+    return paystackUsers.map((paystackUser) => {
+      const dbUser = dbByEmail.get(paystackUser.email);
+        // Merge Paystack status into the DB user record
+        return dbUser ? { ...dbUser, status: paystackUser.status } : null;
+      })
+      .filter((u): u is NonNullable<typeof u> => u !== null); // ✅ drop nulls
+  });
+
+  // Step 2: Batch process updates
+  if (usersToUpdate.length > 0) {
     const batchSize = 50;
 
     for (let i = 0; i < usersToUpdate.length; i += batchSize) {
@@ -56,33 +71,34 @@ export const { POST } = serve(async (context) => {
         await Promise.all(
           batch.map(async (userToUpdate) => {
             try {
-              // Using standard axios here keeps individual step tracking lightweight
-              const formData= new FormData()
-              formData.append("id", String(userToUpdate?.id))
-              formData.append("status", String(userToUpdate?.status))
-              formData.append("subscriptionPlan", String(userToUpdate?.subscriptionPlan))
-              formData.append("career", String(userToUpdate?.career))
-              formData.append("email", String(userToUpdate?.email))
-              formData.append("password", String(userToUpdate?.password))
-              formData.append("firstName", String(userToUpdate?.firstName))
-              formData.append("lastName", String(userToUpdate?.lastName))
-              formData.append("phoneNumber", String(userToUpdate?.phoneNumber))
-              formData.append("AttachmentName", String(userToUpdate?.attachmentName))
-              formData.append("file", String(userToUpdate?.file))
-              formData.append("ImageUrl", String(userToUpdate?.imageUrl))
-              formData.append("isActive", String(userToUpdate?.isActive))
-              formData.append("isDeleted", String(userToUpdate?.isDeleted))
-              const response=await axios.put(
-                // `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/updateUser?id=${userToUpdate?.id}`,
-                // { status: userToUpdate?.status },
-                // { headers: { "Content-Type": "application/json" } }
-                `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/updateUserDetails?email=${userToUpdate?.email}`,
+              const formData = new FormData();
+              formData.append("id", String(userToUpdate.id));
+              formData.append("status", userToUpdate.status);
+              formData.append("subscriptionPlan", userToUpdate.subscriptionPlan);
+              formData.append("career", String(userToUpdate.career));
+              formData.append("email", userToUpdate.email);
+              formData.append("password", userToUpdate.password);
+              formData.append("firstName", userToUpdate.firstName);
+              formData.append("lastName", userToUpdate.lastName);
+              formData.append("phoneNumber", userToUpdate.phoneNumber);
+              formData.append("AttachmentName", userToUpdate.attachmentName);
+              formData.append("file", userToUpdate.file);
+              formData.append("ImageUrl", userToUpdate.imageUrl);
+              formData.append("isActive", String(userToUpdate.isActive));
+              formData.append("isDeleted", String(userToUpdate.isDeleted));
+              // ⚠️ Omit "file" unless you actually have binary data to send
+
+              const response = await axios.put(
+                `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/updateUserDetails?email=${userToUpdate.email}`,
                 formData,
-                {headers:{"Content-Type":"multipart/form-data"}}
+                { headers: { "Content-Type": "multipart/form-data" }, timeout: 10000 }
               );
-                 console.log("Updated user record", {email: userToUpdate?.email,status: response.status,statusText: response.statusText,});
+              console.log("Updated user", {
+                email: userToUpdate.email,
+                status: response.status,
+              });
             } catch (error) {
-              console.error(`Failed to update user record - ${userToUpdate?.email}`, error);
+              console.error(`Failed to update user - ${userToUpdate.email}`, error);
             }
           })
         );
