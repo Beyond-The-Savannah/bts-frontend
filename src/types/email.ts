@@ -12,3 +12,10 @@ export interface EventTicketEmailProps {
   eventName: string;
 }
 
+export interface PaystackWebhookEmailProps{
+  firstName:string,
+    email:string,
+    paystackId:number,
+    customerId:string,
+    eventName:string,
+}

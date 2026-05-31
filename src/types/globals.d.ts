@@ -230,3 +230,63 @@ export interface CandidateProfileProp {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface paystackSubscriptionNotRenewEventProp{
+  event: string,
+  data: {
+    id: number,
+    domain: string,
+    status: string,
+    subscription_code: string,
+    email_token: string,
+    amount: number,
+    cron_expression: string,
+    next_payment_date: null,
+    open_invoice: null,
+    integration: number,
+    plan: {
+      id: number,
+      name: string,
+      plan_code: string,
+      description: string,
+      amount: number,
+      interval: string,
+      send_invoices: true,
+      send_sms: true,
+      currency: string
+    },
+    authorization: {
+      authorization_code: string,
+      bin: string,
+      last4: string,
+      exp_month: string,
+      exp_year: string,
+      channel: string,
+      card_type: string,
+      bank: string,
+      country_code: string,
+      brand: string,
+      reusable: true,
+      signature: string,
+      account_name: null
+    },
+    customer: {
+      id: number,
+      first_name: null,
+      last_name: null,
+      email: string,
+      customer_code: string,
+      phone: null,
+      metadata: null,
+      risk_action: string,
+      international_format_phone: null
+    },
+    invoices: array,
+    invoices_history: array,
+    invoice_limit: 0,
+    split_code: null,
+    most_recent_invoice: null,
+    created_at: string
+  }
+
+}
