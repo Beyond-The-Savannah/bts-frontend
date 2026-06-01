@@ -10,9 +10,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { axiosInstance } from "@/remoteData/mutateData";
 import { SubscribedUserProp } from "@/types/subscribedUser";
 import { ColumnDef } from "@tanstack/react-table";
-import axios from "axios";
 import { ArrowUpDown, Download, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -127,7 +127,8 @@ export const columns: ColumnDef<SubscribedUserProp>[] = [
 
 async function removeUser(user:SubscribedUserProp){
   try {
-    const response = await axios.delete(`https://efmsapi-staging.azurewebsites.net/api/BydUsers/DeleteUser?userid=${user.id}`)
+    // const response = await axios.delete(`https://efmsapi-staging.azurewebsites.net/api/BydUsers/DeleteUser?userid=${user.id}`)
+    const response = await axiosInstance.delete(`/api/BydUsers/DeleteUser?userid=${user.id}`)
     if(response.data.errorMessage=="Update Done But No Matching Records Found"){
       toast.error("Oops, deletion failed")
     }else{
