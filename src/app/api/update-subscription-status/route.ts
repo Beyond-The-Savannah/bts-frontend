@@ -73,7 +73,7 @@ export const { POST } = serve(async (context) => {
             try {
                 const newUserData= {
                   "id": userToUpdate.id,
-                  "status": "cancelled",
+                  "status": userToUpdate.status,
                   "subscriptionPlan": userToUpdate.subscriptionPlan,
                   "career": userToUpdate.career,
                   "email": userToUpdate.email,
