@@ -71,27 +71,25 @@ export const { POST } = serve(async (context) => {
         await Promise.all(
           batch.map(async (userToUpdate) => {
             try {
-              const formData = new FormData();
-              formData.append("id", String(userToUpdate.id));
-              formData.append("status", userToUpdate.status);
-              formData.append("subscriptionPlan", userToUpdate.subscriptionPlan);
-              formData.append("career", String(userToUpdate.career));
-              formData.append("email", userToUpdate.email);
-              formData.append("password", userToUpdate.password);
-              formData.append("firstName", userToUpdate.firstName);
-              formData.append("lastName", userToUpdate.lastName);
-              formData.append("phoneNumber", userToUpdate.phoneNumber);
-              formData.append("AttachmentName", userToUpdate.attachmentName);
-              formData.append("file", userToUpdate.file);
-              formData.append("ImageUrl", userToUpdate.imageUrl);
-              formData.append("isActive", String(userToUpdate.isActive));
-              formData.append("isDeleted", String(userToUpdate.isDeleted));
-              // ⚠️ Omit "file" unless you actually have binary data to send
-
-              const response = await axios.put(
-                `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/updateUserDetails?email=${userToUpdate.email}`,
-                formData,
-                { headers: { "Content-Type": "multipart/form-data" }, timeout: 10000 }
+                const newUserData= {
+                  "id": userToUpdate.id,
+                  "status": "cancelled",
+                  "subscriptionPlan": userToUpdate.subscriptionPlan,
+                  "career": userToUpdate.career,
+                  "email": userToUpdate.email,
+                  "password": userToUpdate.password,
+                  "firstName": userToUpdate.firstName,
+                  "lastName": userToUpdate.lastName,
+                  "phoneNumber": userToUpdate.phoneNumber,
+                  "attachmentName": userToUpdate.attachmentName,
+                  "file": userToUpdate.file,
+                  "imageUrl": userToUpdate.imageUrl,
+                  "isActive": userToUpdate.isActive,
+                  "isDeleted": userToUpdate.isDeleted
+                }
+              const response = await axios.put(`/api/BydUsers/updateUser?id=${userToUpdate.id}`,
+                newUserData,
+                {headers:{"Content-Type":"application/json"}}
               );
               console.log("Updated user", {
                 email: userToUpdate.email,

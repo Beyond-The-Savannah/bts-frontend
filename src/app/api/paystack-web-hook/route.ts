@@ -10,6 +10,7 @@ import { Resend } from "resend"
 const PAYSTACK_SECRET_KEY = process.env.PAYSTACK__SECRET_KEY!;
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+
 function verifyPaystackSignature(payLoad:string,signature:string|null,):boolean{
 
     if(!signature) return false
@@ -48,27 +49,28 @@ export async function POST(request:Request){
 async function processSubscriptionCanceled(data:paystackSubscriptionNotRenewEventProp){
     const response= await axiosInstance.get(`/api/BydUsers/getUserDetailsByEmail?email=${data.data.customer.email}`)
     const subscribedUserData:SubscribedUserProp= await response.data
+
+    const newUserData= {
+    "id": subscribedUserData.id,
+    "status": "cancelled",
+    "subscriptionPlan": subscribedUserData.subscriptionPlan,
+    "career": subscribedUserData.career,
+    "email": subscribedUserData.email,
+    "password": subscribedUserData.password,
+    "firstName": subscribedUserData.firstName,
+    "lastName": subscribedUserData.lastName,
+    "phoneNumber": subscribedUserData.phoneNumber,
+    "attachmentName": subscribedUserData.attachmentName,
+    "file": subscribedUserData.file,
+    "imageUrl": subscribedUserData.imageUrl,
+    "isActive": subscribedUserData.isActive,
+    "isDeleted": subscribedUserData.isDeleted
+  }
     
-    const formData=new FormData()
-    
-    formData.append("id",String(subscribedUserData.id))
-    formData.append("status","cancelled")
-    formData.append("subscriptionPlan",subscribedUserData.subscriptionPlan)
-    formData.append("career",String(subscribedUserData.career))
-    formData.append("email",subscribedUserData.email)
-    formData.append("password",subscribedUserData.password )
-    formData.append("firstName",subscribedUserData.firstName)
-    formData.append("lastName",subscribedUserData.lastName)
-    formData.append("phoneNumber", subscribedUserData.phoneNumber )
-    formData.append("AttachmentName",subscribedUserData.attachmentName)
-    formData.append("file",subscribedUserData.file)
-    formData.append("ImageUrl",subscribedUserData.imageUrl)
-    formData.append("isActive",String(subscribedUserData.isActive))
-    formData.append("isDeleted",String(subscribedUserData.isDeleted))
 try {
-    const response=await axiosInstance.put(`api/BydUsers/updateUserDetails?email=${subscribedUserData.email}`,
-        formData,
-        {headers:{"Content-Type":"multipart/form-data"}})
+    const response=await axiosInstance.put(`/api/BydUsers/updateUser?id=${subscribedUserData.id}`,
+        newUserData,
+        {headers:{"Content-Type":"application/json"}})
         console.log(`Updated user email:${data.data.customer.email} - paystackId: ${data.data.customer.id} - customer code: ${data.data.customer.customer_code}`,response.status)
         await resend.emails.send({
             from:`info@beyondthesavannah.co.ke`,
