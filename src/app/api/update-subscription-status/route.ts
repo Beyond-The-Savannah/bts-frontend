@@ -1,5 +1,6 @@
 
 
+import { axiosInstance } from "@/remoteData/mutateData";
 import { SubscribedUser } from "@/types/globals";
 import { SubscribedUserProp } from "@/types/subscribedUser";
 import { serve } from "@upstash/workflow/nextjs";
@@ -8,8 +9,8 @@ import axios from "axios";
 export const { POST } = serve(async (context) => {
   // Step 1a: Fetch DB users (separate, checkpointed step)
   const databaseUsers = await context.run("Fetch DB Users", async () => {
-    const dbResponse = await axios.get(
-      `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/getAllUsers`,
+    // const dbResponse = await axios.get(`${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/getAllUsers`,
+    const dbResponse = await axiosInstance.get(`/api/BydUsers/getAllUsers`,
       { timeout: 15000 } // explicit timeout
     );
     return Array.isArray(dbResponse.data)
@@ -34,8 +35,7 @@ export const { POST } = serve(async (context) => {
 
   // Step 1b: Fetch Paystack users (separate, checkpointed step)
   const paystackUsers = await context.run("Fetch Paystack Users", async () => {
-    const paystackResponse = await axios.get(
-      `${process.env.PUBLIC_BASE_URL}/api/subscription-details-by-plan-codes`,
+    const paystackResponse = await axios.get(`${process.env.PUBLIC_BASE_URL}/api/subscription-details-by-plan-codes`,
       { timeout: 15000 }
     );
     const paystackData = paystackResponse.data?.data;
@@ -87,7 +87,7 @@ export const { POST } = serve(async (context) => {
                   "isActive": userToUpdate.isActive,
                   "isDeleted": userToUpdate.isDeleted
                 }
-              const response = await axios.put(`/api/BydUsers/updateUser?id=${userToUpdate.id}`,
+              const response = await axiosInstance.put(`/api/BydUsers/updateUser?id=${userToUpdate.id}`,
                 newUserData,
                 {headers:{"Content-Type":"application/json"}}
               );
