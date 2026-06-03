@@ -52,7 +52,7 @@ async function processSubscriptionCanceled(data:paystackSubscriptionNotRenewEven
 
     const newUserData= {
     "id": subscribedUserData.id,
-    "status": "cancelled",
+    "status": subscribedUserData.status,
     "subscriptionPlan": subscribedUserData.subscriptionPlan,
     "career": subscribedUserData.career,
     "email": subscribedUserData.email,
