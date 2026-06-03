@@ -4,7 +4,7 @@
 import { SubscribedUser } from "@/types/globals";
 import { SubscribedUserProp } from "@/types/subscribedUser";
 import { serve } from "@upstash/workflow/nextjs";
-// import axios from "axios";
+import axios from "axios";
 
 export const { POST } = serve(async (context) => {
   // // Step 1a: Fetch DB users (separate, checkpointed step)
@@ -132,14 +132,27 @@ export const { POST } = serve(async (context) => {
   })):[]
 
   // Fetch Paystack users
-  const paystackResponse=await context.call("Get all Paystack Subscribed Users from Paystack",{
-    url:`${process.env.PUBLIC_BASE_URL}/api/subscription-details-by-plan-codes`,
-    method:"GET"
-  })
+  // const paystackResponse=await context.call("Get all Paystack Subscribed Users from Paystack",{
+  //   url:`${process.env.PUBLIC_BASE_URL}/api/subscription-details-by-plan-codes`,
+  //   method:"GET"
+  // })
 
-  const paystackData = (paystackResponse.body as { data?: unknown })?.data
-  const paystackUsers=Array.isArray(paystackData)?
-  (paystackData as SubscribedUser[]).map((user)=>({email:user.customer.email, status:user.status})):[]
+  // const paystackData = (paystackResponse.body as { data?: unknown })?.data
+  // const paystackUsers=Array.isArray(paystackData)?
+  // (paystackData as SubscribedUser[]).map((user)=>({email:user.customer.email, status:user.status})):[]
+
+   const paystackUsers = await context.run("Fetch Paystack Users", async () => {
+    const paystackResponse = await axios.get(`${process.env.PUBLIC_BASE_URL}/api/subscription-details-by-plan-codes`,
+      { timeout: 15000 }
+    );
+    const paystackData = paystackResponse.data?.data;
+    return Array.isArray(paystackData)
+      ? (paystackData as SubscribedUser[]).map((u) => ({
+          email: u.customer.email,
+          status: u.status,
+        }))
+      : [];
+  });
 
 
   // Find matches
