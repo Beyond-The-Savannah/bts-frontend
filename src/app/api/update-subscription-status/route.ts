@@ -153,7 +153,7 @@ export const { POST } = serve(async (context) => {
   // if(usersToUpdate.length===0) return
 if(usersToUpdate.length>0){
 
-  const batchSize=50
+  const batchSize=10
 
   for(let i=0;i<usersToUpdate.length;i+=batchSize){
     const batchIndex=Math.floor(i/batchSize)
@@ -163,7 +163,7 @@ if(usersToUpdate.length>0){
       await Promise.all(
         batch.map(async (userToUpdate)=>{
           try {
-            await context.call("",{
+            await context.call(`Updating user - ${userToUpdate.email}`,{
               url:`${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/updateUser?id=${userToUpdate.id}`,
               method:"PUT",
               body:{...userToUpdate},
