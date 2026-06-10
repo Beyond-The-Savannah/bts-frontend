@@ -81,7 +81,7 @@ export function FindRemoteJobs() {
           {paginatedRemoteJobs?.map((job, index) => (
             <div
               key={index}
-              className=" border-bts-BrownTwo/50 border-2 rounded-xl w-full md:w-88 lg:w-5/12 bg-bts-BrownTwo/50 hover:shadow-bts-BrownFour hover:shadow-md hover:bg-bts-BrownFive/50 duration-700 px-8 py-4"
+              className=" border-bts-BrownTwo/50 border-2 rounded-xl w-full md:w-88 lg:w-5/12 bg-bts-BrownTwo/50 hover:shadow-bts-BrownFour hover:shadow-md hover:bg-bts-BrownFive/50 duration-700 px-4 lg:px-8 py-4"
             >
               <div className="flex items-center gap-2">
                 <Image
@@ -114,7 +114,7 @@ export function FindRemoteJobs() {
                     </>):null}
                   </div>
                 
-                  <p className="capitalize text-sm rounded-xl bg-bts-BrownOne text-black w-24 text-center">
+                  <p className="capitalize text-xs lg:text-sm rounded-xl px-[0.1rem] bg-bts-BrownOne text-black w-24 text-center">
                     {DateFormatter(`${job.dateCreated}`)}
                   </p>
                 </div>
