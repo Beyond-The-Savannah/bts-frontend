@@ -6,18 +6,19 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 export default function HeroSection() {
   return (
     <section className="">
-      {/* <div className="min-h-[90dvh] flex flex-wrap-reverse md:flex-nowrap justify-between  gap-4 "> */}
-      {/* <div className="min-h-[90dvh]  2xl:max-h-[40dvh]  flex flex-wrap-reverse md:flex-nowrap justify-between  gap-4 "> */}
-      <div className="xs:min-h-[99dvh] md:min-h-[90dvh] lg:min-h-[99dvh] xl:min-h-[99dvh] 2xl:min-h-[99dvh]   flex flex-wrap-reverse md:flex-nowrap justify-between  gap-4 ">
-        <div className="w-full md:w-6/12 px-4 md:px-12 flex flex-col justify-center items-start pb-10 pt-4 md:pt-2  xl:pt-80 gap-12">
-          <h1 className="text-3xl md:text-5xl text-bts-GreenOne font-bold xl:-mt-80">
+      
+      <div className="xs:min-h-[99dvh] md:min-h-[90dvh] bg-[url('https://res.cloudinary.com/dh8qlzbzk/image/upload/v1781432193/partner-hero-bg-1_boujin.png')] bg-contain bg-no-repeat bg-center lg:min-h-[99dvh] xl:min-h-[99dvh] 2xl:min-h-[99dvh]   flex flex-wrap-reverse md:flex-nowrap justify-between  gap-4 ">
+        {/* <div className="w-full md:w-6/12 px-4 md:px-12 flex flex-col justify-center items-start pb-10 pt-4 md:pt-2  xl:pt-80 gap-12"> */}
+        <div className="w-full lg:w-8/12 mx-auto text-center px-4 md:px-12 flex flex-col justify-center items-center pb-10 pt-4 md:pt-2  xl:pt-80 gap-12">
+          <h1 className="text-3xl md:text-5xl text-bts-GreenOne font-bold mt-20 xl:-mt-80">
             Partnership That<br/> Empower Companies
           </h1>
-          <p className="text-lg text-balance leading-7 ">
-            We collaborate with organizations committed to empowering global
-            talent and transforming remote opportunities into thriving careers.
+          <p className="w-full lg:w-8/12 mx-auto text-lg text-balance font-medium leading-7 sm:my-10 lg:my-0 ">
+            {/* We collaborate with organizations committed to empowering global
+            talent and transforming remote opportunities into thriving careers. */}
+            Connecting your business with the precise talent needed to drive growth, innovation, and long-term success.
           </p>
-        <div className="flex flex-wrap items-center  gap-x-2 gap-y-4">
+        <div className="flex flex-wrap items-center justify-center  gap-x-2 gap-y-4">
            <Dialog>
               <DialogTrigger asChild>
                 <Link
@@ -52,7 +53,7 @@ export default function HeroSection() {
         </div>
         </div>
         {/* <div className="w-full md:w-6/12 2xl:max-h-[75dvh] -z-10"> */}
-        <div className="w-full md:w-6/12 2xl:max-h-[90dvh] -z-10">
+        <div className="w-full md:w-6/12 2xl:max-h-[90dvh] -z-10 hidden">
           <DisplayImageFromNextCloudinary
             src="partnership_Hero_Image_ozntgb"
             height={800}

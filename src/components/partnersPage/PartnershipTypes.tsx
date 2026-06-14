@@ -1,4 +1,4 @@
-import { partnershipType1 } from "@/staticData/partnersPage";
+import { partnershipType2 } from "@/staticData/partnersPage";
 import { SquarePlus } from "lucide-react";
 // import PreviewPool from "./PreviewPool";
 
@@ -15,7 +15,7 @@ export default function PartnershipTypes() {
         </div>
 
         <div className="flex flex-wrap justify-between items-center gap-x-1 gap-y-12 pt-10">
-          {partnershipType1.map((type) => (
+          {partnershipType2.map((type) => (
             <div
               key={type.id}
             //   className="w-full min-h-[54dvh] md:w-5/12 bg-white rounded-lg px-4 py-8 space-y-8 shadow-md hover:shadow-2xl hover:scale-105 transition duration-500"

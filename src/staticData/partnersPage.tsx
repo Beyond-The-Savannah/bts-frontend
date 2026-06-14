@@ -2,19 +2,19 @@
 export const reasonsForPartnership=[
     {
         id:1,
-        point:"Connect job seekers to remote roles across industries and regions",
+        point:"Connect employers with highly vetted, day-one-ready remote candidates across industries.",
     },
     {
         id:2,
-        point:"Provide career coaching, readiness support, and skills development",
+        point:"Reduce time-to-hire by presenting curated shortlists rather than overwhelming stacks of resumes",
     },
     {
         id:3,
-        point:"Offer consultation, training, and job readiness resources",
+        point:"Offer hiring consultation and onboarding resources for a friction-free partnership.",
     },
     {
         id:4,
-        point:"Amplify underrepresented voices in the global talent market",
+        point:"Link your team with vetted remote professionals across diverse regions and industries.",
     },
 ]
 export const brands=[
@@ -197,6 +197,51 @@ export const partnershipType1=[
          benefits:[
             {id:1, gain:"Give back by shaping the careers of emerging talent one conversation at a time"},
             {id:2, gain:"Build global connections, discover new perspectives, and help close the confidence gap"},
+            
+        ]
+    },
+]
+export const partnershipType2=[
+      {
+        id:1,
+        heading:"Enterprise & High-Growth Partners",
+        subheading:"Rapidly scaling companies, mid-market enterprises, and high-growth tech firms looking to build entire departments, establish offshore hubs, or rapidly fill specialized technical roles.",
+        detials:"",
+        benefits:[
+            {id:1, gain:"Gain access to dedicated talent pipelines, tailored sourcing strategies, and volume-hiring solutions that drastically reduce your time-to-hire without sacrificing quality."},
+            {id:2, gain:"We match your aggressive growth targets with elite, deeply vetted specialists and management-ready professionals prepared to scale your operations."},
+            
+        ]
+    },
+    {
+        id:2,
+        heading:"Diversity, Equity, and Inclusion Partners",
+        subheading:"Forward-thinking organizations and impact-driven companies committed to building representative teams, minimizing hiring bias, and elevating underrepresented talent in global markets.",
+        detials:"",
+         benefits:[
+            {id:1, gain:"Gain access to an intentionally sourced, diverse candidate pool that injects fresh perspectives, drives innovation, and helps fulfill your organization's equitable hiring mandates."},
+            {id:2, gain:"We match your inclusivity benchmarks with highly qualified, rigorously evaluated professionals from varied backgrounds who are ready to make an impact."},   
+        ]
+    },
+      {
+        id:3,
+        heading:"Specialized Contract & Interim Partners",
+        subheading:"Project-based organizations, agencies, and firms requiring specialized, fractional, or temporary talent to bridge critical skill gaps, handle seasonal surges, or execute major technical rollouts.",
+        detials:"",
+         benefits:[
+            {id:1, gain:"Gain access to an agile network of niche domain experts and independent contractors who can integrate seamlessly into your workflow on day one without long-term overhead."},
+            {id:2, gain:"We match your immediate project scopes and technical requirements with flexible, high-caliber professionals equipped for swift execution."},
+            
+        ]
+    },
+    {
+        id:4,
+        heading:"Upskilling & Academic Partners",
+        subheading:"Educational institutions, technical bootcamps, and vocational accelerators looking to provide your high-achieving graduates with immediate pathways into verified corporate roles.",
+        detials:"",
+         benefits:[
+            {id:1, gain:"Gain access to a streamlined corporate placement ecosystem that validates your curriculum, boosts your graduate employment metrics, and connects your alumni to top-tier employers."},
+            {id:2, gain:"We match your brightest, newly certified talent with progressive companies actively searching for modern skillsets and hungry, day-one-ready professionals."},
             
         ]
     },

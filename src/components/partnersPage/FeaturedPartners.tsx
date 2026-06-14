@@ -14,7 +14,7 @@ export default function FeaturedPartners() {
             <div className="text-center pt-4">
                 <p className="max-w-3xl mx-auto text-balance">We&apos;re proud to work with organizations that share our vision of a borderless job market. Each partner brings unique value whether through hiring, training, or mentorship to help us deliver lasting impact.</p>
             </div>
-            <div className="flex flex-wrap justify-evenly items-center gap-4 md:gap-20 mt-10 mb-40">
+            <div className="flex flex-wrap justify-evenly items-center gap-x-4 gap-y-12 md:gap-20 mt-10 mb-40">
                 {brands.map((brand)=>(
                     <div key={brand.id} className="w-3/12 md:w-2/12 h-[20dvh] ">
                         <DisplayImageFromNextCloudinary
@@ -25,7 +25,7 @@ export default function FeaturedPartners() {
                             alt={`Beyond The Savannah partner brand ${brand.name}`}
                             classname="object-contain h-full w-full rounded-lg"
                         />
-                        <p className="py-4 text-center font-semibold text-xs  ">{brand.name}</p>
+                        <p className="py-4 text-center font-semibold text-xs -mt-10 lg:mt-0 ">{brand.name}</p>
                     </div>
                 ))}
             </div>
