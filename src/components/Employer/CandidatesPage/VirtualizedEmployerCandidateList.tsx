@@ -20,10 +20,9 @@ import {
   Mail,
   MapPin,
   PhoneIcon,
-  UserCircle,
 } from "lucide-react";
-import Image from "next/image";
 import { correctedParsedHTML } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function VirtualizedEmployerCandidateList({
   candidates,
@@ -49,8 +48,6 @@ export default function VirtualizedEmployerCandidateList({
               <div className="flex flex-1 items-start gap-2">
                 <div className="flex-col">
                   <p className="">
-                    {/* {candidate.firstName} <span className="px-1"></span>{" "}
-                    {candidate.lastName} */}
                     <span className="flex items-center gap-2 text-xs ">
                       Name:
                     </span>
@@ -93,22 +90,11 @@ export default function VirtualizedEmployerCandidateList({
                       </div>
                       <div className="border-t-2 pt-2 flex items-center justify-between gap-2">
                         <div className="flex items-center gap-2">
-                          {candidate.photoLink !== null &&
-                          candidate.photoLink !== "" ? (
-                            <>
-                              <Image
-                                src={candidate.photoLink}
-                                alt="candidates head shot image"
-                                height={160}
-                                width={160}
-                                className="rounded-full bg-center bg-cover size-36 border border-bts-BrownFive"
-                              />
-                            </>
-                          ) : (
-                            <>
-                              <UserCircle size={80} />
-                            </>
-                          )}
+                          
+                               <Avatar className="h-28 w-28 border-2 border-bts-BrownFive">
+                                                  <AvatarImage src={candidate.photoLink as string} alt={candidate.firstName} />
+                                                  <AvatarFallback>{candidate.firstName.charAt(0)}{candidate.lastName.charAt(0)}</AvatarFallback>
+                                                </Avatar>
                           <div className="flex-col gap-2">
                             <p className="text-lg font-medium">
                               <span className="text-xs hidden">
@@ -121,9 +107,15 @@ export default function VirtualizedEmployerCandidateList({
                         <div className="c">
                           <p className="text-lg font-medium">
                             <span className="font-thin text-sm">
-                              Profession :
+                              Profession: 
                             </span>
                             {candidate.profession}
+                          </p>
+                          <p className="text-lg font-medium pt-8">
+                            <span className="font-thin text-sm">
+                              Experience: 
+                            </span>
+                            {candidate.experienceYears} years
                           </p>
                         </div>
                       </div>
@@ -180,7 +172,7 @@ export default function VirtualizedEmployerCandidateList({
                                   target="_blank"
                                   href={google({
                                     ...event,
-                                    guests: [candidate.email],
+                                    guests: [candidate.email,'info@beyondthesavannah.co.ke'],
                                   })}
                                 >
                                   Google Calendar
@@ -191,7 +183,7 @@ export default function VirtualizedEmployerCandidateList({
                                   target="_blank"
                                   href={outlook({
                                     ...event,
-                                    guests: [candidate.email],
+                                    guests: [candidate.email,'info@beyondthesavannah.co.ke'],
                                   })}
                                 >
                                   Outlook Calendar
@@ -202,7 +194,7 @@ export default function VirtualizedEmployerCandidateList({
                                   target="_blank"
                                   href={office365({
                                     ...event,
-                                    guests: [candidate.email],
+                                    guests: [candidate.email,'info@beyondthesavannah.co.ke'],
                                   })}
                                 >
                                   Office 365 Calendar
@@ -213,7 +205,7 @@ export default function VirtualizedEmployerCandidateList({
                                   target="_blank"
                                   href={yahoo({
                                     ...event,
-                                    guests: [candidate.email],
+                                    guests: [candidate.email,'info@beyondthesavannah.co.ke'],
                                   })}
                                 >
                                   Yahoo Calendar
@@ -255,7 +247,7 @@ export default function VirtualizedEmployerCandidateList({
                         )}
                       </div>
                       <p className="border-b-2  underline-offset-1 mt-10">
-                        Career Experience:
+                        Industries Worked In:
                       </p>
                       <div
                         className="my-10 prose prose-sm md:prose-sm"

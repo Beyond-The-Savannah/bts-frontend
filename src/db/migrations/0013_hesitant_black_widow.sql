@@ -1,0 +1,1 @@
+ALTER TABLE "candidate_pool" ADD COLUMN "industries" text;

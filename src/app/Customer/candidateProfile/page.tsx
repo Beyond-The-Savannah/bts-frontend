@@ -1,4 +1,5 @@
 import CandidatesProfile from "@/components/Customer/CandidatesProfile";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,8 +12,8 @@ import {
 import { GetCandidateBYEmail } from "@/db/queries/employerQuries";
 import { correctedParsedHTML } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
-import { Mail, MapPin, Pencil, PhoneIcon, UserCircle } from "lucide-react";
-import Image from "next/image";
+import { Mail, MapPin, Pencil, PhoneIcon,  } from "lucide-react";
+
 
 export default async function page() {
   const user = await currentUser();
@@ -78,22 +79,11 @@ export default async function page() {
               </div>
               <div className="border-t-2 pt-2 flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
-                  {candidate[0].photoLink !== null &&
-                  candidate[0].photoLink !== "" ? (
-                    <>
-                      <Image
-                        src={candidate[0].photoLink}
-                        alt="candidates head shot image"
-                        height={160}
-                        width={160}
-                        className="rounded-full bg-center bg-cover size-36 border border-bts-BrownFive"
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <UserCircle size={80} />
-                    </>
-                  )}
+             
+                       <Avatar  className="h-28 w-28 border-2 border-bts-BrownFive size-20">
+                        <AvatarImage src={candidate[0]?.photoLink as string} alt={candidate[0].firstName} className="size-96"/>
+                        <AvatarFallback>{candidate[0].firstName.charAt(0)}{candidate[0].lastName.charAt(0)}</AvatarFallback>
+                      </Avatar>
                   <div className="flex-col gap-2">
                     <p className="text-lg font-medium">
                       <span className="text-xs hidden">First Name:</span>
@@ -105,6 +95,10 @@ export default async function page() {
                   <p className="text-lg font-medium">
                     <span className="font-thin text-sm">Profession :</span>
                     {candidate[0].profession}
+                  </p>
+                  <p className="text-lg font-medium pt-8">
+                    <span className="font-thin text-sm">Experience :</span>
+                    {candidate[0].experienceYears} years
                   </p>
                 </div>
               </div>
@@ -139,7 +133,7 @@ export default async function page() {
                 </p>
                 {candidate[0].resumeLink !== null ? (
                   <iframe
-                    //   src={`${candidate[0].resumeLink}#view=fitH`}
+                    
                     src={`${candidatesResumeLink}#view=fitH`}
                     title={candidate[0].resumeName as string}
                     name={candidate[0].resumeName as string}
@@ -154,13 +148,13 @@ export default async function page() {
                 )}
               </div>
               <p className="border-b-2  underline-offset-1 mt-10">
-                Career Experience:
+                Industries Worked In:
               </p>
               <div
                 className="my-10 prose prose-sm md:prose-sm"
                 dangerouslySetInnerHTML={{
                   __html: correctedParsedHTML(
-                    candidate[0].workExperience as string,
+                    candidate[0].industries===null ? "" : candidate[0].industries,
                   ),
                 }}
               ></div>
@@ -178,7 +172,7 @@ export default async function page() {
             </div>
           </>
         )}
-      </section>
+      </section>§
     </>
   );
 }

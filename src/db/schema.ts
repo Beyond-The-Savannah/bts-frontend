@@ -68,6 +68,7 @@ export const candidatePoolTable = pgTable("candidate_pool", {
   profession: text("profession"),
   experienceYears: integer("experience_years"),
   certifications: text("certifications"),
+  industries: text("industries"),
   workExperience: text("work_experience"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")

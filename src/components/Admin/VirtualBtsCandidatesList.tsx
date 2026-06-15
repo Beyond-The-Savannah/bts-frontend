@@ -19,7 +19,7 @@ import {
   Pencil,
   PhoneIcon,
   Trash2,
-  UserCircle,
+  
 } from "lucide-react";
 import CandidatesProfile from "@/components/Customer/CandidatesProfile";
 import { Input } from "@/components/ui/input";
@@ -42,7 +42,7 @@ import {
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
 import CandidateInvite from "./CandidateInvite";
-import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export default function VirtualBtsCandidatesList({
   candidates,
@@ -136,22 +136,11 @@ export default function VirtualBtsCandidatesList({
                       </div>
                       <div className="border-t-2 pt-2 flex items-center justify-between gap-2">
                         <div className="flex items-center gap-2">
-                          {candidate.photoLink !== null &&
-                          candidate.photoLink !== "" ? (
-                            <>
-                              <Image
-                                src={candidate.photoLink}
-                                alt="candidates head shot image"
-                                height={160}
-                                width={160}
-                                className="rounded-full bg-center bg-cover size-36 border border-bts-BrownFive"
-                              />
-                            </>
-                          ) : (
-                            <>
-                              <UserCircle size={80} />
-                            </>
-                          )}
+                     
+                           <Avatar className="h-28 w-28 border-2 border-bts-BrownFive">
+                        <AvatarImage src={candidate.photoLink as string} alt={candidate.firstName} />
+                        <AvatarFallback>{candidate.firstName.charAt(0)}{candidate.lastName.charAt(0)}</AvatarFallback>
+                      </Avatar>
                           <div className="flex-col gap-2">
                             <p className="text-lg font-medium">
                               <span className="text-xs hidden">
@@ -168,7 +157,15 @@ export default function VirtualBtsCandidatesList({
                             </span>
                             {candidate.profession}
                           </p>
+                          <p className="text-lg font-medium pt-8">
+                            <span className="font-thin text-sm">
+                              Experience :
+                            </span>
+                            {candidate.experienceYears} years
+                          </p>
                         </div>
+                        
+                        
                       </div>
                       <p className="border-b-2  underline-offset-1 mt-10">
                         Contact Details:
@@ -230,13 +227,14 @@ export default function VirtualBtsCandidatesList({
                         )}
                       </div>
                       <p className="border-b-2  underline-offset-1 mt-10">
-                        Career Experience:
+                        Industries Worked In:
                       </p>
                       <div
                         className="my-10 prose prose-sm md:prose-sm"
                         dangerouslySetInnerHTML={{
                           __html: correctedParsedHTML(
-                            candidate.workExperience as string,
+                            // candidate.industries as string,
+                            candidate.industries===null ? "" : candidate.industries,
                           ),
                         }}
                       ></div>

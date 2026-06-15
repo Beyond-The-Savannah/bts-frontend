@@ -46,6 +46,7 @@ interface CandidateDataProps {
     profession: string | null;
     experienceYears: number | null;
     certifications: string | null;
+    industries: string | null;
     workExperience: string | null;
     createdAt: string | Date;
     updatedAt: string | Date;
@@ -69,6 +70,7 @@ const candidatesFormSchema = z.object({
   experienceYears: z.number().int(),
   // certifications: z.string(),
   certifications: z.string().optional().default(""),
+  industries: z.string().optional().default(""),
   workExperience: z.string().optional().default(""),
 });
 type candidatesFormFields = z.infer<typeof candidatesFormSchema>;
@@ -82,6 +84,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoName, setPhotoName] = useState("");
   const [certificates, setCertificates] = useState("");
+  const [industries, setIndustries] = useState("");
   const [workExperience, setWorkExperience] = useState("");
 
   const router=useRouter()
@@ -155,6 +158,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
       profession:candidateData.profession ?? "",
       experienceYears:candidateData.experienceYears ?? 0,
       certifications:candidateData.certifications ?? "",
+      industries:candidateData.industries ?? "",
       workExperience:candidateData.workExperience ?? ""  
     }:undefined,
     resolver: zodResolver(candidatesFormSchema),
@@ -449,7 +453,7 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
               
             </div>
             <div className="flex flex-wrap items-center justify-between gap-8">
-              <div className="c">
+              <div className="hidden">
                 <label htmlFor="certificates">Certifications</label>
                 <ReactQuill
                   theme="snow"
@@ -463,6 +467,25 @@ export default function CandidatesProfile({candidateData}:AddCandidateProps) {
                       currentValue === certificates ? "" : currentValue
                     );
                     setValue("certifications", currentValue);
+                  }}
+                  modules={modules3}
+                  // formats={formats2}
+                />
+              </div>
+              <div className="c">
+                <label htmlFor="industries">Industries</label>
+                <ReactQuill
+                  theme="snow"
+                  className="w-full md:w-[33dvw] rounded-lg border-4"
+                  placeholder="Enter industries you have worked in then format them using the bulleted icon at the top"
+                  // value={industries}
+                  defaultValue={candidateData? candidateData.industries!:industries}
+                  // onChange={setIndustries}
+                  onChange={(currentValue) => {
+                    setIndustries(
+                      currentValue === industries ? "" : currentValue
+                    );
+                    setValue("industries", currentValue);
                   }}
                   modules={modules3}
                   // formats={formats2}
