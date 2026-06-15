@@ -1,7 +1,6 @@
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import DisplayVideoFromNextCloudinary from "../DisplayVideoFromNextCloudinary";
 
-
 export default function FounderSection() {
   return (
     <section className="bg-bts-BrownTwo">
@@ -17,11 +16,22 @@ export default function FounderSection() {
         <div className="flex flex-wrap items-center justify-stretch gap-6 ">
           <div className="w-full md:w-4/12">
             <p className="text-lg text-balance">
-              I am a certified coach and seasoned HR professional with a passion
+              {/* I am a certified coach and seasoned HR professional with a passion
               for remote work, blending expertise in both local and global
               markets. With a keen understanding of human resources dynamics, I
               bring valuable insights to foster effective collaboration and
-              employee development in the evolving landscape of remote work.
+              employee development in the evolving landscape of remote work. */}
+              I am a seasoned HR professional with a passion for helping
+              companies scale through borderless talent. Blending deep expertise
+              in both local and global talent markets, I bring an acute
+              understanding of human resources dynamics to the remote work
+              landscape. 
+              <br/>
+              <br/>
+              My mission is to give organizations the ultimate hiring
+              advantage: access to a vetted pipeline of professionals who are
+              ready to collaborate seamlessly and impact your bottom line from
+              day one.
             </p>
           </div>
           <div className="w-full md:w-6/12">
