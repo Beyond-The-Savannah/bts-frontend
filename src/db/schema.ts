@@ -1,9 +1,12 @@
+import { relations } from "drizzle-orm";
 import {
   integer,
   pgTable,
   uuid,
   text,
   timestamp,
+  varchar,
+  decimal,
   // customType,
 } from "drizzle-orm/pg-core";
 
@@ -89,7 +92,35 @@ export const eventsTable= pgTable("events", {
 
 })
 
+export const usersTable=pgTable("users", {
+  id:uuid("id").primaryKey().defaultRandom(),
+  firstName:varchar("first_name"),
+  lastName:varchar("last_name"),
+  emailAddress:varchar("email_address"),
+  createdDate:timestamp("created_date").notNull().defaultNow(),
+  updatedDate:timestamp("updated_date").notNull().$onUpdate(()=>new Date())
+})
+export const subscriptionsTable=pgTable("subscriptions", {
+  id:uuid("id").primaryKey().defaultRandom(),
+  userId:uuid("user_id").notNull().references(()=>usersTable.id,{onDelete:"no action"}),
+  subscriptionTransactionReference:varchar("subscription_transaction_reference"),
+  subcriptionTierName:varchar("subcription_tier_name"),
+  subcriptionTierType:varchar("subcription_tier_type"),
+  subscriptionPrice:decimal("subscription_price"),
+  subscriptionStatus:text("subscription_status"),
+  subscriptionCanceledAt:timestamp("subscription_canceled_at"),
+  subscriptionStartDate:timestamp("subscription_start_date"),
+  subscriptionEndDate:timestamp("subscription_end_date"),
+  createdDate:timestamp("created_date").notNull().defaultNow(),
+  updatedDate:timestamp("updated_date").notNull().$onUpdate(()=>new Date())
+})
+
+export const usersRelations=relations(usersTable,({many})=>({subscriptions: many(subscriptionsTable)}))
+export const subscriptionsRelations=relations(subscriptionsTable, ({one})=>({user:one(usersTable,{fields:[subscriptionsTable.userId],references:[usersTable.id]})}))
+
 export type JobsProp = typeof jobsTable.$inferSelect;
 export type CandidateProp = typeof candidatePoolTable.$inferSelect;
 export type CompanyProp= typeof companyTable.$inferSelect;
 export type EventsProp= typeof eventsTable.$inferSelect;
+export type usersProp=typeof usersTable.$inferSelect;
+export type subscriptionsProp=typeof subscriptionsTable.$inferSelect

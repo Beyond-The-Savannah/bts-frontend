@@ -6,7 +6,8 @@ export default function RemoteJobListingsLoadingUI() {
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
             <div
               key={item}
-              className="animate-pulse border-bts-BrownFive rounded-xl w-full md:w-88 lg:w-124 h-40 bg-bts-BrownTwo hover:shadow-bts-BrownFour hover:shadow-md hover:bg-bts-BrownFive duration-700 px-8 py-4"
+              // className="animate-pulse border-bts-BrownFive rounded-xl w-full md:w-88 lg:w-124 h-40 bg-bts-BrownTwo hover:shadow-bts-BrownFour hover:shadow-md hover:bg-bts-BrownFive duration-700 px-8 py-4"
+              className="animate-pulse border-bts-BrownFive  rounded-xl w-full md:w-88 lg:w-5/12 h-40 bg-bts-BrownTwo/50 hover:shadow-bts-BrownFour hover:shadow-md hover:bg-bts-BrownFive/50 duration-700 px-4 lg:px-8 py-4"
             ></div>
           ))}
         </div>

@@ -290,3 +290,22 @@ export interface paystackSubscriptionNotRenewEventProp{
   }
 
 }
+export interface ViewJobSubscriptionFormProps {
+  email: string;
+  amount: number;
+  planTier: string;
+  planType:string;
+  currencyValue: string;
+  firstName: string;
+  lastName: string;
+  userId:string;
+}
+export interface referenceProp{
+  reference:string,
+  trans:string,
+  status:string,
+  message:string,
+  transaction:string,
+  trxref:string,
+  redirecturl:string,
+}
