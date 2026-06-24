@@ -158,6 +158,7 @@ export interface MostRecentInvoice {
 }
 
 export interface ValidSubscriptionTwo{
+    userId?:string;
     firstName: string;
     plan?: string | null | undefined;
     planCost?: string | null | undefined;

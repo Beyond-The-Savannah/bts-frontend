@@ -75,12 +75,13 @@ export default function ViewJobSubscriptionForm({
       subscriptionPrice:String(amount),
       subscriptionStatus:"active",
       subscriptionCanceledAt:null,
+      subscriptionPaymentChannel:null,
       subscriptionStartDate:new Date(),
       subscriptionEndDate:endDate,
     }
     await AddUserAndSubscriptionToDb(userData, subscriptionData)
     toast.info("Refreshing page....")
-    if(amount==1500||18000||300) await SendWhatsApplinkForPremiumUsers(firstName,email,userId)
+    if(amount===1500||amount===18000||amount===300) await SendWhatsApplinkForPremiumUsers(firstName,email,userId)
   
     router.refresh()
   };

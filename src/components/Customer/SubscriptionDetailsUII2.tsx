@@ -1,14 +1,18 @@
 import { subscriptionDetailsProps, ValidSubscriptionTwo } from "@/types/subscriptions";
-import CareerSelection from "./CareerSelection";
+// import CareerSelection from "./CareerSelection";
 import ResumeUpload2 from "./ResumeUpload";
+import ResumeUpload3 from "./ResumeUpload3";
+import CareerSelectionComponent2 from "./CareerSelectionComponent2";
 
 
 export default function SubscriptionDetailsUI2({
   jobViewSubscriptionData,
   whatsAppSubscribtionData,
+  careerEmailNotification,
 }: {
   jobViewSubscriptionData?: ValidSubscriptionTwo;
   whatsAppSubscribtionData?:subscriptionDetailsProps
+  careerEmailNotification:string
 }) {
   return (
     <>
@@ -116,8 +120,12 @@ export default function SubscriptionDetailsUI2({
             {/* {parseInt(jobViewSubscriptionData?.planCost as string) !== 600000 && jobViewSubscriptionData?.endDate!=undefined ? ( */}
             {/* {parseInt(jobViewSubscriptionData?.planCost as string) !== 600000  ? ( */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
-                <CareerSelection emailAddress={jobViewSubscriptionData?.emailAddress as string} />
+                {/* <CareerSelection emailAddress={jobViewSubscriptionData?.emailAddress as string} /> */}
+                <CareerSelectionComponent2 
+                userId={jobViewSubscriptionData?.userId as string}
+                career={careerEmailNotification}/>
                 <ResumeUpload2 />
+                <ResumeUpload3/>
               </div>
             {/* ) : null} */}
           </div>

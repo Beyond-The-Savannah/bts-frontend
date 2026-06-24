@@ -10,7 +10,7 @@ import { subscriptionDetailsProps } from "@/types/subscriptions";
 import PackageOptionSection from "./PackageOptionSection";
 import SubscriptionDetailsUI1 from "./SubscriptionDetailsUI1";
 import SubscriptionDetailsUI2 from "./SubscriptionDetailsUII2";
-import { GetSubscriptionDetails } from "@/db/queries/viewJobsSubscriptionQuries";
+import { GetSelectedCareerEmailNotification, GetSubscriptionDetails } from "@/db/queries/viewJobsSubscriptionQuries";
 import { Suspense } from "react";
 import PackagesLoader from "../Loaders/PackagesLoader";
 import DashboardPageLoader from "../Loaders/DashboardPageLoader";
@@ -47,6 +47,7 @@ export default async function SubscriptionDetails() {
 
   const subscriptionResult =await GetSubscriptionDetails(user?.primaryEmailAddress?.emailAddress as string)
   
+  const data=await GetSelectedCareerEmailNotification(user?.primaryEmailAddress?.emailAddress as string)
   const subscriptionDataDetails2=subscriptionResult.find((details) => details.planStatus === "active");
 
   let dateValue;
@@ -109,13 +110,14 @@ export default async function SubscriptionDetails() {
           <SubscriptionDetailsUI1
             jobViewSubscriptionData={jobsListingSubscriptionDetails1}
             whatsAppSubscribtionData={whatsAppSubscriptionDetails1}
-          />
+            />
         </Suspense>
       ) : subscriptionDataDetails2 !== undefined || allowByPassUser == true ? (
         <Suspense fallback={<DashboardPageLoader />}>
           <SubscriptionDetailsUI2
             jobViewSubscriptionData={subscriptionData2}
             whatsAppSubscribtionData={whatsAppSubscriptionDetails1}
+            careerEmailNotification={data[0].careerEmailNotification as string}
           />
         </Suspense>
       ) : (
