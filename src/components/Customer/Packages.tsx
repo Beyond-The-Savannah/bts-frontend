@@ -322,7 +322,7 @@ export default function Packages({ email }: { email: string }) {
           </div>
         </>
       )}
-      <div className="grid place-content-center mx-4 px-4">
+      <div className=" place-content-center mx-4 px-4 hidden">
         <MpesaGlobalCardDialog />
       </div>
     </>
