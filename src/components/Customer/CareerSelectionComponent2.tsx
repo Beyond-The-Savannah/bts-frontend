@@ -19,61 +19,61 @@ import { UpdateUsersJobEmailNotificationCareer } from "@/app/actions/viewJobSubs
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
+
 export default function CareerSelectionComponent({userId,career}: {userId: string;career:string}) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<number | null>(null);
-  const [selectedCareerDepartmentValue, ] =useState<string | null>(career);
+  const[currentCareer,setCurrentCareer]=useState(career)
+  
+  const router=useRouter()
 
-const router=useRouter()
+
   const { data: jobDepartments } = useGetJobSubCategoryDropDownList();
 
   
 const handleSetNotification= async()=>{
 
     if (value!=null){
-        toast.promise(UpdateUsersJobEmailNotificationCareer({userId,career:value.toString()}),{
-            loading:"Updating email notification... ",
-            success:()=>{router.refresh(); return "Update was successful"},
-            error:"Update failed"
-        })
-    }
+        // toast.promise(UpdateUsersJobEmailNotificationCareer({userId,career:value.toString()}),{
+        //     loading:"Updating email notification... ",
+        //     success:()=>{
+              
+        //       return "Update was successful"},
+        //       error:"Update failed"
+        //     })
+        toast.message("Updating email notification...")
+        const result=await UpdateUsersJobEmailNotificationCareer({userId,career:value.toString()})
+        if(result.success===true){
+          toast.success("Update was successful")
+          setCurrentCareer(value.toString())
+          setValue(null)
+          router.refresh()
+          router.push("/Customer")
+        }else{
+          toast.error("Update failed")
+        }
+
+        
+      }
+      
 }
 
   
-
-  const selectedCareer = jobDepartments?.find((department) => department.value == Number(selectedCareerDepartmentValue));
+  const selectedCareer = jobDepartments?.find((department) => department.value == Number(currentCareer));
   return (
     <>
-      {/* {selectedCareerDepartmentValue=='test' ? ( */}
-        {/* <>
-          <p className="text-xs">
-            Selected Career:
-            <span className="font-semibold text-base pl-2">
-              {selectedCareer?.label}
-            </span>{" "}
-          </p>
-        </> */}
-      {/* ) : ( */}
+ 
     <section className="py-10">
       <div className=" space-y-6  px-4 py-8 min-h-[20.3rem] bg-bts-BrownOne/50 rounded-lg ">
         <div className="space-y-4">
           <p className="font-semibold text-xl">Career Selection</p>
         </div>
-        <div className="space-y-4">
-            <div className=" rounded-lg px-4 text-start bg-amber-200 max-w-80 border-4 border-dotted">
-                {/* {selectedCareer?.label} */}
-                <p className="text-xs">
-            Selected Career:
-            <span className="font-semibold text-base pl-2">
-              {selectedCareer?.label}
-            </span>{" "}
-          </p>
-            </div>
           <p className="text-xs">
             Please select a career category that best matches your career to get the right email notification
           </p>
+        <div className="space-y-4">
          
-          <div className="c">
+          <div className="m">
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <Button
@@ -127,6 +127,17 @@ const handleSetNotification= async()=>{
             <Button onClick={handleSetNotification} className="bg-green-700 mt-4 hover:bg-green-600 text-slate-100">Confirm selection</Button>
             }
           </div>
+          <hr className="border-2 border-y-bts-BrownOne mt-12 " />
+          {selectedCareer?.value && (
+            <div className=" rounded-lg px-4 text-start bg-amber-100 max-w-80 border- border-dotted">
+                <p className="text-xs">
+            Selected Career : 
+            <span className="font-semibold text-base pl-2">
+              {selectedCareer?.label}
+            </span>{" "}
+          </p>
+            </div>
+          )}
         </div>
          </div>
     </section>

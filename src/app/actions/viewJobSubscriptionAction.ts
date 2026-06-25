@@ -3,6 +3,7 @@
 import { db } from "@/db/db";
 import {
   accountSettingsTable,
+  candidatesProfileTable,
   subscriptionsProp,
   subscriptionsTable,
   usersProp,
@@ -78,8 +79,69 @@ export async function UpdateUsersJobEmailNotificationCareer({
       .update(accountSettingsTable)
       .set({ careerEmailNotification: career })
       .where(eq(accountSettingsTable.userId, userId));
+      return {success:true}
   } catch (error) {
     console.error("Error updating user account settings - ", error);
     return { success: false, error: "update failed", status: 400 };
   }
 }
+
+
+export async function AddAndUpdateUsersResume({  userId,data,}: {
+  userId: string;
+  data: {name:string,ufsUrl:string,key:string};
+}){
+  try {
+    await db.insert(candidatesProfileTable).values({
+      userId,
+      resumeName:data.name,
+      resumeUrl:data.ufsUrl,
+      fileKey:data.key
+    })
+    .onConflictDoUpdate({
+      target:candidatesProfileTable.userId,
+      set:{
+        resumeName:data.name,
+      resumeUrl:data.ufsUrl,
+      fileKey:data.key
+      }
+    })
+    
+    return{success:true}
+  } catch (error) {
+    console.error("Failed to update ",error)
+    return {success:false,error:"update failed - ",status:400}
+  }
+}
+
+
+// customId
+// : 
+// null
+// fileHash
+// : 
+// "00c95dc841d5828c15ff462df0809948"
+// key
+// : 
+// "qr8Sl6rtrb6LIdAUrUqqvkbQjGDEoiO74W8axKeNm6HlB1F0"
+// lastModified
+// : 
+// 1780924373255
+// name
+// : 
+// "Lavendar Otieno CV.pdf"
+// serverData
+// : 
+// null
+// size
+// : 
+// 84990
+// type
+// : 
+// "application/pdf"
+// ufsUrl
+// : 
+// "https://boqc3na5ns.ufs.sh/f/qr8Sl6rtrb6LIdAUrUqqvkbQjGDEoiO74W8axKeNm6HlB1F0"
+// url
+// : 
+// (...)

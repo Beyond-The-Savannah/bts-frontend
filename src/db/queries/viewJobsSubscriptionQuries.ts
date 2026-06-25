@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "../db";
-import { accountSettingsTable, subscriptionsTable, usersTable } from "../schema";
+import { accountSettingsTable, candidatesProfileTable, subscriptionsTable, usersTable } from "../schema";
 
 export async function GetSubscriptionDetails(userEmail: string) {
   const data = await db
@@ -25,6 +25,17 @@ export async function GetSelectedCareerEmailNotification(userEmail:string){
   })
   .from(accountSettingsTable)
   .leftJoin(usersTable,eq(accountSettingsTable.userId,usersTable.id))
+  .where(eq(usersTable.emailAddress,userEmail))
+  return data
+}
+
+export async function GetUploadedResume(userEmail:string){
+  const data=await db.select({
+    resumeName:candidatesProfileTable.resumeName,
+    resumeUrl:candidatesProfileTable.resumeUrl,
+    fileKey:candidatesProfileTable.fileKey
+  }).from(candidatesProfileTable)
+  .leftJoin(usersTable,eq(candidatesProfileTable.userId,usersTable.id))
   .where(eq(usersTable.emailAddress,userEmail))
   return data
 }

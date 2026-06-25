@@ -10,7 +10,7 @@ import { subscriptionDetailsProps } from "@/types/subscriptions";
 import PackageOptionSection from "./PackageOptionSection";
 import SubscriptionDetailsUI1 from "./SubscriptionDetailsUI1";
 import SubscriptionDetailsUI2 from "./SubscriptionDetailsUII2";
-import { GetSelectedCareerEmailNotification, GetSubscriptionDetails } from "@/db/queries/viewJobsSubscriptionQuries";
+import { GetSelectedCareerEmailNotification, GetSubscriptionDetails, GetUploadedResume } from "@/db/queries/viewJobsSubscriptionQuries";
 import { Suspense } from "react";
 import PackagesLoader from "../Loaders/PackagesLoader";
 import DashboardPageLoader from "../Loaders/DashboardPageLoader";
@@ -26,9 +26,11 @@ export default async function SubscriptionDetails() {
     user?.emailAddresses[0].emailAddress as string,
   );
 
+  //get the subscription info for the subscription workflow one
   const userSubscriptionInformation: subscriptionDetailsProps[] | null =
     await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
 
+    //get the whatsapp subscription info for the subscription workflow one
   const whatsAppSubscriptionDetails1 = userSubscriptionInformation?.find(
     (subscription) =>
       subscription.amount == 600000 &&
@@ -45,9 +47,15 @@ export default async function SubscriptionDetails() {
       ),
   );
 
-  const subscriptionResult =await GetSubscriptionDetails(user?.primaryEmailAddress?.emailAddress as string)
   
-  const data=await GetSelectedCareerEmailNotification(user?.primaryEmailAddress?.emailAddress as string)
+  //get the career number for email notificatons for a user
+  const selectedCareerData=await GetSelectedCareerEmailNotification(user?.primaryEmailAddress?.emailAddress as string)
+  
+  //get the resumeData a user
+  const resumeData=await GetUploadedResume(user?.primaryEmailAddress?.emailAddress as string)
+  
+  //get the subscription info for the subscription workflow two
+  const subscriptionResult =await GetSubscriptionDetails(user?.primaryEmailAddress?.emailAddress as string)
   const subscriptionDataDetails2=subscriptionResult.find((details) => details.planStatus === "active");
 
   let dateValue;
@@ -117,7 +125,8 @@ export default async function SubscriptionDetails() {
           <SubscriptionDetailsUI2
             jobViewSubscriptionData={subscriptionData2}
             whatsAppSubscribtionData={whatsAppSubscriptionDetails1}
-            careerEmailNotification={data[0].careerEmailNotification as string}
+            careerEmailNotification={selectedCareerData[0].careerEmailNotification as string}
+            resumeUploaded={resumeData[0]}
           />
         </Suspense>
       ) : (

@@ -309,3 +309,7 @@ export interface referenceProp{
   trxref:string,
   redirecturl:string,
 }
+
+export interface ResumeUploadedProps{resumeName: string | null;
+    resumeUrl: string | null;
+    fileKey: string | null;}

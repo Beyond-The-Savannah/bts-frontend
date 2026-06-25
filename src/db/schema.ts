@@ -120,7 +120,7 @@ export const subscriptionsTable=pgTable("subscriptions", {
 })
 export const candidatesProfileTable=pgTable("candidatesProfiles",{
   id:uuid("id").primaryKey().defaultRandom(),
-  userId:uuid("user_id").notNull().references(()=>usersTable.id,{onDelete:"no action"}),
+  userId:uuid("user_id").notNull().unique().references(()=>usersTable.id,{onDelete:"no action"}),
   profession:varchar("profession",{length:50}),
   yearsOfExperience:numeric("years_of_experience"),
   linkedinUrl:varchar("linkedin_url",{length:256}),

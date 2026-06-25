@@ -8,8 +8,9 @@ export const ourFileRouter = {
       maxFileSize: "1MB",
       maxFileCount: 1,
     },
-  }).onUploadComplete(async ({ file }) => {
-    console.log("file url", file.ufsUrl);
+  }).onUploadComplete(async ({  }) => {
+    
+    // console.log("file url", file.ufsUrl);
   }),
 } satisfies FileRouter;
 

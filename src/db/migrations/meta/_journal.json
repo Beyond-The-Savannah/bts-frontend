@@ -134,6 +134,13 @@
       "when": 1782302611425,
       "tag": "0018_shocking_khan",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1782371765775,
+      "tag": "0019_yielding_corsair",
+      "breakpoints": true
     }
   ]
 }

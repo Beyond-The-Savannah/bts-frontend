@@ -3,16 +3,19 @@ import { subscriptionDetailsProps, ValidSubscriptionTwo } from "@/types/subscrip
 import ResumeUpload2 from "./ResumeUpload";
 import ResumeUpload3 from "./ResumeUpload3";
 import CareerSelectionComponent2 from "./CareerSelectionComponent2";
+import { ResumeUploadedProps } from "@/types/globals";
 
 
 export default function SubscriptionDetailsUI2({
   jobViewSubscriptionData,
   whatsAppSubscribtionData,
   careerEmailNotification,
+  resumeUploaded
 }: {
   jobViewSubscriptionData?: ValidSubscriptionTwo;
   whatsAppSubscribtionData?:subscriptionDetailsProps
   careerEmailNotification:string
+  resumeUploaded:ResumeUploadedProps
 }) {
   return (
     <>
@@ -125,7 +128,9 @@ export default function SubscriptionDetailsUI2({
                 userId={jobViewSubscriptionData?.userId as string}
                 career={careerEmailNotification}/>
                 <ResumeUpload2 />
-                <ResumeUpload3/>
+                <ResumeUpload3 userId={jobViewSubscriptionData?.userId as string}
+                resumeData={resumeUploaded}
+                />
               </div>
             {/* ) : null} */}
           </div>
