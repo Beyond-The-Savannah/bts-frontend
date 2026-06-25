@@ -33,7 +33,7 @@ export default function ServiceEmailTemplate({
           <Head />
           {/* <Preview>Beyond The Savannah calendly session Link</Preview> */}
           <Preview>
-            Beyond The Savannah, {specificCalendlyLink.serviceName as string}{" "}
+            Beyond The Savannah, {specificCalendlyLink?.serviceName as string ?? " "}{" "}
             Calendly Session Link
           </Preview>
           <Body style={main}>

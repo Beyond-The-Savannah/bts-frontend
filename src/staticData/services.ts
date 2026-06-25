@@ -289,6 +289,30 @@ export const servicesList = [
     priceKESString: "24,000",
     priceUSDString: "240",
   },
+  {
+      id: 12,
+    
+    title: "LinkedIn Marketing",
+    titleSlug: "linkedin_marketing",
+    subheading:"",
+      
+    img: "linkedIn_Marketing_zgppms",
+    openGraphImg: "linkedIn_Marketing_zgppms",
+    details:
+      "",
+    benefits: [
+      
+    ],
+    servicePolicy:
+      "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
+    valueProposal:
+      "",
+    price: 12000,
+    priceKE: 12000,
+    priceUSD: 120,
+    priceKESString: "12,000",
+    priceUSDString: "120",
+  }
 ];
 
 export const servicesCalendlyLinks = [
@@ -353,6 +377,12 @@ export const servicesCalendlyLinks = [
     id: 10,
     serviceName: "Remote Work Bundle Plus",
     amount: 2300000,
+    link: "",
+  },
+  {
+    id: 11,
+    serviceName: "LinkedIn Marketing",
+    amount: 1200000,
     link: "",
   }
 ];

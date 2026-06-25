@@ -15,7 +15,7 @@ export async function POST(request: Request) {
       from: `info@beyondthesavannah.co.ke`,
       to: [email],
       // subject: `Beyond The Savannah Service Link`,
-      subject: `Beyond The Savannah ${specificCalendlyLink?.serviceName} Service Link`,
+      subject: `Beyond The Savannah ${specificCalendlyLink?.serviceName ?? ""} Service Link`,
       react: ServiceEmailTemplate({
         firstName: firstName,
         amount: amount,
