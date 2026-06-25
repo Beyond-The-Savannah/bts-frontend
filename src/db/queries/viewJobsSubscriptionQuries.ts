@@ -11,6 +11,7 @@ export async function GetSubscriptionDetails(userEmail: string) {
         planStatus:subscriptionsTable.subscriptionStatus,
         endDate:subscriptionsTable.subscriptionEndDate,
         emailAddress:usersTable.emailAddress,
+        firstName:usersTable.firstName,
     })
     .from(subscriptionsTable)
     .leftJoin(usersTable,eq(subscriptionsTable.userId,usersTable.id))

@@ -1,8 +1,5 @@
-// export const dynamic = "force-dynamic";
 
-// import PackageOptionSection from "@/components/Customer/PackageOptionSection";
-// import Packages from "@/components/Customer/Packages";
-// import { GetUserSubscriptionInformation,} from "@/components/Customer/UserSubscriptionInformation";
+import { subscriptionResult } from "@/app/dal/subscriptions";
 import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/components/Customer/UserSubscriptionInformation";
 import { FindJobs } from "@/components/findJobsPage/FindJobs";
 import RemoteJobListingsLoadingUI from "@/components/Loaders/RemoteJobListingsLoadingUI";
@@ -26,13 +23,18 @@ export default async function page() {
   //     )
   // )[0];
 
+  const subscriptionData=await subscriptionResult(user?.primaryEmailAddress?.emailAddress as string)
+  const validSubscription=subscriptionData.find((subscription)=>parseInt(subscription.planCost as string)!=6000 &&
+["active", "attention", "non-renewing", "completed"].includes(subscription.planStatus?.toLowerCase() as string))
+
+
   const jobsListingSubscriptionDetails=userSubscriptionInformation?.find((subscription)=>subscription.amount!=600000 &&
 ["active", "attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase()))
 
 
 
 
-  if (jobsListingSubscriptionDetails == undefined && !byPassEmailAddresses.includes(
+  if (jobsListingSubscriptionDetails == undefined  && validSubscription==undefined && !byPassEmailAddresses.includes(
       user?.emailAddresses[0].emailAddress as string
     )
   ) {

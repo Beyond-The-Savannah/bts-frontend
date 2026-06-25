@@ -159,11 +159,11 @@ export interface MostRecentInvoice {
 
 export interface ValidSubscriptionTwo{
     userId?:string;
-    firstName: string;
+    firstName: string| null;
     plan?: string | null | undefined;
     planCost?: string | null | undefined;
     planStatus?: string | null | undefined;
-    endDate?: string;
+    endDate?: Date | null;
     emailAddress?: string | null | undefined;
     // plan:string,
     // planCost: string,
@@ -209,3 +209,9 @@ export type CombinedSubscriptionDataProps = Partial<subscriptionDetailsProps> & 
   convertedNextSubscriptionDate2: string;
   valid_subscription?: ValidSubscriptionTwo;
 };
+
+export interface UploadedResumeDataProps {
+    resumeName: string | null,
+    resumeUrl: string | null,
+    fileKey: string | null,
+}

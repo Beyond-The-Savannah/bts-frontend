@@ -54,7 +54,7 @@ export default function ResumeUpload3({userId, resumeData}:{userId:string,resume
 
           <hr className="border-2 border-y-bts-BrownOne mt-10 " />
             
-          {resumeData.resumeName && (
+          {resumeData?.resumeName!=null && (
           <div className="flex flex-row items-center gap-2 border border-dotted bg-amber-100 max-w-lg rounded-lg py-1 pl-2">
               <p className="font-light text-xs">Uploaded : </p>
             <div className="flex">

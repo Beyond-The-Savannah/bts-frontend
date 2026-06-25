@@ -20,7 +20,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 
-export default function CareerSelectionComponent({userId,career}: {userId: string;career:string}) {
+export default function CareerSelectionComponent({userId,career}: {userId: string;career:string| null}) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<number | null>(null);
   const[currentCareer,setCurrentCareer]=useState(career)

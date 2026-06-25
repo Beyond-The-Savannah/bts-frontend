@@ -37,8 +37,9 @@ import remarkGfm from "remark-gfm";
 import { axiosInstance } from "@/remoteData/mutateData";
 import ResumeAnalyseBtn from "./ResumeAnalyseBtn";
 import rehypeRaw from "rehype-raw";
+import { UploadedResumeDataProps } from "@/types/subscriptions";
 
-export default function ViewJob({ jobsId }: { jobsId: string }) {
+export default function ViewJob({ jobsId,userResume }: { jobsId: string ,userResume:UploadedResumeDataProps}) {
   const { user } = useUser();
 
   const {
@@ -140,7 +141,7 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                     <CalendarX size={24} className="" />
                     {DateFormatter(`${filteredRemoteJob.endDate}`)}
                   </p>
-
+                  
                   <Button
                     variant="outline"
                     size="lg"
@@ -159,13 +160,15 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                       <ArrowUpRight size={4} />
                     </Link>
                   </Button>
-                  {singleJob &&
-                    loggedUser != undefined &&
-                    loggedUser.imageUrl != "" && (
+                  
+                  {singleJob  &&
+                    (loggedUser != undefined || userResume?.resumeUrl!=null)  &&
+                    loggedUser?.imageUrl != "" && (
                       <>
                         <div className="relative">
                           <ResumeAnalyseBtn
                             loggedUser={loggedUser}
+                            userResumeUrl={userResume?.resumeUrl as string}
                             singleJob={singleJob}
                             generation={generation}
                             setGeneration={setGeneration}

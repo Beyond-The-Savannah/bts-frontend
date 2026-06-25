@@ -10,11 +10,12 @@ import { subscriptionDetailsProps } from "@/types/subscriptions";
 import PackageOptionSection from "./PackageOptionSection";
 import SubscriptionDetailsUI1 from "./SubscriptionDetailsUI1";
 import SubscriptionDetailsUI2 from "./SubscriptionDetailsUII2";
-import { GetSelectedCareerEmailNotification, GetSubscriptionDetails, GetUploadedResume } from "@/db/queries/viewJobsSubscriptionQuries";
+// import { GetSelectedCareerEmailNotification, GetSubscriptionDetails, GetUploadedResume } from "@/db/queries/viewJobsSubscriptionQuries";
 import { Suspense } from "react";
 import PackagesLoader from "../Loaders/PackagesLoader";
 import DashboardPageLoader from "../Loaders/DashboardPageLoader";
 import { byPassEmailAddresses } from "@/staticData/Customer/byPassSubscriptionCheck";
+import { selectedCareerResult, subscriptionResult, uploadedResumeResult } from "@/app/dal/subscriptions";
 
 // const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 
@@ -47,43 +48,51 @@ export default async function SubscriptionDetails() {
       ),
   );
 
-  
-  //get the career number for email notificatons for a user
-  const selectedCareerData=await GetSelectedCareerEmailNotification(user?.primaryEmailAddress?.emailAddress as string)
-  
-  //get the resumeData a user
-  const resumeData=await GetUploadedResume(user?.primaryEmailAddress?.emailAddress as string)
-  
-  //get the subscription info for the subscription workflow two
-  const subscriptionResult =await GetSubscriptionDetails(user?.primaryEmailAddress?.emailAddress as string)
-  const subscriptionDataDetails2=subscriptionResult.find((details) => details.planStatus === "active");
 
-  let dateValue;
-  if (
-    jobsListingSubscriptionDetails1?.next_payment_date != null ||
-    jobsListingSubscriptionDetails1?.next_payment_date != undefined
-  ) {
-    dateValue = new Date(jobsListingSubscriptionDetails1.next_payment_date);
-  } else if(subscriptionDataDetails2?.endDate !=null || subscriptionDataDetails2?.endDate!=undefined) {
-    dateValue = new Date(subscriptionDataDetails2?.endDate ?? "");
-  }
+  const subscriptionData=await subscriptionResult(user?.primaryEmailAddress?.emailAddress as string)
+  const subscriptionDataDetails2= subscriptionData.find((details)=>details.planStatus==="active")
+  
+  const selectedCareerEmailData=await selectedCareerResult(user?.primaryEmailAddress?.emailAddress as string)
+  const uploadedResumeData=await uploadedResumeResult(user?.primaryEmailAddress?.emailAddress as string)
 
-  let convertedNextSubscriptionDate2;
-  if (dateValue instanceof Date) {
-    const dateFormat = new Intl.DateTimeFormat("en-US", {
-      dateStyle: "full",
-      timeStyle: "short",
-    });
-    convertedNextSubscriptionDate2 = dateFormat.format(dateValue);
-  } else {
-    convertedNextSubscriptionDate2 = "No information available";
-  }
+  // //get the career number for email notificatons for a user
+  // const selectedCareerData=await GetSelectedCareerEmailNotification(user?.primaryEmailAddress?.emailAddress as string)
+  
+  // //get the resumeData a user
+  // const resumeData=await GetUploadedResume(user?.primaryEmailAddress?.emailAddress as string)
+  
+  // //get the subscription info for the subscription workflow two
+  // const subscriptionResult =await GetSubscriptionDetails(user?.primaryEmailAddress?.emailAddress as string)
+  // const subscriptionDataDetails2=subscriptionResult.find((details) => details.planStatus === "active");
 
-  const subscriptionData2 = {
-    ...subscriptionDataDetails2,
-    firstName: user?.firstName ?? "There",
-    endDate: convertedNextSubscriptionDate2,
-  };
+  // let dateValue;
+  // if (
+  //   jobsListingSubscriptionDetails1?.next_payment_date != null ||
+  //   jobsListingSubscriptionDetails1?.next_payment_date != undefined
+  // ) {
+  //   dateValue = new Date(jobsListingSubscriptionDetails1.next_payment_date);
+  // } 
+  // // else if(subscriptionDataDetails2?.endDate !=null || subscriptionDataDetails2?.endDate!=undefined) {
+  // //   dateValue = new Date(subscriptionDataDetails2?.endDate ?? "");
+  // // }
+
+  // let convertedNextSubscriptionDate2;
+  // if (dateValue instanceof Date) {
+  //   const dateFormat = new Intl.DateTimeFormat("en-US", {
+  //     dateStyle: "full",
+  //     timeStyle: "short",
+  //   });
+  //   convertedNextSubscriptionDate2 = dateFormat.format(dateValue);
+  // } 
+  // else {
+  //   convertedNextSubscriptionDate2 = "No information available";
+  // }
+
+  // const subscriptionData2 = {
+  //   ...subscriptionDataDetails2,
+  //   firstName: user?.firstName ?? "There",
+  //   endDate: convertedNextSubscriptionDate2,
+  // };
 
   // console.log("SUB DATATWO -> ",subscriptionData2)
   // console.log("SUB RESULT -> ",subscriptionResult)
@@ -123,10 +132,10 @@ export default async function SubscriptionDetails() {
       ) : subscriptionDataDetails2 !== undefined || allowByPassUser == true ? (
         <Suspense fallback={<DashboardPageLoader />}>
           <SubscriptionDetailsUI2
-            jobViewSubscriptionData={subscriptionData2}
+            jobViewSubscriptionData={subscriptionDataDetails2}
             whatsAppSubscribtionData={whatsAppSubscriptionDetails1}
-            careerEmailNotification={selectedCareerData[0].careerEmailNotification as string}
-            resumeUploaded={resumeData[0]}
+            careerEmailNotification={selectedCareerEmailData[0]?.careerEmailNotification }
+            resumeUploaded={uploadedResumeData[0]}
           />
         </Suspense>
       ) : (

@@ -1,27 +1,31 @@
-import { subscriptionDetailsProps, ValidSubscriptionTwo } from "@/types/subscriptions";
+import {
+  subscriptionDetailsProps,
+  ValidSubscriptionTwo,
+} from "@/types/subscriptions";
 // import CareerSelection from "./CareerSelection";
-import ResumeUpload2 from "./ResumeUpload";
+// import ResumeUpload2 from "./ResumeUpload";
 import ResumeUpload3 from "./ResumeUpload3";
 import CareerSelectionComponent2 from "./CareerSelectionComponent2";
 import { ResumeUploadedProps } from "@/types/globals";
-
 
 export default function SubscriptionDetailsUI2({
   jobViewSubscriptionData,
   whatsAppSubscribtionData,
   careerEmailNotification,
-  resumeUploaded
+  resumeUploaded,
 }: {
   jobViewSubscriptionData?: ValidSubscriptionTwo;
-  whatsAppSubscribtionData?:subscriptionDetailsProps
-  careerEmailNotification:string
-  resumeUploaded:ResumeUploadedProps
+  whatsAppSubscribtionData?: subscriptionDetailsProps;
+  careerEmailNotification: string| null;
+  resumeUploaded: ResumeUploadedProps;
 }) {
   return (
     <>
       <section className="pt-4 pb-20">
         <div className="w-full mx-auto px-4">
-          <h2 className="text-xl">Hi {jobViewSubscriptionData?.firstName ?? "There"}</h2>
+          <h2 className="text-xl">
+            Hi {jobViewSubscriptionData?.firstName ?? "There"}
+          </h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
           <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2"></p>
           <div className="min-h-[70vh] mt-10 md:mt-20">
@@ -36,31 +40,48 @@ export default function SubscriptionDetailsUI2({
                       Subscription Email Address:{" "}
                     </span>
                     <span className="text-sm lg:text-base font-semibold ml-1">
-                      {jobViewSubscriptionData?.emailAddress ?? "No information available"}
+                      {jobViewSubscriptionData?.emailAddress ??
+                        "No information available"}
                     </span>
                   </p>
                   <p className="flex flex-col">
                     <span className="text-xs">Current Subscription Plan: </span>
-                    <span className="font-semibold ml-1">{jobViewSubscriptionData?.plan ?? "No information available"}</span>
+                    <span className="font-semibold ml-1">
+                      {jobViewSubscriptionData?.plan ??
+                        "No information available"}
+                    </span>
                   </p>
                   <p className="flex flex-col">
                     <span className="text-xs">
                       Current Subscription Status:{" "}
                     </span>
                     <span className="font-semibold ml-1">
-                      {jobViewSubscriptionData?.planStatus ?? "No information available"}
+                      {jobViewSubscriptionData?.planStatus ??
+                        "No information available"}
                     </span>
                   </p>
                   <p className="flex flex-col">
                     <span className="text-xs">
                       Next Subscription Payment Date:{" "}
                     </span>
-                    <span className="font-semibold ml-1">{jobViewSubscriptionData?.endDate ?? "No information available"}</span>
+                    <span className="font-semibold ml-1">
+                      {jobViewSubscriptionData?.endDate
+                        ? new Date(
+                            jobViewSubscriptionData.endDate,
+                          ).toLocaleDateString()
+                        : "No information available"}
+                    </span>
                   </p>
                   <p className="flex flex-col">
-                    <span className="text-xs">Subscription Source Number: </span>
+                    <span className="text-xs">
+                      Subscription Source Number:{" "}
+                    </span>
 
-                    <span className="font-semibold ml-1">{ jobViewSubscriptionData?.endDate!=undefined ? "XXXX XXXX" :"No information available"} </span>
+                    <span className="font-semibold ml-1">
+                      {jobViewSubscriptionData?.endDate != undefined
+                        ? "XXXX XXXX"
+                        : "No information available"}{" "}
+                    </span>
                   </p>
                 </div>
               </div>
@@ -122,16 +143,22 @@ export default function SubscriptionDetailsUI2({
             </div>
             {/* {parseInt(jobViewSubscriptionData?.planCost as string) !== 600000 && jobViewSubscriptionData?.endDate!=undefined ? ( */}
             {/* {parseInt(jobViewSubscriptionData?.planCost as string) !== 600000  ? ( */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
-                {/* <CareerSelection emailAddress={jobViewSubscriptionData?.emailAddress as string} /> */}
-                <CareerSelectionComponent2 
-                userId={jobViewSubscriptionData?.userId as string}
-                career={careerEmailNotification}/>
-                <ResumeUpload2 />
-                <ResumeUpload3 userId={jobViewSubscriptionData?.userId as string}
-                resumeData={resumeUploaded}
-                />
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
+              {jobViewSubscriptionData?.userId!=undefined &&(
+                <>
+                  <CareerSelectionComponent2
+                    userId={jobViewSubscriptionData?.userId as string}
+                    career={careerEmailNotification}
+                  />
+                  {/* <ResumeUpload2 /> */}
+                  <ResumeUpload3
+                    userId={jobViewSubscriptionData?.userId as string}
+                    resumeData={resumeUploaded}
+                  />
+                </>
+
+              )}
+            </div>
             {/* ) : null} */}
           </div>
         </div>

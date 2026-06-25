@@ -7,12 +7,13 @@ import { SubscribedUserProp } from "@/types/subscribedUser";
 import { SingleRemoteJob } from "@/types/remoteJobsListing";
 
 interface ResumeAnaylseProp{
-    loggedUser:SubscribedUserProp,
+    loggedUser?:SubscribedUserProp,
+    userResumeUrl:string
     singleJob:SingleRemoteJob[],
     generation:string
     setGeneration:Dispatch<SetStateAction<string>>
 }
-export default function ResumeAnalyseBtn({loggedUser,singleJob,generation, setGeneration}:ResumeAnaylseProp) {
+export default function ResumeAnalyseBtn({loggedUser,userResumeUrl,singleJob,generation, setGeneration}:ResumeAnaylseProp) {
 
     const [isAnalyzing, setIsAnalyzing] = useState(false);
   return (
@@ -29,7 +30,7 @@ export default function ResumeAnalyseBtn({loggedUser,singleJob,generation, setGe
               },
               body: JSON.stringify({
                 question: {
-                  resume: loggedUser.imageUrl,
+                  resume: loggedUser? loggedUser.imageUrl:userResumeUrl,
                   role: singleJob.map((listing) => listing.sectionDescription),
                 },
               }),
