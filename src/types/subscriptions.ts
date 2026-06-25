@@ -157,7 +157,23 @@ export interface MostRecentInvoice {
     updated_at: string
 }
 
+export interface ValidSubscriptionTwo{
+    userId?:string;
+    firstName: string| null;
+    plan?: string | null | undefined;
+    planCost?: string | null | undefined;
+    planStatus?: string | null | undefined;
+    endDate?: Date | null;
+    emailAddress?: string | null | undefined;
+    // plan:string,
+    // planCost: string,
+    // planStatus: string,
+    // endDate: Date,
+    // emailAddress: string
+    // firstName:string | null | undefined,
 
+    // convertedNextSubscriptionDate2:string,
+}
 // --- Main Interface ---
 
 /**
@@ -177,7 +193,7 @@ export interface subscriptionDetailsProps {
     open_invoice: unknown | null;
     createdAt: string
     integration: number;
-    plan: Plan;
+    plan: Plan ;
     authorization: Authorization;
     customer: Customer;
     invoice_limit: number;
@@ -185,4 +201,17 @@ export interface subscriptionDetailsProps {
     metadata: unknown | null;
     payments_count: number;
     most_recent_invoice: MostRecentInvoice;
+    valid_subscription:ValidSubscriptionTwo   
+}
+
+// types.ts - Add this new type
+export type CombinedSubscriptionDataProps = Partial<subscriptionDetailsProps> & {
+  convertedNextSubscriptionDate2: string;
+  valid_subscription?: ValidSubscriptionTwo;
+};
+
+export interface UploadedResumeDataProps {
+    resumeName: string | null,
+    resumeUrl: string | null,
+    fileKey: string | null,
 }

@@ -1,10 +1,11 @@
-import Packages from "@/components/Customer/Packages";
-import { currentUser } from "@clerk/nextjs/server";
+// import Packages from "@/components/Customer/Packages";
+// import { currentUser } from "@clerk/nextjs/server";
 import { AlertCircle } from "lucide-react";
+import PackagesTwo from "./PackagesTwo";
 
 export default async function PackageOptionSection() {
-  const user = await currentUser();
-  const userEmail = user?.emailAddresses[0].emailAddress as string;
+  // const user = await currentUser();
+  // const userEmail = user?.emailAddresses[0].emailAddress as string;
   return (
     <>
       <section className="px-4">
@@ -20,7 +21,8 @@ export default async function PackageOptionSection() {
               your dream role.
             </p>
           </div>
-          <Packages email={userEmail} />
+          {/* <Packages email={userEmail} /> */}
+          <PackagesTwo/>
           <div className="max-w-xl mx-auto my-10">
             <div className="c rounded-lg bg-amber-50 px-3 py-6 flex flex-col gap-4 items-start">
               <AlertCircle className="size-4" />

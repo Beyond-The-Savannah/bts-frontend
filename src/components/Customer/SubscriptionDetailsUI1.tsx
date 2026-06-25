@@ -1,161 +1,52 @@
-import { currentUser } from "@clerk/nextjs/server";
-// import { Button } from "@/components/ui/button";
-// import { redirect } from "next/navigation";
-// import CareerSelection from "./CareerSelection";
-// import { GetUserSubscriptionInformation } from "./UserSubscriptionInformation";
-// import { CircleAlert } from "lucide-react";
-// import ResumeUpload from "./ResumeUpload";
-import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "./UserSubscriptionInformation";
 import { subscriptionDetailsProps } from "@/types/subscriptions";
-import PackageOptionSection from "./PackageOptionSection";
-import SubscriptionDetailsUI1 from "./SubscriptionDetailsUI1";
-import SubscriptionDetailsUI2 from "./SubscriptionDetailsUII2";
-// import { GetSelectedCareerEmailNotification, GetSubscriptionDetails, GetUploadedResume } from "@/db/queries/viewJobsSubscriptionQuries";
-import { Suspense } from "react";
-import PackagesLoader from "../Loaders/PackagesLoader";
-import DashboardPageLoader from "../Loaders/DashboardPageLoader";
-import { byPassEmailAddresses } from "@/staticData/Customer/byPassSubscriptionCheck";
-import { selectedCareerResult, subscriptionResult, uploadedResumeResult } from "@/app/dal/subscriptions";
-
-// const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
-
-export default async function SubscriptionDetails() {
-  const user = await currentUser();
+import { CircleAlert } from "lucide-react";
+import { redirect } from "next/navigation";
+import { Button } from "../ui/button";
+import CareerSelection from "./CareerSelection";
+import ResumeUpload2 from "./ResumeUpload";
 
 
-  const allowByPassUser = byPassEmailAddresses.includes(
-    user?.emailAddresses[0].emailAddress as string,
-  );
+const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 
-  //get the subscription info for the subscription workflow one
-  const userSubscriptionInformation: subscriptionDetailsProps[] | null =
-    await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
+export default function SubscriptionDetailsUI1({jobViewSubscriptionData,whatsAppSubscribtionData}:{   jobViewSubscriptionData?:subscriptionDetailsProps
+ whatsAppSubscribtionData?:subscriptionDetailsProps
+}) {
 
-    //get the whatsapp subscription info for the subscription workflow one
-  const whatsAppSubscriptionDetails1 = userSubscriptionInformation?.find(
-    (subscription) =>
-      subscription.amount == 600000 &&
-      ["active", "attention", "non-renewing", "completed"].includes(
-        subscription.status.toLowerCase(),
-      ),
-  );
-
-  const jobsListingSubscriptionDetails1 = userSubscriptionInformation?.find(
-    (subscription) =>
-      subscription.amount != 600000 &&
-      ["active", "attention", "non-renewing", "completed"].includes(
-        subscription.status.toLowerCase(),
-      ),
-  );
-
-
-  const subscriptionData=await subscriptionResult(user?.primaryEmailAddress?.emailAddress as string)
-  const subscriptionDataDetails2= subscriptionData.find((details)=>details.planStatus==="active")
-  
-  const selectedCareerEmailData=await selectedCareerResult(user?.primaryEmailAddress?.emailAddress as string)
-  const uploadedResumeData=await uploadedResumeResult(user?.primaryEmailAddress?.emailAddress as string)
-
-  // //get the career number for email notificatons for a user
-  // const selectedCareerData=await GetSelectedCareerEmailNotification(user?.primaryEmailAddress?.emailAddress as string)
-  
-  // //get the resumeData a user
-  // const resumeData=await GetUploadedResume(user?.primaryEmailAddress?.emailAddress as string)
-  
-  // //get the subscription info for the subscription workflow two
-  // const subscriptionResult =await GetSubscriptionDetails(user?.primaryEmailAddress?.emailAddress as string)
-  // const subscriptionDataDetails2=subscriptionResult.find((details) => details.planStatus === "active");
-
-  // let dateValue;
-  // if (
-  //   jobsListingSubscriptionDetails1?.next_payment_date != null ||
-  //   jobsListingSubscriptionDetails1?.next_payment_date != undefined
-  // ) {
-  //   dateValue = new Date(jobsListingSubscriptionDetails1.next_payment_date);
-  // } 
-  // // else if(subscriptionDataDetails2?.endDate !=null || subscriptionDataDetails2?.endDate!=undefined) {
-  // //   dateValue = new Date(subscriptionDataDetails2?.endDate ?? "");
-  // // }
-
-  // let convertedNextSubscriptionDate2;
-  // if (dateValue instanceof Date) {
-  //   const dateFormat = new Intl.DateTimeFormat("en-US", {
-  //     dateStyle: "full",
-  //     timeStyle: "short",
-  //   });
-  //   convertedNextSubscriptionDate2 = dateFormat.format(dateValue);
-  // } 
-  // else {
-  //   convertedNextSubscriptionDate2 = "No information available";
-  // }
-
-  // const subscriptionData2 = {
-  //   ...subscriptionDataDetails2,
-  //   firstName: user?.firstName ?? "There",
-  //   endDate: convertedNextSubscriptionDate2,
-  // };
-
-  // console.log("SUB DATATWO -> ",subscriptionData2)
-  // console.log("SUB RESULT -> ",subscriptionResult)
-  // console.log("USER EMAIL -> ",user?.primaryEmailAddress?.emailAddress)
-
-  // async function handleManageSubscription(formData: FormData) {
-  //   "use server";
-  //   const subscriptionCode = formData.get("subscriptionCode");
-  //   let paystackManageUrl = "";
-  //   try {
-  //     const response = await fetch(
-  //       `${PUBLIC_BASE_URL}/api/manage-subscriptions?code=${subscriptionCode}`,
-  //       {
-  //         method: "GET",
-  //       }
-  //     );
-
-  //     const responseUrl = await response.json();
-  //     paystackManageUrl = responseUrl;
-  //   } catch (error) {
-  //     console.error("Error managing subscription:", error);
-  //   }
-  //   if (paystackManageUrl != "") {
-  //     redirect(paystackManageUrl);
-  //   }
-  // }
-
+      async function handleManageSubscription(formData: FormData) {
+        "use server";
+        const subscriptionCode = formData.get("subscriptionCode");
+        let paystackManageUrl = "";
+        try {
+          const response = await fetch(
+            `${PUBLIC_BASE_URL}/api/manage-subscriptions?code=${subscriptionCode}`,
+            {
+              method: "GET",
+            }
+          );
+    
+          const responseUrl = await response.json();
+          paystackManageUrl = responseUrl;
+        } catch (error) {
+          console.error("Error managing subscription:", error);
+        }
+        if (paystackManageUrl != "") {
+          redirect(paystackManageUrl);
+        }
+      }
   return (
     <>
-      {jobsListingSubscriptionDetails1 !== undefined ? (
-        <Suspense fallback={<DashboardPageLoader />}>
-          <SubscriptionDetailsUI1
-            jobViewSubscriptionData={jobsListingSubscriptionDetails1}
-            whatsAppSubscribtionData={whatsAppSubscriptionDetails1}
-            />
-        </Suspense>
-      ) : subscriptionDataDetails2 !== undefined || allowByPassUser == true ? (
-        <Suspense fallback={<DashboardPageLoader />}>
-          <SubscriptionDetailsUI2
-            jobViewSubscriptionData={subscriptionDataDetails2}
-            whatsAppSubscribtionData={whatsAppSubscriptionDetails1}
-            careerEmailNotification={selectedCareerEmailData[0]?.careerEmailNotification }
-            resumeUploaded={uploadedResumeData[0]}
-          />
-        </Suspense>
-      ) : (
-        <Suspense fallback={<PackagesLoader />}>
-          <PackageOptionSection />
-        </Suspense>
-      )}
-
-      {/* <section className="pt-4 pb-20">
+    <section className="pt-4 pb-20">
         <div className="w-full mx-auto px-4">
-          <h2 className="text-xl">Hi {user?.firstName ?? "There"}</h2>
+          <h2 className="text-xl">Hi {jobViewSubscriptionData?.customer.first_name?? "There"}</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
           <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2"></p>
           <div className="min-h-[70vh] mt-10 md:mt-20">
             
-            
+            {/* <div className="flex flex-wrap lg:flex-nowrap justify-between gap-8"> */}
             <div className="flex-col gap-8">
               
               <div className="flex flex-wrap justify-between space-y-4 rounded-lg bg-bts-BrownOne/50 px-6 py-12 w-full flex-1 ">
-              {jobsListingSubscriptionDetails1 != undefined ? (<>
+              {/* {jobsListingSubscriptionDetails1 != undefined ? ( */}
                      <div className="space-y-4">
                   <p className="font-semibold text-xl">
                     Jobs Listings Subscription details
@@ -165,13 +56,13 @@ export default async function SubscriptionDetails() {
                       Subscription Email Address:{" "}
                     </span>
                     <span className="text-sm lg:text-base font-semibold ml-1">
-                      {jobsListingSubscriptionDetails1.customer.email}
+                      {jobViewSubscriptionData?.customer.email ??"No information available"}
                     </span>
                   </p>
                   <p className="flex flex-col">
                     <span className="text-xs">Current Subscription Plan: </span>
                     <span className="font-semibold ml-1">
-                      {jobsListingSubscriptionDetails1.plan.name}
+                      {jobViewSubscriptionData?.plan.name ?? "No information available"}
                     </span>
                   </p>
                   <p className="flex flex-col">
@@ -179,7 +70,7 @@ export default async function SubscriptionDetails() {
                       Current Subscription Status:{" "}
                     </span>
                     <span className="font-semibold ml-1">
-                      {jobsListingSubscriptionDetails1.status}
+                      {jobViewSubscriptionData?.status ?? "No information available"}
                     </span>
                   </p>
                   <p className="flex flex-col">
@@ -187,24 +78,25 @@ export default async function SubscriptionDetails() {
                       Next Subscription Payment Date:{" "}
                     </span>
                     <span className="font-semibold ml-1">
-                      {convertedNextSubscriptionDate2}
+                      {jobViewSubscriptionData?.next_payment_date ?? "No information available"}
                     </span>
                   </p>
                   <p className="flex flex-col">
-                    <span className="text-xs">Subscription Card Number: </span>
+                    <span className="text-xs">Subscription Source Number: </span>
                     
                 <span className="font-semibold ml-1">
                       XXXX XXXX{" "}
-                      {jobsListingSubscriptionDetails1.authorization.last4}
+                      {jobViewSubscriptionData?.authorization.last4 ??""}
                     </span>
                     
                    
                   </p>
-                </div></>):(<><PackageOptionSection/></>)}
+                </div>
+                {/* </>):(<><PackageOptionSection/></>)} */}
          
-                {jobsListingSubscriptionDetails1 != undefined ? (
+                {jobViewSubscriptionData != undefined ? (
                   <div className="px-1 md:px-8 py-4 rounded-lg bg-bts-BrownFour/5 border space-y-4">
-                    {jobsListingSubscriptionDetails1?.status ==
+                    {jobViewSubscriptionData?.status ==
                     "non-renewing" ? (
                       <>
                         <div className="border-l-[1.5rem] border-yellow-400 rounded-l bg-yellow-100 px-4 py-2 max-w-4xl mr-auto  flex gap-2 items-center">
@@ -236,7 +128,7 @@ export default async function SubscriptionDetails() {
                           type="hidden"
                           name="subscriptionCode"
                           value={
-                            jobsListingSubscriptionDetails1?.subscription_code
+                            jobViewSubscriptionData?.subscription_code
                           }
                         />
                         <Button variant="outline" size="sm" type="submit">
@@ -249,9 +141,9 @@ export default async function SubscriptionDetails() {
               </div> 
               
 
-              
-              {whatsAppSubscriptionDetails1 != undefined ? (
-                <div className="flex flex-wrap justify-between space-y-4 rounded-lg bg-bts-BrownOne/50 px-6 py-12 w-full flex-1">
+              {/* whatsapp subscription details  */}
+              {whatsAppSubscribtionData != undefined ? (
+                <div className="flex flex-wrap justify-between space-y-4 mt-10 rounded-lg bg-bts-BrownOne/50 px-6 py-12 w-full flex-1">
                   <div className="space-y-4">
                     <p className="font-semibold text-xl">
                       Whatsapp Subscription details
@@ -261,8 +153,7 @@ export default async function SubscriptionDetails() {
                         Subscription Email Address:{" "}
                       </span>
                       <span className="text-sm lg:text-base font-semibold ml-1">
-                        {whatsAppSubscriptionDetails1?.customer.email ??
-                          user?.emailAddresses[0].emailAddress}
+                        {whatsAppSubscribtionData?.customer.email ??"No information available"}
                       </span>
                     </p>
                     <p className="flex flex-col">
@@ -270,7 +161,7 @@ export default async function SubscriptionDetails() {
                         Current Subscription Plan:{" "}
                       </span>
                       <span className="font-semibold ml-1">
-                        {whatsAppSubscriptionDetails1?.plan.name ??
+                        {whatsAppSubscribtionData?.plan.name ??
                           "No information available"}
                       </span>
                     </p>
@@ -279,7 +170,7 @@ export default async function SubscriptionDetails() {
                         Current Subscription Status:{" "}
                       </span>
                       <span className="font-semibold ml-1">
-                        {whatsAppSubscriptionDetails1?.status ??
+                        {whatsAppSubscribtionData?.status ??
                           "No information available"}
                       </span>
                     </p>
@@ -289,24 +180,24 @@ export default async function SubscriptionDetails() {
                       </span>
                       <span className="font-semibold ml-1">
                         
-                        {whatsAppSubscriptionDetails1.next_payment_date}
+                        {whatsAppSubscribtionData?.next_payment_date ??"No information available"}
                       </span>
                     </p>
                     <p className="flex flex-col">
                       <span className="text-xs">
-                        Subscription Card Number:{" "}
+                        Subscription Source Number:{" "}
                       </span>
                       <span className="font-semibold ml-1">
                         XXXX XXXX{" "}
-                        {whatsAppSubscriptionDetails1?.authorization.last4 ??
-                          "No information available"}
+                        {whatsAppSubscribtionData?.authorization.last4 ??
+                          ""}
                       </span>
                     </p>
                   </div>
-                  {whatsAppSubscriptionDetails1 != undefined ? (
+                  {whatsAppSubscribtionData != undefined ? (
                     <div className="px-8 py-4 rounded-lg bg-bts-BrownFour/5 border space-y-4">
                       
-                      {whatsAppSubscriptionDetails1?.status == "non-renewing" ? (
+                      {whatsAppSubscribtionData?.status == "non-renewing" ? (
                         <>
                           <div className="border-l-[1.5rem] border-yellow-400 rounded-l bg-yellow-100 px-4 py-2 max-w-4xl mr-auto  flex gap-2 items-center">
                             <CircleAlert />
@@ -337,7 +228,7 @@ export default async function SubscriptionDetails() {
                             type="hidden"
                             name="subscriptionCode"
                             value={
-                              whatsAppSubscriptionDetails1?.subscription_code
+                              whatsAppSubscribtionData?.subscription_code
                             }
                           />
                           <Button variant="outline" size="sm" type="submit">
@@ -348,21 +239,22 @@ export default async function SubscriptionDetails() {
                     </div>
                   ) : null}
                 </div>
-              ) : null}
+               ) : null}
             </div>
-            {jobsListingSubscriptionDetails1?.plan.amount !== 600000 ? (
+            {jobViewSubscriptionData?.plan.amount !== 600000 && jobViewSubscriptionData!==undefined ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
                 <CareerSelection
                   emailAddress={
-                    jobsListingSubscriptionDetails1?.customer.email as string
+                    jobViewSubscriptionData?.customer.email as string
                   }
                 />
-                <ResumeUpload />
+                <ResumeUpload2 />
               </div>
             ) : null}
           </div>
         </div>
-      </section> */}
+        
+      </section>
     </>
-  );
+  )
 }

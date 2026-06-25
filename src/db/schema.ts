@@ -1,9 +1,15 @@
+
+import { relations } from "drizzle-orm";
 import {
   integer,
   pgTable,
   uuid,
   text,
   timestamp,
+  varchar,
+  decimal,
+  numeric,
+  boolean,
   // customType,
 } from "drizzle-orm/pg-core";
 
@@ -89,7 +95,76 @@ export const eventsTable= pgTable("events", {
 
 })
 
+export const usersTable=pgTable("users", {
+  id:uuid("id").primaryKey().defaultRandom(),
+  firstName:varchar("first_name"),
+  lastName:varchar("last_name"),
+  emailAddress:varchar("email_address").unique(),
+  createdDate:timestamp("created_date").notNull().defaultNow(),
+  updatedDate:timestamp("updated_date").notNull().$onUpdate(()=>new Date())
+})
+export const subscriptionsTable=pgTable("subscriptions", {
+  id:uuid("id").primaryKey().defaultRandom(),
+  userId:uuid("user_id").notNull().references(()=>usersTable.id,{onDelete:"no action"}),
+  subscriptionTransactionReference:varchar("subscription_transaction_reference"),
+  subcriptionTierName:varchar("subcription_tier_name"),
+  subcriptionTierType:varchar("subcription_tier_type"),
+  subscriptionPrice:decimal("subscription_price"),
+  subscriptionStatus:text("subscription_status"),
+  subscriptionCanceledAt:timestamp("subscription_canceled_at"),
+  subscriptionStartDate:timestamp("subscription_start_date"),
+  subscriptionEndDate:timestamp("subscription_end_date"),
+  subscriptionPaymentChannel:varchar("subscription_payment_channel"),
+  createdDate:timestamp("created_date").notNull().defaultNow(),
+  updatedDate:timestamp("updated_date").notNull().$onUpdate(()=>new Date())
+})
+export const candidatesProfileTable=pgTable("candidatesProfiles",{
+  id:uuid("id").primaryKey().defaultRandom(),
+  userId:uuid("user_id").notNull().unique().references(()=>usersTable.id,{onDelete:"no action"}),
+  profession:varchar("profession",{length:50}),
+  yearsOfExperience:numeric("years_of_experience"),
+  linkedinUrl:varchar("linkedin_url",{length:256}),
+  phoneNumber:varchar("phone_number",{length:50}),
+  country:varchar("country",{length:50}),
+  industriesWorked:text("industries_worked"),
+  workExperience:text("work_experience"),
+  certifications:text("certifications"),
+  resumeName:varchar("resume_name",{length:256}),
+  resumeUrl:varchar("resume_url",{length:256}),
+  fileKey:varchar("file_key",{length:256}),
+  btsApprovedStatus:varchar("bts_approved_status",{length:50}),
+  openToWork:varchar("open_to_work",{length:50}),
+  createdDate:timestamp("created_date").notNull().defaultNow(),
+  updatedDate:timestamp("updated_date").notNull().$onUpdate(()=>new Date())
+
+})
+export const accountSettingsTable=pgTable("accountSettings",{
+  id:uuid("id").primaryKey().defaultRandom(),
+  userId:uuid("user_id").notNull().references(()=>usersTable.id,{onDelete:"no action"}),
+  careerEmailNotification:numeric("career_email_notification"),
+  acceptEmailNotification:boolean("accept_email_notification").default(true),
+  deleteAccount:boolean("delete_account").default(false),
+  createdDate:timestamp("created_date").notNull().defaultNow(),
+  updatedDate:timestamp("updated_date").notNull().$onUpdate(()=>new Date())
+
+})
+
+export const usersRelations=relations(usersTable,({many,one})=>({
+  subscriptions: many(subscriptionsTable),
+  candidatesProfiles:one(candidatesProfileTable, {fields:[usersTable.id],references:[candidatesProfileTable.userId]}),
+  accountSettings:one(accountSettingsTable,{fields:[usersTable.id],references:[accountSettingsTable.userId]}),
+}))
+export const subscriptionsRelations=relations(subscriptionsTable, ({one})=>({user:one(usersTable,{fields:[subscriptionsTable.userId],references:[usersTable.id]})}))
+
+export const candidateProfileRelations=relations(candidatesProfileTable,({one})=>({user:one(usersTable,{fields:[candidatesProfileTable.userId],references:[usersTable.id]})}))
+
+export const accountSettingsRelations=relations(accountSettingsTable,({one})=>({user:one(usersTable,{fields:[accountSettingsTable.userId],references:[usersTable.id]})}))
+
 export type JobsProp = typeof jobsTable.$inferSelect;
 export type CandidateProp = typeof candidatePoolTable.$inferSelect;
 export type CompanyProp= typeof companyTable.$inferSelect;
 export type EventsProp= typeof eventsTable.$inferSelect;
+export type usersProp=typeof usersTable.$inferSelect;
+export type subscriptionsProp=typeof subscriptionsTable.$inferSelect
+export type candidateProfileProp= typeof candidatesProfileTable.$inferSelect
+export type accountSettingsProp=typeof accountSettingsTable.$inferSelect

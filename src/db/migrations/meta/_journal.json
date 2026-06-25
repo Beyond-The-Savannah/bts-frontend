@@ -99,6 +99,48 @@
       "when": 1781511701807,
       "tag": "0013_hesitant_black_widow",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1781934792869,
+      "tag": "0014_peaceful_dexter_bennett",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1781935188907,
+      "tag": "0015_hesitant_wendell_rand",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1782300790287,
+      "tag": "0016_square_guardian",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1782301298724,
+      "tag": "0017_fair_masque",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1782302611425,
+      "tag": "0018_shocking_khan",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1782371765775,
+      "tag": "0019_yielding_corsair",
+      "breakpoints": true
     }
   ]
 }
