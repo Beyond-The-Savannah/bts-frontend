@@ -40,3 +40,18 @@ export async function GetUploadedResume(userEmail:string){
   .where(eq(usersTable.emailAddress,userEmail))
   return data
 }
+
+export async function GetUserEmailNotificationDetails(){
+  const data= await db.select({
+    firstName:usersTable.firstName,
+    emailAddress:usersTable.emailAddress,
+    careerEmailNotification:accountSettingsTable.careerEmailNotification,
+    acceptEmailNotification:accountSettingsTable.acceptEmailNotification,
+    subscriptionStatus:subscriptionsTable.subscriptionStatus,
+    subcriptionTierName:subscriptionsTable.subcriptionTierName
+  }).from(usersTable)
+  .leftJoin(subscriptionsTable,eq(subscriptionsTable.userId,usersTable.id))
+  .leftJoin(accountSettingsTable,eq(accountSettingsTable.userId,usersTable.id))
+
+  return data
+}

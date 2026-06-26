@@ -1,4 +1,5 @@
 import AllJobsAlertEmailTemplate from "@/components/Emails/AllJobsAlertEmailTemplate";
+import { GetUserEmailNotificationDetails } from "@/db/queries/viewJobsSubscriptionQuries";
 import { axiosInstance } from "@/remoteData/mutateData";
 import { ListingRemoteJobs } from "@/types/remoteJobsListing";
 // import { EmailBatchProp, SubscribedUserProp } from "@/types/subscribedUser";
@@ -26,11 +27,27 @@ const noNewJobsNotifications = [
   "bakhita.awuorba@gmail.com",
   "louise.mutua@gmail.com",
 ];
+
 export const { POST } = serve(async (context) => {
   // 1. Fetch users (Runs once per trigger)
   const usersEmailList = await context.run("Fetch subscribed users", async () => {
     const response = await axiosInstance.get("/api/BydUsers/getAllUsers");
-    const userList: Pick<SubscribedUserProp, "firstName" | "email" | "career" | "status" | "subscriptionPlan">[] = response.data;
+    
+    const usersFromSecondSubscriptionFlow=await GetUserEmailNotificationDetails()
+
+    const usersFromSecondSubscriptionFlowNormalised=usersFromSecondSubscriptionFlow
+    .filter((user)=>user.subscriptionStatus!=="cancelled" && user.acceptEmailNotification==true)
+    .map((user)=>({
+      firstName:user.firstName??"There",
+      email:user.emailAddress,
+      career:user.careerEmailNotification,
+      status:user.subscriptionStatus,
+      subscriptionPlan:user.subscriptionStatus
+    }))
+    
+    const combinedData=[...response.data, ...usersFromSecondSubscriptionFlowNormalised]
+    // const userList: Pick<SubscribedUserProp, "firstName" | "email" | "career" | "status" | "subscriptionPlan">[] = response.data;
+    const userList: Pick<SubscribedUserProp, "firstName" | "email" | "career" | "status" | "subscriptionPlan">[] = combinedData;
 
     return userList
       .filter(
@@ -40,7 +57,7 @@ export const { POST } = serve(async (context) => {
           !noNewJobsNotifications.includes(user.email),
       )
       .map((user) => ({
-        firstName: user.firstName,
+        firstName: user.firstName ??"There",
         email: user.email,
         career: user.career,
       }));
@@ -95,7 +112,7 @@ export const { POST } = serve(async (context) => {
             to: [user.email],
             subject: "Beyond The Savannah New Jobs Alert",
             react: AllJobsAlertEmailTemplate({
-              firstName: "There",
+              firstName: user.firstName,
               jobs: userJobsList,
             }),
           };
