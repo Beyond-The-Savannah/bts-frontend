@@ -129,7 +129,7 @@ const handleSetNotification= async()=>{
           </div>
           <hr className="border-2 border-y-bts-BrownOne mt-12 " />
           {selectedCareer?.value && (
-            <div className=" rounded-lg px-4 text-start bg-amber-100 max-w-80 border- border-dotted">
+            <div className=" rounded-lg px-4 text-start bg-amber-100 max-w-sm border- border-dotted">
                 <p className="text-xs">
             Selected Career : 
             <span className="font-semibold text-base pl-2">

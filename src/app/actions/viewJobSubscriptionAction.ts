@@ -9,7 +9,7 @@ import {
   usersProp,
   usersTable,
 } from "@/db/schema";
-import { eq } from "drizzle-orm";
+
 
 export async function AddUserAndSubscriptionToDb(
   userData: Omit<usersProp, "id" | "createdDate" | "updatedDate">,
@@ -75,11 +75,21 @@ export async function UpdateUsersJobEmailNotificationCareer({
   career: string;
 }) {
   try {
-    await db
-      .update(accountSettingsTable)
-      .set({ careerEmailNotification: career })
-      .where(eq(accountSettingsTable.userId, userId));
-      return {success:true}
+    await db.insert(accountSettingsTable).values({
+      userId,
+      careerEmailNotification:career,
+    }).onConflictDoUpdate({
+      target:accountSettingsTable.userId,
+      set:{
+        careerEmailNotification:career
+      }
+    })
+    return {success:true}
+    // await db
+    //   .update(accountSettingsTable)
+    //   .set({ careerEmailNotification: career })
+    //   .where(eq(accountSettingsTable.userId, userId));
+    //   return {success:true}
   } catch (error) {
     console.error("Error updating user account settings - ", error);
     return { success: false, error: "update failed", status: 400 };
