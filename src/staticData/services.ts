@@ -294,28 +294,29 @@ export const servicesList = [
     
     title: "LinkedIn Marketing",
     titleSlug: "linkedin_marketing",
-    subheading:"",
-    // "Done For You LinkedIn Content & Growth Management for Busy Professionals",
+    subheading:
+    "Done For You LinkedIn Content & Growth Management for Busy Professionals",
       
     img: "linkedIn_Marketing_zgppms",
     openGraphImg: "linkedIn_Marketing_zgppms",
-    details:"",
+    details:
+      "Is your LinkedIn gathering digital dust while opportunities pass you by? We take the wheel so you don't have to.  We handle everything from crafting and posting content to tracking what's working so your profile stays active, visible, and working for you around the clock.",
       // "Is your LinkedIn gathering digital dust while opportunities pass you by? We take the wheel so you don't have to. Our LinkedIn Marketing service is built for busy professionals who understand the power of a strong LinkedIn presence but simply don't have the time to maintain one. We handle everything from crafting and posting content to tracking what's working so your profile stays active, visible, and working for you around the clock.",
     benefits: [
-      // "Content Posted 3x Per Week: We create and publish engaging, professional content on your behalf three times a week, keeping your profile consistently active and visible to your network and beyond.",
-      // "Hands Off Management: Whether you're in back to back meetings, running a business, or simply stretched thin, we handle your LinkedIn presence entirely, no input needed from you once we're set up.",
-      // "Professionally Crafted Content: Every post is tailored to reflect your voice, industry, and professional brand, positioning you as a thought leader and attracting the right audience.",
-      // "Monthly Analytics Report: At the end of each month, receive a detailed performance report delivered either via a call or a written document breaking down your growth, engagement, and key insights so you always know how your profile is performing.",
-      // "Grow Your Visibility & Network: Consistent posting signals credibility to LinkedIn's algorithm, helping your profile surface in more searches and recommendations organically.",
-      "Posting LinkedIn content on behalf of clients",
-      "Analytics report is done at the end of the month either on call or via document",
-      "Content is posted 3 times a week and it speaks to professionals that have no time to engage and post on their LinkedIn due to busy schedules or other reasons"
+      "Content Posted 3x Per Week: We create and publish engaging, professional content on your behalf three times a week, keeping your profile consistently active and visible to your network and beyond.",
+      "Hands Off Management: Whether you're in back to back meetings, running a business, or simply stretched thin, we handle your LinkedIn presence entirely, no input needed from you once we're set up.",
+      "Professionally Crafted Content: Every post is tailored to reflect your voice, industry, and professional brand, positioning you as a thought leader and attracting the right audience.",
+      "Monthly Analytics Report: At the end of each month, receive a detailed performance report delivered either via a call or a written document breaking down your growth, engagement, and key insights so you always know how your profile is performing.",
+      "Grow Your Visibility & Network: Consistent posting signals credibility to LinkedIn's algorithm, helping your profile surface in more searches and recommendations organically.",
+      // "Posting LinkedIn content on behalf of clients",
+      // "Analytics report is done at the end of the month either on call or via document",
+      // "Content is posted 3 times a week and it speaks to professionals that have no time to engage and post on their LinkedIn due to busy schedules or other reasons"
       
     ],
-    servicePolicy:"",
-      // "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
-    valueProposal:"",
-      // "Your LinkedIn is one of your most powerful professional assets but only if it's active. Let us manage it for you while you focus on what you do best. Your presence, our expertise",
+    servicePolicy:
+      "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
+    valueProposal:
+      "Your LinkedIn is one of your most powerful professional assets but only if it's active. Let us manage it for you while you focus on what you do best. Your presence, our expertise",
     price: 12000,
     priceKE: 12000,
     priceUSD: 120,
