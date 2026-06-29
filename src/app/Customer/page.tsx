@@ -2,7 +2,7 @@
 import SubscriptionDetails from "@/components/Customer/SubscriptionDetails";
 
 import {
-  AddNewSubscriberToDatabase,
+  // AddNewSubscriberToDatabase,
   // GetCustomerSubscriptionDetailsByCustomerIDFromPaystack,
 } from "@/components/Customer/UserSubscriptionInformation";
 
@@ -54,7 +54,7 @@ export default async function CustomerDefaultPage() {
 
 // console.log("SUBDATA TWO -> ",subscriptionData2)
 
-  await AddNewSubscriberToDatabase();
+  // await AddNewSubscriberToDatabase();
   
 
   // const allowByPassUser = byPassEmailAddresses.includes(
