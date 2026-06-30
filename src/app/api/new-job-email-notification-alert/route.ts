@@ -43,7 +43,7 @@ export const { POST } = serve(async (context) => {
       email:user.emailAddress,
       career:user.careerEmailNotification,
       status:user.subscriptionStatus,
-      subscriptionPlan:user.subscriptionStatus
+      subscriptionPlan:user.subcriptionTierName
     }))
     
     const combinedData=[...response.data, ...usersFromSecondSubscriptionFlowNormalised]
