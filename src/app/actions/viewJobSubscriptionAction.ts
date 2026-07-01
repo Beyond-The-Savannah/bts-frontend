@@ -9,7 +9,12 @@ import {
   usersProp,
   usersTable,
 } from "@/db/schema";
+import { eq } from "drizzle-orm";
+// import { utapi } from "~/server/uploadthing.ts";
+import { UTApi } from "uploadthing/server";
 
+
+const utapi= new UTApi()
 
 export async function AddUserAndSubscriptionToDb(
   userData: Omit<usersProp, "id" | "createdDate" | "updatedDate">,
@@ -124,34 +129,18 @@ export async function AddAndUpdateUsersResume({  userId,data,}: {
   }
 }
 
+export async function RemoveUserResume(fileKey:string){
+  try {
+    await utapi.deleteFiles(fileKey)
 
-// customId
-// : 
-// null
-// fileHash
-// : 
-// "00c95dc841d5828c15ff462df0809948"
-// key
-// : 
-// "qr8Sl6rtrb6LIdAUrUqqvkbQjGDEoiO74W8axKeNm6HlB1F0"
-// lastModified
-// : 
-// 1780924373255
-// name
-// : 
-// "Lavendar Otieno CV.pdf"
-// serverData
-// : 
-// null
-// size
-// : 
-// 84990
-// type
-// : 
-// "application/pdf"
-// ufsUrl
-// : 
-// "https://boqc3na5ns.ufs.sh/f/qr8Sl6rtrb6LIdAUrUqqvkbQjGDEoiO74W8axKeNm6HlB1F0"
-// url
-// : 
-// (...)
+    const data=await db.delete(candidatesProfileTable)
+    .where(eq(candidatesProfileTable.fileKey,fileKey))
+    .returning({deletedFileKey:candidatesProfileTable.id})
+    return data
+  } catch (error) {
+    console.error("Failed to delete resume", error)
+    return {success:false,error:"Failed to delete resume",status:400}
+  }
+}
+
+
