@@ -292,6 +292,63 @@ export interface paystackSubscriptionNotRenewEventProp {
     created_at: string;
   };
 }
+export interface PaystackWebhook {
+  event: 'charge.success';
+  data: {
+    id: number;
+    domain: string;
+    status: string;
+    reference: string;
+    amount: number;
+    message: string | null;
+    gateway_response: string;
+    paid_at: string;
+    created_at: string;
+    channel: string;
+    currency: string;
+    ip_address: string;
+    metadata: unknown;
+    log: {
+      time_spent: number;
+      attempts: number;
+      authentication: string;
+      errors: number;
+      success: boolean;
+      mobile: boolean;
+      input: unknown[];
+      channel: string | null;
+      history: Array<{
+        type: string;
+        message: string;
+        time: number;
+      }>;
+    };
+    fees: number | null;
+    customer: {
+      id: number;
+      first_name: string | null;
+      last_name: string | null;
+      email: string;
+      customer_code: string;
+      phone: string | null;
+      metadata: unknown;
+      risk_action: string;
+    };
+    authorization: {
+      authorization_code: string;
+      bin: string;
+      last4: string;
+      exp_month: string;
+      exp_year: string;
+      card_type: string;
+      bank: string;
+      country_code: string;
+      brand: string;
+      account_name: string | null;
+    };
+    plan: unknown;
+  };
+}
 export interface ViewJobSubscriptionFormProps {
   email: string;
   amount: number;

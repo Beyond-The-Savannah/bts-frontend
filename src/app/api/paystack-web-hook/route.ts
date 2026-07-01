@@ -1,7 +1,9 @@
 
+import { UpdateSubscriptionDetails } from "@/app/actions/viewJobSubscriptionAction"
 import PaystackWebhookTemplate from "@/components/Emails/PaystackWebhookTemplate"
+
 import { axiosInstance } from "@/remoteData/mutateData"
-import { paystackSubscriptionNotRenewEventProp } from "@/types/globals"
+import { paystackSubscriptionNotRenewEventProp, PaystackWebhook } from "@/types/globals"
 import { SubscribedUserProp } from "@/types/subscribedUser"
 import { NextResponse } from "next/server"
 import crypto from "node:crypto"
@@ -40,6 +42,10 @@ export async function POST(request:Request){
         
        processSubscriptionCanceled(payLoad)
        .catch((err) => console.error("Background processing error:", err))
+    }
+    if(payLoad.event==="charge.success"){
+        UpdateSubscriptionDetailsChannel(payLoad)
+        .catch((err) => console.error("Background processing error:", err))
     }
 
     // Instantly acknowledge receipt to Paystack
@@ -87,4 +93,18 @@ try {
 } catch (error) {
     console.log("Error could not update users status", error)
 }
+}
+
+async function UpdateSubscriptionDetailsChannel(data:PaystackWebhook){
+    try {
+        
+        const returnedData=await UpdateSubscriptionDetails(data.data.channel,data.data.reference)
+        console.log(`Updated user subscription channel:${data.data.channel} - paystackReference: ${data.data.reference} - paystack channel: ${data.data.channel}`)
+        console.log('Updated subscription id:',returnedData)
+        // console.log(`Updated user subscription channel:${data.data.channel} - paystackId: ${data.data.customer.id} - customer code: ${data.data.customer.customer_code}`,data)
+        
+    } catch (error) {
+        console.log("Error could not update users subscription channel", error)
+    }
+
 }

@@ -144,3 +144,12 @@ export async function RemoveUserResume(fileKey:string){
 }
 
 
+export async function UpdateSubscriptionDetails(channel:string,reference:string){
+  const updatedSubscriptionId=await db.update(subscriptionsTable)
+  .set({
+    subscriptionPaymentChannel:channel,
+  })
+  .where(eq(subscriptionsTable.subscriptionTransactionReference,reference))
+  .returning({ id: subscriptionsTable.id })
+  return updatedSubscriptionId
+}

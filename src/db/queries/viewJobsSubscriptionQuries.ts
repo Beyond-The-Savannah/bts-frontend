@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm";
 import { db } from "../db";
 import { accountSettingsTable, candidatesProfileTable, subscriptionsTable, usersTable } from "../schema";
 
+
 export async function GetSubscriptionDetails(userEmail: string) {
   const data = await db
     .select({
@@ -55,3 +56,11 @@ export async function GetUserEmailNotificationDetails(){
 
   return data
 }
+
+export async function GetSubscriptionInformationDetails(){
+  const data=await db.select({
+    subscriptionTransactionReference:subscriptionsTable.subscriptionTransactionReference,
+  }).from(subscriptionsTable)
+  return data
+}
+
