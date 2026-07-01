@@ -40,10 +40,10 @@ export const { POST } = serve(async (context) => {
     .filter((user)=>user.subscriptionStatus!=="cancelled" && user.acceptEmailNotification==true)
     .map((user)=>({
       firstName:user.firstName??"There",
-      email:user.emailAddress,
-      career:user.careerEmailNotification,
-      status:user.subscriptionStatus,
-      subscriptionPlan:user.subcriptionTierName
+      email:user.emailAddress as string,
+      career:parseInt(user.careerEmailNotification as string),
+      status:user.subscriptionStatus as string,
+      subscriptionPlan:user.subcriptionTierName as string
     }))
     
     const combinedData=[...response.data, ...usersFromSecondSubscriptionFlowNormalised]
