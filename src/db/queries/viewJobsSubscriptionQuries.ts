@@ -59,8 +59,20 @@ export async function GetUserEmailNotificationDetails(){
 
 export async function GetSubscriptionInformationDetails(){
   const data=await db.select({
+    subscriptionId:subscriptionsTable.id,
     subscriptionTransactionReference:subscriptionsTable.subscriptionTransactionReference,
-  }).from(subscriptionsTable)
+    subscriptionEndDate:subscriptionsTable.subscriptionEndDate,
+  })
+  .from(subscriptionsTable)
+  .where(eq(subscriptionsTable.subscriptionStatus,"active"))
   return data
 }
 
+
+export async function ExpiredSubscriptionDetails(subscriptionId: string){
+  const data=await db.update(subscriptionsTable)
+  .set({subscriptionStatus:"cancelled"})
+  .where(eq(subscriptionsTable.id,subscriptionId))
+  .returning({subscriptionId:subscriptionsTable.id})
+  return data
+}
