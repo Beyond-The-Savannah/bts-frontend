@@ -15,14 +15,17 @@ import {
 } from "../ui/command";
 import clsx from "clsx";
 
-import { UpdateUsersJobEmailNotificationCareer } from "@/app/actions/viewJobSubscriptionAction";
+import { UpdateUsersEmailNotification, UpdateUsersJobEmailNotificationCareer } from "@/app/actions/viewJobSubscriptionAction";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { Input } from "../ui/input";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
 
 
-export default function CareerSelectionComponent({userId,career}: {userId: string;career:string| null}) {
+export default function CareerSelectionComponent({userId,career,emailNotification}: {userId: string;career:string| null;emailNotification: boolean | null}) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<number | null>(null);
+  const [emailNotificationState, setEmailNotificationState] = useState<boolean>(emailNotification as boolean);
   const[currentCareer,setCurrentCareer]=useState(career)
   
   const router=useRouter()
@@ -30,6 +33,20 @@ export default function CareerSelectionComponent({userId,career}: {userId: strin
 
   const { data: jobDepartments } = useGetJobSubCategoryDropDownList();
 
+  const handleEmailNotificationChange = async () => {
+    setEmailNotificationState(!emailNotificationState);
+    toast.message("Updating email notification...")
+    const response=await UpdateUsersEmailNotification({userId,acceptEmailNotification:!emailNotificationState})
+    if(response.success===true){
+      toast.success("Notification updated successfully")
+        router.refresh()
+        router.push("/Customer")
+    }else{
+      toast.error("Notification update failed")
+    }
+
+    
+  };
   
 const handleSetNotification= async()=>{
 
@@ -138,6 +155,28 @@ const handleSetNotification= async()=>{
           </p>
             </div>
           )}
+          <div className="flex items-center gap-2 w-full ">
+            <p className="text-xs">Get email notification for new jobs postings</p>
+            {/* <Input type="checkbox" checked={emailNotificationState as boolean} onChange={handleEmailNotificationChange} name="acceptEmailNotification" className=" w-4 accent-lime-300" /> */}
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Input type="checkbox" readOnly checked={emailNotificationState as boolean}  name="acceptEmailNotification" className=" w-4 accent-lime-300" />
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle className="text-center">Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription className="text-center">
+                    {emailNotificationState===true? "You will no longer receive email notifications for new job postings.":"You will start receiving email notifications for new job postings."}
+                    
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter className="flex justify-center gap-4 pr-28">
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction  onClick={handleEmailNotificationChange} className="bg-red-500 hover:bg-red-600">I confirm</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
         </div>
          </div>
     </section>

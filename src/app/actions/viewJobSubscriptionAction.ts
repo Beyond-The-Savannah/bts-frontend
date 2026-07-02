@@ -101,6 +101,23 @@ export async function UpdateUsersJobEmailNotificationCareer({
   }
 }
 
+export async function UpdateUsersEmailNotification({
+  userId,
+  acceptEmailNotification,
+}: {
+  userId: string;
+  acceptEmailNotification: boolean;
+}) {
+  try {
+    const result = await db.update(accountSettingsTable).set({
+      acceptEmailNotification:acceptEmailNotification?true:false,
+    }).where(eq(accountSettingsTable.userId,userId)).returning({accountId: accountSettingsTable.id})
+    return {success:true, accountId:result[0].accountId}
+  } catch (error) {
+    console.error("Error updating user account settings - ", error);
+    return { success: false, error: "update failed", status: 400 };
+  }
+}
 
 export async function AddAndUpdateUsersResume({  userId,data,}: {
   userId: string;

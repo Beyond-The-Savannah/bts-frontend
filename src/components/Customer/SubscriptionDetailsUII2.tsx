@@ -12,13 +12,16 @@ export default function SubscriptionDetailsUI2({
   jobViewSubscriptionData,
   whatsAppSubscribtionData,
   careerEmailNotification,
+  emailNotification,
   resumeUploaded,
 }: {
   jobViewSubscriptionData?: ValidSubscriptionTwo;
   whatsAppSubscribtionData?: subscriptionDetailsProps;
   careerEmailNotification: string| null;
+  emailNotification: boolean | null;
   resumeUploaded: ResumeUploadedProps;
 }) {
+  
   return (
     <>
       <section className="pt-4 pb-20">
@@ -149,6 +152,7 @@ export default function SubscriptionDetailsUI2({
                   <CareerSelectionComponent2
                     userId={jobViewSubscriptionData?.userId as string}
                     career={careerEmailNotification}
+                    emailNotification={emailNotification as boolean}
                   />
                   {/* <ResumeUpload2 /> */}
                   <ResumeUpload3

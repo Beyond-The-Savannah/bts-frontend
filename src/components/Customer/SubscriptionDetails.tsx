@@ -48,7 +48,7 @@ export default async function SubscriptionDetails() {
       ),
   );
 
-
+//get the subscription info for the subscription workflow two
   const subscriptionData=await subscriptionResult(user?.primaryEmailAddress?.emailAddress as string)
   const subscriptionDataDetails2= subscriptionData.find((details)=>details.planStatus==="active")
   
@@ -135,6 +135,7 @@ export default async function SubscriptionDetails() {
             jobViewSubscriptionData={subscriptionDataDetails2}
             whatsAppSubscribtionData={whatsAppSubscriptionDetails1}
             careerEmailNotification={selectedCareerEmailData[0]?.careerEmailNotification }
+            emailNotification={selectedCareerEmailData[0]?.acceptEmailNotification }
             resumeUploaded={uploadedResumeData[0]}
           />
         </Suspense>
