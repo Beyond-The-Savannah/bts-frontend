@@ -1,8 +1,8 @@
 // app/api/sync-users/route.ts
-import { NextResponse } from 'next/server';
-import axios from 'axios';
-import { SubscribedUserProp } from '@/types/subscribedUser';
-import { SubscribedUser } from '@/types/globals';
+import { NextResponse } from "next/server";
+import axios from "axios";
+import { SubscribedUserProp } from "@/types/subscribedUser";
+import { SubscribedUser } from "@/types/globals";
 
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
@@ -10,10 +10,8 @@ const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
 export async function POST() {
   try {
     // 1. Fetch PayStack subscriptions
-    const res = await axios.get(
-      `${PUBLIC_BASE_URL}/api/subscription-details-by-plan-codes`
-    );
-    const payStackSubscribedUsers:SubscribedUser[] = await res.data.data;
+    const res = await axios.get(`${PUBLIC_BASE_URL}/api/get-all-subscriptions`);
+    const payStackSubscribedUsers: SubscribedUser[] = await res.data.data;
 
     // 2. Fetch existing users
     const response = await axios.get(`${BTS_API_URL}/api/BydUsers/getAllUsers`);
@@ -21,7 +19,7 @@ export async function POST() {
 
     // 3. Extract emails
     const existingEmails = new Set(
-      existingUsers.map((user:SubscribedUserProp) => user.email.toLowerCase())
+      existingUsers.map((user: SubscribedUserProp) => user.email.toLowerCase()),
     );
 
     // 4. Filter and add new users
@@ -72,14 +70,14 @@ export async function POST() {
               {
                 headers: { "Content-Type": "multipart/form-data" },
                 timeout: 10000,
-              }
+              },
             );
             return response.data;
           } catch (error) {
             console.error("Failed to add user", error);
             throw error;
           }
-        })
+        }),
       );
 
       const successful = results.filter((r) => r.status === "fulfilled").length;
@@ -102,7 +100,7 @@ export async function POST() {
     console.error("Sync error:", error);
     return NextResponse.json(
       { success: false, error: "Sync failed" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

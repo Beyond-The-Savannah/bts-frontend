@@ -25,7 +25,7 @@ try {
             totalPages=response.meta.pageCount
         }
         else{
-            throw new Error("issue in the  try section of the subscription-details-by-plan-codes")
+            throw new Error("issue in the  try section of the get-all-subscriptions")
         }
         currentPage++
     }
@@ -46,6 +46,6 @@ try {
     
 
 } catch (error) {
-    console.log("Error from the api end point Get subscription-details-by-plan-codes",error)
+    console.log("Error from the api end point Get get-all-subscriptions",error)
 }
 }
