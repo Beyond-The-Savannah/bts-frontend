@@ -26,7 +26,17 @@ export const { POST } = serve(async (context) => {
       `${process.env.PUBLIC_BASE_URL}/api/get-all-subscriptions`,
       { timeout: 25000 }
     );
-    return (paystackResponse.data?.data as SubscribedUser[]) || [];
+    const subs = (paystackResponse.data?.data as SubscribedUser[]) || [];
+
+  // Only keep the fields you actually use downstream
+  return subs.map((sub) => ({
+    status: sub.status || "",
+    planName: sub.plan?.name || "",
+    email: sub.customer?.email || "",
+    firstName: sub.customer?.first_name || "",
+    lastName: sub.customer?.last_name || "",
+  }));
+
   });
 
   // 3. RUN CRITICAL FILTERING OUTSIDE OF context.run
@@ -35,15 +45,18 @@ export const { POST } = serve(async (context) => {
   const existingEmailsSet = new Set(existingEmails);
   const newUsers = paystackData
     .filter((sub) => {
-      const email = sub.customer?.email?.toLowerCase();
+      const email = sub.email;
+      // const email = sub.customer?.email?.toLowerCase();
       return email && !existingEmailsSet.has(email);
     })
     .map((sub) => {
-      let firstName = sub.customer?.first_name;
-      let lastName = sub.customer?.last_name;
+      let firstName = sub.firstName;
+      let lastName = sub.lastName;
+      // let firstName = sub.customer?.first_name;
+      // let lastName = sub.customer?.last_name;
 
-      if (!firstName && !lastName && sub.customer?.email) {
-        const emailName = sub.customer.email.split("@")[0];
+      if (!firstName && !lastName && sub.email) {
+        const emailName = sub.email.split("@")[0];
         const nameParts = emailName.split(/[._-]/);
         firstName = nameParts[0] || "";
         lastName = nameParts.length > 1 ? nameParts.slice(1).join(" ") : "";
@@ -51,9 +64,9 @@ export const { POST } = serve(async (context) => {
 
       return {
         status: sub.status || "",
-        subscriptionPlan: sub.plan?.name || "",
+        subscriptionPlan: sub.planName || "",
         career: "0",
-        email: sub.customer?.email || "",
+        email: sub?.email || "",
         password: "",
         firstName: firstName || "",
         lastName: lastName || "",
