@@ -8,66 +8,67 @@ import { serve } from "@upstash/workflow/nextjs";
 // const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 // const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
 
+
 export const { POST } = serve(async (context) => {
-  // 1. Fetch only a minimal Set/Array of existing emails to save space
+  // 1. Fetch only raw emails from DB
   const existingEmails = await context.run("Get existing emails from DB", async () => {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/getAllUsers`
+      `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/getAllUsers`,
+      { timeout: 25000 } // Set explicit timeout
     );
     const users = Array.isArray(response.data) ? response.data : [];
-    
-    // CRITICAL: Only return an array of lowercased string emails, NOT the whole user object.
-    // This drops payload size from ~2MB to a few kilobytes.
     return users.map((u: SubscribedUserProp) => u.email?.toLowerCase()).filter(Boolean);
   });
 
-  const existingEmailsSet = new Set(existingEmails);
-
-  // 2. Fetch Paystack subscriptions and filter/clean them immediately inside context.run
-  const newUsers = await context.run("Fetch and filter new subscriptions", async () => {
+  // 2. Fetch Paystack subscriptions in its own hyper-isolated step 
+  const paystackData = await context.run("Get raw subscriptions from paystack", async () => {
     const paystackResponse = await axios.get(
       `${process.env.PUBLIC_BASE_URL}/api/get-all-subscriptions`,
-      { timeout: 15000 }
+      { timeout: 25000 }
     );
-    const subscriptions = (paystackResponse.data?.data as SubscribedUser[]) || [];
-
-    return subscriptions
-      .filter((sub) => {
-        const email = sub.customer?.email?.toLowerCase();
-        return email && !existingEmailsSet.has(email);
-      })
-      .map((sub) => {
-        let firstName = sub.customer?.first_name;
-        let lastName = sub.customer?.last_name;
-
-        if (!firstName && !lastName && sub.customer?.email) {
-          const emailName = sub.customer.email.split("@")[0];
-          const nameParts = emailName.split(/[._-]/);
-          firstName = nameParts[0] || "";
-          lastName = nameParts.length > 1 ? nameParts.slice(1).join(" ") : "";
-        }
-
-        return {
-          status: sub.status || "",
-          subscriptionPlan: sub.plan?.name || "",
-          career: "0",
-          email: sub.customer?.email || "",
-          password: "",
-          firstName: firstName || "",
-          lastName: lastName || "",
-          phoneNumber: "",
-          AttachmentName: "",
-          file: "",
-          ImageUrl: "",
-          isActive: "true",
-          isDeleted: "false",
-        };
-      });
+    return (paystackResponse.data?.data as SubscribedUser[]) || [];
   });
 
-  // 3. Batch process updates natively using Multipart Form Data
+  // 3. RUN CRITICAL FILTERING OUTSIDE OF context.run
+  // Doing it down here allows the serverless runtime to use native CPU memory 
+  // without Upstash trying to snapshot, freeze, or checkpoint the ongoing execution.
+  const existingEmailsSet = new Set(existingEmails);
+  const newUsers = paystackData
+    .filter((sub) => {
+      const email = sub.customer?.email?.toLowerCase();
+      return email && !existingEmailsSet.has(email);
+    })
+    .map((sub) => {
+      let firstName = sub.customer?.first_name;
+      let lastName = sub.customer?.last_name;
+
+      if (!firstName && !lastName && sub.customer?.email) {
+        const emailName = sub.customer.email.split("@")[0];
+        const nameParts = emailName.split(/[._-]/);
+        firstName = nameParts[0] || "";
+        lastName = nameParts.length > 1 ? nameParts.slice(1).join(" ") : "";
+      }
+
+      return {
+        status: sub.status || "",
+        subscriptionPlan: sub.plan?.name || "",
+        career: "0",
+        email: sub.customer?.email || "",
+        password: "",
+        firstName: firstName || "",
+        lastName: lastName || "",
+        phoneNumber: "",
+        AttachmentName: "",
+        file: "",
+        ImageUrl: "",
+        isActive: "true",
+        isDeleted: "false",
+      };
+    });
+
+  // 4. Batch process updates cleanly using Multipart Form Data
   if (newUsers.length > 0) {
-    const batchSize = 10;
+    const batchSize = 6; // Dropped to 6 to reduce outbound API congestion spikes
 
     for (let i = 0; i < newUsers.length; i += batchSize) {
       const batchIndex = Math.floor(i / batchSize);
@@ -76,8 +77,6 @@ export const { POST } = serve(async (context) => {
       await Promise.all(
         batch.map(async (userToAdd, index) => {
           try {
-            // Construct standard multipart body format manually for context.call
-            // because instances of global FormData cannot be cleanly serialized across steps.
             const boundary = `----WebKitFormBoundaryUpstashWorkflow${Date.now()}`;
             let multipartBody = "";
             
@@ -102,8 +101,9 @@ export const { POST } = serve(async (context) => {
         })
       );
 
-      // Sleep between batches if more exist to respect rate limits
       if (i + batchSize < newUsers.length) {
+        // Sleep lets Vercel safely shut down this step invocation 
+        // and wake up fresh for the next batch, completely resetting the function timer.
         await context.sleep(`pause-batch-${batchIndex}`, 1);
       }
     }
