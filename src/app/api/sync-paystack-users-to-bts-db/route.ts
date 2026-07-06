@@ -80,8 +80,66 @@ export const { POST } = serve(async (context) => {
     });
 
   // 4. Batch process updates cleanly using Multipart Form Data
+  // if (newUsers.length > 0) {
+  //   const batchSize = 6; // Dropped to 6 to reduce outbound API congestion spikes
+
+  //   for (let i = 0; i < newUsers.length; i += batchSize) {
+  //     const batchIndex = Math.floor(i / batchSize);
+  //     const batch = newUsers.slice(i, i + batchSize);
+
+  //     await Promise.all(
+  //       batch.map(async (userToAdd, index) => {
+  //         try {
+  //           const boundary = `----WebKitFormBoundaryUpstashWorkflow${Date.now()}`;
+  //           let multipartBody = "";
+            
+  //           for (const [key, value] of Object.entries(userToAdd)) {
+  //             multipartBody += `--${boundary}\r\n`;
+  //             multipartBody += `Content-Disposition: form-data; name="${key}"\r\n\r\n`;
+  //             multipartBody += `${value}\r\n`;
+  //           }
+  //           multipartBody += `--${boundary}--\r\n`;
+
+  //           await context.call(`add-user-b${batchIndex}-i${index}`, {
+  //             url: `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/addUser`,
+  //             method: "POST",
+  //             headers: {
+  //               "Content-Type": `multipart/form-data; boundary=${boundary}`,
+  //             },
+  //             body: multipartBody, 
+  //           });
+  //         } catch (error) {
+  //           console.error(`Failed to update user record - ${userToAdd.email}`, error);
+  //         }
+  //       })
+  //     );
+
+  //     if (i + batchSize < newUsers.length) {
+  //       // Sleep lets Vercel safely shut down this step invocation 
+  //       // and wake up fresh for the next batch, completely resetting the function timer.
+  //       await context.sleep(`pause-batch-${batchIndex}`, 1);
+  //     }
+  //   }
+  // }
+
+  // 4. Batch process updates cleanly using Multipart Form Data
   if (newUsers.length > 0) {
     const batchSize = 6; // Dropped to 6 to reduce outbound API congestion spikes
+
+    // Escapes CRLF and quotes so a stray value can't break the multipart boundary
+    const sanitizeField = (value: string) =>
+      String(value ?? "").replace(/\r\n|\r|\n/g, " ").replace(/"/g, "'");
+
+    const buildMultipartBody = (user: Record<string, string>, boundary: string) => {
+      let body = "";
+      for (const [key, value] of Object.entries(user)) {
+        body += `--${boundary}\r\n`;
+        body += `Content-Disposition: form-data; name="${key}"\r\n\r\n`;
+        body += `${sanitizeField(value)}\r\n`;
+      }
+      body += `--${boundary}--\r\n`;
+      return body;
+    };
 
     for (let i = 0; i < newUsers.length; i += batchSize) {
       const batchIndex = Math.floor(i / batchSize);
@@ -90,15 +148,11 @@ export const { POST } = serve(async (context) => {
       await Promise.all(
         batch.map(async (userToAdd, index) => {
           try {
-            const boundary = `----WebKitFormBoundaryUpstashWorkflow${Date.now()}`;
-            let multipartBody = "";
-            
-            for (const [key, value] of Object.entries(userToAdd)) {
-              multipartBody += `--${boundary}\r\n`;
-              multipartBody += `Content-Disposition: form-data; name="${key}"\r\n\r\n`;
-              multipartBody += `${value}\r\n`;
-            }
-            multipartBody += `--${boundary}--\r\n`;
+            // Random suffix guarantees uniqueness even for requests fired in the same millisecond
+            const boundary = `----WebKitFormBoundaryUpstashWorkflow${Date.now()}${Math.random()
+              .toString(36)
+              .slice(2)}`;
+            const multipartBody = buildMultipartBody(userToAdd, boundary);
 
             await context.call(`add-user-b${batchIndex}-i${index}`, {
               url: `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/addUser`,
@@ -106,7 +160,7 @@ export const { POST } = serve(async (context) => {
               headers: {
                 "Content-Type": `multipart/form-data; boundary=${boundary}`,
               },
-              body: multipartBody, 
+              body: multipartBody,
             });
           } catch (error) {
             console.error(`Failed to update user record - ${userToAdd.email}`, error);
@@ -115,8 +169,6 @@ export const { POST } = serve(async (context) => {
       );
 
       if (i + batchSize < newUsers.length) {
-        // Sleep lets Vercel safely shut down this step invocation 
-        // and wake up fresh for the next batch, completely resetting the function timer.
         await context.sleep(`pause-batch-${batchIndex}`, 1);
       }
     }
