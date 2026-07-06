@@ -9,64 +9,63 @@ import { serve } from "@upstash/workflow/nextjs";
 // const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
 
 export const { POST } = serve(async (context) => {
-  // 1. Fetch paystack subscriptions safely
-  const subscribedUsers = await context.run("Get subscribed users from paystack", async () => {
-    const paystackResponse = await axios.get(
-      `${process.env.PUBLIC_BASE_URL}/api/get-all-subscriptions`,
-      { timeout: 15000 },
+  // 1. Fetch only a minimal Set/Array of existing emails to save space
+  const existingEmails = await context.run("Get existing emails from DB", async () => {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/getAllUsers`
     );
-    return (paystackResponse.data?.data as SubscribedUser[]) || [];
+    const users = Array.isArray(response.data) ? response.data : [];
+    
+    // CRITICAL: Only return an array of lowercased string emails, NOT the whole user object.
+    // This drops payload size from ~2MB to a few kilobytes.
+    return users.map((u: SubscribedUserProp) => u.email?.toLowerCase()).filter(Boolean);
   });
 
-  // 2. Fetch existing database users
-  const dbResponse = await context.call(
-    "Get Subscribed Users from BTS DataBase",
-    {
-      url: `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/getAllUsers`,
-      method: "GET",
-    },
-  );
+  const existingEmailsSet = new Set(existingEmails);
 
-  // 3. Process existing user data locally (Deterministic & JSON safe)
-  const databaseUsers = Array.isArray(dbResponse.body) ? dbResponse.body as SubscribedUserProp[] : [];
-  const existingEmails = new Set(databaseUsers.map((user) => user.email.toLowerCase()));
+  // 2. Fetch Paystack subscriptions and filter/clean them immediately inside context.run
+  const newUsers = await context.run("Fetch and filter new subscriptions", async () => {
+    const paystackResponse = await axios.get(
+      `${process.env.PUBLIC_BASE_URL}/api/get-all-subscriptions`,
+      { timeout: 15000 }
+    );
+    const subscriptions = (paystackResponse.data?.data as SubscribedUser[]) || [];
 
-  // 4. Map to clean JSON objects (NOT FormData)
-  const newUsers = subscribedUsers
-    .filter((subscription) => {
-      const email = subscription.customer?.email?.toLowerCase();
-      return email && !existingEmails.has(email);
-    })
-    .map((subscription) => {
-      let firstName = subscription.customer?.first_name;
-      let lastName = subscription.customer?.last_name;
+    return subscriptions
+      .filter((sub) => {
+        const email = sub.customer?.email?.toLowerCase();
+        return email && !existingEmailsSet.has(email);
+      })
+      .map((sub) => {
+        let firstName = sub.customer?.first_name;
+        let lastName = sub.customer?.last_name;
 
-      if (!firstName && !lastName) {
-        const emailName = subscription.customer.email.split("@")[0];
-        const nameParts = emailName.split(/[._-]/);
-        firstName = nameParts[0] || "";
-        lastName = nameParts.length > 1 ? nameParts.slice(1).join(" ") : "";
-      }
+        if (!firstName && !lastName && sub.customer?.email) {
+          const emailName = sub.customer.email.split("@")[0];
+          const nameParts = emailName.split(/[._-]/);
+          firstName = nameParts[0] || "";
+          lastName = nameParts.length > 1 ? nameParts.slice(1).join(" ") : "";
+        }
 
-      // Return a plain object that can be safely serialized to JSON
-      return {
-        status: subscription.status,
-        subscriptionPlan: subscription.plan.name,
-        career: "0",
-        email: subscription.customer.email,
-        password: "",
-        firstName: firstName || "",
-        lastName: lastName || "",
-        phoneNumber: "",
-        AttachmentName: "",
-        file: "",
-        ImageUrl: "",
-        isActive: "true",
-        isDeleted: "false",
-      };
-    });
+        return {
+          status: sub.status || "",
+          subscriptionPlan: sub.plan?.name || "",
+          career: "0",
+          email: sub.customer?.email || "",
+          password: "",
+          firstName: firstName || "",
+          lastName: lastName || "",
+          phoneNumber: "",
+          AttachmentName: "",
+          file: "",
+          ImageUrl: "",
+          isActive: "true",
+          isDeleted: "false",
+        };
+      });
+  });
 
-  // 5. Batch process updates cleanly
+  // 3. Batch process updates natively using Multipart Form Data
   if (newUsers.length > 0) {
     const batchSize = 10;
 
@@ -74,15 +73,28 @@ export const { POST } = serve(async (context) => {
       const batchIndex = Math.floor(i / batchSize);
       const batch = newUsers.slice(i, i + batchSize);
 
-      // We use Promise.all directly on context.call (NO context.run wrapping it)
       await Promise.all(
         batch.map(async (userToAdd, index) => {
           try {
-            // Deterministic Step ID using batch index and sequence index
+            // Construct standard multipart body format manually for context.call
+            // because instances of global FormData cannot be cleanly serialized across steps.
+            const boundary = `----WebKitFormBoundaryUpstashWorkflow${Date.now()}`;
+            let multipartBody = "";
+            
+            for (const [key, value] of Object.entries(userToAdd)) {
+              multipartBody += `--${boundary}\r\n`;
+              multipartBody += `Content-Disposition: form-data; name="${key}"\r\n\r\n`;
+              multipartBody += `${value}\r\n`;
+            }
+            multipartBody += `--${boundary}--\r\n`;
+
             await context.call(`add-user-b${batchIndex}-i${index}`, {
               url: `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/addUser`,
               method: "POST",
-              body: userToAdd, // Pass raw object. If backend strictly needs FormData, handle it at your API endpoint.
+              headers: {
+                "Content-Type": `multipart/form-data; boundary=${boundary}`,
+              },
+              body: multipartBody, 
             });
           } catch (error) {
             console.error(`Failed to update user record - ${userToAdd.email}`, error);
@@ -90,7 +102,7 @@ export const { POST } = serve(async (context) => {
         })
       );
 
-      // Sleep between batches if more exist
+      // Sleep between batches if more exist to respect rate limits
       if (i + batchSize < newUsers.length) {
         await context.sleep(`pause-batch-${batchIndex}`, 1);
       }
