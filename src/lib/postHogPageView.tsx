@@ -4,15 +4,22 @@
 import { usePathname, useSearchParams } from "next/navigation"
 import { useEffect, Suspense } from "react"
 import { usePostHog } from 'posthog-js/react'
+import { useAuth, useUser } from "@clerk/nextjs"
 
 function PostHogPageView() : null {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const posthog = usePostHog()
+  const{isSignedIn}=useAuth()
+  const {user}=useUser()
 
   // Track pageviews
   useEffect(() => {
-    if (pathname && posthog) {
+    if (pathname && posthog && isSignedIn && user && !posthog._isIdentified()) {
+      
+      const email=user.primaryEmailAddress?.emailAddress
+      posthog.identify(email,{email,name:user.fullName})
+      
       let url = window.origin + pathname
       if (searchParams?.toString()) {
         url = url + `?${searchParams?.toString()}`
@@ -20,7 +27,10 @@ function PostHogPageView() : null {
 
       posthog.capture('$pageview', { '$current_url': url })
     }
-  }, [pathname, searchParams, posthog])
+    if(!isSignedIn && posthog._isIdentified()){
+        posthog.reset()
+    }
+  }, [pathname, searchParams, posthog,isSignedIn,user])
   
   return null
 }
