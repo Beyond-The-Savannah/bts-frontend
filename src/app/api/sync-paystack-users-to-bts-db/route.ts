@@ -362,15 +362,15 @@ export const { POST } = serve(async (context) => {
               subscriptionPlan: userToUpdate.planName,
               firstName: userToUpdate.firstName,
               lastName: userToUpdate.lastName,
-                career:userToUpdate.subscriptionPlan,
-                password:userToUpdate.password,
-                phoneNumber:userToUpdate.phoneNumber,
-                attachmentName:userToUpdate.attachmentName,
-                file:userToUpdate.file,
-                imageUrl:userToUpdate.imageUrl,
-                isActive:userToUpdate.isActive,
-                isDeleted:userToUpdate.isDeleted,
-              // Add any other specific fields your updateUser endpoint requires here
+              career:parseInt(userToUpdate.subscriptionPlan as string),
+              password:userToUpdate.password,
+              phoneNumber:userToUpdate.phoneNumber,
+              attachmentName:userToUpdate.attachmentName,
+              file:userToUpdate.file,
+              imageUrl:userToUpdate.imageUrl,
+              isActive:userToUpdate.isActive,
+              isDeleted:userToUpdate.isDeleted,
+            // Add any other specific fields your updateUser endpoint requires here
             };
 
             await context.call(`update-user-b${batchIndex}-i${index}`, {
