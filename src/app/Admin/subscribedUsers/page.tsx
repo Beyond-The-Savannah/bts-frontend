@@ -3,6 +3,7 @@ import { columns } from "./columns";
 import axios from "axios";
 import { SubscribedUserProp } from "@/types/subscribedUser";
 import { UserMinus2Icon, UserPlus2, Users } from "lucide-react";
+// import { SubscribedUser } from "@/types/globals";
 
 
 export const dynamic = "force-dynamic";
@@ -17,8 +18,44 @@ export default async function Page() {
 
   const activeSubscriptionsCount = users.filter((user) => user.status === "active").length;
   const canceledSubscriptionsCount = users.filter((user) => user.status === "cancelled").length;
- 
+  
+  // // filter only the emails of the existing users 
+  // // const existingEmails=users.map((user)=>user.email.toLocaleLowerCase(),).filter(Boolean)
+  // const existingDBUSers=users.map((user)=>({userId:user.id,emaiL:user.email.toLocaleLowerCase(),status:user.status}))
+  // // const existingEmailsSet = new Set(existingEmails);
+  
+  // //get all subscribers from paystack
+  //   const paystackResponse = await axios.get(
+  //     `${process.env.PUBLIC_BASE_URL}/api/get-all-subscriptions`,
+  //     { timeout: 25000 }
+  //   );
+  //   const subs = (paystackResponse.data?.data as SubscribedUser[]).map((sub) => ({
+  //     status: sub.status || "",
+  //     planName: sub.plan?.name || "",
+  //     email: sub.customer?.email || "",
+  //     firstName: sub.customer?.first_name || "",
+  //     lastName: sub.customer?.last_name || "",
+  //   })) || [];
 
+
+
+  //   //get users from db who's status doesn't match paystack status
+  //   const localUsersMap = new Map(users.map(u => [u.email.toLowerCase(), u]));
+
+  //   const statusMismatches = subs.filter((sub) => {
+  //     const email = sub.email?.toLowerCase();
+  //     const localUser = localUsersMap.get(email);
+      
+  //     // If they exist in DB, but their DB status doesn't match Paystack's status
+  //     // return localUser && localUser.status !== sub.status;
+  //     return localUser && localUser.status !== sub.status;
+  //   });
+
+  //   console.log("Users needing status updates:", statusMismatches);
+
+    
+  //   console.log("LOCAL MAP USERS=>",localUsersMap)
+  //   console.log("DB USERS =>",existingDBUSers)
   return (
     <>
       <section className="mt-10 px-4">
