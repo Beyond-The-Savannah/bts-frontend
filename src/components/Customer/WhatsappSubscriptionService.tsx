@@ -21,33 +21,11 @@ export default function WhatsappSubscriptionService({
   const userFirstName = user.user?.firstName as string;
 
   async function handlePurchasePackage(subscriptionOptions: subScriptionProps) {
-    const generateLink = async () => {
-      try {
-        const response = await fetch("/api/generate-expiration-link", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ userId: user?.user?.id }),
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-          localStorage.setItem("expiringLink", data.expiringLink);
-          return data.expiringLink;
-        } else {
-          console.error(data.error);
-          return null;
-        }
-      } catch (error) {
-        console.error("Error generating expiration link:", error);
-        return null;
-      }
-    };
+ 
 
     const handleSubscription = async () => {
       try {
-        const expiringLink = await generateLink();
+        // const expiringLink = await generateLink();
 
         const response = await axios.post(`/api/subscriptions`, {
           email: subscriptionOptions.email,
@@ -56,7 +34,7 @@ export default function WhatsappSubscriptionService({
           plan: subscriptionOptions.plan,
           name: subscriptionOptions.name,
           firstName: user.user?.firstName,
-          whatsAppExpiringLink: expiringLink,
+          // whatsAppExpiringLink: expiringLink,
         });
 
         const authorizationUrl =

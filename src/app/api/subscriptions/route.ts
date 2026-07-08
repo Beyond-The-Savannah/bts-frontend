@@ -16,17 +16,13 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
-    const { email, amount, plan, firstName, currency, whatsAppExpiringLink } =
+    const { email, amount, plan, firstName, currency} =
       await request.json();
     const amountInCents = amount * 100;
 
     let callback_url_value = "";
 
-    // if (amountInCents == 600000 || amountInCents==6000) {
-    //   callback_url_value = `${PUBLIC_BASE_URL}/Customer/whatsappService?source=whatsapp-service`;
-    // } else {
-    //   callback_url_value = `${PUBLIC_BASE_URL}/Customer`;
-    // }
+  
     if(amountInCents==600000){
       callback_url_value = `${PUBLIC_BASE_URL}/Customer/whatsappService?source=whatsapp-service`;
     }
@@ -51,10 +47,11 @@ export async function POST(request: Request) {
       const { data, error } = await resend.emails.send({
         from: `info@beyondthesavannah.co.ke`,
         to: [email],
-        subject: `Beyond The Savannah Whatsapp Link`,
+        // subject: `Beyond The Savannah Whatsapp Link`,
+        subject: `Beyond the Savannah Accountability Community Link`,
         react: WhatsAppsEmailTemplate({
           firstName: firstName,
-          whatsAppExpiringLink: whatsAppExpiringLink,
+          whatsAppExpiringLink: "https://chat.whatsapp.com/L41Wm4vCwGTG7JqXI8HG3f",
         }),
       });
       if (error) {
@@ -67,11 +64,11 @@ export async function POST(request: Request) {
       const { data, error } = await resend.emails.send({
         from: `info@beyondthesavannah.co.ke`,
         to: [email],
-        subject: `Beyond The Savannah Whatsapp Group Link`,
+        subject: `Beyond The Savannah Tribe Link`,
         react: WhatsAppsEmailTemplate({
           firstName: firstName,
           whatsAppExpiringLink:
-            "https://chat.whatsapp.com/LDHAh18I4kZ208gGig8jMV",
+            "https://chat.whatsapp.com/EiesOFxHWDxE6mqPLHegER",
         }),
       });
       if (error) {
@@ -104,39 +101,4 @@ export async function GET(request:Request){
 
 }
 
-/*gets all subscriptions from paystack*/
-// export async function GET() {
-//   try {
-//     let allSubscriptions: unknown[] = [];
-//     let currentPage = 1;
-//     let totalPages = 1;
 
-//     do {
-//       const response = await paystackInstance.subscription.list({
-//         page: currentPage,
-//         perPage: 100,
-//         // perPage: 50,
-//       });
-//       if ("data" in response) {
-//         allSubscriptions = [...allSubscriptions, ...response.data];
-//         totalPages = response.meta.pageCount;
-//       } else {
-//         throw new Error("BadRequest received from Paystack API");
-//       }
-//       currentPage++;
-//     } while (currentPage <= totalPages);
-
-//     // return Response.json(response);
-//     return Response.json({
-//       status: true,
-//       message: "All subscriptions retrieved",
-//       data: allSubscriptions,
-//       meta: {
-//         total: allSubscriptions.length,
-//         pageCount: totalPages,
-//       },
-//     });
-//   } catch (error) {
-//     return Response.json({ error }, { status: 500 });
-//   }
-// }
