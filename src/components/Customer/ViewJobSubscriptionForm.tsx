@@ -22,7 +22,7 @@ export default function ViewJobSubscriptionForm({
   currencyValue,
   firstName,
   lastName,
-  userId,
+  
 }: ViewJobSubscriptionFormProps) {
 
   const router=useRouter()
@@ -81,7 +81,7 @@ export default function ViewJobSubscriptionForm({
     }
     await AddUserAndSubscriptionToDb(userData, subscriptionData)
     toast.info("Refreshing page....")
-    if(amount===1500||amount===18000||amount===300) await SendWhatsApplinkForPremiumUsers(firstName,email,userId)
+    if(amount===1500||amount===18000||amount===300) await SendWhatsApplinkForPremiumUsers(firstName,email)
   
     router.refresh()
   };

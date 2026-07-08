@@ -6,7 +6,7 @@ import { Resend } from "resend";
 export async function SendWhatsApplinkForPremiumUsers(
   firstName: string,
   email: string,
-  // userId:string,
+  
 ) {
 
     const whatsappLink="https://chat.whatsapp.com/L41Wm4vCwGTG7JqXI8HG3f"
