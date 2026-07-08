@@ -80,72 +80,50 @@ export const { POST } = serve(async (context) => {
       };
     });
 
-  // 4. Batch process updates cleanly using PUT requests with JSON data
+  
   // 4. Batch process updates cleanly using PUT requests with multipart/form-data
   if (statusMismatches.length > 0) {
-    const batchSize = 6; 
+    const batchSize = 10; // Increased batch size slightly since QStash footprint is lower now
 
     for (let i = 0; i < statusMismatches.length; i += batchSize) {
       const batchIndex = Math.floor(i / batchSize);
       const batch = statusMismatches.slice(i, i + batchSize);
 
-      await Promise.all(
-        batch.map(async (userToUpdate, index) => {
-          // Wrapped in context.run to execute standard Axios with FormData
-          await context.run(`update-user-b${batchIndex}-i${index}`, async () => {
+      // Wrap the ENTIRE batch execution inside a single context.run
+      await context.run(`process-batch-${batchIndex}`, async () => {
+        await Promise.all(
+          batch.map(async (userToUpdate) => {
             try {
               const formData = new FormData();
-              
-              // Append fields exactly as defined in your Swagger UI
-              formData.append("status",userToUpdate.status)
-              formData.append("subscriptionPlan",userToUpdate.subscriptionPlan as string)
-              formData.append("email",userToUpdate.email)
+              formData.append("status", userToUpdate.status);
+              formData.append("subscriptionPlan", userToUpdate.subscriptionPlan as string);
+              formData.append("email", userToUpdate.email);
               formData.append("firstName", userToUpdate.firstName || "");
               formData.append("lastName", userToUpdate.lastName || "");
-              // formData.append("PhoneNumber", userToUpdate.phoneNumber || "");
               
-              // Ensure Career is parsed as an integer ($int64)
               const careerVal = parseInt(userToUpdate.career as string);
               formData.append("Career", isNaN(careerVal) ? "0" : String(careerVal)); 
-              
-              // formData.append("AttachmentName", userToUpdate.attachmentName || "");
-              // formData.append("ImageUrl", userToUpdate.imageUrl || "");
-
-              // Append the binary file
-              // Note: If userToUpdate.file is a URL or base64 string instead of a Blob/Buffer, 
-              // your backend might require it to be converted to a Buffer/File object first.
-              // if (userToUpdate.file) {
-              //   formData.append("file", userToUpdate.file);
-              // }
-
-              // // Include any additional fields your API accepts
-              // if (userToUpdate.status) formData.append("status", userToUpdate.status);
-              // if (userToUpdate.password) formData.append("password", userToUpdate.password);
-              // formData.append("isActive", String(userToUpdate.isActive));
-              // formData.append("isDeleted", String(userToUpdate.isDeleted));
 
               const url = `${process.env.NEXT_PUBLIC_DB_BASE_URL}/api/BydUsers/updateUserDetails?email=${encodeURIComponent(userToUpdate.email)}`;
 
-              // Execute the PUT request
-              await axios.put(url, formData, {
-                // DO NOT manually set "Content-Type": "multipart/form-data".
-                // Axios will automatically set it and append the required boundary string.
-              });
+              await axios.put(url, formData);
               
             } catch (error) {
               console.error(`Failed to update user record - ${userToUpdate.email}`, error);
-              throw error; // Rethrow so the workflow engine registers the failure and can retry
+              // Handle error or throw depending on if you want to fail the entire batch
+              throw error; 
             }
-          });
-        })
-      );
+          })
+        );
+      });
 
-      // Sleep to prevent outbound rate limits and allow execution to pause cleanly
+      // Optional: Sleep to prevent overwhelming your own DB / API
       if (i + batchSize < statusMismatches.length) {
         await context.sleep(`pause-batch-${batchIndex}`, 1);
       }
     }
   }
+
   
 });
 
