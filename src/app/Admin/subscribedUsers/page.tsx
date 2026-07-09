@@ -43,7 +43,7 @@ export default async function Page() {
         email:userData.emailAddress??"",
         password:"",
         firstName:userData.firstName===null ?"":userData.firstName,
-        lastName:userData.firstName===null ?"":userData.firstName,
+        lastName:userData.lastName===null ?"":userData.lastName,
         phoneNumber:userData.phoneNumber===null ?"":userData.phoneNumber,
         attachmentName:userData.resumeName??"",
         file:"",
