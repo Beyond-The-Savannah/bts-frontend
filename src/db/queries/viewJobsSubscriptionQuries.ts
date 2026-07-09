@@ -3,6 +3,7 @@ import { db } from "../db";
 import { accountSettingsTable, candidatesProfileTable, subscriptionsTable, usersTable } from "../schema";
 
 
+
 export async function GetSubscriptionDetails(userEmail: string) {
   const data = await db
     .select({
@@ -75,4 +76,26 @@ export async function ExpiredSubscriptionDetails(subscriptionId: string){
   .where(eq(subscriptionsTable.id,subscriptionId))
   .returning({subscriptionId:subscriptionsTable.id})
   return data
+}
+
+
+export async function GetSubscriptionInformation(){
+const data=await db.select({
+  id:usersTable.id,
+  firstName:usersTable.firstName,
+  lastName:usersTable.lastName,
+  emailAddress:usersTable.emailAddress,
+  subcriptionTierName:subscriptionsTable.subcriptionTierName,
+  subcriptionTierType:subscriptionsTable.subcriptionTierType,
+  subscriptionStatus:subscriptionsTable.subscriptionStatus,
+  career:accountSettingsTable.careerEmailNotification,
+  phoneNumber:candidatesProfileTable.phoneNumber,
+  resumeName:candidatesProfileTable.resumeName,
+  resumeUrl:candidatesProfileTable.resumeUrl
+})
+.from(usersTable)
+.leftJoin(subscriptionsTable,eq(subscriptionsTable.userId,usersTable.id))
+.leftJoin(candidatesProfileTable,eq(candidatesProfileTable.userId,usersTable.id))
+.leftJoin(accountSettingsTable,eq(accountSettingsTable.userId,usersTable.id))
+return data
 }

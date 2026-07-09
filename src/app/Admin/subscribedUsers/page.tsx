@@ -1,8 +1,10 @@
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import axios from "axios";
-import { SubscribedUserProp } from "@/types/subscribedUser";
+import { CombinedSubscribedUsersProp, SubscribedUserProp } from "@/types/subscribedUser";
 import { UserMinus2Icon, UserPlus2, Users } from "lucide-react";
+import { usersSubscriptionInformation } from "@/app/dal/subscriptions";
+
 // import { SubscribedUser } from "@/types/globals";
 
 
@@ -16,46 +18,47 @@ export default async function Page() {
   const response = await axios.get(`${BTS_API_URL}/api/BydUsers/getAllUsers`);
   const users: SubscribedUserProp[] = await response.data;
 
-  const activeSubscriptionsCount = users.filter((user) => user.status === "active").length;
-  const canceledSubscriptionsCount = users.filter((user) => user.status === "cancelled").length;
+  // const activeSubscriptionsCount = users.filter((user) => user.status === "active").length;
+  // const canceledSubscriptionsCount = users.filter((user) => user.status === "cancelled").length;
   
-  // // filter only the emails of the existing users 
-  // // const existingEmails=users.map((user)=>user.email.toLocaleLowerCase(),).filter(Boolean)
-  // const existingDBUSers=users.map((user)=>({userId:user.id,emaiL:user.email.toLocaleLowerCase(),status:user.status}))
-  // // const existingEmailsSet = new Set(existingEmails);
-  
-  // //get all subscribers from paystack
-  //   const paystackResponse = await axios.get(
-  //     `${process.env.PUBLIC_BASE_URL}/api/get-all-subscriptions`,
-  //     { timeout: 25000 }
-  //   );
-  //   const subs = (paystackResponse.data?.data as SubscribedUser[]).map((sub) => ({
-  //     status: sub.status || "",
-  //     planName: sub.plan?.name || "",
-  //     email: sub.customer?.email || "",
-  //     firstName: sub.customer?.first_name || "",
-  //     lastName: sub.customer?.last_name || "",
-  //   })) || [];
+  const newSubscriptionData=await usersSubscriptionInformation()
+  // console.log("New Subscription Data", newSubscriptionData)
 
+  const combinedUsersSubscriptions:CombinedSubscribedUsersProp[]=[
+    ...users.map((user)=>({
+      ...user,
+      password:user.password??"",
+      phoneNumber:user.phoneNumber??"",
+      file:user.file??"",
+      firstName:user.firstName===null?"":user.firstName,
+      lastName:user.lastName===null?"":user.lastName,
+    })),
+    ...newSubscriptionData.map((userData)=>{
+      const plan=userData.subcriptionTierName && userData.subcriptionTierType ?`${userData.subcriptionTierName} ${userData.subcriptionTierType}`:""
+      return{
+        id:userData.id,
+        status:userData.subscriptionStatus??"",
+        subscriptionPlan:plan,
+        career:userData.career===null? "":userData.career,
+        email:userData.emailAddress??"",
+        password:"",
+        firstName:userData.firstName===null ?"":userData.firstName,
+        lastName:userData.firstName===null ?"":userData.firstName,
+        phoneNumber:userData.phoneNumber===null ?"":userData.phoneNumber,
+        attachmentName:userData.resumeName??"",
+        file:"",
+        imageUrl:userData.resumeUrl??"",
+        isActive: userData.subscriptionStatus === 'active',
+      isDeleted: false
+      }
+    })
+  ]
 
+  const allSubscriptionsCount=combinedUsersSubscriptions.length;
+  const activeSubscriptionsCount = combinedUsersSubscriptions.filter((user) => user.status === "active").length;
+  const canceledSubscriptionsCount = combinedUsersSubscriptions.filter((user) => user.status === "cancelled").length;
 
-  //   //get users from db who's status doesn't match paystack status
-  //   const localUsersMap = new Map(users.map(u => [u.email.toLowerCase(), u]));
-
-  //   const statusMismatches = subs.filter((sub) => {
-  //     const email = sub.email?.toLowerCase();
-  //     const localUser = localUsersMap.get(email);
-      
-  //     // If they exist in DB, but their DB status doesn't match Paystack's status
-  //     // return localUser && localUser.status !== sub.status;
-  //     return localUser && localUser.status !== sub.status;
-  //   });
-
-  //   console.log("Users needing status updates:", statusMismatches);
-
-    
-  //   console.log("LOCAL MAP USERS=>",localUsersMap)
-  //   console.log("DB USERS =>",existingDBUSers)
+ 
   return (
     <>
       <section className="mt-10 px-4">
@@ -66,7 +69,7 @@ export default async function Page() {
               <Users className="mr-2 text-blue-400" />
             <div className="flex flex-col">
               <p className="text-xs">All Subscriptions:</p>
-              <p className="text-lg font-bold">{users.length}</p>
+              <p className="text-lg font-bold">{allSubscriptionsCount}</p>
             </div>
           </div>
           <div className="flex items-center gap-2 border rounded-md px-4 py-2">
@@ -86,7 +89,8 @@ export default async function Page() {
           
         </div>
         <div className="container mx-auto px-4 py-10">
-          <DataTable data={users} columns={columns} />
+          {/* <DataTable data={users} columns={columns} /> */}
+          <DataTable data={combinedUsersSubscriptions} columns={columns} />
         </div>
       </section>
     </>

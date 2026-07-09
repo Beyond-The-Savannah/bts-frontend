@@ -11,13 +11,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { axiosInstance } from "@/remoteData/mutateData";
-import { SubscribedUserProp } from "@/types/subscribedUser";
+import { CombinedSubscribedUsersProp, } from "@/types/subscribedUser";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Download, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 
-export const columns: ColumnDef<SubscribedUserProp>[] = [
+// export const columns: ColumnDef<SubscribedUserProp>[] = [
+export const columns: ColumnDef<CombinedSubscribedUsersProp>[] = [
     {
         id:"select",
         header:({table})=>(
@@ -125,7 +126,11 @@ export const columns: ColumnDef<SubscribedUserProp>[] = [
   },
 ];
 
-async function removeUser(user:SubscribedUserProp){
+// async function removeUser(user:SubscribedUserProp){
+async function removeUser(user:CombinedSubscribedUsersProp){
+  if(typeof(user.id)==="string"){
+    toast.warning("This user record cannot be deleted")
+  }
   try {
     // const response = await axios.delete(`https://efmsapi-staging.azurewebsites.net/api/BydUsers/DeleteUser?userid=${user.id}`)
     const response = await axiosInstance.delete(`/api/BydUsers/DeleteUser?userid=${user.id}`)
