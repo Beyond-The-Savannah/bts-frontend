@@ -47,7 +47,7 @@ export async function POST(request: Request) {
       const { data, error } = await resend.emails.send({
         from: `info@beyondthesavannah.co.ke`,
         to: [email],
-        // subject: `Beyond The Savannah Whatsapp Link`,
+        bcc:"info@beyondthesavannah.co.ke",
         subject: `Beyond the Savannah Accountability Community Link`,
         react: WhatsAppsEmailTemplate({
           firstName: firstName,
@@ -64,6 +64,7 @@ export async function POST(request: Request) {
       const { data, error } = await resend.emails.send({
         from: `info@beyondthesavannah.co.ke`,
         to: [email],
+        bcc:"info@beyondthesavannah.co.ke",
         subject: `Beyond The Savannah Tribe Link`,
         react: WhatsAppsEmailTemplate({
           firstName: firstName,
