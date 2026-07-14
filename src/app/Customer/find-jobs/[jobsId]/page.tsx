@@ -53,9 +53,9 @@ export default async function page({
   return (
     <div className="container mx-auto">
       <div className="px-4">
-        <h2 className="text-xl">Global Open Roles</h2>
+        <h2 className="text-sm md:text-xl">Global Open Roles</h2>
         <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-        <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
+        <p className="capitalize text-xl md:text-3xl font-bold text-bts-GreenOne mt-2">
           Remote Opportunity
         </p>
       </div>

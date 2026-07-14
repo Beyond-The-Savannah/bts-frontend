@@ -32,7 +32,7 @@ export default async function page() {
   return (
     <>
       <section className="container mx-auto px-4 py-6">
-        <h2 className="text-xl">Candidates Profile</h2>
+        <h2 className="text-sm md:text-xl">Candidates Profile</h2>
         <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
         <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2"></p>
         {candidate.length === 0 ? (
@@ -77,7 +77,7 @@ export default async function page() {
                   Deadline on {candidate[0].createdAt.toLocaleDateString()}
                 </p>
               </div>
-              <div className="border-t-2 pt-2 flex items-center justify-between gap-2">
+              <div className="border-t-2 pt-2 flex flex-wrap md:flex-nowrap items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
              
                        <Avatar  className="h-28 w-28 border-2 border-bts-BrownFive size-20">
@@ -85,18 +85,18 @@ export default async function page() {
                         <AvatarFallback>{candidate[0].firstName.charAt(0)}{candidate[0].lastName.charAt(0)}</AvatarFallback>
                       </Avatar>
                   <div className="flex-col gap-2">
-                    <p className="text-lg font-medium">
+                    <p className="text-base lg:text-lg font-medium">
                       <span className="text-xs hidden">First Name:</span>
                       {candidate[0].firstName} {candidate[0].lastName}
                     </p>
                   </div>
                 </div>
                 <div className="c">
-                  <p className="text-lg font-medium">
+                  <p className="text-base lg:text-lg font-medium">
                     <span className="font-thin text-sm">Profession :</span>
                     {candidate[0].profession}
                   </p>
-                  <p className="text-lg font-medium pt-8">
+                  <p className="text-base lg:text-lg font-medium pt-8">
                     <span className="font-thin text-sm">Experience :</span>
                     {candidate[0].experienceYears} years
                   </p>

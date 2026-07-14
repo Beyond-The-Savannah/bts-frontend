@@ -9,6 +9,20 @@ import dynamic from "next/dynamic";
 // import {ClerkProvider} from '@clerk/nextjs'
 // import { Toaster } from 'sonner'
 const montserrat = Montserrat({subsets: ["latin"],});
+// const geist = Geist({
+//   subsets: ["latin"],
+//   variable: "--font-geist",
+// })
+
+// const inter = Inter({
+//   subsets: ["latin"],
+//   variable: "--font-inter",
+// })
+
+// const geistMono = Geist_Mono({
+//   subsets: ["latin"],
+//   variable: "--font-geist-mono",
+// })
 
 const ClerkProvider=dynamic(()=>import('@clerk/nextjs').then(mod=>mod.ClerkProvider),{ssr:true})
 const PostHogProvider=dynamic(()=>import('@/lib/postHogProvider').then(mod=>mod.PostHogProvider),{ssr:true})
@@ -45,7 +59,8 @@ export default function RootLayout({
           <meta name="google-site-verification" content="aqkKr0tpC8-ysRg4eUyHliw-26AqqaMgyiDUZI3gOAM" />
         </head>
         <body
-          className={`${montserrat.className} antialiased`}
+          // className={`${montserrat.className} ${geist.className} ${inter.className}${geistMono.className} antialiased`}
+          className={`${montserrat.className}  antialiased`}
         >
           <TanstackQueryProvider>
             <ViewTransitions>

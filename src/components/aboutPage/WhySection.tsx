@@ -9,9 +9,9 @@ export default function WhySection() {
     <>
       <section className="container mx-auto px-4 min-h-[40vh] flex flex-col justify-center">
         <div className="">
-          <h2 className="text-xl">Our Unique Factor</h2>
+          <h2 className="text-sm md:text-xl">Our Unique Factor</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
+          <p className="capitalize text-2xl md:text-3xl font-bold text-bts-GreenOne mt-2">
             Who We Are
           </p>
         </div>
@@ -27,7 +27,7 @@ export default function WhySection() {
               terrain, offering a range of services designed to enhance your
               employability and streamline your job search.
             </p> */}
-            <p className="text-lg">
+            <p className="text-lg mt-10">
               At Beyond the Savannah, we know that building a distributed
               workforce requires more than just posting a job online. True
               success lies in finding the right cultural and technical fit

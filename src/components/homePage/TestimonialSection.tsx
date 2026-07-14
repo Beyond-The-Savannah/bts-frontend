@@ -15,9 +15,9 @@ export default function TestimonialSection() {
     <>
       <section className="container mx-auto px-4 mt-64 min-h-[40vh] flex flex-col justify-center">
         <div className="">
-          <h2 className="text-xl">Testimonials</h2>
+          <h2 className="text-sm md:text-xl">Testimonials</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
+          <p className="capitalize text-2xl md:text-3xl font-bold text-bts-GreenOne mt-2">
             What are people saying
           </p>
         </div>
@@ -42,7 +42,7 @@ export default function TestimonialSection() {
                     </div>
                     <div className="w-full flex flex-col items-center justify-center gap-4 md:items-start md:w-220">
                       <QuoteIcon className="rotate-180" size={28} />
-                      <p className="ml-6 lg:ml-12 text-balance text leading-7">
+                      <p className="ml-6 lg:ml-12 text-balance text-sm md:text-base leading-7">
                         {testimonial.details}
                       </p>
                       <QuoteIcon className=" w-full ml-auto" size={28} />

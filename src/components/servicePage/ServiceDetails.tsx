@@ -82,7 +82,7 @@ export default function ServiceDetails({
                 ) : null}
               </p>
             </div>
-            <p className="text-xl font-medium lg:text-xl w-full">
+            <p className="text-lg md:text-xl lg:text-xl font-semibold w-full mt-10">
               {specificService?.subheading}
             </p>
             <p className="text-base w-full ">{specificService?.details}</p>
@@ -93,7 +93,7 @@ export default function ServiceDetails({
           <div className="w-[85vw] md:max-w-[50vw] ">
             <div className="flex items-center justify-between ">
               <div className="c">
-                <h6 className="text-3xl ">What&apos;s in this service</h6>
+                <h6 className="text-base md:text-3xl font-semibold">What&apos;s in this service</h6>
                 <div className="border-2 rounded-md border-bts-BrownThree w-full md:w-72 mb-4"></div>
               </div>
               <div className="c">

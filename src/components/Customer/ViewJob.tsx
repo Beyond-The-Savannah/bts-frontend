@@ -82,7 +82,7 @@ export default function ViewJob({ jobsId,userResume }: { jobsId: string ,userRes
   // console.log("VIEW_JOB_LOG", singleJob?.[0].sectionDescription);
   return (
     <>
-      <section className="container mx-auto   min-h-screen pt-2 md:pt-4 px-4">
+      <section className="container mx-auto   min-h-screen pt-2 md:pt-4 px-1 md:px-4 overflow-x-hidden">
         {isLoading && <SingleJobLoadingUI />}
         {isError && <SingleJobLoadingErrorUI />}
 
@@ -175,6 +175,7 @@ export default function ViewJob({ jobsId,userResume }: { jobsId: string ,userRes
                           />
                           <div className="rounded-lg bg-sky-50 px-3 py-4 mt-2 mb-10 md:absolute md:top-12 w-full md:w-12/12">
                             <div className="prose prose-sm">
+                            {/* <div className="typeset typeset-docs max-w-[37em]"> */}
                               <ReactMarkdown
                                 remarkPlugins={[remarkGfm]}
                                 rehypePlugins={[rehypeRaw]}
@@ -182,6 +183,11 @@ export default function ViewJob({ jobsId,userResume }: { jobsId: string ,userRes
                                 {generation}
                               </ReactMarkdown>
                             </div>
+                            {/* <div className="typeset typeset-docs max-w-[37em]">
+                              
+                                {generation}
+                              
+                            </div> */}
                           </div>
                         </div>
                       </>
@@ -196,7 +202,7 @@ export default function ViewJob({ jobsId,userResume }: { jobsId: string ,userRes
                 {singleJob.map((listing) => (
                   <article
                     key={listing.id}
-                    className=" border-bts-BrownTwo border-4   rounded-lg py-4  px-2 md:px-8"
+                    className=" border-bts-BrownTwo border-4   rounded-lg py-4  px-2 lg:px-8"
                   >
                     <h3 className="text-xl font-semibold">
                       {listing.sectionName}
@@ -211,6 +217,7 @@ export default function ViewJob({ jobsId,userResume }: { jobsId: string ,userRes
                  
                     <div
                       className="prose prose-sm leading-7 max-w-none w-full wrap-break-word "
+                      
                       dangerouslySetInnerHTML={{
                         __html: DOMPurify.sanitize(listing.sectionDescription),
                       }}

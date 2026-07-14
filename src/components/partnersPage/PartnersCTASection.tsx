@@ -15,9 +15,9 @@ export default function PartnersCTASection() {
       <div className="container mx-auto px-4">
         <div className="py-10">
           {/* <p className="text-l">Let&apos;s Build the Future of Work  Together</p> */}
-          <p className="text-l">Ready to Transform Remote Hiring Together?</p>
+          <p className="text-sm md:text-l">Ready to Transform Remote Hiring Together?</p>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <h2 className="text-4xl font-bold text-bts-GreenOne mt-2">
+          <h2 className="text-2xl md:text-4xl font-bold text-bts-GreenOne mt-2">
             Partner With Us
           </h2>
         </div>

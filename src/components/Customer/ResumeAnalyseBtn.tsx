@@ -65,7 +65,7 @@ export default function ResumeAnalyseBtn({loggedUser,userResumeUrl,singleJob,gen
                       const text = match[1]
                         .replace(/\\n/g, "\n")
                         .replace(/\\"/g, '"')
-                        .replace(/\\\\/g, "\\");
+                        .replace(/\\/g, "\\");
 
                       setGeneration(
                         (currentGeneration) => currentGeneration + text

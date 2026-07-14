@@ -6,9 +6,9 @@ export default function PoolOfCandidates() {
     <section className="min-h-[40dvh]">
       <div className="container mx-auto px-4 pb-20">
         <div className="py-10">
-          <p className="text-l">Talent ready for your business needs</p>
+          <p className="text-sm md:text-l">Talent ready for your business needs</p>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <h2 className="text-4xl font-bold text-bts-GreenOne mt-2">
+          <h2 className="text-2xl md:text-4xl font-bold text-bts-GreenOne mt-2">
             Pool of Candidates
           </h2>
           <div className="flex flex-nowrap  gap-x-12 md:gap-x-5 2xl:gap-x-12 gap-y-12 overflow-x-auto scrollbar-thin scrollbar-thumb-bts-BrownFive scrollbar-track-bts-BrownTwo py-10 mt-10">

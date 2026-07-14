@@ -7,9 +7,9 @@ export default function PartnershipTypes() {
     <section className="min-h-[60dvh] ">
       <div className="container mx-auto px-4 pb-20">
         <div className="py-10">
-          <p className="text-l">Collaboration in Many Forms</p>
+          <p className="text-sm md:text-l">Collaboration in Many Forms</p>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <h2 className="text-4xl font-bold text-bts-GreenOne mt-2">
+          <h2 className="text-2xl md:text-4xl font-bold text-bts-GreenOne mt-2">
             Types of Partnerships
           </h2>
         </div>

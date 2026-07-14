@@ -22,9 +22,9 @@ export default function CarreerServices() {
   return (
     <section className="px-4">
       <div className="px-2  mb-10">
-        <h2 className="text-xl">Our Services</h2>
+        <h2 className="text-sm md:text-xl">Our Services</h2>
         <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-        <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
+        <p className="capitalize text-xl md:text-3xl font-bold text-bts-GreenOne mt-2">
           How we can help you
         </p>
       </div>
@@ -55,14 +55,14 @@ export default function CarreerServices() {
                   {currencyValue == "KES" ? (
                     // <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 lg:w-36 text-xs">
                     // <p className="bg-amber-100 rounded-lg py-2 px-6 w-full 2xl:w-36 text-xs">
-                    <p className="bg-amber-100 rounded-lg py-2 px-6  text-xs">
+                    <p className="bg-amber-100 rounded-lg py-2 px-2 md:px-6  xl:w-32 text-xs">
                       KES{" "}
                       <span className="text-sm">{service.priceKESString}</span>
                     </p>
                   ) : (
                     // <p className="bg-amber-100 rounded-lg py-2 px-6 w-30 lg:w-36 text-xs">
                     // <p className="bg-amber-100 rounded-lg py-2 px-6 w-full 2xl:w-36 text-xs">
-                    <p className="bg-amber-100 rounded-lg py-2 px-6 xl:w-32 text-xs">
+                    <p className="bg-amber-100 rounded-lg py-2 px-2 md:px-6 w-30 xl:w-32 text-xs">
                       ${" "}
                       <span className="text-sm">{service.priceUSDString}</span>
                     </p>
@@ -79,13 +79,13 @@ export default function CarreerServices() {
                   <DialogDescription></DialogDescription>
                 </DialogHeader>
                 <DialogContent className="max-w-6xl mx-auto">
-                  <ScrollArea className="max-h-[70vh] w-full px-8 overflow-y-auto">
-                    <div className="max-w-6xl mx-autom ">
+                  <ScrollArea className="max-h-[70vh] w-full px-2 md:px-8 overflow-y-auto">
+                    <div className="max-w-6xl mx-auto ">
                       <div className="text-center text-balance mb-4">
-                        <p className="font-semibold text-2xl md:text-4xl text-bts-GreenOne">
+                        <p className="font-semibold text-xl md:text-4xl text-bts-GreenOne">
                           {service.title}
                         </p>
-                        <p className="c">{service.subheading}</p>
+                        <p className="text-sm mt-4">{service.subheading}</p>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-6 items-center gap-12 ">
@@ -110,7 +110,7 @@ export default function CarreerServices() {
                         </Link>
                       </div>
                       <div className="col-span-6 md:col-span-4">
-                        <p className="text-3xl">What&apos;s in this service</p>
+                        <p className="text-lg md:text-3xl font-medium">What&apos;s in this service</p>
 
                         <div className="border-2 rounded-md border-bts-BrownThree w-72 mb-4"></div>
                         {service.benefits.map((benefit, index) => (
