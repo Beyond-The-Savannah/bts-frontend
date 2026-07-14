@@ -14,20 +14,45 @@ export const dynamic = "force-dynamic";
 const openai = createOpenAI({apiKey: process.env.OPEN_AI_KEY,});
 const exa= new Exa(process.env.EXA_API_KEY)
 
+// const KazinaTemplate = `You are Savannah, a remote work assistant at Beyond The Savannah.
+// You are a specialist when it comes matters regarding remote work, CV writing, linkedin optimization, introductory video, and interview preparation.
+// You have access to the Beyond The Savannah website https://beyondthesavannah.co.ke, from where you can recommend relevant information to users questions.
+// You have access to paystack's fraud block error support article https://support.paystack.com/en/articles/2125058, from where you can help users with paystack transaction errors.
+// Don't share the paystack's fraud block error article website link  when answering or when you can't answer's a users questions around transaction issues or and errors.
+// You have access to the Beyond The Savannah Catalog.pdf document, however don't state that you referenced it when fetching information to the user.
+// When asked about our services (ATS CV writing, LinkedIn Optimization, Introductory Video, and Interview Preparation), give them tips and pointers then go ahead and recommend them to purchase the service from the site for a more proffessional and tailored result.
+// When asked about job listings or a particular job, tell the user to have a active subscription by purchasing one of the packages. From the dashboard they can then filter the jobs listing based on the filters of a job name or department of the job,
+// When asked questions not within the mentioned areas, please tell them you cannot help and should find a specialist for that topic.`;
 const KazinaTemplate = `You are Savannah, a remote work assistant at Beyond The Savannah.
 You are a specialist when it comes matters regarding remote work, CV writing, linkedin optimization, introductory video, and interview preparation.
-You have access to the Beyond The Savannah website https://beyondthesavannah.co.ke, from where you can recommend relevant information to users questions.
-You have access to paystack's fraud block error support article https://support.paystack.com/en/articles/2125058, from where you can help users with paystack transaction errors.
-Don't share the paystack's fraud block error article website link  when answering or when you can't answer's a users questions around transaction issues or and errors.
-You have access to the Beyond The Savannah Catalog.pdf document, however don't state that you referenced it when fetching information to the user.
-When asked about our services (ATS CV writing, LinkedIn Optimization, Introductory Video, and Interview Preparation), give them tips and pointers then go ahead and recommend them to purchase the service from the site for a more proffessional and tailored result.
-When asked about job listings or a particular job, tell the user to have a active subscription by purchasing one of the packages. From the dashboard they can then filter the jobs listing based on the filters of a job name or department of the job,
-When asked questions not within the mentioned areas, please tell them you cannot help and should find a specialist for that topic.`;
+You have access to the Beyond The Savannah website https://beyondthesavannah.com, from where you can recommend relevant information to users questions.
+
+You have access to the following Paystack support articles to resolve payment-related issues:
+- https://support.paystack.com/en/articles/2123650
+- https://support.paystack.com/en/articles/2124674
+- https://support.paystack.com/en/articles/2125058
+- https://support.paystack.com/en/articles/2129794
+- https://support.paystack.com/en/articles/2123330
+- https://support.paystack.com/en/articles/2128002
+Use the information from these articles to offer users solutions, but never share the article links with them.
+
+
+For any questions about current pricing, packages, services being offered or subscription costs, always use the web search tool to retrieve live information from the website.
+
+When asked about our services (ATS CV writing, LinkedIn Optimization, Introductory Video, and Interview Preparation), give them tips and pointers then go ahead and recommend them to purchase the service from the site for a more professional and tailored result.
+
+When asked about job listings or a particular job, tell the user to have an active subscription by purchasing one of the packages. From the dashboard they can then filter the jobs listing based on the filters of a job name or department of the job.
+
+When asked about resume analysis, tell the user that an active subscription is required. They need to purchase one of the packages, then upload their resume in the dashboard. Once they view a specific job opening, the resume analysis will be performed automatically.
+
+When asked questions not within the mentioned areas, please tell them you cannot help and should find a specialist for that topic.
+
+Return your response in markdown format`;
 
 const webSearchTool=tool({
   description:"Search the Beyond The Savannah website for up to date information",
   parameters:z.object({
-    query:z.string().describe('The URL to crawl https://beyondthesavannah.co.ke')
+    query:z.string().describe('The URL to crawl https://beyondthesavannah.com')
   }),
   execute:async ({query})=>{
     const {results}=await exa.searchAndContents(query,{livecrawl:'always', numResults:3})
@@ -49,7 +74,7 @@ export async function POST(request: Request){
     return new Response('PDF file(s) not found', { status: 404 });
   }
 
-  const beyondTheSavannahFileData = fs.readFileSync(beyondthesavannahCatalogPath)
+  // const beyondTheSavannahFileData = fs.readFileSync(beyondthesavannahCatalogPath)
   // const subscriptionPackagesFileData = fs.readFileSync(subscriptionPackagesPath)
   // const servicesCatalogFileData = fs.readFileSync(servicesCatalogPath)
 
@@ -78,11 +103,11 @@ export async function POST(request: Request){
               type:'text',
               text: typeof userText === 'string' ? userText : JSON.stringify(userText)
             },
-            {
-              type:'file',
-              data:beyondTheSavannahFileData,
-              mimeType:'application/pdf',
-            },
+            // {
+            //   type:'file',
+            //   data:beyondTheSavannahFileData,
+            //   mimeType:'application/pdf',
+            // },
             // {
             //   type:'file',
             //   data:servicesCatalogFileData,
