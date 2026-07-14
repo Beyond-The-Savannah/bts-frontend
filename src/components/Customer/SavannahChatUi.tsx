@@ -99,7 +99,7 @@ export default function SavannahChatUi() {
               // show the default message to user about kazina when no message exist
               <>
                 <div className="bg-slate-50 px-2 md:px-4 py-1 md:py-8 rounded-lg">
-                  <p className="text-sm text-center text-balance leading-7">
+                  <p className="text-xs text-center text-balance leading-6">
                     Ask any question you might have in regards to remote work
                     and Beyond The Savannah.
                   </p>

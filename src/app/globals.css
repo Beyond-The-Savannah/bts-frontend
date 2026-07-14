@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @import "uploadthing/tw/v4";
-
+@import "./typeset.css";
 
 @plugin "@tailwindcss/typography";
 @plugin 'tailwindcss-animate';
@@ -162,4 +162,13 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.typeset-docs {
+  --typeset-font-body: var(--font-montserrat);
+  --typeset-font-heading: var(--font-montserrat);
+  --typeset-font-mono: var(--font-montserrat);
+  --typeset-size: 15px;
+  --typeset-leading: 1.75;
+  --typeset-flow: 1.25em;
 }

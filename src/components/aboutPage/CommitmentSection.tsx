@@ -7,16 +7,16 @@ export default function CommitmentSection() {
   return (
     <>
       <section className="container mx-auto px-4 min-h-[60vh] flex flex-col justify-center">
-        <div className="">
-          <h2 className="text-xl">Our Goal</h2>
+        <div className="mt-10">
+          <h2 className="text-sm md:text-xl">Our Goal</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
+          <p className="capitalize text-2xl md:text-3xl font-bold text-bts-GreenOne mt-2">
             Our Committment To You
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-12 items-center justify-center space-y-8 pb-20 pt-0 md:pt-20">
           <div className="col-span-12 md:col-start-2  md:col-end-12 lg:col-end-8">
-            <p className="text-lg">
+            <p className="text-lg mt-10">
               {/* We are committed to your success. Our approach is client-centric;
               we focus on understanding your individual goals and challenges. By
               providing tailored support and resources, we aim to empower you to

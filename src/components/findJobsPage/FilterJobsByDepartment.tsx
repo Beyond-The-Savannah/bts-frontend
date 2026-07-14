@@ -48,7 +48,7 @@ export default function FilterJobsByDepartment({
     <>
       <div className="flex  flex-wrap gap-4 items-end">
         <div className="">
-          <p>Filter by Department</p>
+          <p className="text-xs lg:text-base">Filter by Department</p>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button

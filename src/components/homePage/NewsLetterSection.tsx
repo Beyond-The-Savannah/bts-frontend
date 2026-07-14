@@ -7,10 +7,10 @@ export default function NewsLetterSection() {
       <section className="container mx-auto px-4 mt-64 mb-20 h-full lg:min-h-[50vh] flex flex-col justify-center">
         <div className="">
           {/* <h2 className="text-xl">News letter</h2> */}
-          <h2 className="text-xl">Global Clientele</h2>
+          <h2 className="text-sm md:text-xl">Global Clientele</h2>
 
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
+          <p className="capitalize text-2xl md:text-3xl font-bold text-bts-GreenOne mt-2">
             {/* Get curated, remote jobs listings */}
             Work From Anywhere
           </p>
@@ -27,7 +27,7 @@ export default function NewsLetterSection() {
             />
           </div>
           <div className="w-full xl:w-[50vw] space-y-8 text-balance">
-            <p className="text-2xl font-semibold">
+            <p className="text-xl md:text-2xl font-semibold">
               A World Wide  WorkForce
             </p>
             <p>

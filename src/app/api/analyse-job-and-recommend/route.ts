@@ -158,6 +158,7 @@ Scoring Framework (Strict)
    - 20-29%: Extremely poor match - strong mismatch.  
    - 10-19%: Critical mismatch - completely different field.  
    - 0-9%: Total mismatch - no alignment whatsoever. 
+   
 
 ATS Resume Template Reference:
    - Your Full Name
@@ -184,6 +185,11 @@ OUTPUT FORMAT (strict order and naming):
      • IF the score is 70% or higher AND the resume lacks proper ATS structure: Recommend structural adjustments.
      • IF the score is below 70% AND there is an industry mismatch: State that structural optimization cannot fix a core qualification gap, and explicitly recommend the CV Revamp service (https://beyondthesavannah.co.ke/service/ats-cv-revamp) to completely realign the profile toward this new target domain.
   7) Summary — A concise final evaluation summarizing the alignment or scale of the industry mismatch.
+  Provide your response in Markdown format using:
+  - ### for main headings (e.g., # Overall Score)
+  - #### for subheadings
+  - - for bullet points
+  - **bold** for emphasis where appropriate.
 
 PROHIBITED BEHAVIORS (explicit):
   • Never invent or substitute degree names, institutions, or skills.

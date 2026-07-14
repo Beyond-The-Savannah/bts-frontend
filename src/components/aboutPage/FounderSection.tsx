@@ -7,9 +7,9 @@ export default function FounderSection() {
       {/* <div className="container mx-auto px-4 min-h-screen flex flex-col justify-center"> */}
       <div className="container mx-auto px-4 xs:min-h-[99dvh] md:min-h-[90dvh] lg:min-h-[90dvh] xl:min-h-[80dvh] 2xl:min-h-[55dvh] flex flex-col justify-center">
         <div className="py-10">
-          <h2 className="text-xl">Meet The Founder</h2>
+          <h2 className="text-sm md:text-xl">Meet The Founder</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <p className="capitalize text-5xl font-bold text-bts-GreenOne mt-2">
+          <p className="capitalize text-2xl md:text-5xl font-bold text-bts-GreenOne mt-2">
             Hi, I&apos;m Lorraine
           </p>
         </div>

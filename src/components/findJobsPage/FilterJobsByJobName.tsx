@@ -49,7 +49,7 @@ export default function FilterJobsByName({
     <>
       <div className="flex flex-wrap gap-4 items-end">
         <div className="">
-          <p>Filter by Name</p>
+          <p className="text-xs lg:text-base">Filter by Name</p>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button

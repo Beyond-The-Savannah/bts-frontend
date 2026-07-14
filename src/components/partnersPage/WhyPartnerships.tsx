@@ -6,9 +6,9 @@ export default function WhyPartnerships() {
     <section className="min-h-[60dvh] bg-bts-BrownOne mt-0 md:-mt-20 z-10">
       <div className="container mx-auto px-4 pb-20">
         <div className="py-10">
-          <p className="text-l">Partnerships Matter</p>
+          <p className="text-sm md:text-l">Partnerships Matter</p>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <h2 className="text-4xl font-bold text-bts-GreenOne mt-2">
+          <h2 className="text-2xl md:text-4xl font-bold text-bts-GreenOne mt-2">
             Why We Partner
           </h2>
         </div>

@@ -7,9 +7,9 @@ export default function FeaturedPartners() {
     <section className="min-h-screen bg-bts-BrownTwo/30 pb-10">
         <div className="container mx-auto px-4">
             <div className="py-10">
-                <p className="text-l">Our Collaborators</p>
+                <p className="text-sm md:text-l">Our Collaborators</p>
                 <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-                <h2 className="text-4xl font-bold text-bts-GreenOne mt-2">Featured Partners</h2>
+                <h2 className="text-2xl md:text-4xl font-bold text-bts-GreenOne mt-2">Featured Partners</h2>
             </div>
             <div className="text-center pt-4">
                 <p className="max-w-3xl mx-auto text-balance">We&apos;re proud to work with organizations that share our vision of a borderless job market. Each partner brings unique value whether through hiring, training, or mentorship to help us deliver lasting impact.</p>
