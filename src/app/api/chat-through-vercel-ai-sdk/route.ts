@@ -107,7 +107,8 @@ export async function POST(request: Request){
 
     const result = streamText({
       // model: openai("gpt-4.1-mini"),
-      model: openai("gpt-4.1-mini-2025-04-14"),
+      // model: openai("gpt-4.1-mini-2025-04-14"),
+      model: openai("gpt-5.4-nano-2026-03-17"),
       temperature:0,
       system: KazinaTemplate,
       // messages,
