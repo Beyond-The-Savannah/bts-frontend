@@ -8,20 +8,26 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { CircleCheck } from "lucide-react";
+import { ArrowUpRight, CircleCheck } from "lucide-react";
 import { ScrollArea } from "../ui/scroll-area";
 import { Button } from "../ui/button";
 import { Link } from "next-view-transitions";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import { useCurrencyBasedOnLocation } from "@/hooks/useCurrencyBasedOnLocation";
 import clsx from "clsx";
+import { usePathname } from 'next/navigation'
+
+
 
 export default function ServicesSection() {
   const currencyValue = useCurrencyBasedOnLocation();
+  const pathname = usePathname();
+  const isHomeRoute = pathname === "/";
 
   return (
     <>
-      <section id="services" className="pt-40 pb-20 bg-bts-BrownTwo ">
+      {/* <section id="services" className="pt-40 pb-20 bg-bts-BrownTwo "> */}
+      <section id="services" className={clsx(isHomeRoute ? "pt-40 pb-20 bg-bts-BrownTwo" : "px-4")}>
         <div className="container mx-auto px-4">
           <h2 className="text-sm md:text-xl">Our Services</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
@@ -104,13 +110,13 @@ export default function ServicesSection() {
                               sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw, 33vw"
                               classname="object-cover w-full h-[40vh] rounded-md"
                             />
-                            {/* <Link href={`service/${service.titleSlug}?currencyValue=${currencyValue}`}> */}
-                            <Link href={`service/${service.titleSlug}`}>
+                            
+                            <Link href={ isHomeRoute ?`service/${service.titleSlug}`:`/service/${service.titleSlug}`}>
                               <Button
                                 size="lg"
                                 className="border border-bts-BrownThree bg-bts-BrownThree text-black hover:text-white   rounded-lg text-base  hover:bg-bts-BrownThree hover:scale-105 transition duration-500  my-4"
                               >
-                                Get This Service
+                                Get This Service {!isHomeRoute &&(<ArrowUpRight/>) }
                               </Button>
                             </Link>
                           </div>
