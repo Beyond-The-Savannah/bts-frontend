@@ -7,7 +7,7 @@ export default function SavannahChatUI2() {
     <>
       <Popover>
         <PopoverTrigger className="flex items-center justify-center hover:scale-110 transition ease-in">
-          <p className="font-semibold text-white">Savannah</p>
+          {/* <p className="font-semibold text-white">Savannah</p> */}
           <DisplayImageFromNextCloudinary
             src="kazina_upvlpf"
             height={100}

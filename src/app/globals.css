@@ -164,11 +164,20 @@
   }
 }
 
-.typeset-docs {
+/* .typeset-docs {
   --typeset-font-body: var(--font-montserrat);
   --typeset-font-heading: var(--font-montserrat);
   --typeset-font-mono: var(--font-montserrat);
-  --typeset-size: 15px;
+  --typeset-size: 14px;
+  --typeset-leading: 1.75;
+  --typeset-flow: 1.25em;
+} */
+
+.typeset-docs {
+  --typeset-font-body: var(--font-geist);
+  --typeset-font-heading: var(--font-geist);
+  --typeset-font-mono: var(--font-geist-mono);
+  --typeset-size: 14px;
   --typeset-leading: 1.75;
   --typeset-flow: 1.25em;
 }

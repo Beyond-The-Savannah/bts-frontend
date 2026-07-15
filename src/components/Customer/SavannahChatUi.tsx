@@ -11,6 +11,7 @@ import { useEffect, useRef } from "react";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { Textarea } from "../ui/textarea";
+import { Wifi } from "lucide-react";
 
 
 export default function SavannahChatUi() {
@@ -29,6 +30,10 @@ export default function SavannahChatUi() {
     api: "/api/chat-through-vercel-ai-sdk",
     // api: "/api/chat-with-lang-chain",
   });
+
+ 
+
+
 
   useEffect(() => {
     const chatDiv = chatContainer.current;
@@ -58,7 +63,7 @@ export default function SavannahChatUi() {
                   >
                     <span className="text-xs rounded-lg bg-stone-200 p-1">
                       {message.role === "user" ? (
-                        <div className="w-5  md:w-10 h-5 md:h-10 grid place-content-center text-center">
+                        <div className="w-5  md:w-10 h-5 md:h-10 grid place-content-center text-center text-xs">
                           {/* you */}
                           {user?.imageUrl !==undefined ? (
                              <Image
@@ -70,7 +75,7 @@ export default function SavannahChatUi() {
                           />
                           )
                           :
-                          (<p className="text-sm">You</p>)
+                          (<p className="text-xs">You</p>)
                           }
                          
                         </div>
@@ -80,7 +85,7 @@ export default function SavannahChatUi() {
                             src="kazina_upvlpf"
                             height={400}
                             width={400}
-                            alt="kazina beyond the savannah ai assisant"
+                            alt="beyond the savannah ai assisant"
                             classname="object-contain "
                           />
                         </div>
@@ -88,9 +93,22 @@ export default function SavannahChatUi() {
                     </span>
                     {/* <p className="text-sm leading-7">{message.content}</p> */}
                     <div className="prose-sm prose-a:underline-offset-1 prose-a:text-blue-600">
-                      <ReactMarkDown remarkPlugins={[remarkGfm]}>
+                      {message.parts.map((part, i)=>{
+                        if(part.type==="text"){ return(  <ReactMarkDown key={i} remarkPlugins={[remarkGfm]}>
                         {message.content}
-                      </ReactMarkDown>
+                      </ReactMarkDown>)}
+                      if(part.type==="tool-invocation"){
+                        const{toolName,state}=part.toolInvocation
+                        if(toolName==="webSearchTool" && state!=="result"){
+                          return(<div key={i} className="flex gap-1 items-center flex-row-reverse"><p  className="text-blue-300">searching web...</p><Wifi className="text-blue-400 animate-pulse"/></div>)
+                        }
+                        return null
+                      }
+                      return null
+                      })}
+                      {/* <ReactMarkDown remarkPlugins={[remarkGfm]}>
+                        {message.content}
+                      </ReactMarkDown> */}
                     </div>
                   </div>
                 ))}
@@ -112,7 +130,8 @@ export default function SavannahChatUi() {
                 {status == "submitted" && (
                 
                 <div className="flex items-center justify-center gap-2">
-                  <p>Processing</p>
+                  <p className="text-blue-400 animate-pulse">Processing</p>
+                  
                   <svg
                     className="text-gray-300 animate-spin"
                     viewBox="0 0 64 64"
@@ -168,6 +187,7 @@ export default function SavannahChatUi() {
               <div className="flex flex-wrap md:flex-nowrap justify-end md:justify-evenly items-center gap-2">
                 <Textarea
                   name="prompt"
+                  className="text-xs"
                   value={input}
                   placeholder="Type your question here."
                   onChange={handleInputChange}

@@ -1,19 +1,22 @@
+import "../globals.css";
 import type { Metadata } from "next";
-// import { Montserrat } from "next/font/google";
-// import "../globals.css";
-import "../../app/globals.css";
+import { Geist, Geist_Mono } from "next/font/google";
 import NavigationSection from "@/components/NavigationSection";
 import FooterSection from "@/components/FooterSection";
-// import { ViewTransitions } from "next-view-transitions";
-// import TanstackQueryProvider from "@/lib/tanstack";
+
 import { getCldOgImageUrl } from "next-cloudinary";
 // import SavannahChatUI1 from "@/components/Customer/SavannahChatUI1";
 import SavannahChatUI2 from "@/components/Customer/SavannahChatUI2";
-// import { PostHogProvider } from "@/lib/postHogProvider";
 
-// const montserrat = Montserrat({
-//   subsets: ["latin"],
-// });
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+});
 
 const url = getCldOgImageUrl({
   src: "bts-og-img-2_t90ove",
@@ -40,32 +43,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // <html lang="en">
-    //   <body
-    //     className={`${montserrat.className} antialiased`}
-    //   >
     <>
-      {/* <TanstackQueryProvider>
-      <ViewTransitions>
-        <PostHogProvider> */}
       <NavigationSection />
       <div className="relative z-20">
-        {/* <div className="absolute top-152 md:top-152 lg:top-152 right-44  "> */}
-        {/* <div className="absolute top-152 xl:top-176 right-44  "> */}
-        <div className="absolute top-132 xl:top-158 right-44  ">
-          <div className="fixed bg-bts-GreenOne px-4 py-1 hover:scale-105 rounded-xl">
+        {/* <div className="absolute top-132 xl:top-158 right-44  "> */}
+        <div className="absolute top-132 md:top-200 xl:bottom-158 right-24 md:right-44  ">
+          {/* <div className="fixed bg-bts-GreenOne px-4 py-1 hover:scale-105 rounded-xl"> */}
+          <div
+            className={`${geist.variable} ${geistMono.variable} fixed bg-bts-GreenOne px-4 py-1 hover:scale-105 rounded-xl`}
+          >
             {/* <SavannahChatUI1 /> */}
-            <SavannahChatUI2/>
+            <SavannahChatUI2 />
           </div>
         </div>
       </div>
       {children}
       <FooterSection />
-      {/* </PostHogProvider>
-      </ViewTransitions>
-    </TanstackQueryProvider> */}
     </>
-    //   </body>
-    // </html>
   );
 }

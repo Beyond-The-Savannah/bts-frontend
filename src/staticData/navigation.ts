@@ -72,6 +72,10 @@ export const NonSimpleNavigationMenuItems = [
         title: "Remote Work Starter Bundle",
         link: "/service/remote-work-starter-bundle",
       },
+      {
+        title: "LinkedIn Marketing",
+        link: "/service/linkedin_marketing",
+      },
 
       {
         title: "Beyond the Savannah WhatsApp Community",
@@ -80,10 +84,6 @@ export const NonSimpleNavigationMenuItems = [
       {
         title: "September Hiring Surge,Readiness Bundle",
         link: "/service/september-hiring-surge-readiness-bundle",
-      },
-      {
-        title: "LinkedIn Marketing",
-        link: "/service/linkedin_marketing",
       },
     ],
   },

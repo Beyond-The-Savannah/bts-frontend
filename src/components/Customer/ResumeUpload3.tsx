@@ -48,7 +48,7 @@ export default function ResumeUpload3({
   return (
     <>
       <section className={clsx("py-10")}>
-        <div className="min-h-[20.3rem]  space-y-4 px-4 py-8 bg-bts-BrownOne/50 rounded-lg ">
+        <div className="min-h-[20.9rem]  space-y-4 px-4 py-8 bg-bts-BrownOne/50 rounded-lg ">
           <p className="font-semibold text-xl">Resume Upload</p>
 
           <p className=" text-xs">
