@@ -94,7 +94,9 @@ export const AgentTool = memo(
     const schema =
       "jsonSchema" in tool && tool.jsonSchema
         ? tool.jsonSchema
-        : tool.inputSchema;
+        : "parameters" in tool
+          ? tool.parameters
+          : {};
 
     return (
       <AccordionItem
