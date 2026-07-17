@@ -32,7 +32,7 @@ import {
 import { useOrganization, useUser } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
-import { format } from "date-fns";
+// import { format } from "date-fns";
 import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
@@ -424,7 +424,10 @@ export default function AddJobs({ employerJobsData }: AddJobsProps) {
                   >
                     <CalendarIcon />
                     {deadLineDate ? (
-                      format(deadLineDate, "PPP")
+                      <>
+                      {/* // format(deadLineDate, "PPP") */}
+                      {new Intl.DateTimeFormat('en-US',{dateStyle:"long"}).format(deadLineDate)}
+                      </>
                     ) : (
                       <span>Pick Deadline Date</span>
                     )}

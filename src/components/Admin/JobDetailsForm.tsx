@@ -24,7 +24,7 @@ import {
 } from "../ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import clsx from "clsx";
-import { format } from "date-fns";
+// import { format } from "date-fns";
 import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
 import { Calendar } from "../ui/calendar";
 import "react-quill-new/dist/quill.snow.css";
@@ -518,7 +518,9 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
                         >
                           {(field.value && !isNaN(new Date(field.value).getTime())) ? (
                             // format(field.value, "PPP")
-                            format(new Date(field.value), "PPP")
+                            // format(new Date(field.value), "PPP")
+                            new Intl.DateTimeFormat('en-US',{dateStyle:'long'}).format(new Date(field.value))
+
                           ) : (
                             <span>Pick and End Date</span>
                           )}

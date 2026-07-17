@@ -7,7 +7,6 @@ export default function SavannahChatUI2() {
     <>
       <Popover>
         <PopoverTrigger className="flex items-center justify-center hover:scale-110 transition ease-in">
-          {/* <p className="font-semibold text-white">Savannah</p> */}
           <DisplayImageFromNextCloudinary
             src="kazina_upvlpf"
             height={100}
@@ -17,7 +16,8 @@ export default function SavannahChatUI2() {
             classname="size-12"
           />
         </PopoverTrigger>
-        <PopoverContent className="min-w-[98dvw] md:min-w-[75dvw] lg:min-w-[50dvw] my-1 h-full md:h-[70dvh] lg:h-[60dvh] overflow-y-auto ">
+        {/* <PopoverContent className="min-w-[98dvw] md:min-w-[75dvw] lg:min-w-[50dvw] my-1 h-full md:max-h-[70dvh] lg:max-h-[70dvh] overflow-y-auto "> */}
+        <PopoverContent className="min-w-[98dvw] md:min-w-[75dvw] lg:min-w-[50dvw] my-1 h-full  ">
           <div className="flex items-center gap-1">
             <span className="text-sm md:text-sm">Hi, I&apos;Am Savannah </span>
             <DisplayImageFromNextCloudinary
