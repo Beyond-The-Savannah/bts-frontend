@@ -50,7 +50,7 @@ export default function RootLayout({
         <div className="absolute top-132 md:top-200 xl:bottom-158 right-24 md:right-44  ">
           {/* <div className="fixed bg-bts-GreenOne px-4 py-1 hover:scale-105 rounded-xl"> */}
           <div
-            className={`${geist.variable} ${geistMono.variable} fixed bg-bts-GreenOne px-4 py-1 hover:scale-105 rounded-xl`}
+            className={`${geist.variable} ${geistMono.variable} fixed bg-bts-GreenOne/40 px-4 py-1 hover:scale-105 rounded-xl`}
           >
             {/* <SavannahChatUI1 /> */}
             <SavannahChatUI2 />
