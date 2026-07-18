@@ -39,6 +39,7 @@ export default function ResumeAnalyseBtn({loggedUser,userResumeUrl,singleJob,gen
             if (!response.ok) {
               throw new Error("Failed to analyze resume");
             }
+            
             const reader = response.body?.getReader();
             const decoder = new TextDecoder();
 
@@ -49,32 +50,62 @@ export default function ResumeAnalyseBtn({loggedUser,userResumeUrl,singleJob,gen
                 const { done, value } = await reader.read();
                 if (done) break;
 
-                buffer += decoder.decode(value, {
-                  stream: true,
-                });
+                buffer += decoder.decode(value, { stream: true });
 
-                // Parse the AI SDK stream format
                 const lines = buffer.split("\n");
-                buffer = lines.pop() || ""; // Keep incomplete line in buffer
+                buffer = lines.pop() || "";
 
                 for (const line of lines) {
-                  if (line.startsWith('0:"')) {
-                    // Extract text from format: 0:"text"
-                    const match = line.match(/0:"(.*)"/);
-                    if (match && match[1]) {
-                      const text = match[1]
-                        .replace(/\\n/g, "\n")
-                        .replace(/\\"/g, '"')
-                        .replace(/\\/g, "\\");
+                  if (!line.startsWith("data: ")) continue;
 
-                      setGeneration(
-                        (currentGeneration) => currentGeneration + text
-                      );
+                  const payload = line.slice(6).trim();
+                  if (payload === "[DONE]") continue;
+
+                  try {
+                    const chunk = JSON.parse(payload);
+                    if (chunk.type === "text-delta" && chunk.delta) {
+                      setGeneration((current) => current + chunk.delta);
                     }
+                  } catch {
+                    // ignore partial/non-JSON lines
                   }
                 }
               }
             }
+
+            // if (reader) {
+            //   let buffer = "";
+
+            //   while (true) {
+            //     const { done, value } = await reader.read();
+            //     if (done) break;
+
+            //     buffer += decoder.decode(value, {
+            //       stream: true,
+            //     });
+
+            //     // Parse the AI SDK stream format
+            //     const lines = buffer.split("\n");
+            //     buffer = lines.pop() || ""; // Keep incomplete line in buffer
+
+            //     for (const line of lines) {
+            //       if (line.startsWith('0:"')) {
+            //         // Extract text from format: 0:"text"
+            //         const match = line.match(/0:"(.*)"/);
+            //         if (match && match[1]) {
+            //           const text = match[1]
+            //             .replace(/\\n/g, "\n")
+            //             .replace(/\\"/g, '"')
+            //             .replace(/\\/g, "\\");
+
+            //           setGeneration(
+            //             (currentGeneration) => currentGeneration + text
+            //           );
+            //         }
+            //       }
+            //     }
+            //   }
+            // }
           } catch (error) {
             console.log("Error analysing resume Button Call->", error);
           } finally {

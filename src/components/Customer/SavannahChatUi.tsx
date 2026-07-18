@@ -1,11 +1,13 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
+import { DefaultChatTransport } from "ai";
+
 // import { Button } from "../ui/button";
 // import ReactMarkDown from "react-markdown";
 // import remarkGfm from "remark-gfm";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // import { useUser } from "@clerk/clerk-react";
 import { useUser } from "@clerk/nextjs";
@@ -19,8 +21,6 @@ import {
 } from "../ai-elements/conversation";
 import {
   Message,
-  MessageBranch,
-  MessageBranchContent,
   MessageContent,
   MessageResponse,
 } from "../ai-elements/message";
@@ -33,6 +33,7 @@ import {
   PromptInputBody,
   PromptInputFooter,
   PromptInputHeader,
+  type PromptInputMessage,
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
@@ -41,26 +42,26 @@ import {
 
 export default function SavannahChatUi() {
   const chatContainer = useRef<HTMLDivElement>(null);
+    const [input, setInput] = useState("");
   const { user } = useUser();
   const {
     messages,
-    input,
-    handleInputChange,
     status,
-    // stop,
-    // error,
-    // reload,
-    handleSubmit,
+    sendMessage,
+    // handleInputChange,
+    // input,
+    // handleSubmit,
   } = useChat({
-    api: "/api/chat-through-vercel-ai-sdk",
+    transport: new DefaultChatTransport({ api: "/api/chat-through-vercel-ai-sdk",}),
+    // api: "/api/chat-through-vercel-ai-sdk",
     // api: "/api/chat-with-lang-chain",
   });
 
-  const handlePromptSubmit = (
-    _message: unknown,
-    event: React.FormEvent<HTMLFormElement>,
-  ) => {
-    handleSubmit(event);
+  const handlePromptSubmit = (message:PromptInputMessage) => {
+    if(message.text.trim()){
+      sendMessage({text:message.text})
+      setInput("")
+    }
   };
 
   useEffect(() => {
@@ -78,11 +79,10 @@ export default function SavannahChatUi() {
           <Conversation>
             <ConversationContent>
               {messages.map((message) => (
-                <MessageBranch defaultBranch={0} key={message.id}>
-                  <MessageBranchContent>
+                
                     <Message
-                      from={message.role}
                       key={message.id}
+                      from={message.role === "user" ? "user" : "assistant"}
                       className="flex flex-row gap-x-3"
                     >
                       {message.role === "user" ? (
@@ -113,46 +113,43 @@ export default function SavannahChatUi() {
                       )}
                       {/* <div className="prose-sm prose-a:underline-offset-1 prose-a:text-blue-600"> */}
                       <div className="">
+                        <MessageContent >
                         {message.parts.map((part, i) => {
-                          if (part.type === "text") {
-                            return (
-                              <MessageContent key={i}>
-                                {/* <ReactMarkDown remarkPlugins={[remarkGfm]}>
-                              {message.content}
-                            </ReactMarkDown> */}
-                                {/* <MessageResponse className="border  px-2 rounded-lg py-4"> */}
-                                <MessageResponse className="">
-                                  {message.content}
-                                </MessageResponse>
-                              </MessageContent>
-                            );
+
+                            //  if (part.type === "text") {
+                            //   return <MessageResponse key={`${message.id}-${i}`}>{part.text}</MessageResponse>;
+                            // }
+                            // if (part.type === "reasoning") {
+                            //   return <p key={`${message.id}-${i}`} className="text-sm text-blue-300">reasoning...</p>;
+                            // }
+                            // if (part.type === "tool-invocation") {
+                            // // if (part.type === "tool-webSearchTool") {
+                            //   return (
+                            //     <p key={`${message.id}-${i}`} className="text-sm text-blue-300 flex items-center">
+                            //       <Wifi className="text-blue-400 animate-pulse" /> searching web...
+                            //     </p>
+                            //   );
+                            // }
+                            // return null;
+  
+                          switch (part.type){
+                            case "text":
+                              return (<MessageResponse key={`${message.id}-${i}`}>{part.text}</MessageResponse>)
                           }
-                          if (part.type === "tool-invocation") {
-                            const { toolName, state } = part.toolInvocation;
-                            if (
-                              toolName === "webSearchTool" &&
-                              state !== "result"
-                            ) {
-                              return (
-                                <div
-                                  key={i}
-                                  className="flex gap-1 items-center flex-row-reverse"
-                                >
-                                  <p className="text-blue-300">
-                                    searching web...
-                                  </p>
-                                  <Wifi className="text-blue-400 animate-pulse" />
-                                </div>
-                              );
-                            }
-                            return null;
+                          switch (part.type){
+                            case "reasoning":
+                              return (<p key={`${message.id}-${i}`} className="text-sm text-blue-300">reasoning...</p>)
                           }
-                          return null;
+                          switch (part.type){
+                            case "tool-webSearchTool":
+                              return (<p key={`${message.id}-${i}`} className="text-sm text-blue-300 flex gap-1 items-end"><Wifi className="text-blue-400 animate-pulse"/> searching web...</p>)
+                          }
+                          
                         })}
+                        </MessageContent>
                       </div>
                     </Message>
-                  </MessageBranchContent>
-                </MessageBranch>
+                
               ))}
             </ConversationContent>
             <ConversationScrollButton />
@@ -164,7 +161,7 @@ export default function SavannahChatUi() {
               <PromptInputHeader></PromptInputHeader>
               <PromptInputBody>
                 <PromptInputTextarea
-                  onChange={handleInputChange}
+                  onChange={(e)=>setInput(e.currentTarget.value)}
                   value={input}
                   placeholder="Welcome, enter your question here"
                 />
