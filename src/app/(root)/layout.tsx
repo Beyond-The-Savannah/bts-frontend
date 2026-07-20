@@ -47,7 +47,7 @@ export default function RootLayout({
       <NavigationSection />
       <div className="relative z-20">
         {/* <div className="absolute top-132 xl:top-158 right-44  "> */}
-        <div className="absolute top-132 md:top-200 xl:bottom-158 right-24 md:right-44  ">
+        <div className="absolute top-142 md:top-200 xl:bottom-158 right-24 md:right-44  ">
           {/* <div className="fixed bg-bts-GreenOne px-4 py-1 hover:scale-105 rounded-xl"> */}
           <div
             className={`${geist.variable} ${geistMono.variable} fixed bg-bts-GreenOne/40 px-4 py-1 hover:scale-105 rounded-xl`}
