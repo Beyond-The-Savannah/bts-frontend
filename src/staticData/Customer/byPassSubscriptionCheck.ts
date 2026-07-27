@@ -8,12 +8,13 @@ export const byPassEmailAddresses = [
 // `ann33kimani@gmail.com`, //14-05-26
 // `joanmuthuri@gmail.com`, //18-05-26
 // `tkidula@gmail.com`, //21-05-26
-`victoria.wakiini@gmail.com`, //25-05-26 and 10-06-26
-`akoth2014sharon@gmail.com`, //12-06-26
-`linetgitonga7@gmail.com`,//24-06-26
-`kasokaisaac2@gmail.com`,//25-06-26
+// `victoria.wakiini@gmail.com`, //25-05-26 and 10-06-26
+// `akoth2014sharon@gmail.com`, //12-06-26
+// `linetgitonga7@gmail.com`,//24-06-26
+// `kasokaisaac2@gmail.com`,//25-06-26
 
-`richasante4321@gmail.com`, //15-06-26
+  `gracetumwesigye4@gmail.com`, //remove on thursday (30-07-2026)
+// `richasante4321@gmail.com`, //15-06-26
 // `aheebwasama@gmail.com`, //12-05-26
   // `hannahmwangi866@gmail.com`,
   // `nancynyarige01@gmail.com`,
