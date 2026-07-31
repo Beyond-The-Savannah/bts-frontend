@@ -78,8 +78,9 @@ export default function VirtualBtsCandidatesList({
         <div className="flex flex-col gap-4">
           {/* <CandidateInvite candidates={candidates}/> */}
           <CandidateInvite />
-          <div className="border rounded-xl px-3 py-1">
-            Total Candidates:{" "}
+          <div className="text-xs border rounded-xl px-3 py-1">
+            {/* Total Candidates:{" "} */}
+            Current Total Candidates:{" "}
             <span className="font-bold">{candidates.length}</span>
           </div>
         </div>
@@ -128,10 +129,11 @@ export default function VirtualBtsCandidatesList({
                     <div className="my-10">
                       <div className="flex items-center justify-between">
                         <p className="border rounded-xl px-3 py-1 hidden">
-                          Created on {candidate.createdAt.toLocaleDateString()}
+                          {/* Created on */}
+                          Created on {candidate.createdAt ? new Date(candidate.createdAt).toLocaleDateString() : ""}
                         </p>
                         <p className="border rounded-xl px-3 py-1 hidden">
-                          Deadline on {candidate.createdAt.toLocaleDateString()}
+                          Deadline on {candidate.createdAt ? new Date(candidate.createdAt).toLocaleDateString() : ""}
                         </p>
                       </div>
                       <div className="border-t-2 pt-2 flex items-center justify-between gap-2">

@@ -71,3 +71,8 @@ export async function GetRelevantCandidates(orgId: string) {
   );
   return relavantCandidates;
 }
+
+export async function GetPaginaitedCandidates(page=1,pageSize=10){
+  const data=await db.select().from(candidatePoolTable).limit(pageSize).offset((page-1)*pageSize)
+  return data
+}
