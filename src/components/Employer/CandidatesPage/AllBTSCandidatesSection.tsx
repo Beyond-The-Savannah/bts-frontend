@@ -8,8 +8,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CandidatesWithOutResume from "./CandidatesWithOutResume";
 import CandidatesWithInfinityQuery from "@/components/Admin/CandidatesWithInfinityQuery";
 import CandidatesWithResume from "./CandidatesWithResume";
+import {GetAllCandidatesTotalCount, GetCanidatesWithOutResumeTotalCount, GetCanidatesWithResumeTotalCount} from "@/db/queries/employerQuries";
 
 export default async function AllBTSCandidatesSection() {
+  const candidatesWithResumeCount=await GetCanidatesWithResumeTotalCount()
+  const candidatesWithOutResumeCount=await GetCanidatesWithOutResumeTotalCount()
+  const allCandidatesCount=await GetAllCandidatesTotalCount();
   
   // const [candidates, candidatesWithResume, candidatesWithOutResume] =
   //   await Promise.all([
@@ -47,7 +51,7 @@ export default async function AllBTSCandidatesSection() {
                   <div className="border-2 rounded-md border-bts-GreenOne w-36 mb-8"></div>
                 </div> */}
                 {/* <VirtualBtsCandidatesList candidates={candidatesWithResume} /> */}
-                <CandidatesWithResume/>
+                <CandidatesWithResume allRecordsCount={candidatesWithResumeCount}/>
               </TabsContent>
               <TabsContent value="CandidatesWithOutResume">
                 {" "}
@@ -60,7 +64,7 @@ export default async function AllBTSCandidatesSection() {
                 {/* <VirtualBtsCandidatesList
                   candidates={candidatesWithOutResume}
                 /> */}
-                <CandidatesWithOutResume/>
+                <CandidatesWithOutResume allRecordsCount={candidatesWithOutResumeCount}/>
               </TabsContent>
               <TabsContent value="AllCandidates">
                 {" "}
@@ -69,7 +73,7 @@ export default async function AllBTSCandidatesSection() {
                   <div className="border-2 rounded-md border-bts-GreenOne w-36 mb-8"></div>
                 </div>
                 {/* <VirtualBtsCandidatesList candidates={candidates} /> */}
-                <CandidatesWithInfinityQuery/>
+                <CandidatesWithInfinityQuery allRecordsCount={allCandidatesCount}/>
               </TabsContent>
             </Tabs>
           </>

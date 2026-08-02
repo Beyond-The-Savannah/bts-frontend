@@ -1,5 +1,6 @@
 'use client'
 import VirtualBtsCandidatesList from "@/components/Admin/VirtualBtsCandidatesList";
+import CandidateRowLoader from "@/components/Loaders/CandidateRowLoader";
 import { Button } from "@/components/ui/button";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -7,7 +8,7 @@ import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
 
-export default function CandidatesWithResume() {
+export default function CandidatesWithResume({allRecordsCount}: {allRecordsCount: number}) {
     const [pageSizeLimit,] = useState(10);
     const {
     data,
@@ -39,14 +40,16 @@ export default function CandidatesWithResume() {
       return firstPageParam - 1;
     },
   });
-  if (status == "pending") {
-    toast.info("loading...");
+  
+  const allCandidates = useMemo(() => data?.pages.flat() ?? [], [data?.pages]);
+
+  if (status=="pending") {
+    return <CandidateRowLoader/>;
   }
   if (error) {
     toast.error("An error occured");
   }
 
-  const allCandidates = useMemo(() => data?.pages.flat() ?? [], [data?.pages]);
   return (
     <>
     <section className="container mx-auto px-4">
@@ -57,7 +60,7 @@ export default function CandidatesWithResume() {
             <div className="border-2 rounded-md border-bts-GreenOne w-36 mb-8"></div>
         </div>
         <div className="mt-4">
-            <VirtualBtsCandidatesList candidates={allCandidates}/>
+            <VirtualBtsCandidatesList candidates={allCandidates} count={allRecordsCount} />
         </div>
          <div className="flex gap-4 items-center justify-center my-10">
           <Button

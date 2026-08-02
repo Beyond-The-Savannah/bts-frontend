@@ -1,6 +1,6 @@
 "use client"
 
-import { BrickWall, Briefcase, Building2, Factory, FolderPlus, Layers, Layers2, Users, Users2Icon, } from "lucide-react";
+import { BrickWall, Briefcase, Building2, Factory, FolderPlus, Layers, Layers2, Users, } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -58,11 +58,7 @@ const items = [
     url: "/Admin/bts-candidates",
     icon: Factory,
   },
-  {
-    title: "Paginated BTS Candidates",
-    url: "/Admin/bts-candidates2",
-    icon: Users2Icon,
-  },
+
 ];
 
 export default function AppSidebar() {

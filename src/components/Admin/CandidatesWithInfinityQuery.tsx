@@ -43,12 +43,13 @@ import { Button } from "../ui/button";
 // import { Input } from "../ui/input";
 // import { useDebounceSearch } from "@/hooks/useDebounceSearch";
 import VirtualBtsCandidatesList from "./VirtualBtsCandidatesList";
+import CandidateRowLoader from "../Loaders/CandidateRowLoader";
 // import CandidatesWithResume from "../Employer/CandidatesPage/CandidatesWithResume";
 // import CandidatesWithOutResume from "../Employer/CandidatesPage/CandidatesWithOutResume";
 
 
 
-export default function CandidatesWithInfinityQuery() {
+export default function CandidatesWithInfinityQuery({allRecordsCount}: {allRecordsCount: number}) {
   
   const {
     data,
@@ -79,14 +80,13 @@ export default function CandidatesWithInfinityQuery() {
       return firstPageParam - 1;
     },
   });
-  if (status == "pending") {
-    toast.info("loading...");
+  const allCandidates = useMemo(() => data?.pages.flat() ?? [], [data?.pages]);
+  if ( status=="pending") {
+    return <CandidateRowLoader/>
   }
   if (error) {
     toast.error("An error occured");
   }
-
-  const allCandidates = useMemo(() => data?.pages.flat() ?? [], [data?.pages]);
 //     const [searchEmail, setSearchEmail] = useState("");
 //       const debouncedSearchEmail = useDebounceSearch(searchEmail, 500);
 //       const filteredCandidates = allCandidates.filter((candidate) =>
@@ -340,7 +340,7 @@ export default function CandidatesWithInfinityQuery() {
           )}
         /> */}
         <div className="mt-4">
-            <VirtualBtsCandidatesList candidates={allCandidates}/>
+            <VirtualBtsCandidatesList candidates={allCandidates} count={allRecordsCount} />
         </div>
         <div className="flex gap-4 items-center justify-center my-10">
           <Button

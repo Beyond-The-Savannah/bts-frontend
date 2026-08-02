@@ -46,8 +46,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export default function VirtualBtsCandidatesList({
   candidates,
+  count
 }: {
   candidates: CandidateProp[];
+  count?: number;
 }) {
   const [searchEmail, setSearchEmail] = useState("");
   const debouncedSearchEmail = useDebounceSearch(searchEmail, 500);
@@ -78,10 +80,10 @@ export default function VirtualBtsCandidatesList({
         <div className="flex flex-col gap-4">
           {/* <CandidateInvite candidates={candidates}/> */}
           <CandidateInvite />
-          <div className="text-xs border rounded-xl px-3 py-1">
+          <div className=" flex  items-center text-xs border rounded-xl px-3 py-1">
             {/* Total Candidates:{" "} */}
-            Current Total Candidates:{" "}
-            <span className="font-bold">{candidates.length}</span>
+            Current Total Candidates:  {" "}
+            <p className="font-medium ml-2">{candidates.length}/<span className="font-semibold">{count}</span></p>
           </div>
         </div>
       </div>
@@ -90,6 +92,7 @@ export default function VirtualBtsCandidatesList({
         className="h-[75dvh]! max-w-7xl mx-auto mt-4"
         data={searchEmail != "" ? filteredCandidates : candidates}
         totalCount={candidates.length}
+        // totalCount={count}
         itemContent={(_, candidate) => (
           <>
             <div className="bg-bts-BrownOne/20 hover:bg-bts-BrownOne/40 hover:transition-colors  rounded-md w-11/12 mx-auto px-3 py-6 flex justify-between items-center border my-2 ">
