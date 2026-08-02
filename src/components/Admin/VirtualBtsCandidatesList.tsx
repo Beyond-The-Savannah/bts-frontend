@@ -46,8 +46,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export default function VirtualBtsCandidatesList({
   candidates,
+  count
 }: {
   candidates: CandidateProp[];
+  count?: number;
 }) {
   const [searchEmail, setSearchEmail] = useState("");
   const debouncedSearchEmail = useDebounceSearch(searchEmail, 500);
@@ -78,9 +80,10 @@ export default function VirtualBtsCandidatesList({
         <div className="flex flex-col gap-4">
           {/* <CandidateInvite candidates={candidates}/> */}
           <CandidateInvite />
-          <div className="border rounded-xl px-3 py-1">
-            Total Candidates:{" "}
-            <span className="font-bold">{candidates.length}</span>
+          <div className=" flex  items-center text-xs border rounded-xl px-3 py-1">
+            {/* Total Candidates:{" "} */}
+            Current Total Candidates:  {" "}
+            <p className="font-medium ml-2">{candidates.length}/<span className="font-semibold">{count}</span></p>
           </div>
         </div>
       </div>
@@ -89,6 +92,7 @@ export default function VirtualBtsCandidatesList({
         className="h-[75dvh]! max-w-7xl mx-auto mt-4"
         data={searchEmail != "" ? filteredCandidates : candidates}
         totalCount={candidates.length}
+        // totalCount={count}
         itemContent={(_, candidate) => (
           <>
             <div className="bg-bts-BrownOne/20 hover:bg-bts-BrownOne/40 hover:transition-colors  rounded-md w-11/12 mx-auto px-3 py-6 flex justify-between items-center border my-2 ">
@@ -128,10 +132,11 @@ export default function VirtualBtsCandidatesList({
                     <div className="my-10">
                       <div className="flex items-center justify-between">
                         <p className="border rounded-xl px-3 py-1 hidden">
-                          Created on {candidate.createdAt.toLocaleDateString()}
+                          {/* Created on */}
+                          Created on {candidate.createdAt ? new Date(candidate.createdAt).toLocaleDateString() : ""}
                         </p>
                         <p className="border rounded-xl px-3 py-1 hidden">
-                          Deadline on {candidate.createdAt.toLocaleDateString()}
+                          Deadline on {candidate.createdAt ? new Date(candidate.createdAt).toLocaleDateString() : ""}
                         </p>
                       </div>
                       <div className="border-t-2 pt-2 flex items-center justify-between gap-2">

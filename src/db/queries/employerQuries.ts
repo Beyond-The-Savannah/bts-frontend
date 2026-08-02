@@ -1,4 +1,4 @@
-import { desc, eq, ilike, ne } from "drizzle-orm";
+import { desc, eq, ilike, ne,count } from "drizzle-orm";
 import { db } from "../db";
 import { candidatePoolTable, jobsTable } from "../schema";
 
@@ -70,4 +70,20 @@ export async function GetRelevantCandidates(orgId: string) {
   }
   );
   return relavantCandidates;
+}
+
+export async function GetCanidatesWithResumeTotalCount(){
+  "use cache"
+  const data=await db.select({count:count()}).from(candidatePoolTable).where(ne(candidatePoolTable.resumeLink,''))
+  return data.at(0)?.count || 0
+}
+export async function GetCanidatesWithOutResumeTotalCount(){
+  "use cache"
+  const data=await db.select({count:count()}).from(candidatePoolTable).where(eq(candidatePoolTable.resumeLink,''))
+  return data.at(0)?.count || 0
+}
+export async function GetAllCandidatesTotalCount(){
+  "use cache"
+  const data=await db.select({count:count()}).from(candidatePoolTable)
+  return data.at(0)?.count || 0
 }

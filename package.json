@@ -108,6 +108,7 @@
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.2.1",
     "@tailwindcss/typography": "^0.5.19",
+    "@tanstack/eslint-plugin-query": "^5.101.4",
     "@types/node": "^20",
     "@types/papaparse": "^5.5.2",
     "@types/react": "19.1.0",
