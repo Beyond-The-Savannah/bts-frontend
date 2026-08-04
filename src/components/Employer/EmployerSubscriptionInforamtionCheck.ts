@@ -9,7 +9,7 @@ interface GetEmployerSubscriprionDetailsProps{
 
 
 export async function GetEmployerSubscriprionDetails({orgId,userId}:GetEmployerSubscriprionDetailsProps){
-    'use cache'
+    // 'use cache'
     const client=await clerkClient()
     //Check if the user is a member of the organization
       const { data: organisationMemmbers } =

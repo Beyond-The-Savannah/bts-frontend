@@ -82,10 +82,11 @@ export default function VirtualizedEmployerCandidateList({
                     <div className="my-10">
                       <div className="flex items-center justify-between">
                         <p className="border rounded-xl px-3 py-1 hidden">
-                          Created on {candidate.createdAt.toLocaleDateString()}
+                          {/* Created on {candidate.createdAt.toLocaleDateString()} */}
+                          Created on {candidate.createdAt ? new Date(candidate.createdAt).toLocaleDateString() : "N/A"}
                         </p>
                         <p className="border rounded-xl px-3 py-1 hidden">
-                          Deadline on {candidate.createdAt.toLocaleDateString()}
+                          {/* Deadline on {candidate?.deadline ? new Date(candidate.deadline).toLocaleDateString() : "N/A"} */}
                         </p>
                       </div>
                       <div className="border-t-2 pt-2 flex items-center justify-between gap-2">

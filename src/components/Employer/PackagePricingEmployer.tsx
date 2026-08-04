@@ -15,25 +15,9 @@ export default function PackagePricingEmployer() {
   const email=user.user?.emailAddresses[0].emailAddress as string;
   const firstName=user.user?.firstName as string;
   const packagesList = [
-    // {
-    //   id: 1,
-    //   packageName: "Employer Starter",
-    //   packagePriceKE: "3,000",
-    //   packageFigureKE: 3000,
-    //   packagePriceUSD: "15",
-    //   packageFigureUSD: 15,
-    //   packagePlanCodeKE: "PLN_n13c2lrs1j3kjxk",
-    //   packagePlanCodeUSD: "",
-    //   packageFeatures: [
-    //     "Access to curated candidate pool",
-    //     "Up to 2 new member per organisation",
-        
-    //   ],
-    //   link: "/Employer",
-    // },
     {
-      id: 1,
-      packageName: "Employer Starter",
+        id: 1,
+        packageName: "Employer Starter",
       packagePriceKE: "20,000",
       packageFigureKE: 20000,
       packagePriceUSD: "200",
@@ -57,14 +41,30 @@ export default function PackagePricingEmployer() {
     //   packagePlanCodeKE: "PLN_1ykvnbryfbyusxd",
     //   packagePlanCodeUSD: "",
     //   packageFeatures: [
-    //     "Access To Listed Jobs",
-    //     "NewsLetter",
-    //     "Curated Job Search Alerts",
-    //     "Unlimited Private Email Coaching",
-    //     "Access To A Job Search Accountability Partner",
-    //   ],
-    //   link: "/Employer",
-    // },
+    //       "Access To Listed Jobs",
+    //       "NewsLetter",
+    //       "Curated Job Search Alerts",
+    //       "Unlimited Private Email Coaching",
+    //       "Access To A Job Search Accountability Partner",
+    //     ],
+    //     link: "/Employer",
+    //   },
+    //   {
+    //     id: 3,
+    //     packageName: "Employer Starter",
+    //     packagePriceKE: "3,000",
+    //     packageFigureKE: 3000,
+    //     packagePriceUSD: "15",
+    //     packageFigureUSD: 15,
+    //     packagePlanCodeKE: "PLN_n13c2lrs1j3kjxk",
+    //     packagePlanCodeUSD: "",
+    //     packageFeatures: [
+    //       "Access to curated candidate pool",
+    //       "Up to 2 new member per organisation",
+          
+    //     ],
+    //     link: "/Employer",
+    //   },
   ];
   
   if(!user){ return}
@@ -89,7 +89,7 @@ export default function PackagePricingEmployer() {
             router.push(response.data?.initialResponse?.data.authorization_url);
         }
         
-        // if(response.status==200){redirect(`/Employer`)}
+        // if(response.status==200){router.push(`/Employer`)}
     } catch (error) {
         console.log("Error processing employer subscirption payemnet:", error);
         toast.error("An error occurred while processing your payment. Please try again.");

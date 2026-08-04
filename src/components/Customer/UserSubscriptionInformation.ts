@@ -74,7 +74,7 @@ export async function GetCustomerSubscriptionDetailsByCustomerIDFromPaystack() {
 }
 
 export async function GetEmployerSubscriptionDetailsFromPaystack(email:string){
-  'use cache'
+  // 'use cache'
   //fetch for the employer subscription idcode from paystack
   let employerID=''
   try {
