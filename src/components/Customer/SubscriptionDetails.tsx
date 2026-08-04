@@ -13,9 +13,10 @@ import SubscriptionDetailsUI2 from "./SubscriptionDetailsUII2";
 // import { GetSelectedCareerEmailNotification, GetSubscriptionDetails, GetUploadedResume } from "@/db/queries/viewJobsSubscriptionQuries";
 import { Suspense } from "react";
 import PackagesLoader from "../Loaders/PackagesLoader";
-import DashboardPageLoader from "../Loaders/DashboardPageLoader";
+// import DashboardPageLoader from "../Loaders/DashboardPageLoader";
 import { byPassEmailAddresses } from "@/staticData/Customer/byPassSubscriptionCheck";
 import { selectedCareerResult, subscriptionResult, uploadedResumeResult } from "@/app/dal/subscriptions";
+import CustomerSubscriptionLoader from "../Loaders/CustomerSubscriptionLoader";
 
 // const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 
@@ -123,14 +124,16 @@ export default async function SubscriptionDetails() {
   return (
     <>
       {jobsListingSubscriptionDetails1 !== undefined ? (
-        <Suspense fallback={<DashboardPageLoader />}>
+        // <Suspense fallback={<DashboardPageLoader />}>
+        <Suspense fallback={<CustomerSubscriptionLoader />}>
           <SubscriptionDetailsUI1
             jobViewSubscriptionData={jobsListingSubscriptionDetails1}
             whatsAppSubscribtionData={whatsAppSubscriptionDetails1}
             />
         </Suspense>
       ) : subscriptionDataDetails2 !== undefined || allowByPassUser == true ? (
-        <Suspense fallback={<DashboardPageLoader />}>
+        // <Suspense fallback={<DashboardPageLoader />}>
+        <Suspense fallback={<CustomerSubscriptionLoader />}>
           <SubscriptionDetailsUI2
             jobViewSubscriptionData={subscriptionDataDetails2}
             whatsAppSubscribtionData={whatsAppSubscriptionDetails1}

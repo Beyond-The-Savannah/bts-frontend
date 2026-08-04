@@ -13,7 +13,7 @@ export const byPassEmailAddresses = [
 // `linetgitonga7@gmail.com`,//24-06-26
 // `kasokaisaac2@gmail.com`,//25-06-26
 
-  `gracetumwesigye4@gmail.com`, //remove on thursday (30-07-2026)
+  `gracetumwesigye4@gmail.com`, //remove on thursday (06-08-2026)
 // `richasante4321@gmail.com`, //15-06-26
 // `aheebwasama@gmail.com`, //12-05-26
   // `hannahmwangi866@gmail.com`,
