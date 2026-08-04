@@ -1,6 +1,7 @@
 
 import AccessDenied from "@/components/Employer/AccessDenied";
-import AllCandidatesSection from "@/components/Employer/CandidatesPage/AllCandidatesSection";
+// import AllCandidatesSection from "@/components/Employer/CandidatesPage/AllCandidatesSection";
+import AllCandidatesSection1 from "@/components/Employer/CandidatesPage/AllCandidatesSection1";
 import { GetEmployerSubscriprionDetails } from "@/components/Employer/EmployerSubscriptionInforamtionCheck";
 
 import { auth } from "@clerk/nextjs/server";
@@ -28,7 +29,8 @@ export default async function page() {
             <div className="border-2 rounded-md border-bts-BrownThree w-36 mt-2" />
         </div>
         <div className="mt-10">
-            <AllCandidatesSection/>
+            {/* <AllCandidatesSection/> */}
+            <AllCandidatesSection1/>
         </div>
         
       </section>

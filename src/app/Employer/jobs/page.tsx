@@ -1,7 +1,8 @@
 import AccessDenied from "@/components/Employer/AccessDenied";
 import { GetEmployerSubscriprionDetails } from "@/components/Employer/EmployerSubscriptionInforamtionCheck";
 import AddJobs from "@/components/Employer/JobSection.tsx/AddJobsForm";
-import Jobs from "@/components/Employer/JobSection.tsx/Jobs";
+// import Jobs from "@/components/Employer/JobSection.tsx/Jobs";
+import Jobs1 from "@/components/Employer/JobSection.tsx/Jobs1";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
@@ -40,7 +41,8 @@ export default async function page() {
             <TabsTrigger value="AddJobForm">Add Job Opening</TabsTrigger>
           </TabsList>
           <TabsContent value="Jobs">
-            <Jobs />
+            {/* <Jobs /> */}
+            <Jobs1/>
           </TabsContent>
           <TabsContent value="AddJobForm">
             <AddJobs />
