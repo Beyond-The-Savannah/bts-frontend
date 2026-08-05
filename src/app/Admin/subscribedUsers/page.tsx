@@ -12,7 +12,7 @@ export const instant = false;
 // import { SubscribedUser } from "@/types/globals";
 
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
 

@@ -5,7 +5,7 @@ import { GetAllEvents } from "@/db/queries/eventsQuries";
 // See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
 export const instant = false;
 
-export const dynamic= "force-dynamic"
+// export const dynamic= "force-dynamic"
 
 export default async function page() {
     const attendees=await GetAllEvents()

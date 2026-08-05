@@ -8,7 +8,7 @@ import {
 
 // TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
 // See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
-export const instant = false;
+// export const instant = false;
 
 // import DashboardPageLoader from "@/components/Loaders/DashboardPageLoader";
 // import PackagesLoader from "@/components/Loaders/PackagesLoader";
@@ -18,7 +18,7 @@ export const instant = false;
 // import { currentUser } from "@clerk/nextjs/server";
 // import { Suspense } from "react";
 
-export default async function CustomerDefaultPage() {
+export default  function CustomerDefaultPage() {
   // let userSubscriptionInformation: subscriptionDetailsProps[] | null = null;
 
   // userSubscriptionInformation = await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();

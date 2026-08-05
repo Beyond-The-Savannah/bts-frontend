@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
 export const instant = false;
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 export default function page() {
   return (
