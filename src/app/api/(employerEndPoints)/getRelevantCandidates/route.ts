@@ -20,19 +20,16 @@ export async function GET(request: Request) {
 }
 
 export async function GetEmployerJobsDepartmentOnly(orgId:string){
-  "use cache"
 const data=await db.select({department:jobsTable.department}).from(jobsTable).where(eq(jobsTable.companyOrganizationId,orgId))
 return data
 }
 
 export async function GetCandidatesPool(){
-  "use cache"
   const data=await db.select().from(candidatePoolTable).orderBy(desc(candidatePoolTable.updatedAt))
   return data
 }
 
 export async function GetRelevantCandidates(orgId: string) {
-  "use cache"
   const allJobsByEmployer = await GetEmployerJobsDepartmentOnly(orgId);
   const allCandidates = await GetCandidatesPool();
   const uniqueDepartments = [...new Set(allJobsByEmployer.map(job => job.department))];

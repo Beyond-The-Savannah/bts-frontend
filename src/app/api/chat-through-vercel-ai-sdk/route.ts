@@ -9,7 +9,7 @@ import path from "path";
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 const openai = createOpenAI({apiKey: process.env.OPEN_AI_KEY,});
 const exa= new Exa(process.env.EXA_API_KEY)

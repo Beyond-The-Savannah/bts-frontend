@@ -6,6 +6,7 @@ import { GetEmployerSubscriprionDetails } from "@/components/Employer/EmployerSu
 
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+
 export default async function page() {
   
  const { orgId, userId } = await auth();

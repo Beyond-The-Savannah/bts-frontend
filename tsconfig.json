@@ -15,7 +15,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "allowImportingTsExtensions": false,
     "plugins": [
@@ -35,7 +35,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/Employer/subscriptionDetails",
-    "src/components/Employer/HomeSection/E"
+    "src/components/Employer/HomeSection/E",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

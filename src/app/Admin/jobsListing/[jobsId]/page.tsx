@@ -1,6 +1,7 @@
 import ViewJob from "@/components/viewJobPage/ViewJob";
 
 
+
 export default async function SingleJobListingAdminPage(
     {
         params,

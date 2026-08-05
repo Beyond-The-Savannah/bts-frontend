@@ -15,6 +15,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { Mail, MapPin, Pencil, PhoneIcon,  } from "lucide-react";
 
 
+
 export default async function page() {
   const user = await currentUser();
 

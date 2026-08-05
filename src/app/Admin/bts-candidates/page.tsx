@@ -3,7 +3,7 @@ import AllBTSCandidatesSection from "@/components/Employer/CandidatesPage/AllBTS
 import UploadCandidatesForm from "@/components/Employer/CandidatesPage/UploadCandidatesForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 export default function page() {
   return (
@@ -12,7 +12,6 @@ export default function page() {
         {/* <div className="mt-10">
           <h2 className="text-3xl font-semibold mb-10">All Candidates</h2>
         </div> */}
-
 
 
 

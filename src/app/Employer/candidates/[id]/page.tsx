@@ -6,6 +6,7 @@ import { UserCircle2 } from "lucide-react";
 
 
 
+
 const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
 
 export default async function Page({params}: {params: Promise<{ id: string }>;}) {

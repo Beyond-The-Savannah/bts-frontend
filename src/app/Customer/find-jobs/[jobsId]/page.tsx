@@ -40,7 +40,6 @@ export default async function page({
   const jobsListingSubscriptionDetails=userSubscriptionInformation?.find((subscription)=>subscription.amount!=600000 &&
 ["active", "attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase()))
 
-
   
 
   if (jobsListingSubscriptionDetails == undefined && validSubscription==undefined && !byPassEmailAddresses.includes(

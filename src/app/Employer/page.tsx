@@ -77,7 +77,6 @@ export default async function page() {
   
   const {isValidSubscription,isOrganisationMember}=await GetEmployerSubscriprionDetails({orgId:orgId as string, userId:userId as string})
 
-
   return (
     <>
       <Suspense fallback={<EmployerCheckLoader2 />}>

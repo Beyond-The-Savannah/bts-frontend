@@ -7,11 +7,9 @@ import { usersSubscriptionInformation } from "@/app/dal/subscriptions";
 
 // import { SubscribedUser } from "@/types/globals";
 
-
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
-
 
 export default async function Page() {
   
@@ -96,5 +94,4 @@ export default async function Page() {
     </>
   );
 }
-
 

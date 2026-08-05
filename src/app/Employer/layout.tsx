@@ -5,6 +5,7 @@ import { ViewTransitions } from "next-view-transitions";
 import { CSSProperties, ReactNode } from "react";
 
 
+
 export default function EmployerLayout({children}:{children:ReactNode}) {
   return (
     <>

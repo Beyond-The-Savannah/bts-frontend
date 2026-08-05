@@ -4,8 +4,8 @@ import { getCldImageUrl } from "next-cloudinary";
 import HeroSection from "@/components/eventsPage/HeroSection";
 import EventOutLookSection from "@/components/eventsPage/EventOutLookSection";
 import ExperienceSection from "@/components/eventsPage/ExperienceSection";
-// import { GetAllEvents } from "@/db/queries/eventsQuries";
 
+// import { GetAllEvents } from "@/db/queries/eventsQuries";
 
 const url = getCldImageUrl({
   src: "events_open_graph_image_2_s0sbyx",
