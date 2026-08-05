@@ -8,10 +8,6 @@ import { getCldOgImageUrl } from "next-cloudinary";
 // import SavannahChatUI1 from "@/components/Customer/SavannahChatUI1";
 import SavannahChatUI2 from "@/components/Customer/SavannahChatUI2";
 
-// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
-// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
-export const instant = false;
-
 const geist = Geist({
   subsets: ["latin"],
   variable: "--font-geist",
