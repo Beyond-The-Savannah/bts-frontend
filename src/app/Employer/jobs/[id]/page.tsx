@@ -1,6 +1,10 @@
 // import CandidatesSection from "@/components/Employer/CandidatesPage/CandidatesSection";
 import CandidatesSection1 from "@/components/Employer/CandidatesPage/CandidatesSection1";
 
+// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+export const instant = false;
+
 export default async function page({params, searchParams}: {params: Promise<{ id: string }>,searchParams: Promise<{ jobDepartment: string }>}) {
   const { id } = await params;
   const { jobDepartment } = await searchParams;

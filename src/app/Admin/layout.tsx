@@ -4,6 +4,10 @@ import AppSidebar from "@/components/Admin/Adminsidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ViewTransitions } from "next-view-transitions";
 
+// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+export const instant = false;
+
 export default function AdminLayout({
   children,
 }: {

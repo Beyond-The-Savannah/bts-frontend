@@ -4,6 +4,11 @@ import { getCldImageUrl } from "next-cloudinary";
 import HeroSection from "@/components/eventsPage/HeroSection";
 import EventOutLookSection from "@/components/eventsPage/EventOutLookSection";
 import ExperienceSection from "@/components/eventsPage/ExperienceSection";
+
+// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+export const instant = false;
+
 // import { GetAllEvents } from "@/db/queries/eventsQuries";
 
 

@@ -7,6 +7,10 @@ import WhatsappSubscriptionService from "@/components/Customer/WhatsappSubscript
 import { subscriptionDetailsProps } from "@/types/subscriptions";
 import { currentUser } from "@clerk/nextjs/server";
 
+// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+export const instant = false;
+
 export type SearchParams = Promise<{
   [key: string]: string | string[] | undefined;
 }>;
@@ -47,7 +51,7 @@ export default async function page(props: { searchParams: SearchParams }) {
               </div>
             ) : (
               // <div className="max-w-4xl mx-auto px-4">
-              <div className="container mx-auto px-4">
+              (<div className="container mx-auto px-4">
                 <SubscriptionDetails />
                 <div className="bg-bts-BrownOne rounded-md px-4 py-8 max-w-xl mx-auto xl:-mt-20">
                   <p className=" text-center text-balance">
@@ -55,7 +59,7 @@ export default async function page(props: { searchParams: SearchParams }) {
                     containing the whatsapp community link{" "}
                   </p>
                 </div>
-              </div>
+              </div>)
             )}
           </div>
         </>
