@@ -73,8 +73,9 @@ export default function SavannahChatUi() {
 
   return (
     <>
-      {/* <section className="relative flex size-full flex-col divide-y overflow-hidden"> */}
-      <section className="relative max-h-[48dvh] md:h-[65dvh] w-full flex flex-col divide-y mt-4 overflow-hidden">
+      
+      {/* <section className="relative max-h-[48dvh] md:h-[65dvh] w-full flex flex-col divide-y mt-4 overflow-hidden"> */}
+      <section className="relative max-h-[48dvh] md:min-h-[70dvh] w-full flex flex-col divide-y mt-4 overflow-hidden">
         <div ref={chatContainer} className="flex-1 overflow-y-auto min-h-0">
           <Conversation>
             <ConversationContent>
