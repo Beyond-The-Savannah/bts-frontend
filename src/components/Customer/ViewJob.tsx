@@ -59,6 +59,9 @@ export default function ViewJob({ jobsId,userResume }: { jobsId: string ,userRes
     undefined,
   );
 
+  const cleanHtml = (html: string) =>
+  DOMPurify.sanitize(html.replace(/&nbsp;/g, " "));
+
   useEffect(() => {
     async function getLoggedUserData() {
       try {
@@ -86,7 +89,7 @@ export default function ViewJob({ jobsId,userResume }: { jobsId: string ,userRes
         {isLoading && <SingleJobLoadingUI />}
         {isError && <SingleJobLoadingErrorUI />}
 
-        <div className="py-10 flex flex-row-reverse flex-wrap md:flex-nowrap justify-center w-full  mx-auto  px-4 gap-4 lg:gap-x-24">
+        <div className="py-10 flex flex-row-reverse flex-wrap md:flex-nowrap justify-center w-full  mx-auto  px-4 gap-4 lg:gap-x-14">
           <div className="w-full ">
             {filteredRemoteJob && (
               <div className="  gap-4 rounded-lg py-4 md:px-8 mb-12">
@@ -202,24 +205,18 @@ export default function ViewJob({ jobsId,userResume }: { jobsId: string ,userRes
                 {singleJob.map((listing) => (
                   <article
                     key={listing.id}
-                    className=" border-bts-BrownTwo border-4   rounded-lg py-4  px-2 lg:px-8"
+                    className=" border-bts-BrownTwo border-4   rounded-lg py-4  px-2 lg:px-6 min-w-0"
                   >
                     <h3 className="text-xl font-semibold">
                       {listing.sectionName}
                     </h3>
 
-                    {/* <div
-                      className="prose prose-sm md:prose-base"
-                      dangerouslySetInnerHTML={{
-                        __html: correctedParsedHTML(listing.sectionDescription),
-                      }}
-                    ></div> */}
                  
                     <div
-                      className="prose prose-sm leading-7 max-w-none w-full wrap-break-word "
+                      className="prose prose-sm leading-7 min-w-0  "
                       
                       dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(listing.sectionDescription),
+                        __html: cleanHtml(listing.sectionDescription),
                       }}
                     />
                   </article>
