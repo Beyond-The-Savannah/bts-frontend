@@ -46,7 +46,7 @@ export async function fetchSingleRemoteList(
 
 export const useGetSingleRemiteListingUsingTanstack = (jobsId: string) => {
   return useQuery({
-    queryKey: ["singeleJob"],
+    queryKey: ["singeleJob", jobsId],
     queryFn: () => fetchSingleRemoteList(jobsId),
   });
 };
