@@ -27,6 +27,7 @@ const noNewJobsNotifications = [
   "bakhita.awuorba@gmail.com",
   "louise.mutua@gmail.com",
   "cinderellanakyira@gmail.com",
+  "joanna.shiko@gmail.com"
 ];
 
 export const { POST } = serve(async (context) => {
