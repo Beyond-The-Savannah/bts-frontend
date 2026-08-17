@@ -38,7 +38,8 @@ export default function ServiceDetails({
       
       <section className="container mx-auto space-y-16 mb-20 px-4 pt-24 md:pt-36 lg:pb-40">
         <div className="min-h-[50vh]  flex flex-wrap lg:flex-nowrap justify-around gap-y-12 gap-x-12">
-          <div className="w-full lg:max-w-[34vw] ">
+          {/* <div className="w-full lg:max-w-[34vw] "> */}
+          <div className="w-full lg:max-w-[50dvw] ">
             {specificService && (
               <DisplayImageFromNextCloudinary
                 src={specificService.img}
@@ -46,12 +47,14 @@ export default function ServiceDetails({
                 width={800}
                 priority
                 alt={`beyond the savannah, ${specificService.title} service image`}
-                classname="object-cover object-center w-full lg:w-160 mx-auto  bg-bts-BrownOne h-[48dvh] rounded-xl"
+                // classname="object-cover object-center w-full lg:w-160 mx-auto  bg-bts-BrownOne h-[48dvh] rounded-xl"
+                classname={`object-cover ${specificService.title=="September Hiring Surge,Readiness Bundle" ? "object-top" : "object-center"} w-full  mx-auto lg:mr-auto  bg-bts-BrownOne h-[48dvh] rounded-xl`}
                 
               />
             )}
           </div>
-          <div className=" w-[85vw]  lg:w-[48vw] space-y-4 ">
+          {/* <div className=" w-[85vw]  lg:w-[48vw] space-y-4 "> */}
+          <div className=" w-[85vw]  lg:w-[50dvw] space-y-4 ">
             <div className="flex lg:flex-col flex-wrap items-center lg:items-start gap-4">
               <h1 className=" text-2xl xl:text-3xl lg:text-5xl  text-bts-GreenOne font-bold">
                 {specificService?.title}
@@ -126,7 +129,8 @@ export default function ServiceDetails({
               />
             </div>
           </div>
-          <div className="w-[85vw] md:w-[27vw]   space-y-4 ">
+          {/* <div className="w-[85vw] md:w-[27vw]   space-y-4 "> */}
+          <div className="w-[85vw] md:w-[35dvw]  mr-auto  space-y-4 ">
             <p className="text-base">{specificService?.valueProposal}</p>
             {titleSlug == "beyond-the-savannah-whatsApp-community" ? (
               <>
@@ -147,10 +151,10 @@ export default function ServiceDetails({
                   <DrawerTrigger className="px-4 py-2 rounded-lg w-full text-white bg-bts-GreenOne hover:bg-green-700 hover:shadow-bts-BrownThree hover:shadow-md duration-700">
                     Purchase
                   </DrawerTrigger>
-                  <DrawerContent className="max-w-xl mx-auto">
-                    <DrawerHeader>
-                      <DrawerTitle>Checkout Session</DrawerTitle>
-                      <DrawerDescription>
+                  <DrawerContent className="max-w-3xl mx-auto">
+                    <DrawerHeader >
+                      <DrawerTitle className="text-center" >Checkout Session</DrawerTitle>
+                      <DrawerDescription className="text-xs">
                         Please enter the following details, and choose your
                         preffered payment method to complete the service
                         purchase
@@ -168,7 +172,7 @@ export default function ServiceDetails({
                         )}
                       </DrawerDescription>
                     </DrawerHeader>
-                    <div className=" max-w-md mx-auto py-4 px-8">
+                    <div className=" max-w-4xl bg-amber-8000 mx-auto py-4 px-8">
                       {currencyValue == "KES" && specificService.priceKE && (
                         <CheckoutForm
                           amount={specificService?.priceKE}
