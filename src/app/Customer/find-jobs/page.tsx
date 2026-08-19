@@ -1,48 +1,12 @@
+import { JobListings } from "@/components/Customer/JobListings";
 
-import { subscriptionResult } from "@/app/dal/subscriptions";
-import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/components/Customer/UserSubscriptionInformation";
-import { FindJobs } from "@/components/findJobsPage/FindJobs";
 import RemoteJobListingsLoadingUI from "@/components/Loaders/RemoteJobListingsLoadingUI";
-import { byPassEmailAddresses } from "@/staticData/Customer/byPassSubscriptionCheck";
-import { subscriptionDetailsProps } from "@/types/subscriptions";
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+
 import { Suspense } from "react";
 
-
-
-export default async function page() {
-  // const userSubscriptionInformation = await GetUserSubscriptionInformation();
-  const userSubscriptionInformation:subscriptionDetailsProps[] | null = await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack()
-  const user = await currentUser();
-
-  
-  
-
-  const subscriptionData=await subscriptionResult(user?.primaryEmailAddress?.emailAddress as string)
-  const validSubscription=subscriptionData.find((subscription)=>parseInt(subscription.planCost as string)!=6000 &&
-["active", "attention", "non-renewing", "completed"].includes(subscription.planStatus?.toLowerCase() as string))
-
-
-  const jobsListingSubscriptionDetails=userSubscriptionInformation?.find((subscription)=>subscription.amount!=600000 &&
-["active", "attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase()))
-
-
-
-
-  if (jobsListingSubscriptionDetails == undefined  && validSubscription==undefined && !byPassEmailAddresses.includes(
-      user?.emailAddresses[0].emailAddress as string
-    )
-  ) {
-    redirect("/Customer");
-  }
-
-  // console.log("USER INFO", jobsListingSubscriptionDetails);
-
+export default function page() {
   return (
-    
     <section className="container mx-auto">
-      
       <div className="pt-4 md:pt-0 pl-0 md:pl-5 mb-10">
         <h2 className="text-sm md:text-xl">Global Open Roles</h2>
         <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
@@ -50,22 +14,13 @@ export default async function page() {
           Remote Opportunities
         </p>
       </div>
-      
+
       <div className="">
-        {user != null ? (
-          <>
-            {
-              jobsListingSubscriptionDetails?.status != "cancelled" &&
-              jobsListingSubscriptionDetails?.plan.name !=
-                "whatsapp community Annually" ? (
-                <Suspense fallback={<RemoteJobListingsLoadingUI />}>
-                  <FindJobs />
-                </Suspense>
-              ) : null
-              
-            }
-          </>
-        ) : null}
+        <>
+          <Suspense fallback={<RemoteJobListingsLoadingUI />}>
+            <JobListings />
+          </Suspense>
+        </>
       </div>
     </section>
   );
