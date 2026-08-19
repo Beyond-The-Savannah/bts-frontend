@@ -5,6 +5,7 @@ import { ViewTransitions } from "next-view-transitions";
 import TanstackQueryProvider from "@/lib/tanstack";
 import { getCldOgImageUrl } from "next-cloudinary";
 import dynamic from "next/dynamic";
+import  {Providers}  from "@/lib/providers";
 
 // import { PostHogProvider } from "@/lib/postHogProvider";
 // import {ClerkProvider} from '@clerk/nextjs'
@@ -63,14 +64,16 @@ export default function RootLayout({
           // className={`${montserrat.className} ${geist.className} ${inter.className}${geistMono.className} antialiased`}
           className={`${montserrat.className}  antialiased`}
         >
-          <TanstackQueryProvider>
+          {/* <TanstackQueryProvider> */}
+          <Providers>
             <ViewTransitions>
               <PostHogProvider>
                 {children}
                 <Toaster position='top-center' richColors />
               </PostHogProvider>
             </ViewTransitions>
-          </TanstackQueryProvider>
+            </Providers>
+          {/* </TanstackQueryProvider> */}
         </body>
       </html>
     </ClerkProvider>
