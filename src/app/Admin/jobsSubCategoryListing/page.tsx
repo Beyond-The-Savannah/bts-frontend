@@ -35,8 +35,8 @@ import {
 import {
   useGetAllJobSubCategories,
   useGetJobCategoryDropDownList,
-} from "@/remoteData/getData";
-import { axiosInstance } from "@/remoteData/mutateData";
+} from "@/app/dal/remoteData/getData";
+import { axiosInstance } from "@/app/dal/remoteData/mutateData";
 import { SelectContent } from "@radix-ui/react-select";
 
 import axios from "axios";
@@ -58,7 +58,7 @@ export default function JobsSubCategoryAdminPage() {
   function updateJobSubCategory(id: number) {
     // gets all information for the jobSubCategory needed for default values in jobSubCategoryEditData object
     const jobSubCategoryData = dataInDescendingOrder?.find(
-      (job) => job.id == id
+      (job) => job.id == id,
     );
 
     let updatedNameValue = "";
@@ -81,14 +81,14 @@ export default function JobsSubCategoryAdminPage() {
 
         const response = await axiosInstance.put(
           `/api/JobSubCategory/updateJobSubCategory?id=${id}`,
-          jobSubCategoryEditData
+          jobSubCategoryEditData,
         );
         if (
           response?.data.errorMessage ==
           "Update Done But No Matching Records Found"
         ) {
           toast.error(
-            `Error, cannot update the ${jobSubCategoryData?.name} JobSubCategory`
+            `Error, cannot update the ${jobSubCategoryData?.name} JobSubCategory`,
           );
         }
         // console.log("Response from updating jobSubCategory", response);
@@ -111,7 +111,7 @@ export default function JobsSubCategoryAdminPage() {
     const softDeleteJobSubCategory = async () => {
       try {
         const response = await axiosInstance.put(
-          `/api/JobSubCategory/deleteJobSubCategory?id=${id}`
+          `/api/JobSubCategory/deleteJobSubCategory?id=${id}`,
         );
         return response;
       } catch (error) {
@@ -182,7 +182,7 @@ export default function JobsSubCategoryAdminPage() {
                             defaultValue={jobSubCategory.name}
                             onChange={(e) =>
                               setSubCategoryNameValue(
-                                e.target.value || jobSubCategory.name
+                                e.target.value || jobSubCategory.name,
                               )
                             }
                             required
@@ -195,7 +195,8 @@ export default function JobsSubCategoryAdminPage() {
                             defaultValue={jobSubCategory.jobCategoryId.toString()}
                             onValueChange={(value) => {
                               setjobCategoryValue(
-                                value || jobSubCategory.jobCategoryId.toString()
+                                value ||
+                                  jobSubCategory.jobCategoryId.toString(),
                               );
                             }}
                             required

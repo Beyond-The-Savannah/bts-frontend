@@ -3,11 +3,11 @@
 import {
   useGetRemoteListingJobsUsingTanstack,
   useGetSingleRemiteListingUsingTanstack,
-} from "@/remoteData/getData";
+} from "@/app/dal/remoteData/getData";
 import SingleJobLoadingErrorUI from "../Loaders/SingleJobLoadingErrorUI";
 import SingleJobLoadingUI from "../Loaders/SingleJobLoadingUI";
 import Image from "next/image";
-import {DateFormatter } from "@/lib/utils";
+import { DateFormatter } from "@/lib/utils";
 import DOMPurify from "isomorphic-dompurify";
 import { Button } from "../ui/button";
 import { Link } from "next-view-transitions";
@@ -34,12 +34,18 @@ import { SubscribedUserProp } from "@/types/subscribedUser";
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { axiosInstance } from "@/remoteData/mutateData";
+import { axiosInstance } from "@/app/dal/remoteData/mutateData";
 import ResumeAnalyseBtn from "./ResumeAnalyseBtn";
 import rehypeRaw from "rehype-raw";
 import { UploadedResumeDataProps } from "@/types/subscriptions";
 
-export default function ViewJob({ jobsId,userResume }: { jobsId: string ,userResume:UploadedResumeDataProps}) {
+export default function ViewJob({
+  jobsId,
+  userResume,
+}: {
+  jobsId: string;
+  userResume: UploadedResumeDataProps;
+}) {
   const { user } = useUser();
 
   const {
@@ -60,7 +66,7 @@ export default function ViewJob({ jobsId,userResume }: { jobsId: string ,userRes
   );
 
   const cleanHtml = (html: string) =>
-  DOMPurify.sanitize(html.replace(/&nbsp;/g, " "));
+    DOMPurify.sanitize(html.replace(/&nbsp;/g, " "));
 
   useEffect(() => {
     async function getLoggedUserData() {
@@ -144,7 +150,7 @@ export default function ViewJob({ jobsId,userResume }: { jobsId: string ,userRes
                     <CalendarX size={24} className="" />
                     {DateFormatter(`${filteredRemoteJob.endDate}`)}
                   </p>
-                  
+
                   <Button
                     variant="outline"
                     size="lg"
@@ -163,9 +169,10 @@ export default function ViewJob({ jobsId,userResume }: { jobsId: string ,userRes
                       <ArrowUpRight size={4} />
                     </Link>
                   </Button>
-                  
-                  {singleJob  &&
-                    (loggedUser != undefined || userResume?.resumeUrl!=null)  &&
+
+                  {singleJob &&
+                    (loggedUser != undefined ||
+                      userResume?.resumeUrl != null) &&
                     loggedUser?.imageUrl != "" && (
                       <>
                         <div className="relative">
@@ -178,7 +185,7 @@ export default function ViewJob({ jobsId,userResume }: { jobsId: string ,userRes
                           />
                           <div className="rounded-lg bg-sky-50 px-3 py-4 mt-2 mb-10 md:absolute md:top-12 w-full md:w-12/12">
                             <div className="prose prose-sm">
-                            {/* <div className="typeset typeset-docs max-w-[37em]"> */}
+                              {/* <div className="typeset typeset-docs max-w-[37em]"> */}
                               <ReactMarkdown
                                 remarkPlugins={[remarkGfm]}
                                 rehypePlugins={[rehypeRaw]}
@@ -211,10 +218,8 @@ export default function ViewJob({ jobsId,userResume }: { jobsId: string ,userRes
                       {listing.sectionName}
                     </h3>
 
-                 
                     <div
                       className="prose prose-sm leading-7 min-w-0  "
-                      
                       dangerouslySetInnerHTML={{
                         __html: cleanHtml(listing.sectionDescription),
                       }}

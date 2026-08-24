@@ -18,7 +18,7 @@ import { useState } from "react";
 import "react-quill-new/dist/quill.snow.css";
 // import dynamic from "next/dynamic";
 import axios from "axios";
-import { axiosInstance } from "@/remoteData/mutateData";
+import { axiosInstance } from "@/app/dal/remoteData/mutateData";
 import { toast } from "sonner";
 import { Textarea } from "../ui/textarea";
 
@@ -39,36 +39,39 @@ export default function JobCategoryForm() {
 
   function onSubmit(data: z.infer<typeof JobCategoryFormSchema>) {
     // alert(JSON.stringify(data));
-    const jobsCategortyPostRequest= async()=>{
+    const jobsCategortyPostRequest = async () => {
       try {
-        const response= await axiosInstance.post(`/api/JobsCategory/addJobsCategories`,{
-          name: data.categoryName,
-          description: data.categoryDescription,
-          createdBy: ``,
-          modifiedBy: ``,
-        })
-        if(response.data==200){
-          console.log(response)
+        const response = await axiosInstance.post(
+          `/api/JobsCategory/addJobsCategories`,
+          {
+            name: data.categoryName,
+            description: data.categoryDescription,
+            createdBy: ``,
+            modifiedBy: ``,
+          },
+        );
+        if (response.data == 200) {
+          console.log(response);
         }
-        return response.data
+        return response.data;
       } catch (error) {
-        if (axios.isAxiosError(error)){
-          throw new Error(error.message)
+        if (axios.isAxiosError(error)) {
+          throw new Error(error.message);
         }
       }
-    }
-    toast.promise(jobsCategortyPostRequest(),{
-      loading:"Adding...",
-      success:()=>{
-        return "Job's Sub Catgegory Added"
+    };
+    toast.promise(jobsCategortyPostRequest(), {
+      loading: "Adding...",
+      success: () => {
+        return "Job's Sub Catgegory Added";
       },
-      error:"Error, cannot add jobs sub catgegory, try again later"
-    })
+      error: "Error, cannot add jobs sub catgegory, try again later",
+    });
   }
 
   return (
     <>
-    {/* <div className="w-full lg:w-[70vw] mx-auto"></div> */}
+      {/* <div className="w-full lg:w-[70vw] mx-auto"></div> */}
       <div className=" container mx-auto mt-10 mb-20">
         <h2 className="text-xl">Jobs Category Form</h2>
         <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
@@ -101,7 +104,10 @@ export default function JobCategoryForm() {
                 <FormItem>
                   <FormLabel>Category Description</FormLabel>
                   <FormControl>
-                    <Textarea {...field} className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]" />
+                    <Textarea
+                      {...field}
+                      className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]"
+                    />
                     {/* <ReactQuill
                       theme="snow"
                       value={field.value}

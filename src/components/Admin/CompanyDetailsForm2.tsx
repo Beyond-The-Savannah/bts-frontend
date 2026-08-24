@@ -5,7 +5,7 @@ import { Label } from "../ui/label";
 import { ChangeEvent, useState } from "react";
 import { Button } from "../ui/button";
 import Image from "next/image";
-import { axiosInstance } from "@/remoteData/mutateData";
+import { axiosInstance } from "@/app/dal/remoteData/mutateData";
 import axios from "axios";
 import { toast } from "sonner";
 
@@ -17,7 +17,7 @@ const ReactQuill = dynamic(() => import("react-quill-new"), {
 export default function CompanyDetailsForm2() {
   const [cDValue, setcDValue] = useState("");
   const [logoPreview, setLogoPreview] = useState<string | ArrayBuffer | null>(
-    null
+    null,
   );
   const [logo, setLogo] = useState("");
   const [logoName, setLogoName] = useState("");
@@ -34,7 +34,7 @@ export default function CompanyDetailsForm2() {
         }
       });
       data.readAsDataURL(e.target.files[0]);
-      setLogoName(e.target.files[0].name)
+      setLogoName(e.target.files[0].name);
     }
   }
 
@@ -47,8 +47,8 @@ export default function CompanyDetailsForm2() {
       description: cDValue,
       phoneNumber: companyForm.get("companyContactPhone"),
       headQuarters: companyForm.get("companyHeadQuaters"),
-      attachmentName:logoName,
-      attachment:logo,
+      attachmentName: logoName,
+      attachment: logo,
       email: companyForm.get("companyContactEmail"),
       location: companyForm.get("location"),
       imageUrl: "",
@@ -62,7 +62,7 @@ export default function CompanyDetailsForm2() {
       try {
         const response = await axiosInstance.post(
           `/api/Companies/addCompanies`,
-          companyFormData
+          companyFormData,
         );
         return response.data;
       } catch (error) {

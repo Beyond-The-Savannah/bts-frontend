@@ -1,5 +1,15 @@
 "use client";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -10,8 +20,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { axiosInstance } from "@/remoteData/mutateData";
-import { CombinedSubscribedUsersProp, } from "@/types/subscribedUser";
+import { axiosInstance } from "@/app/dal/remoteData/mutateData";
+import { CombinedSubscribedUsersProp } from "@/types/subscribedUser";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Download, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
@@ -19,24 +29,28 @@ import { toast } from "sonner";
 
 // export const columns: ColumnDef<SubscribedUserProp>[] = [
 export const columns: ColumnDef<CombinedSubscribedUsersProp>[] = [
-    {
-        id:"select",
-        header:({table})=>(
-            <Checkbox
-                checked={table.getIsAllPageRowsSelected()|| (table.getIsSomePageRowsSelected() && "indeterminate")}
-                onCheckedChange={(value)=>table.toggleAllPageRowsSelected(!!value)}
-                aria-label="Select all"
-            />
-        ),
-        cell:({row})=>(<Checkbox
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value)=>row.toggleSelected(!!value)}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
-        />),
-        enableSorting:false,
-        enableHiding:false,
-
-    },
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "firstName",
     header: "First Name",
@@ -51,7 +65,7 @@ export const columns: ColumnDef<CombinedSubscribedUsersProp>[] = [
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted()==="asc")}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Email Address <ArrowUpDown className="ml-2 size-4" />
         </Button>
@@ -71,20 +85,32 @@ export const columns: ColumnDef<CombinedSubscribedUsersProp>[] = [
     header: "Career",
   },
   {
-    accessorKey:"attachmentName",
-    header:"Resume Name",
-    cell:({row})=>{
-      const resumeName=row.getValue("attachmentName") as string | undefined
-      return <div className=" text-xs">{resumeName}</div>
-    }
+    accessorKey: "attachmentName",
+    header: "Resume Name",
+    cell: ({ row }) => {
+      const resumeName = row.getValue("attachmentName") as string | undefined;
+      return <div className=" text-xs">{resumeName}</div>;
+    },
   },
   {
-    accessorKey:"imageUrl",
-    header:"Resume file",
-    cell:({row})=>{
-      const resumeUrl=row.getValue("imageUrl") as string | undefined
-      return <div className=""> { (resumeUrl!=undefined && resumeUrl!='') &&(<Button size="sm"> <Link href={`${resumeUrl}`}><Download/></Link></Button>)}</div>
-    }
+    accessorKey: "imageUrl",
+    header: "Resume file",
+    cell: ({ row }) => {
+      const resumeUrl = row.getValue("imageUrl") as string | undefined;
+      return (
+        <div className="">
+          {" "}
+          {resumeUrl != undefined && resumeUrl != "" && (
+            <Button size="sm">
+              {" "}
+              <Link href={`${resumeUrl}`}>
+                <Download />
+              </Link>
+            </Button>
+          )}
+        </div>
+      );
+    },
   },
   {
     id: "actions",
@@ -105,15 +131,28 @@ export const columns: ColumnDef<CombinedSubscribedUsersProp>[] = [
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <AlertDialog>
-                  <AlertDialogTrigger className="w-full text-sm rounded-md px-1.5 py-1 hover:bg-stone-300">Delete Record</AlertDialogTrigger>
+                  <AlertDialogTrigger className="w-full text-sm rounded-md px-1.5 py-1 hover:bg-stone-300">
+                    Delete Record
+                  </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader className="flex flex-col justify-center items-center">
-                      <AlertDialogTitle className="text-sm">You are about to remove &quot; {user.email} &quot;</AlertDialogTitle>
-                      <AlertDialogDescription>Please be sure before proceeding deleting the record</AlertDialogDescription>
+                      <AlertDialogTitle className="text-sm">
+                        You are about to remove &quot; {user.email} &quot;
+                      </AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Please be sure before proceeding deleting the record
+                      </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter className="w-12/12 mx-auto flex justify-center items-center gap-2">
-                      <AlertDialogCancel className="block">Cancel</AlertDialogCancel>
-                      <AlertDialogAction className="block bg-red-400 hover:bg-red-600" onClick={()=>removeUser(user)}>Proceed</AlertDialogAction>
+                      <AlertDialogCancel className="block">
+                        Cancel
+                      </AlertDialogCancel>
+                      <AlertDialogAction
+                        className="block bg-red-400 hover:bg-red-600"
+                        onClick={() => removeUser(user)}
+                      >
+                        Proceed
+                      </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
@@ -127,22 +166,25 @@ export const columns: ColumnDef<CombinedSubscribedUsersProp>[] = [
 ];
 
 // async function removeUser(user:SubscribedUserProp){
-async function removeUser(user:CombinedSubscribedUsersProp){
-  if(typeof(user.id)==="string"){
-    toast.warning("This user record cannot be deleted")
+async function removeUser(user: CombinedSubscribedUsersProp) {
+  if (typeof user.id === "string") {
+    toast.warning("This user record cannot be deleted");
   }
   try {
     // const response = await axios.delete(`https://efmsapi-staging.azurewebsites.net/api/BydUsers/DeleteUser?userid=${user.id}`)
-    const response = await axiosInstance.delete(`/api/BydUsers/DeleteUser?userid=${user.id}`)
-    if(response.data.errorMessage=="Update Done But No Matching Records Found"){
-      toast.error("Oops, deletion failed")
-    }else{
-      toast.success("Deletion Done")
-      window.location.reload()
+    const response = await axiosInstance.delete(
+      `/api/BydUsers/DeleteUser?userid=${user.id}`,
+    );
+    if (
+      response.data.errorMessage == "Update Done But No Matching Records Found"
+    ) {
+      toast.error("Oops, deletion failed");
+    } else {
+      toast.success("Deletion Done");
+      window.location.reload();
     }
-
   } catch (error) {
-    console.log("Error delete susbcribed user entry",error)
-    toast.error("Cannot delete the entry, please try again later")
+    console.log("Error delete susbcribed user entry", error);
+    toast.error("Cannot delete the entry, please try again later");
   }
 }

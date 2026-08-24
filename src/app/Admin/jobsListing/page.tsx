@@ -18,8 +18,11 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { DateFormatter } from "@/lib/utils";
-import { useGetJobSubCategoryDropDownList, useGetRemoteListingJobsUsingTanstack } from "@/remoteData/getData";
-import { axiosInstance } from "@/remoteData/mutateData";
+import {
+  useGetJobSubCategoryDropDownList,
+  useGetRemoteListingJobsUsingTanstack,
+} from "@/app/dal/remoteData/getData";
+import { axiosInstance } from "@/app/dal/remoteData/mutateData";
 import axios from "axios";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
@@ -27,15 +30,19 @@ import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
 export default function JobsListingAdminPage() {
-  
   const searchParams = useSearchParams();
 
   const name = searchParams?.get("name") ?? "";
-  const jobSubCategoryId = searchParams?.get("jobSubCategoryId")? Number(searchParams.get("jobSubCategoryId")): undefined
-  
+  const jobSubCategoryId = searchParams?.get("jobSubCategoryId")
+    ? Number(searchParams.get("jobSubCategoryId"))
+    : undefined;
+
   const { data, isLoading, isError } = useGetRemoteListingJobsUsingTanstack();
   const { data: jobDepartments } = useGetJobSubCategoryDropDownList();
-  const {data: remoteJobs} = useGetRemoteListingJobsUsingTanstack(name, jobSubCategoryId);
+  const { data: remoteJobs } = useGetRemoteListingJobsUsingTanstack(
+    name,
+    jobSubCategoryId,
+  );
 
   // const sortedJobsByDate = data?.sort((a, b) => {
   const sortedJobsByDate = remoteJobs?.sort((a, b) => {
@@ -51,7 +58,7 @@ export default function JobsListingAdminPage() {
     const softDelteJobDetails = async () => {
       try {
         const response = await axiosInstance.put(
-          `/api/Jobs/deleteJob/?jobsId=${id}`
+          `/api/Jobs/deleteJob/?jobsId=${id}`,
         );
         return response;
       } catch (error) {
@@ -76,15 +83,25 @@ export default function JobsListingAdminPage() {
         <div className="grid place-content-center mt-2">
           {isLoading && <RemoteJobListingsLoadingUI />}
           {isError && <RemoteJobListingErrorUI />}
-           <div className="my-4 flex flex-wrap gap-2 pl-0 md:pl-5 pb-10">
-              {remoteJobs && <FilterJobsByName remoteData={remoteJobs} />}
-                {isLoading ||(jobDepartments && (<FilterJobsByDepartment remoteData={jobDepartments} />))}
-            </div>
+          <div className="my-4 flex flex-wrap gap-2 pl-0 md:pl-5 pb-10">
+            {remoteJobs && <FilterJobsByName remoteData={remoteJobs} />}
+            {isLoading ||
+              (jobDepartments && (
+                <FilterJobsByDepartment remoteData={jobDepartments} />
+              ))}
+          </div>
         </div>
         <p className="flex justify-end gap-4  text-xs mb-2">
-          <span className="block border rounded-md px-2 py-1">total jobs listed : <span className="font-semibold">{data?.length}</span></span>
-          {(jobSubCategoryId!=undefined ||  name!='') && (<span className="block border rounded-md px-2 py-1">filtered jobs : <span className="font-semibold">{remoteJobs?.length}</span>  </span>)}
-          
+          <span className="block border rounded-md px-2 py-1">
+            total jobs listed :{" "}
+            <span className="font-semibold">{data?.length}</span>
+          </span>
+          {(jobSubCategoryId != undefined || name != "") && (
+            <span className="block border rounded-md px-2 py-1">
+              filtered jobs :{" "}
+              <span className="font-semibold">{remoteJobs?.length}</span>{" "}
+            </span>
+          )}
         </p>
         <div className="flex flex-wrap lg:justify-center  mb-20 gap-8 md:gap-2 md:gap-y-8 lg:gap-8">
           {sortedJobsByDate?.map((job, index) => (
@@ -137,26 +154,38 @@ export default function JobsListingAdminPage() {
                   {/* <AlertDialogContent className="w-full md:max-w-[80dvw] pt-20 h-full overflow-y-auto  grid place-content-center"> */}
                   <AlertDialogContent className="max-w-[80dvw] py-10 h-[90dvh] overflow-y-auto">
                     <AlertDialogHeader className="text-center">
-                      <AlertDialogTitle className="text-center">Edit <span className=" font-extrabold"> {job.companyName}</span> Job Details</AlertDialogTitle>
+                      <AlertDialogTitle className="text-center">
+                        Edit{" "}
+                        <span className=" font-extrabold">
+                          {" "}
+                          {job.companyName}
+                        </span>{" "}
+                        Job Details
+                      </AlertDialogTitle>
                       <AlertDialogDescription className="text-center"></AlertDialogDescription>
                     </AlertDialogHeader>
-                    <JobDetailsForm jobDetails={{
-                      jobsId:job.jobsId,
-                      endDate:job.endDate,
-                      jobName:job.companyName,
-                      jobDescription:job.jobDescription,
-                      companyId:job.companyId,
-                      language:job.language as string,
-                      jobUrl:job.jobUrl,
-                      salary:job.salary,
-                      jobCategoriesId:job.jobCategoriesId,
-                      jobSubCategoryId:job.jobSubCategoryId
-
-                    }}/>
+                    <JobDetailsForm
+                      jobDetails={{
+                        jobsId: job.jobsId,
+                        endDate: job.endDate,
+                        jobName: job.companyName,
+                        jobDescription: job.jobDescription,
+                        companyId: job.companyId,
+                        language: job.language as string,
+                        jobUrl: job.jobUrl,
+                        salary: job.salary,
+                        jobCategoriesId: job.jobCategoriesId,
+                        jobSubCategoryId: job.jobSubCategoryId,
+                      }}
+                    />
                     {/* <AlertDialogFooter className="w-12/12 mx-auto flex  justify-center items-center"> */}
                     <AlertDialogFooter>
-                      <AlertDialogCancel className=" lg:-mt-32">Cancel</AlertDialogCancel>
-                      <AlertDialogCancel  className=" bg-blue-200 hover:bg-blue-100 lg:-mt-32">Close</AlertDialogCancel>
+                      <AlertDialogCancel className=" lg:-mt-32">
+                        Cancel
+                      </AlertDialogCancel>
+                      <AlertDialogCancel className=" bg-blue-200 hover:bg-blue-100 lg:-mt-32">
+                        Close
+                      </AlertDialogCancel>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>

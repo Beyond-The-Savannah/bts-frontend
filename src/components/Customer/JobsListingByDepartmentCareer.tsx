@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetRemoteListingJobsUsingTanstack } from "@/remoteData/getData";
+import { useGetRemoteListingJobsUsingTanstack } from "@/app/dal/remoteData/getData";
 import RemoteJobListingErrorUI from "../Loaders/RemoteJobListingErrorUI";
 import RemoteJobListingsLoadingUI from "../Loaders/RemoteJobListingsLoadingUI";
 import Image from "next/image";
@@ -32,7 +32,7 @@ export default function JobsListingByDepartmentCareer() {
   } = useGetRemoteListingJobsUsingTanstack(name, convertedJobSubCategoryId);
   const paginatedRemoteJobs = remoteJobs?.slice(
     firstRemoteJobListingIndex,
-    lastRemoteJobListingIndex
+    lastRemoteJobListingIndex,
   );
   return (
     <>
@@ -98,7 +98,7 @@ export default function JobsListingByDepartmentCareer() {
                     variant="outline"
                     onClick={() => {
                       router.push(
-                        `find-jobs/?jobSubCategoryId=${jobSubCategoryId}&page=${Number(page) - 1}&per_page=${per_page}`
+                        `find-jobs/?jobSubCategoryId=${jobSubCategoryId}&page=${Number(page) - 1}&per_page=${per_page}`,
                       );
                     }}
                     disabled={Number(page) <= 1}
@@ -108,7 +108,7 @@ export default function JobsListingByDepartmentCareer() {
                   <ul className="flex flex-wrap gap-2 items-center">
                     {[
                       ...new Array(
-                        Math.ceil(remoteJobs.length / Number(per_page))
+                        Math.ceil(remoteJobs.length / Number(per_page)),
                       ),
                     ].map((_, index) => {
                       const pageNavigation = index + 1;
@@ -121,11 +121,11 @@ export default function JobsListingByDepartmentCareer() {
                             "hover:bg-bts-BrownOne",
                             pageNavigation == Number(page)
                               ? "bg-bts-BrownFive"
-                              : "bg-transparent text-black"
+                              : "bg-transparent text-black",
                           )}
                           onClick={() => {
                             router.push(
-                              `find-jobs/?jobSubCategoryId=${jobSubCategoryId}&page=${pageNavigation}&per_page=${per_page}`
+                              `find-jobs/?jobSubCategoryId=${jobSubCategoryId}&page=${pageNavigation}&per_page=${per_page}`,
                             );
                           }}
                         >
@@ -139,7 +139,7 @@ export default function JobsListingByDepartmentCareer() {
                     onClick={() => {
                       router.push(
                         // `find-jobs/?page=${Number(page) + 1}&per_page=${per_page}`
-                        `find-jobs/?jobSubCategoryId=${jobSubCategoryId}&page=${Number(page) + 1}&per_page=${per_page}`
+                        `find-jobs/?jobSubCategoryId=${jobSubCategoryId}&page=${Number(page) + 1}&per_page=${per_page}`,
                       );
                     }}
                     disabled={lastRemoteJobListingIndex > remoteJobs.length}
