@@ -1,6 +1,6 @@
 import AllJobsAlertEmailTemplate from "@/components/Emails/AllJobsAlertEmailTemplate";
 import { GetUserEmailNotificationDetails } from "@/db/queries/viewJobsSubscriptionQuries";
-import { axiosInstance } from "@/remoteData/mutateData";
+import { axiosInstance } from "@/app/dal/remoteData/mutateData";
 import { ListingRemoteJobs } from "@/types/remoteJobsListing";
 // import { EmailBatchProp, SubscribedUserProp } from "@/types/subscribedUser";
 import { SubscribedUserProp } from "@/types/subscribedUser";
@@ -28,57 +28,86 @@ const noNewJobsNotifications = [
   "louise.mutua@gmail.com",
   "cinderellanakyira@gmail.com",
   "joanna.shiko@gmail.com",
-  "salemcity04@gmail.com"
+  "salemcity04@gmail.com",
 ];
 
 export const { POST } = serve(async (context) => {
   // 1. Fetch users (Runs once per trigger)
-  const usersEmailList = await context.run("Fetch subscribed users", async () => {
-    const response = await axiosInstance.get("/api/BydUsers/getAllUsers");
-    
-    const usersFromSecondSubscriptionFlow=await GetUserEmailNotificationDetails()
+  const usersEmailList = await context.run(
+    "Fetch subscribed users",
+    async () => {
+      const response = await axiosInstance.get("/api/BydUsers/getAllUsers");
 
-    const usersFromSecondSubscriptionFlowNormalised=usersFromSecondSubscriptionFlow
-    .filter((user)=>user.subscriptionStatus!=="cancelled" && user.acceptEmailNotification==true)
-    .map((user)=>({
-      firstName:user.firstName??"There",
-      email:user.emailAddress as string,
-      career:parseInt(user.careerEmailNotification as string),
-      status:user.subscriptionStatus as string,
-      subscriptionPlan:user.subcriptionTierName as string
-    }))
-    
-    const combinedData=[...response.data, ...usersFromSecondSubscriptionFlowNormalised]
-    // const userList: Pick<SubscribedUserProp, "firstName" | "email" | "career" | "status" | "subscriptionPlan">[] = response.data;
-    const userList: Pick<SubscribedUserProp, "firstName" | "email" | "career" | "status" | "subscriptionPlan">[] = combinedData;
+      const usersFromSecondSubscriptionFlow =
+        await GetUserEmailNotificationDetails();
 
-    return userList
-      .filter(
-        (user) =>
-          user.status !== "cancelled" &&
-          user.subscriptionPlan !== "whatsapp community Annually" &&
-          !noNewJobsNotifications.includes(user.email),
-      )
-      .map((user) => ({
-        firstName: user.firstName ??"There",
-        email: user.email,
-        career: user.career,
-      }));
-  });
+      const usersFromSecondSubscriptionFlowNormalised =
+        usersFromSecondSubscriptionFlow
+          .filter(
+            (user) =>
+              user.subscriptionStatus !== "cancelled" &&
+              user.acceptEmailNotification == true,
+          )
+          .map((user) => ({
+            firstName: user.firstName ?? "There",
+            email: user.emailAddress as string,
+            career: parseInt(user.careerEmailNotification as string),
+            status: user.subscriptionStatus as string,
+            subscriptionPlan: user.subcriptionTierName as string,
+          }));
+
+      const combinedData = [
+        ...response.data,
+        ...usersFromSecondSubscriptionFlowNormalised,
+      ];
+      // const userList: Pick<SubscribedUserProp, "firstName" | "email" | "career" | "status" | "subscriptionPlan">[] = response.data;
+      const userList: Pick<
+        SubscribedUserProp,
+        "firstName" | "email" | "career" | "status" | "subscriptionPlan"
+      >[] = combinedData;
+
+      return userList
+        .filter(
+          (user) =>
+            user.status !== "cancelled" &&
+            user.subscriptionPlan !== "whatsapp community Annually" &&
+            !noNewJobsNotifications.includes(user.email),
+        )
+        .map((user) => ({
+          firstName: user.firstName ?? "There",
+          email: user.email,
+          career: user.career,
+        }));
+    },
+  );
 
   // 2. Fetch latest jobs
   const latestJobListing = await context.run("Fetch latest jobs", async () => {
-    const jobListingResponse = await axiosInstance.get("/api/Jobs/getAllJobsByCompany");
-    const jobListing: Pick<ListingRemoteJobs, "jobsId" | "jobName" | "jobUrl" | "imageUrl" | "jobSubCategoryId" | "companyName" | "dateCreated">[] = jobListingResponse.data;
+    const jobListingResponse = await axiosInstance.get(
+      "/api/Jobs/getAllJobsByCompany",
+    );
+    const jobListing: Pick<
+      ListingRemoteJobs,
+      | "jobsId"
+      | "jobName"
+      | "jobUrl"
+      | "imageUrl"
+      | "jobSubCategoryId"
+      | "companyName"
+      | "dateCreated"
+    >[] = jobListingResponse.data;
 
     const now = new Date();
     // Look back slightly more than 8 hours (e.g., 8h 5m) to ensure no overlap gaps
     // const lookbackPeriod = new Date(now.getTime() - (8 * 60 + 5) * 60 * 1000);
-    
-    const lookbackPeriod = new Date(now.getTime() - 8 * 60  * 60 * 1000);
+
+    const lookbackPeriod = new Date(now.getTime() - 8 * 60 * 60 * 1000);
 
     return jobListing
-      .sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime())
+      .sort(
+        (a, b) =>
+          new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime(),
+      )
       .filter((job) => new Date(job.dateCreated) > lookbackPeriod)
       .map((job) => ({
         jobsId: job.jobsId,
@@ -87,7 +116,7 @@ export const { POST } = serve(async (context) => {
         jobSubCategoryId: job.jobSubCategoryId,
         imageUrl: job.imageUrl,
         companyName: job.companyName,
-        dateCreated: job.dateCreated
+        dateCreated: job.dateCreated,
       }));
   });
 
@@ -101,25 +130,29 @@ export const { POST } = serve(async (context) => {
       await context.run(`Send batch ${batchIndex}`, async () => {
         const resend = new Resend(process.env.RESEND_API_KEY);
         const currentUsers = usersEmailList.slice(i, i + batchSize);
-        
-        const emailPayloads = currentUsers.map((user) => {
-          const userJobsList = user.career
-            ? latestJobListing.filter((l) => l.jobSubCategoryId === user.career)
-            : latestJobListing;
 
-          // Only send if there are jobs matching the user's career
-          if (userJobsList.length === 0) return null;
+        const emailPayloads = currentUsers
+          .map((user) => {
+            const userJobsList = user.career
+              ? latestJobListing.filter(
+                  (l) => l.jobSubCategoryId === user.career,
+                )
+              : latestJobListing;
 
-          return {
-            from: "info@beyondthesavannah.co.ke",
-            to: [user.email],
-            subject: "Beyond The Savannah New Jobs Alert",
-            react: AllJobsAlertEmailTemplate({
-              firstName: user.firstName,
-              jobs: userJobsList,
-            }),
-          };
-        }).filter(p => p !== null);
+            // Only send if there are jobs matching the user's career
+            if (userJobsList.length === 0) return null;
+
+            return {
+              from: "info@beyondthesavannah.co.ke",
+              to: [user.email],
+              subject: "Beyond The Savannah New Jobs Alert",
+              react: AllJobsAlertEmailTemplate({
+                firstName: user.firstName,
+                jobs: userJobsList,
+              }),
+            };
+          })
+          .filter((p) => p !== null);
 
         if (emailPayloads.length > 0) {
           await resend.batch.send(emailPayloads);
@@ -133,11 +166,9 @@ export const { POST } = serve(async (context) => {
     }
   }
 
-  // Logic ends here. The workflow terminates, and the Upstash CRON 
+  // Logic ends here. The workflow terminates, and the Upstash CRON
   // will restart it at the next 8-hour interval.
 });
-
-
 
 // export const { POST } = serve(async (context) => {
 //   while (true) {
@@ -183,7 +214,7 @@ export const { POST } = serve(async (context) => {
 //     });
 
 //     if (latestJobListing.length > 0) {
-//       // FIX: Don't "Prepare" batches in a step. 
+//       // FIX: Don't "Prepare" batches in a step.
 //       // Just calculate how many batches you need based on the usersEmailList length.
 //       const batchSize = 50; // Smaller batches are safer for Resend & QStash
 
@@ -193,7 +224,7 @@ export const { POST } = serve(async (context) => {
 //         await context.run(`Send batch ${batchIndex}`, async () => {
 //           const resend = new Resend(process.env.RESEND_API_KEY);
 //           const currentUsers = usersEmailList.slice(i, i + batchSize);
-          
+
 //           // MAP THE DATA HERE, inside the step, so it's not stored in the global state
 //           const emailPayloads = currentUsers.map((user) => {
 //             const userJobsList = user.career
@@ -274,9 +305,6 @@ export const { POST } = serve(async (context) => {
 //     await context.sleep("Wait 8 hours", 8 * 60 * 60);
 //   }
 // });
-
-
-
 
 // import AllJobsAlertEmailTemplate from "@/components/Emails/AllJobsAlertEmailTemplate";
 // import { axiosInstance } from "@/remoteData/mutateData";

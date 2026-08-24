@@ -2,7 +2,7 @@ import { byPassEmailAddresses } from "@/staticData/Customer/byPassSubscriptionCh
 import { subscriptionDetailsProps } from "@/types/subscriptions";
 import { currentUser } from "@clerk/nextjs/server";
 import { subscriptionResult } from "@/app/dal/subscriptions";
-import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/components/Customer/UserSubscriptionInformation";
+import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/app/dal/UserSubscriptionInformation";
 import { FindJobs } from "@/components/findJobsPage/FindJobs";
 import { redirect } from "next/navigation";
 

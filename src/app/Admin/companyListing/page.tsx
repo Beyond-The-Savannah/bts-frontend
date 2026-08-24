@@ -16,8 +16,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useGetAllComapanies } from "@/remoteData/getData";
-import { axiosInstance } from "@/remoteData/mutateData";
+import { useGetAllComapanies } from "@/app/dal/remoteData/getData";
+import { axiosInstance } from "@/app/dal/remoteData/mutateData";
 import axios from "axios";
 // import { revalidatePath } from "next/cache";
 import Image from "next/image";
@@ -38,7 +38,7 @@ export default function CompanyListingAmdinPage() {
     const softDeleteCompany = async () => {
       try {
         const response = await axiosInstance.put(
-          `/api/Companies/deleteCompany/?id=${id}`
+          `/api/Companies/deleteCompany/?id=${id}`,
         );
         return response;
       } catch (error) {
@@ -133,7 +133,10 @@ export default function CompanyListingAmdinPage() {
                         </AlertDialogTitle>
                         <AlertDialogDescription className="text-center">
                           This will remove{" "}
-                          <span className="font-semibold"> {company.name} </span>{" "}
+                          <span className="font-semibold">
+                            {" "}
+                            {company.name}{" "}
+                          </span>{" "}
                           from the company listing
                         </AlertDialogDescription>
                       </AlertDialogHeader>
@@ -150,26 +153,43 @@ export default function CompanyListingAmdinPage() {
                   </AlertDialog>
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <Button variant="secondary" size="sm" className="bg-green-300 hover:bg-green-400">Edit</Button>
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        className="bg-green-300 hover:bg-green-400"
+                      >
+                        Edit
+                      </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent className="py-10 h-[90dvh] max-w-[90dvw] mx-auto overflow-y-auto">
-                      <AlertDialogTitle className="text-center">Edit <span className=" font-extrabold">{company.name}</span> details</AlertDialogTitle>
-                      <AlertDialogDescription className="text-center"> </AlertDialogDescription>
-                      <CompanyDetailsForm companyDetails={{
-                        id:company.id,
-                        companyName:company.name,
-                        companyHeadQuaters:company.headQuarters,
-                        companyContactEmail:company.email,
-                        companyContactPhone:company.phoneNumber,
-                        companyDescription:company.description,
-                        location:company.location,
-                        imageUrl:company.imageUrl
-
-                      }}/>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel className=" lg:-mt-20">Cancel</AlertDialogCancel>
-                      <AlertDialogCancel className=" bg-blue-200 hover:bg-blue-100 lg:-mt-20">Close</AlertDialogCancel>
-                    </AlertDialogFooter>
+                      <AlertDialogTitle className="text-center">
+                        Edit{" "}
+                        <span className=" font-extrabold">{company.name}</span>{" "}
+                        details
+                      </AlertDialogTitle>
+                      <AlertDialogDescription className="text-center">
+                        {" "}
+                      </AlertDialogDescription>
+                      <CompanyDetailsForm
+                        companyDetails={{
+                          id: company.id,
+                          companyName: company.name,
+                          companyHeadQuaters: company.headQuarters,
+                          companyContactEmail: company.email,
+                          companyContactPhone: company.phoneNumber,
+                          companyDescription: company.description,
+                          location: company.location,
+                          imageUrl: company.imageUrl,
+                        }}
+                      />
+                      <AlertDialogFooter>
+                        <AlertDialogCancel className=" lg:-mt-20">
+                          Cancel
+                        </AlertDialogCancel>
+                        <AlertDialogCancel className=" bg-blue-200 hover:bg-blue-100 lg:-mt-20">
+                          Close
+                        </AlertDialogCancel>
+                      </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>
                 </div>

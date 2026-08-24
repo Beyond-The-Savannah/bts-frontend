@@ -1,7 +1,7 @@
 // export const dynamic = "force-dynamic";
 
 import SubscriptionDetails from "@/components/Customer/SubscriptionDetails";
-import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/components/Customer/UserSubscriptionInformation";
+import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/app/dal/UserSubscriptionInformation";
 // import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
 import WhatsappSubscriptionService from "@/components/Customer/WhatsappSubscriptionService";
 import { subscriptionDetailsProps } from "@/types/subscriptions";
@@ -18,8 +18,15 @@ export default async function page(props: { searchParams: SearchParams }) {
 
   // const userSubscriptionInformation = await GetUserSubscriptionInformation();
   // const whatsAppSubscriptionDetails=userSubscriptionInformation?.filter((subscription)=>subscription.amount==600000 && ["active","attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase()))[0]
-  const userSubscriptionInformation:subscriptionDetailsProps[] = await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack()
-  const whatsAppSubscriptionDetails=userSubscriptionInformation?.find((subscription)=>subscription.amount==600000 && ["active","attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase()))
+  const userSubscriptionInformation: subscriptionDetailsProps[] =
+    await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
+  const whatsAppSubscriptionDetails = userSubscriptionInformation?.find(
+    (subscription) =>
+      subscription.amount == 600000 &&
+      ["active", "attention", "non-renewing", "completed"].includes(
+        subscription.status.toLowerCase(),
+      ),
+  );
 
   return (
     <>
@@ -37,17 +44,17 @@ export default async function page(props: { searchParams: SearchParams }) {
               <div className=" space-y-4">
                 <p className=" max-w-3xl text-center mb-20 mx-auto">
                   Struggling to navigate the tough job market? You&apos;re not
-                  alone. Join our exclusive paid WhatsApp community.  A safe space
-                  for job seekers and professionals looking for support,
+                  alone. Join our exclusive paid WhatsApp community. A safe
+                  space for job seekers and professionals looking for support,
                   motivation, and expert guidance on securing remote jobs.
                 </p>
                 <div className="max-w-sm mx-auto">
-                <WhatsappSubscriptionService email={userEmail} />
+                  <WhatsappSubscriptionService email={userEmail} />
                 </div>
               </div>
             ) : (
               // <div className="max-w-4xl mx-auto px-4">
-              (<div className="container mx-auto px-4">
+              <div className="container mx-auto px-4">
                 <SubscriptionDetails />
                 <div className="bg-bts-BrownOne rounded-md px-4 py-8 max-w-xl mx-auto xl:-mt-20">
                   <p className=" text-center text-balance">
@@ -55,7 +62,7 @@ export default async function page(props: { searchParams: SearchParams }) {
                     containing the whatsapp community link{" "}
                   </p>
                 </div>
-              </div>)
+              </div>
             )}
           </div>
         </>

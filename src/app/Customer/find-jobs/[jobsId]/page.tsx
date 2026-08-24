@@ -1,6 +1,9 @@
 // import { GetUserSubscriptionInformation } from "@/components/Customer/UserSubscriptionInformation";
-import { subscriptionResult, uploadedResumeResult } from "@/app/dal/subscriptions";
-import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/components/Customer/UserSubscriptionInformation";
+import {
+  subscriptionResult,
+  uploadedResumeResult,
+} from "@/app/dal/subscriptions";
+import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/app/dal/UserSubscriptionInformation";
 import ViewJob from "@/components/Customer/ViewJob";
 import SingleJobLoadingUI from "@/components/Loaders/SingleJobLoadingUI";
 import { byPassEmailAddresses } from "@/staticData/Customer/byPassSubscriptionCheck";
@@ -15,19 +18,28 @@ export default async function page({
   params: Promise<{ jobsId: string }>;
 }) {
   const jobsId = (await params).jobsId;
-  
+
   const user = await currentUser();
-  
 
   // const userSubscriptionInformation = await GetUserSubscriptionInformation();
-  const userSubscriptionInformation:subscriptionDetailsProps[] | null= await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack()
-  
-  const uploadedResumeData=await uploadedResumeResult(user?.primaryEmailAddress?.emailAddress as string)
-   
-  const subscriptionData=await subscriptionResult(user?.primaryEmailAddress?.emailAddress as string)
-    
-    const validSubscription=subscriptionData.find((subscription)=>parseInt(subscription.planCost as string)!=6000 &&
-  ["active", "attention", "non-renewing", "completed"].includes(subscription.planStatus?.toLowerCase() as string))
+  const userSubscriptionInformation: subscriptionDetailsProps[] | null =
+    await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
+
+  const uploadedResumeData = await uploadedResumeResult(
+    user?.primaryEmailAddress?.emailAddress as string,
+  );
+
+  const subscriptionData = await subscriptionResult(
+    user?.primaryEmailAddress?.emailAddress as string,
+  );
+
+  const validSubscription = subscriptionData.find(
+    (subscription) =>
+      parseInt(subscription.planCost as string) != 6000 &&
+      ["active", "attention", "non-renewing", "completed"].includes(
+        subscription.planStatus?.toLowerCase() as string,
+      ),
+  );
 
   // const jobsListingSubscriptionDetails = userSubscriptionInformation?.filter(
   //   (subscription) =>
@@ -37,13 +49,19 @@ export default async function page({
   //     )
   // )[0];
 
-  const jobsListingSubscriptionDetails=userSubscriptionInformation?.find((subscription)=>subscription.amount!=600000 &&
-["active", "attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase()))
+  const jobsListingSubscriptionDetails = userSubscriptionInformation?.find(
+    (subscription) =>
+      subscription.amount != 600000 &&
+      ["active", "attention", "non-renewing", "completed"].includes(
+        subscription.status.toLowerCase(),
+      ),
+  );
 
-  
-
-  if (jobsListingSubscriptionDetails == undefined && validSubscription==undefined && !byPassEmailAddresses.includes(
-      user?.emailAddresses[0].emailAddress as string
+  if (
+    jobsListingSubscriptionDetails == undefined &&
+    validSubscription == undefined &&
+    !byPassEmailAddresses.includes(
+      user?.emailAddresses[0].emailAddress as string,
     )
   ) {
     redirect("/Customer");

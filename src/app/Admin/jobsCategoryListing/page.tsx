@@ -13,8 +13,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useGetAllJobsCategories } from "@/remoteData/getData";
-import { axiosInstance } from "@/remoteData/mutateData";
+import { useGetAllJobsCategories } from "@/app/dal/remoteData/getData";
+import { axiosInstance } from "@/app/dal/remoteData/mutateData";
 import axios from "axios";
 import { toast } from "sonner";
 
@@ -24,7 +24,7 @@ export default function JobsCategoryListingAdminPage() {
     const softDeleteJobCategory = async () => {
       try {
         const response = await axiosInstance.put(
-          `api/JobsCategory/deleteJobsCategory/?id=${id}`
+          `api/JobsCategory/deleteJobsCategory/?id=${id}`,
         );
         return response;
       } catch (error) {

@@ -6,7 +6,7 @@ import { correctedParsedHTML, DateFormatter } from "@/lib/utils";
 import {
   useGetRemoteListingJobsUsingTanstack,
   useGetSingleRemiteListingUsingTanstack,
-} from "@/remoteData/getData";
+} from "@/app/dal/remoteData/getData";
 import { ArrowUpRight, CalendarPlus, CalendarX } from "lucide-react";
 import {
   EmailIcon,
@@ -22,6 +22,7 @@ import {
   WhatsappShareButton,
   XIcon,
 } from "react-share";
+import DOMPurify from "isomorphic-dompurify";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 import clsx from "clsx";
@@ -34,12 +35,16 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
   } = useGetSingleRemiteListingUsingTanstack(jobsId);
   const { data: remoteJobs } = useGetRemoteListingJobsUsingTanstack();
 
+  
   const filteredRemoteJob = remoteJobs?.find(
-    (job) => job.jobsId == parseInt(`${jobsId}`)
+    (job) => job.jobsId == parseInt(`${jobsId}`),
   );
 
-  console.log("SINGLE JOB", filteredRemoteJob);
-  console.log("SINGLE JOB Details", singleJob);
+
+  const cleanHtml = (html: string) =>DOMPurify.sanitize(html.replace(/&nbsp;/g, " "));
+
+  // console.log("SINGLE JOB", filteredRemoteJob);
+  // console.log("SINGLE JOB Details", singleJob);
   return (
     <>
       <section className="container mx-auto  min-h-screen pt-24 md:pt-40 px-4">
@@ -115,7 +120,7 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                     className={clsx(
                       "w-72 my-8 flex text-black border-bts-BrownFour bg-bts-BrownFour hover:bg-bts-BrownThree hover:text-white hover:scale-105 transition duration-500 text-base",
                       filteredRemoteJob.companyName == "Beyond the Savannah" &&
-                        "hidden"
+                        "hidden",
                     )}
                   >
                     <Link
@@ -137,17 +142,18 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                 {singleJob.map((listing) => (
                   <article
                     key={listing.id}
-                    className=" border-bts-BrownTwo border-4   rounded-lg py-4  px-2 md:px-8"
+                    className=" border-bts-BrownTwo border-4   rounded-lg py-4  px-2 lg:px-6 min-w-0"
                   >
                     <h3 className="text-xl font-semibold">
                       {listing.sectionName}
                     </h3>
 
                     <div
-                      className="prose prose-sm md:prose-base"
+                      className="prose prose-sm leading-7 min-w-0"
                       dangerouslySetInnerHTML={{
-                        // __html: fixedHTML(listing.sectionDescription),
-                        __html: correctedParsedHTML(listing.sectionDescription),
+                        
+                        __html:cleanHtml(listing.sectionDescription)
+                        // __html: correctedParsedHTML(listing.sectionDescription),
                       }}
                     ></div>
                   </article>

@@ -6,7 +6,7 @@ import { DateFormatter } from "@/lib/utils";
 import {
   useGetJobSubCategoryDropDownList,
   useGetRemoteListingJobsUsingTanstack,
-} from "@/remoteData/getData";
+} from "@/app/dal/remoteData/getData";
 
 import { Link } from "next-view-transitions";
 import Image from "next/image";
@@ -50,7 +50,7 @@ export function FindJobs() {
 
   const paginatedRemoteJobs = remoteJobs?.slice(
     firstRemoteJobListingIndex,
-    lastRemoteJobListingIndex
+    lastRemoteJobListingIndex,
   );
 
   return (
@@ -121,7 +121,7 @@ export function FindJobs() {
                 variant="outline"
                 onClick={() => {
                   router.push(
-                    `find-jobs/?jobSubCategoryId=${jobSubCategoryId}&page=${Number(page) - 1}&per_page=${per_page}`
+                    `find-jobs/?jobSubCategoryId=${jobSubCategoryId}&page=${Number(page) - 1}&per_page=${per_page}`,
                   );
                 }}
                 disabled={Number(page) <= 1}
@@ -142,11 +142,11 @@ export function FindJobs() {
                         "hover:bg-bts-BrownOne",
                         pageNavigation == Number(page)
                           ? "bg-bts-BrownFive"
-                          : "bg-transparent text-black"
+                          : "bg-transparent text-black",
                       )}
                       onClick={() => {
                         router.push(
-                          `find-jobs/?jobSubCategoryId=${jobSubCategoryId}&page=${pageNavigation}&per_page=${per_page}`
+                          `find-jobs/?jobSubCategoryId=${jobSubCategoryId}&page=${pageNavigation}&per_page=${per_page}`,
                         );
                       }}
                     >
@@ -160,7 +160,7 @@ export function FindJobs() {
                 onClick={() => {
                   router.push(
                     // `find-jobs/?page=${Number(page) + 1}&per_page=${per_page}`
-                    `find-jobs/?jobSubCategoryId=${jobSubCategoryId}&page=${Number(page) + 1}&per_page=${per_page}`
+                    `find-jobs/?jobSubCategoryId=${jobSubCategoryId}&page=${Number(page) + 1}&per_page=${per_page}`,
                   );
                 }}
                 disabled={lastRemoteJobListingIndex > remoteJobs.length}

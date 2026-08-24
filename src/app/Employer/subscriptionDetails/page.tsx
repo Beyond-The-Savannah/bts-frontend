@@ -1,8 +1,15 @@
-import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/components/Customer/UserSubscriptionInformation";
+import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/app/dal/UserSubscriptionInformation";
 import AccessDenied from "@/components/Employer/AccessDenied";
 import { GetEmployerSubscriprionDetails } from "@/components/Employer/EmployerSubscriptionInforamtionCheck";
 import { Button } from "@/components/ui/button";
-import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty";
 import { subscriptionDetailsProps } from "@/types/subscriptions";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { CircleAlert, CircleAlertIcon, FileWarning } from "lucide-react";
@@ -12,45 +19,48 @@ import { redirect } from "next/navigation";
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 
 export default async function page() {
-  const { orgId,userId } = await auth();
-  const client =await clerkClient()
+  const { orgId, userId } = await auth();
+  const client = await clerkClient();
   if (!orgId || !userId) {
     redirect("/Employer");
   }
-  const { isValidSubscription, isOrganisationMember } = await GetEmployerSubscriprionDetails({orgId: orgId as string,userId: userId as string,});
-  
-  if(!isOrganisationMember || !isValidSubscription){
-      return(
-        <>
-        <AccessDenied/>
-        </>
-      )
-    }
+  const { isValidSubscription, isOrganisationMember } =
+    await GetEmployerSubscriprionDetails({
+      orgId: orgId as string,
+      userId: userId as string,
+    });
+
+  if (!isOrganisationMember || !isValidSubscription) {
+    return (
+      <>
+        <AccessDenied />
+      </>
+    );
+  }
 
   if (!orgId) {
     return (
       <>
-         <>
+        <>
           <Empty className="border border-dotted w-6/12 mx-auto mt-40">
             <EmptyHeader>
               <EmptyMedia variant="icon">
-                <FileWarning  className="text-orange-400"/>
+                <FileWarning className="text-orange-400" />
               </EmptyMedia>
               <EmptyTitle>No Organisation has be identified</EmptyTitle>
               <EmptyDescription className="w-full lg:w-[48dvw]">
-                Please create one by clicking on the &quot;Home&quot; link on the sidebar <br/> or
-                Click on the grayed out link &quot;No-organisation seleted&quot; on the sidebar
-                
+                Please create one by clicking on the &quot;Home&quot; link on
+                the sidebar <br /> or Click on the grayed out link
+                &quot;No-organisation seleted&quot; on the sidebar
               </EmptyDescription>
             </EmptyHeader>
             <EmptyContent></EmptyContent>
           </Empty>
         </>
-        
       </>
     );
   }
-  
+
   const organization = await client.organizations.getOrganization({
     organizationId: orgId!,
   });
@@ -58,25 +68,30 @@ export default async function page() {
   const employerSubscriptionDetails: subscriptionDetailsProps[] =
     await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
 
-  if(!employerSubscriptionDetails){
-    return(<>
-     <div className="grid place-content-center min-h-[80dvh] ">
+  if (!employerSubscriptionDetails) {
+    return (
+      <>
+        <div className="grid place-content-center min-h-[80dvh] ">
           <div className="px-4 py-8 max-w-xl mx-auto border rounded-md">
             <p className="text-center text-xl">
               <CircleAlertIcon className="text-orange-400 mx-auto" />
               Only availabe to the admin
             </p>
             <p className="text-center text-sm mt-4">
-              Only the amin with the correct email address can view the subscription details and manage it
+              Only the amin with the correct email address can view the
+              subscription details and manage it
             </p>
           </div>
         </div>
-    </>)
+      </>
+    );
   }
 
   const recentEmployerSubscriptionDetails = employerSubscriptionDetails.find(
     (subscription) =>
-      (subscription.amount == 300000 || subscription.amount == 500000 || subscription.amount == 20000) &&
+      (subscription.amount == 300000 ||
+        subscription.amount == 500000 ||
+        subscription.amount == 20000) &&
       ["active", "attention", "non-renewing", "completed"].includes(
         subscription.status.toLowerCase(),
       ),

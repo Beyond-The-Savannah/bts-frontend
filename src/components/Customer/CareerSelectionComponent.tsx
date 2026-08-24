@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Check, ChevronsUpDown, TriangleAlertIcon } from "lucide-react";
-import { useGetJobSubCategoryDropDownList } from "@/remoteData/getData";
+import { useGetJobSubCategoryDropDownList } from "@/app/dal/remoteData/getData";
 import {
   Command,
   CommandEmpty,
@@ -14,7 +14,7 @@ import {
   CommandList,
 } from "../ui/command";
 import clsx from "clsx";
-import { axiosInstance } from "@/remoteData/mutateData";
+import { axiosInstance } from "@/app/dal/remoteData/mutateData";
 
 export default function CareerSelectionComponent({
   userEmailAddress,
@@ -28,8 +28,6 @@ export default function CareerSelectionComponent({
 
   const { data: jobDepartments } = useGetJobSubCategoryDropDownList();
 
-  
-
   // set their carrer in localStorage
   useEffect(() => {
     if (value !== null && value !== undefined) {
@@ -38,7 +36,7 @@ export default function CareerSelectionComponent({
     }
   }, [value]);
 
-  // get the carrer from localStorage and update state 
+  // get the carrer from localStorage and update state
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedValue = localStorage.getItem("CareerDeparmentValue") ?? "";
@@ -59,7 +57,7 @@ export default function CareerSelectionComponent({
           `/api/BydUsers/updateUserDetails?email=${userEmailAddress}`,
           {
             career: parseInt(selectedCareerDepartmentValue),
-          }
+          },
         );
       } catch (error) {
         console.log("Error in updating your career in DB", error);
@@ -68,7 +66,7 @@ export default function CareerSelectionComponent({
   }, [selectedCareerDepartmentValue, userEmailAddress]);
 
   const selectedCareer = jobDepartments?.find(
-    (department) => department.value == Number(selectedCareerDepartmentValue)
+    (department) => department.value == Number(selectedCareerDepartmentValue),
   );
   return (
     <>
@@ -102,7 +100,7 @@ export default function CareerSelectionComponent({
                 >
                   {value !== null
                     ? jobDepartments?.find(
-                        (department) => department.value === value
+                        (department) => department.value === value,
                       )?.label
                     : "Type & Select A Career"}
                   <ChevronsUpDown className="opacity-50" />
@@ -120,12 +118,12 @@ export default function CareerSelectionComponent({
                           value={department.label}
                           onSelect={(selectedLabel) => {
                             const selectedDepartment = jobDepartments.find(
-                              (department) => department.label == selectedLabel
+                              (department) => department.label == selectedLabel,
                             );
                             setValue(
                               selectedDepartment
                                 ? selectedDepartment.value
-                                : null
+                                : null,
                             );
                             setOpen(false);
                           }}
@@ -134,7 +132,7 @@ export default function CareerSelectionComponent({
                             className={clsx(
                               value == department.value
                                 ? "opacity-100"
-                                : "opacity-0"
+                                : "opacity-0",
                             )}
                           />
                           {department.label}

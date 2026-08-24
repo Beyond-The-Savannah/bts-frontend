@@ -29,14 +29,14 @@ import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
 import { Calendar } from "../ui/calendar";
 import "react-quill-new/dist/quill.snow.css";
 import dynamic from "next/dynamic";
-import { axiosInstance } from "@/remoteData/mutateData";
+import { axiosInstance } from "@/app/dal/remoteData/mutateData";
 import axios from "axios";
 import { toast } from "sonner";
 import {
   useGetCompaniesDropDownList,
   useGetJobCategoryDropDownList,
   useGetJobSubCategoryDropDownList,
-} from "@/remoteData/getData";
+} from "@/app/dal/remoteData/getData";
 import { formats2, modules2 } from "@/lib/reactQuilSettings";
 import {
   Command,
@@ -55,8 +55,7 @@ const ReactQuill = dynamic(() => import("react-quill-new"), {
   loading: () => <p>Loading text editor...</p>,
 });
 
-
-export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
+export default function JobDetailsForm({ jobDetails }: JobDetailsProps) {
   const [jCDValue] = useState("");
   const [jsDValue] = useState("");
 
@@ -67,48 +66,51 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
 
   const form = useForm<z.infer<typeof JobFormSchema>>({
     resolver: zodResolver(JobFormSchema),
-    defaultValues: jobDetails ? {
-      endDate: new Date(jobDetails.endDate as string),
-      jobName: jobDetails.jobName,
-      jobDescription: jobDetails.jobDescription || jCDValue,
-      companyId: jobDetails.companyId?.toString(),
-      // language: jobDetails.language,
-      language: "",
-      jobUrl:jobDetails.jobUrl,
-      salary: jobDetails.salary,
-      jobCategoriesId: jobDetails.jobCategoriesId?.toString(),
-      jobSubCategoryId: jobDetails.jobSubCategoryId?.toString(),
-      jobsAndSections: jobDetails ?(jobDetails?.jobsAndSections?.map((section,index:number)=>({
-        id:index,
-        sectionName: section.sectionName,
-        sectionDescription: section.sectionDescription,
-        jobTypesId: section.jobTypesId,
-        createdBy: section.createdBy,
-        modifiedBy: section.modifiedBy,
-      }))):([
-        {
-          sectionName: "",
-          sectionDescription: jsDValue,
+    defaultValues: jobDetails
+      ? {
+          endDate: new Date(jobDetails.endDate as string),
+          jobName: jobDetails.jobName,
+          jobDescription: jobDetails.jobDescription || jCDValue,
+          companyId: jobDetails.companyId?.toString(),
+          // language: jobDetails.language,
+          language: "",
+          jobUrl: jobDetails.jobUrl,
+          salary: jobDetails.salary,
+          jobCategoriesId: jobDetails.jobCategoriesId?.toString(),
+          jobSubCategoryId: jobDetails.jobSubCategoryId?.toString(),
+          jobsAndSections: jobDetails
+            ? jobDetails?.jobsAndSections?.map((section, index: number) => ({
+                id: index,
+                sectionName: section.sectionName,
+                sectionDescription: section.sectionDescription,
+                jobTypesId: section.jobTypesId,
+                createdBy: section.createdBy,
+                modifiedBy: section.modifiedBy,
+              }))
+            : [
+                {
+                  sectionName: "",
+                  sectionDescription: jsDValue,
+                },
+              ],
         }
-      ]), 
-      
-    }: {
-      endDate: undefined,
-      jobName: "",
-      jobDescription: jCDValue,
-      companyId: "0",
-      language: "",
-      jobUrl: "",
-      salary: 0,
-      jobCategoriesId: "0",
-      jobSubCategoryId: "0",
-      jobsAndSections: [
-        {
-          sectionName: "",
-          sectionDescription: jsDValue,
+      : {
+          endDate: undefined,
+          jobName: "",
+          jobDescription: jCDValue,
+          companyId: "0",
+          language: "",
+          jobUrl: "",
+          salary: 0,
+          jobCategoriesId: "0",
+          jobSubCategoryId: "0",
+          jobsAndSections: [
+            {
+              sectionName: "",
+              sectionDescription: jsDValue,
+            },
+          ],
         },
-      ],
-    },
     // defaultValues: {
     //   endDate: undefined,
     //   jobName: "",
@@ -136,58 +138,67 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
   });
 
   function onSubmit(data: z.infer<typeof JobFormSchema>) {
-    if(jobDetails){
-      const jobDetailsPutRequest= async ()=>{
+    if (jobDetails) {
+      const jobDetailsPutRequest = async () => {
         try {
-          const response= await axiosInstance.put(`/api/Jobs/udateJobs?jobId=${jobDetails.jobsId}`,{
-            jobs:{
-              endDate: data.endDate,
-              jobName: data.jobName,
-              jobDescription: data.jobDescription,
-              companyId: data.companyId,
-              language: "",
-              jobUrl: data.jobUrl,
-              salary: data.salary,
-              jobCategoriesId: Number(data.jobCategoriesId),
-              jobSubCategoryId: Number(data.jobSubCategoryId)
+          const response = await axiosInstance.put(
+            `/api/Jobs/udateJobs?jobId=${jobDetails.jobsId}`,
+            {
+              jobs: {
+                endDate: data.endDate,
+                jobName: data.jobName,
+                jobDescription: data.jobDescription,
+                companyId: data.companyId,
+                language: "",
+                jobUrl: data.jobUrl,
+                salary: data.salary,
+                jobCategoriesId: Number(data.jobCategoriesId),
+                jobSubCategoryId: Number(data.jobSubCategoryId),
+              },
+              createdBy: user?.fullName,
+              jobsAndSections: data.jobsAndSections.map(
+                (section, index: number) => ({
+                  id: index,
+                  sectionName: section.sectionName,
+                  sectionDescription: section.sectionDescription,
+                  jobTypesId: 1,
+                  createdBy: user?.fullName,
+                  modifiedBy: user?.fullName,
+                }),
+              ),
             },
-            createdBy:user?.fullName,
-            jobsAndSections: data.jobsAndSections.map((section, index:number)=>({
-              id:index,
-              sectionName:section.sectionName,
-              sectionDescription:section.sectionDescription,
-              jobTypesId:1,
-              createdBy:user?.fullName,
-              modifiedBy:user?.fullName
-            }))
-          })
-          if(response.data.errorCode==500){
-            toast.error(`Error updating ${jobDetails.jobName} details, please try again later`)
+          );
+          if (response.data.errorCode == 500) {
+            toast.error(
+              `Error updating ${jobDetails.jobName} details, please try again later`,
+            );
           }
-          console.log("Editing JOBDETAILSFORM", response)
-          return response
+          console.log("Editing JOBDETAILSFORM", response);
+          return response;
         } catch (error) {
-          if(axios.isAxiosError(error)){
-              throw new Error(error.message)
-          }else{throw new Error("An unexpected error occurred in the put request of JobsDetailsForm")}
+          if (axios.isAxiosError(error)) {
+            throw new Error(error.message);
+          } else {
+            throw new Error(
+              "An unexpected error occurred in the put request of JobsDetailsForm",
+            );
+          }
         }
-      } 
-      toast.promise(jobDetailsPutRequest(),{
-        loading:"Updating...",
-        success:(response)=>{
-          if(response?.data?.errorCode==201){
-            return(`Job Details Updated for ${jobDetails.jobName}`)
+      };
+      toast.promise(jobDetailsPutRequest(), {
+        loading: "Updating...",
+        success: (response) => {
+          if (response?.data?.errorCode == 201) {
+            return `Job Details Updated for ${jobDetails.jobName}`;
           }
         },
-        error:(response)=>{
-          if(response?.data?.errorCode==500){
-          return(`Error cannot update job details of ${jobDetails.jobName}`)
+        error: (response) => {
+          if (response?.data?.errorCode == 500) {
+            return `Error cannot update job details of ${jobDetails.jobName}`;
           }
-        }
-      })
-    }
-    else{
-
+        },
+      });
+    } else {
       const jobDetailsPostRequest = async () => {
         try {
           const response = await axiosInstance.post(`/api/Jobs/addJobs`, {
@@ -211,15 +222,15 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
                 jobTypesId: 1,
                 createdBy: "",
                 modifiedBy: "",
-              })
+              }),
             ),
           });
-  
+
           // console.log("JOBS DETAILS FORM RESPONSE",response)
-  
+
           if (response.data.errorCode == 500) {
             toast.error(
-              "Error adding current job deatils, please try again later"
+              "Error adding current job deatils, please try again later",
             );
           }
           return response;
@@ -229,7 +240,9 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
             throw new Error(error.message);
           } else {
             // console.error("An unexpected error occurred:", error);
-            throw new Error("An unexpected error occurred in the post request of JobsDetailsForm");
+            throw new Error(
+              "An unexpected error occurred in the post request of JobsDetailsForm",
+            );
           }
         }
       };
@@ -259,7 +272,7 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit, (errors) =>
-            console.log("Form Errors", errors)
+            console.log("Form Errors", errors),
           )}
           className="space-y-12 mb-20"
         >
@@ -329,7 +342,7 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
                           {field.value
                             ? jobSubCategories?.find(
                                 (categrory) =>
-                                  String(categrory.value) === field.value
+                                  String(categrory.value) === field.value,
                               )?.label
                             : "Select categrory"}
                           <ChevronsUpDown className="opacity-50" />
@@ -352,7 +365,7 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
                                 onSelect={() => {
                                   form.setValue(
                                     "jobSubCategoryId",
-                                    String(categrory.value)
+                                    String(categrory.value),
                                   );
                                 }}
                               >
@@ -362,7 +375,7 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
                                     "ml-auto",
                                     String(categrory.value) === field.value
                                       ? "opacity-100"
-                                      : "opacity-0"
+                                      : "opacity-0",
                                   )}
                                 />
                               </CommandItem>
@@ -432,7 +445,7 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
                           {field.value
                             ? companies?.find(
                                 (company) =>
-                                  String(company.value) === field.value
+                                  String(company.value) === field.value,
                               )?.label
                             : "Select company"}
                           <ChevronsUpDown className="opacity-50" />
@@ -455,7 +468,7 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
                                 onSelect={() => {
                                   form.setValue(
                                     "companyId",
-                                    String(company.value)
+                                    String(company.value),
                                   );
                                 }}
                               >
@@ -465,7 +478,7 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
                                     "ml-auto",
                                     String(company.value) === field.value
                                       ? "opacity-100"
-                                      : "opacity-0"
+                                      : "opacity-0",
                                   )}
                                 />
                               </CommandItem>
@@ -513,14 +526,16 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
                           variant="outline"
                           className={clsx(
                             "w-60 pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
+                            !field.value && "text-muted-foreground",
                           )}
                         >
-                          {(field.value && !isNaN(new Date(field.value).getTime())) ? (
+                          {field.value &&
+                          !isNaN(new Date(field.value).getTime()) ? (
                             // format(field.value, "PPP")
                             // format(new Date(field.value), "PPP")
-                            new Intl.DateTimeFormat('en-US',{dateStyle:'long'}).format(new Date(field.value))
-
+                            new Intl.DateTimeFormat("en-US", {
+                              dateStyle: "long",
+                            }).format(new Date(field.value))
                           ) : (
                             <span>Pick and End Date</span>
                           )}
@@ -535,7 +550,6 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
                         onSelect={field.onChange}
                         // disabled={(date)=>(date > new Date() || date < new Date("1900-01-01 "))}
                         disabled={(date) => date < new Date("1900-01-01 ")}
-                        
                       />
                     </PopoverContent>
                   </Popover>
@@ -579,7 +593,7 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
                       <FormControl>
                         <Input
                           {...form.register(
-                            `jobsAndSections.${index}.sectionName` as const
+                            `jobsAndSections.${index}.sectionName` as const,
                           )}
                           defaultValue={field.sectionName}
                           className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]"
@@ -599,12 +613,12 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
                           onChange={(value) =>
                             form.setValue(
                               `jobsAndSections.${index}.sectionDescription`,
-                              value
+                              value,
                             )
                           }
                           onBlur={() =>
                             form.trigger(
-                              `jobsAndSections.${index}.sectionDescription`
+                              `jobsAndSections.${index}.sectionDescription`,
                             )
                           }
                           modules={modules2}
@@ -645,30 +659,25 @@ export default function JobDetailsForm({jobDetails}:JobDetailsProps) {
             </div>
           </section>
 
-          {jobDetails ?
-          (
-          <Button
-            type="submit"
-            className="bg-bts-BrownThree hover:bg-green-800"
-            disabled={formState.isSubmitting}
-          >
-            {formState.isSubmitting ? "Editing Job..." : "Edit Job"}
-            {/* Add Job */}
-          </Button>
-          )
-          :
-          (
-
-          <Button
-            type="submit"
-            className="bg-bts-BrownThree hover:bg-green-800"
-            disabled={formState.isSubmitting}
-          >
-            {formState.isSubmitting ? "Adding Job..." : "Add Job"}
-            {/* Add Job */}
-          </Button>
-          )
-          }
+          {jobDetails ? (
+            <Button
+              type="submit"
+              className="bg-bts-BrownThree hover:bg-green-800"
+              disabled={formState.isSubmitting}
+            >
+              {formState.isSubmitting ? "Editing Job..." : "Edit Job"}
+              {/* Add Job */}
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              className="bg-bts-BrownThree hover:bg-green-800"
+              disabled={formState.isSubmitting}
+            >
+              {formState.isSubmitting ? "Adding Job..." : "Add Job"}
+              {/* Add Job */}
+            </Button>
+          )}
         </form>
       </Form>
     </>

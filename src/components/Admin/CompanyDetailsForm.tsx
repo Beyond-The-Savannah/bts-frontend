@@ -20,7 +20,7 @@ import dynamic from "next/dynamic";
 import { toast } from "sonner";
 // import { CldUploadWidget } from "next-cloudinary";
 // import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
-import { axiosInstance } from "@/remoteData/mutateData";
+import { axiosInstance } from "@/app/dal/remoteData/mutateData";
 import axios from "axios";
 import Image from "next/image";
 import { CompanyDetailsProps } from "@/types/globals";
@@ -31,33 +31,39 @@ const ReactQuill = dynamic(() => import("react-quill-new"), {
   loading: () => <p>Loading text editor...</p>,
 });
 
-export default function CompanyDetailsForm({companyDetails}:CompanyDetailsProps) {
-  const router=useRouter()
+export default function CompanyDetailsForm({
+  companyDetails,
+}: CompanyDetailsProps) {
+  const router = useRouter();
   const [cDValue] = useState("");
-  const [logoPreview, setLogoPreview] = useState<string | ArrayBuffer | null>(null);
+  const [logoPreview, setLogoPreview] = useState<string | ArrayBuffer | null>(
+    null,
+  );
   const [logo, setLogo] = useState("");
   const [logoName, setLogoName] = useState("");
 
   const form = useForm<z.infer<typeof CompanyFormSchema>>({
     resolver: zodResolver(CompanyFormSchema),
-    defaultValues: companyDetails? {
-      companyName: companyDetails.companyName,
-      companyHeadQuaters: companyDetails.companyHeadQuaters,
-      companyContactEmail: companyDetails.companyContactEmail,
-      companyContactPhone: companyDetails.companyContactPhone,
-      companyDescription:cDValue,
-      // companyDescription: companyDetails.companyDescription,
-      location: companyDetails.location,
-      imageUrl: companyDetails.imageUrl,
-    }:{
-      companyName: "",
-      companyHeadQuaters: "",
-      companyContactEmail: "",
-      companyContactPhone: "",
-      companyDescription:cDValue,
-      location: "",
-      imageUrl: "",
-    },
+    defaultValues: companyDetails
+      ? {
+          companyName: companyDetails.companyName,
+          companyHeadQuaters: companyDetails.companyHeadQuaters,
+          companyContactEmail: companyDetails.companyContactEmail,
+          companyContactPhone: companyDetails.companyContactPhone,
+          companyDescription: cDValue,
+          // companyDescription: companyDetails.companyDescription,
+          location: companyDetails.location,
+          imageUrl: companyDetails.imageUrl,
+        }
+      : {
+          companyName: "",
+          companyHeadQuaters: "",
+          companyContactEmail: "",
+          companyContactPhone: "",
+          companyDescription: cDValue,
+          location: "",
+          imageUrl: "",
+        },
   });
 
   function handleLogo(e: React.ChangeEvent<HTMLInputElement>) {
@@ -78,49 +84,53 @@ export default function CompanyDetailsForm({companyDetails}:CompanyDetailsProps)
 
   function Submit(data: z.infer<typeof CompanyFormSchema>) {
     // alert(JSON.stringify(data))
-    if(companyDetails){
-        const updateCompanyDetails=async()=>{
-          try {
-            const response=await axiosInstance.put(`api/Companies/updateCompany?id=${companyDetails.id}`,{
-                id:companyDetails.id,
-                name:data.companyName,
-                description:data.companyDescription,
-                phoneNumber:data.companyContactPhone,
-                headQuarters:data.companyHeadQuaters,
-                attachmentName:logoName,
-                attachment:logo,
-                email:data.companyContactEmail,
-                // imageUrl:data.imageUrl,
-                imageUrl:"",
-                location:data.location,
-                createdBy: "",
-                modifiedBy: "",
-            })
-            if(response.data.errorCode==500){
-              toast.error(`Error updating ${companyDetails.companyName} details, please try again later`)
-            }
-            // console.log("Editing company details", response)
-            router.push(`/Admin/companyListing`)
-            return response
-          } catch (error) {
-
-            if(axios.isAxiosError(error)){throw new Error(error.message)}
-          }
-          
-        }
-        toast.promise(updateCompanyDetails(),{
-            loading:"Updating...",
-            success:()=>{
-              return `Updated ${companyDetails.companyName}`
+    if (companyDetails) {
+      const updateCompanyDetails = async () => {
+        try {
+          const response = await axiosInstance.put(
+            `api/Companies/updateCompany?id=${companyDetails.id}`,
+            {
+              id: companyDetails.id,
+              name: data.companyName,
+              description: data.companyDescription,
+              phoneNumber: data.companyContactPhone,
+              headQuarters: data.companyHeadQuaters,
+              attachmentName: logoName,
+              attachment: logo,
+              email: data.companyContactEmail,
+              // imageUrl:data.imageUrl,
+              imageUrl: "",
+              location: data.location,
+              createdBy: "",
+              modifiedBy: "",
             },
-            error:(response)=>{
-              if(response.data.errorCode==500){
-                return "Error, cannot update current company details"
-              }
-            }
-          })
-    }
-    else{
+          );
+          if (response.data.errorCode == 500) {
+            toast.error(
+              `Error updating ${companyDetails.companyName} details, please try again later`,
+            );
+          }
+          // console.log("Editing company details", response)
+          router.push(`/Admin/companyListing`);
+          return response;
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            throw new Error(error.message);
+          }
+        }
+      };
+      toast.promise(updateCompanyDetails(), {
+        loading: "Updating...",
+        success: () => {
+          return `Updated ${companyDetails.companyName}`;
+        },
+        error: (response) => {
+          if (response.data.errorCode == 500) {
+            return "Error, cannot update current company details";
+          }
+        },
+      });
+    } else {
       const postRequest = async () => {
         try {
           const response = await axiosInstance.post(
@@ -137,11 +147,11 @@ export default function CompanyDetailsForm({companyDetails}:CompanyDetailsProps)
               location: data.location,
               createdBy: "",
               modifiedBy: "",
-            }
+            },
           );
           if (response.data == 200) {
             console.log(response);
-  
+
             return response.data;
           }
         } catch (error) {
@@ -163,7 +173,7 @@ export default function CompanyDetailsForm({companyDetails}:CompanyDetailsProps)
 
   return (
     <>
-    {/* <div className="w-full lg:w-[70vw] mx-auto"></div> */}
+      {/* <div className="w-full lg:w-[70vw] mx-auto"></div> */}
       <div className="container mx-auto mt-10 mb-20 ">
         <h2 className="text-xl">Company Form</h2>
         <div className="border-2 rounded-md border-bts-GreenOne w-36"></div>
@@ -198,7 +208,6 @@ export default function CompanyDetailsForm({companyDetails}:CompanyDetailsProps)
                     <Input
                       {...field}
                       className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]"
-                      
                     />
                   </FormControl>
                   <FormMessage />
@@ -216,7 +225,6 @@ export default function CompanyDetailsForm({companyDetails}:CompanyDetailsProps)
                     <Input
                       {...field}
                       className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]"
-                      
                     />
                   </FormControl>
                   <FormMessage />
@@ -235,7 +243,6 @@ export default function CompanyDetailsForm({companyDetails}:CompanyDetailsProps)
                     <Input
                       {...field}
                       className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]"
-                      
                     />
                   </FormControl>
                   <FormMessage />
@@ -252,7 +259,6 @@ export default function CompanyDetailsForm({companyDetails}:CompanyDetailsProps)
                     <Input
                       {...field}
                       className="w-[90dvw] md:w-[30dvw] lg:w-[22dvw]"
-                      
                       type="tel"
                     />
                   </FormControl>
@@ -260,50 +266,48 @@ export default function CompanyDetailsForm({companyDetails}:CompanyDetailsProps)
                 </FormItem>
               )}
             />
-            
-          <div className="flex flex-wrap items-center justify-evenly gap-6">
-          <FormField
-              control={form.control}
-              name="imageUrl"
-              render={() => (
-                <FormItem>
-                  <FormLabel>Company Logo</FormLabel>
-                  <FormControl>
-                    <Input
-                      className=""
-                      // required
-                      type="file"
-                      accept="image/*"
-                      onChange={handleLogo}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div>
-              {typeof logoPreview == "string" && (
-                <Image
-                  src={logoPreview}
-                  height={200}
-                  width={200}
-                  alt="logo preview"
-                  className="size-24 rounded-lg object-cover border-2"
-                />
-              )}
-              {companyDetails?.imageUrl !=undefined?(
-                <Image
-                   src={companyDetails?.imageUrl as string}
-                   height={200}
-                   width={200}
-                   alt="logo preview"
-                   className="size-24 rounded-lg object-cover border-2"
-                 />
 
-              ):null
-              }
+            <div className="flex flex-wrap items-center justify-evenly gap-6">
+              <FormField
+                control={form.control}
+                name="imageUrl"
+                render={() => (
+                  <FormItem>
+                    <FormLabel>Company Logo</FormLabel>
+                    <FormControl>
+                      <Input
+                        className=""
+                        // required
+                        type="file"
+                        accept="image/*"
+                        onChange={handleLogo}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div>
+                {typeof logoPreview == "string" && (
+                  <Image
+                    src={logoPreview}
+                    height={200}
+                    width={200}
+                    alt="logo preview"
+                    className="size-24 rounded-lg object-cover border-2"
+                  />
+                )}
+                {companyDetails?.imageUrl != undefined ? (
+                  <Image
+                    src={companyDetails?.imageUrl as string}
+                    height={200}
+                    width={200}
+                    alt="logo preview"
+                    className="size-24 rounded-lg object-cover border-2"
+                  />
+                ) : null}
+              </div>
             </div>
-          </div>
           </div>
           <div className="flex flex-col-reverse md:flex-row flex-wrap gap-12  items-center justify-evenly">
             <FormField
@@ -375,30 +379,28 @@ export default function CompanyDetailsForm({companyDetails}:CompanyDetailsProps)
               )}
             /> */}
           </div>
-            {companyDetails ? 
-            (<>
-            <Button
-            type="submit"
-            disabled={form.formState.isSubmitting}
-            className="bg-bts-BrownThree hover:bg-green-800"
-          >
-            {form.formState.isSubmitting ?"Editing...":"Edit Company"}
-          </Button>
-            </>)
-            :
-            (
-              <>
-          <Button
-            type="submit"
-            disabled={form.formState.isSubmitting}
-            className="bg-bts-BrownThree hover:bg-green-800"
-          >
-            {form.formState.isSubmitting?"Adding...":"Add Comapny"}
-            {/* Add Company */}
-          </Button>
-              </>
-            )
-            }
+          {companyDetails ? (
+            <>
+              <Button
+                type="submit"
+                disabled={form.formState.isSubmitting}
+                className="bg-bts-BrownThree hover:bg-green-800"
+              >
+                {form.formState.isSubmitting ? "Editing..." : "Edit Company"}
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                type="submit"
+                disabled={form.formState.isSubmitting}
+                className="bg-bts-BrownThree hover:bg-green-800"
+              >
+                {form.formState.isSubmitting ? "Adding..." : "Add Comapny"}
+                {/* Add Company */}
+              </Button>
+            </>
+          )}
         </form>
       </Form>
     </>

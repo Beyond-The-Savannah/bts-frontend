@@ -1,5 +1,5 @@
 import AllJobsAlertEmailTemplate from "@/components/Emails/AllJobsAlertEmailTemplate";
-import { axiosInstance } from "@/remoteData/mutateData";
+import { axiosInstance } from "@/app/dal/remoteData/mutateData";
 import { ListingRemoteJobs } from "@/types/remoteJobsListing";
 import { SubscribedUserProp } from "@/types/subscribedUser";
 import { serve } from "@upstash/workflow/nextjs";
@@ -23,7 +23,7 @@ async function sendNewJobAddedAlertEmail() {
 
   // get jobs listing and determine recently new added ones
   const jobListingResponse = await axiosInstance.get(
-    "/api/Jobs/getAllJobsByCompany"
+    "/api/Jobs/getAllJobsByCompany",
   );
   const jobListing: ListingRemoteJobs[] = await jobListingResponse.data;
   const sortedJobListingByDate = jobListing?.sort((a, b) => {

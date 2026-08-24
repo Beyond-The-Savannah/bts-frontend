@@ -25,9 +25,9 @@ import "react-quill-new/dist/quill.snow.css";
 // import dynamic from "next/dynamic";
 import axios from "axios";
 import { toast } from "sonner";
-import { axiosInstance } from "@/remoteData/mutateData";
+import { axiosInstance } from "@/app/dal/remoteData/mutateData";
 import { Textarea } from "../ui/textarea";
-import { useGetJobCategoryDropDownList } from "@/remoteData/getData";
+import { useGetJobCategoryDropDownList } from "@/app/dal/remoteData/getData";
 // const ReactQuill = dynamic(() => import("react-quill-new"), {
 //   ssr: false,
 //   loading: () => <p>Loading text editor...</p>,
@@ -58,7 +58,7 @@ export default function JobSubCategoryForm() {
             jobCategoryId: parseInt(data.jobCategory),
             createdBy: ``,
             modifiedBy: ``,
-          }
+          },
         );
         if (response.data == 200) {
           console.log(response);

@@ -2,7 +2,7 @@
 
 import RemoteJobListingsLoadingUI from "@/components/Loaders/RemoteJobListingsLoadingUI";
 import { Button } from "@/components/ui/button";
-import { useGetRemoteListingJobsUsingTanstack } from "@/remoteData/getData";
+import { useGetRemoteListingJobsUsingTanstack } from "@/app/dal/remoteData/getData";
 import { useSearchParams } from "next/navigation";
 import { Link, useTransitionRouter } from "next-view-transitions";
 import Image from "next/image";
@@ -15,11 +15,12 @@ export function FindRemoteJobs() {
   const router = useTransitionRouter();
   const searchParams = useSearchParams();
 
+  const [blurredCompanyNameImageUrl, setBlurredCompanyNameImageUrl] =
+    useState("");
+  const [blurredCompanyImageSourceUrl, setBlurredCompanyImageSourceUrl] =
+    useState("");
 
-  const[blurredCompanyNameImageUrl,setBlurredCompanyNameImageUrl]=useState('')
-  const[blurredCompanyImageSourceUrl,setBlurredCompanyImageSourceUrl]=useState('')
-
-  useEffect(()=>{
+  useEffect(() => {
     // 1. Create a source canvas (clean text)
     const sourceCanvas = document.createElement("canvas");
     const sourceCtx = sourceCanvas.getContext("2d")!;
@@ -28,7 +29,7 @@ export function FindRemoteJobs() {
 
     sourceCtx.font = "16px Arial";
     sourceCtx.fillStyle = "black";
-    sourceCtx.fillText('xxxx xxxx xxxx', 10, 25);
+    sourceCtx.fillText("xxxx xxxx xxxx", 10, 25);
 
     // 2. Create a target canvas (blurred)
     const blurCanvas = document.createElement("canvas");
@@ -42,7 +43,7 @@ export function FindRemoteJobs() {
 
     setBlurredCompanyNameImageUrl(blurCanvas.toDataURL());
     setBlurredCompanyImageSourceUrl(blurCanvas.toDataURL());
-  },[])
+  }, []);
 
   const page = searchParams?.get("page") ?? "1";
   const per_page = searchParams?.get("per_page") ?? "10";
@@ -63,7 +64,7 @@ export function FindRemoteJobs() {
 
   const paginatedRemoteJobs = remoteJobs?.slice(
     firstRemoteJobListingIndex,
-    lastRemoteJobListingIndex
+    lastRemoteJobListingIndex,
   );
   return (
     <>
@@ -93,27 +94,35 @@ export function FindRemoteJobs() {
                   // className="object-contain rounded-xl size-12 blur-lg"
                   className="object-contain rounded-xl size-12 "
                 />
-                <svg style={{position:'absolute', width:0, height:0, borderRadius:'16px'}}>
-                  <filter id="image-blur-filter" x='0' y='0'>
-                    <feGaussianBlur stdDeviation={5}/>
+                <svg
+                  style={{
+                    position: "absolute",
+                    width: 0,
+                    height: 0,
+                    borderRadius: "16px",
+                  }}
+                >
+                  <filter id="image-blur-filter" x="0" y="0">
+                    <feGaussianBlur stdDeviation={5} />
                   </filter>
                 </svg>
                 <div className="flex items-center justify-between w-full">
                   {/* <p className="blur-xs">{job.companyName}</p> */}
                   <div className="relative">
-                    {blurredCompanyNameImageUrl ? (<>
-                      <Image
-                        width={200}
-                        height={40}
-                        src={blurredCompanyNameImageUrl}
-                        alt="blurred company name"
-                        style={{ pointerEvents:'none',userSelect:'none',}}
-                        onContextMenu={(e)=>e.preventDefault()}
-                        
-                      />
-                    </>):null}
+                    {blurredCompanyNameImageUrl ? (
+                      <>
+                        <Image
+                          width={200}
+                          height={40}
+                          src={blurredCompanyNameImageUrl}
+                          alt="blurred company name"
+                          style={{ pointerEvents: "none", userSelect: "none" }}
+                          onContextMenu={(e) => e.preventDefault()}
+                        />
+                      </>
+                    ) : null}
                   </div>
-                
+
                   <p className="capitalize text-xs lg:text-sm rounded-xl px-[0.1rem] bg-bts-BrownOne text-black w-24 text-center">
                     {DateFormatter(`${job.dateCreated}`)}
                   </p>
@@ -148,7 +157,7 @@ export function FindRemoteJobs() {
                 variant="outline"
                 onClick={() => {
                   router.push(
-                    `find-job/?jobSubCategoryId=${jobSubCategoryId}&page=${Number(page) - 1}&per_page=${per_page}`
+                    `find-job/?jobSubCategoryId=${jobSubCategoryId}&page=${Number(page) - 1}&per_page=${per_page}`,
                   );
                 }}
                 disabled={Number(page) <= 1}
@@ -170,11 +179,11 @@ export function FindRemoteJobs() {
                         "hover:bg-bts-BrownOne",
                         pageNavigation == Number(page)
                           ? "bg-bts-BrownFive"
-                          : "bg-transparent text-black"
+                          : "bg-transparent text-black",
                       )}
                       onClick={() => {
                         router.push(
-                          `find-job/?jobSubCategoryId=${jobSubCategoryId}&page=${pageNavigation}&per_page=${per_page}`
+                          `find-job/?jobSubCategoryId=${jobSubCategoryId}&page=${pageNavigation}&per_page=${per_page}`,
                         );
                       }}
                     >
@@ -188,7 +197,7 @@ export function FindRemoteJobs() {
                 onClick={() => {
                   router.push(
                     // `find-jobs/?page=${Number(page) + 1}&per_page=${per_page}`
-                    `find-job/?jobSubCategoryId=${jobSubCategoryId}&page=${Number(page) + 1}&per_page=${per_page}`
+                    `find-job/?jobSubCategoryId=${jobSubCategoryId}&page=${Number(page) + 1}&per_page=${per_page}`,
                   );
                 }}
                 disabled={lastRemoteJobListingIndex > remoteJobs.length}
