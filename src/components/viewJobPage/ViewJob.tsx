@@ -26,8 +26,12 @@ import DOMPurify from "isomorphic-dompurify";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 import clsx from "clsx";
+import { usePathname } from "next/navigation";
 
 export default function ViewJob({ jobsId }: { jobsId: string }) {
+  const pathName=usePathname()
+  const isAdminRoute= pathName.includes('/Admin')
+  
   const {
     data: singleJob,
     isLoading,
@@ -160,46 +164,53 @@ export default function ViewJob({ jobsId }: { jobsId: string }) {
                 ))}
               </>
             )}
-            <div className="space-y-4 hidden">
+            {/* <div className="space-y-4 "> */}
+            <div className={ isAdminRoute ?'space-y-4':'hidden'} >
               <p className="">
-                Share this remote job opportunity with your friends and
-                colleagues
+                Share this remote job opportunity 
+                {/* with your friends and colleagues */}
               </p>
               {filteredRemoteJob && (
                 <div className="flex flex-wrap gap-4 items-center">
                   <TwitterShareButton
                     title={`Job Role : ${filteredRemoteJob.jobName}`}
-                    url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
+                    // url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
+                    url={`beyondthesavannah.com/Customer/find-jobs/${jobsId}`}
                   >
                     <XIcon className="size-8 rounded-lg  hover:scale-110 transition duration-500" />
                   </TwitterShareButton>
                   <LinkedinShareButton
                     title={`Job Role : ${filteredRemoteJob.jobName}`}
-                    url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
+                    // url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
+                    url={`beyondthesavannah.com/Customer/find-jobs/${jobsId}`}
                   >
                     <LinkedinIcon className="size-8 rounded-lg hover:scale-110 transition duration-500" />
                   </LinkedinShareButton>
                   <FacebookShareButton
                     title={`Job Role : ${filteredRemoteJob.jobName}`}
-                    url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
+                    // url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
+                    url={`beyondthesavannah.com/Customer/find-jobs/${jobsId}`}
                   >
                     <FacebookIcon className="size-8 rounded-lg hover:scale-110 transition duration-500" />
                   </FacebookShareButton>
                   <WhatsappShareButton
                     title={`Job Role : ${filteredRemoteJob.jobName}`}
-                    url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
+                    // url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
+                    url={`beyondthesavannah.com/Customer/find-jobs/${jobsId}`}
                   >
                     <WhatsappIcon className="size-8 rounded-lg hover:scale-110 transition duration-500" />
                   </WhatsappShareButton>
                   <TelegramShareButton
                     title={`Job Role : ${filteredRemoteJob.jobName}`}
-                    url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
+                    // url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
+                    url={`beyondthesavannah.com/Customer/find-jobs/${jobsId}`}
                   >
                     <TelegramIcon className="size-8 rounded-lg hover:scale-110 transition duration-500" />
                   </TelegramShareButton>
                   <EmailShareButton
                     title={`Job Role : ${filteredRemoteJob.jobName}`}
-                    url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
+                    // url={`beyond-savannah-board.vercel.app/view-job/${jobsId}`}
+                    url={`beyondthesavannah.com/Customer/find-jobs/${jobsId}`}
                   >
                     <EmailIcon className="size-8 rounded-lg hover:scale-110 transition duration-500" />
                   </EmailShareButton>
