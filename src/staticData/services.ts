@@ -105,8 +105,8 @@ export const servicesList = [
     titleSlug: "interview-preparation",
     subheading:
       "Prepare for Success with a 2 Hour Guided Interview Preparation Session",
-    img: "interview_prep_wi4ubt",
-    openGraphImg: "Interview_Preparation_openGraph_czck60",
+    img: "Interview_Preparation_image_noy8nm",
+    openGraphImg: "Interview_Preparation_OG_image_ycuzlo",
     details:
       "Your next career move deserves careful planning and strategy. Join us for a comprehensive 2 hour virtual meeting dedicated to interview preparation, where we'll equip you with the tools and confidence you need to succeed.",
     benefits: [
