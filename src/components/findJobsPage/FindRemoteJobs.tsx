@@ -69,13 +69,7 @@ export function FindRemoteJobs() {
   return (
     <>
       <section className="container mx-auto min-h-screen px-4">
-        {/* <div className="pt-24 md:pt-44 mb-10">
-          <h2 className="text-xl">Global Open Roles</h2>
-          <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
-          <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2">
-            Remote Opportunities
-          </p>
-        </div> */}
+     
         {isLoading && <RemoteJobListingsLoadingUI />}
         {isError && <RemoteJobListingErrorUI />}
         <div className="flex flex-wrap lg:justify-center  mb-20 gap-8 md:gap-2 md:gap-y-8 lg:gap-8">
