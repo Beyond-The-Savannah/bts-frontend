@@ -5,14 +5,16 @@ import { CombinedSubscribedUsersProp, SubscribedUserProp } from "@/types/subscri
 import { UserMinus2Icon, UserPlus2, Users } from "lucide-react";
 import { usersSubscriptionInformation } from "@/app/dal/subscriptions";
 
-// import { SubscribedUser } from "@/types/globals";
-
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
 
 export default async function Page() {
-  
+  if (!BTS_API_URL) {
+    throw new Error(
+      "NEXT_PUBLIC_DB_BASE_URL is not defined. Set it in Vercel Environment Variables."
+    );
+  }
   const response = await axios.get(`${BTS_API_URL}/api/BydUsers/getAllUsers`);
   const users: SubscribedUserProp[] = await response.data;
 

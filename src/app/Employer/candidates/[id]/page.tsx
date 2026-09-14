@@ -7,10 +7,17 @@ import { UserCircle2 } from "lucide-react";
 
 
 
+export const dynamic = "force-dynamic";
+
 const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
 
 export default async function Page({params}: {params: Promise<{ id: string }>;}) {
   const { id } = await params;
+  if (!BTS_API_URL) {
+    throw new Error(
+      "NEXT_PUBLIC_DB_BASE_URL is not defined. Set it in Vercel Environment Variables."
+    );
+  }
   // const candidatesName = decodeURIComponent(id);
   const response = await axios.get(`${BTS_API_URL}/api/BydUsers/getAllUsers`);
   const existingUsers: SubscribedUserProp[] = await response.data;
