@@ -1,6 +1,7 @@
 // export const dynamic = "force-dynamic";
 
 import SavannahChatUi from "@/components/Customer/SavannahChatUi";
+import SavannahChatUI3 from "@/components/Customer/SavannahChatUI3";
 import DisplayImageFromNextCloudinary from "@/components/DisplayImageFromNextCloudinary";
 import SavannahChatLoader from "@/components/Loaders/SavannahChatLoader";
 import React, { Suspense } from "react";
@@ -27,7 +28,8 @@ export default function page() {
         </div>  
         <Suspense fallback={<SavannahChatLoader/>}>
         <div className="w-full lg:max-w-5xl mx-auto">
-          <SavannahChatUi />
+          {/* <SavannahChatUi /> */}
+          <SavannahChatUI3/>
         </div>
         </Suspense>
       </section>

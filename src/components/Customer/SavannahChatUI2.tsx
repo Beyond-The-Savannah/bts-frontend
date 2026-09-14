@@ -1,6 +1,7 @@
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import SavannahChatUi from "./SavannahChatUi";
+import SavannahChatUI3 from "./SavannahChatUI3";
 
 export default function SavannahChatUI2() {
   return (
@@ -17,7 +18,7 @@ export default function SavannahChatUI2() {
           />
         </PopoverTrigger>
         {/* <PopoverContent className="min-w-[98dvw] md:min-w-[75dvw] lg:min-w-[50dvw] my-1 h-full md:max-h-[70dvh] lg:max-h-[70dvh] overflow-y-auto "> */}
-        <PopoverContent className="min-w-[98dvw] md:min-w-[75dvw] lg:min-w-[50dvw] my-1 h-full  ">
+        <PopoverContent className="min-w-[98dvw] md:min-w-[75dvw] lg:min-w-[50dvw] my-1 h-[74dvh] lg:h-full  ">
           <div className="flex items-center gap-1">
             <span className="text-sm md:text-sm">Hi, I&apos;Am Savannah </span>
             <DisplayImageFromNextCloudinary
@@ -35,7 +36,8 @@ export default function SavannahChatUI2() {
               </span>
           </div>
           <div className="c">
-            <SavannahChatUi />
+            {/* <SavannahChatUi /> */}
+            <SavannahChatUI3/>
           </div>
         </PopoverContent>
       </Popover>
