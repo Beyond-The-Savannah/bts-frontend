@@ -45,16 +45,12 @@ export default function RootLayout({
   return (
     <>
       <NavigationSection />
-      <div className="relative z-20">
-        {/* <div className="absolute top-132 xl:top-158 right-44  "> */}
-        <div className="absolute top-168 md:top-240 lg:top-190  2xl:top-220 right-24 max-h-[40dvh] bg-red-700 md:right-44 lg:right-28  ">
-          {/* <div className="fixed bg-bts-GreenOne px-4 py-1 hover:scale-105 rounded-xl"> */}
-          <div
-            className={`${geist.variable} ${geistMono.variable} fixed bg-bts-GreenOne/40 px-4 py-1 hover:scale-105 rounded-xl`}
-          >
-            {/* <SavannahChatUI1 /> */}
-            <SavannahChatUI2 />
-          </div>
+      <div
+        className={`${geist.variable} ${geistMono.variable} fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex flex-col items-end gap-2 pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)]`}
+      >
+        <div className="bg-bts-GreenOne/95 backdrop-blur rounded-xl shadow-lg px-3 py-2 hover:scale-105 active:scale-95 transition ease-in touch-manipulation">
+          {/* <SavannahChatUI1 /> */}
+          <SavannahChatUI2 />
         </div>
       </div>
       {children}
