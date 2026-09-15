@@ -20,7 +20,7 @@ export default function SavannahChatUI3() {
         }
     }
   return (
-      <section className="flex flex-1 min-h-0 flex-col overflow-hidden bg-background">
+      <section className="flex flex-1 min-h-0 h-[80dvh] lg:border rounded-md flex-col overflow-y-auto overflow-hidden bg-background">
         {/* Chat container - flex-1 min-h-0 is critical for mobile scrolling + keyboard handling */}
         <div className="flex flex-1 min-h-0 flex-col max-w-4xl mx-auto w-full relative overflow-hidden">
             <Conversation className="flex-1 min-h-0 overscroll-contain">
