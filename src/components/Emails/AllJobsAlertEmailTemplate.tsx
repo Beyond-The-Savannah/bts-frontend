@@ -31,7 +31,7 @@ export default function AllJobsAlertEmailTemplate({
           <Container style={container}>
             <Section style={logo}>
               <Img
-                src={`https://res.cloudinary.com/dh8qlzbzk/image/upload/v1736518541/BTS_Logo_xa2iht.webp`}
+                src={`https://res.cloudinary.com/wziqgppv/image/upload/v1789457733/BTS_Logo_xa2iht.webp`}
                 width="114"
                 alt="Beyond The Savannah Logo"
               />
