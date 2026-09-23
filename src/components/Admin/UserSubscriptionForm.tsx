@@ -136,7 +136,7 @@ export default function UserSubscriptionForm() {
                                                 {...field}
                                                 type="email"
                                                 aria-invalid={fieldState.invalid}
-                                                placeholder="Zawadi"
+                                                placeholder="email@address.com"
                                                 autoComplete="off"
                                                 className=""
                                                 // required
@@ -207,12 +207,12 @@ export default function UserSubscriptionForm() {
                                     render={({field,fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
                                             <FieldContent>
-                                                <FieldLabel>Subscription Status</FieldLabel>
+                                                <FieldLabel>Subscription Price</FieldLabel>
                                             </FieldContent>
                                             <Select name={field.name} value={field.value} onValueChange={field.onChange}>
                                                 <SelectTrigger id="userSubscriptionForm" aria-invalid={fieldState.invalid} className="w-full">
-                                                    <SelectValue placeholder="select between the two states"/>
-                                                    <SelectContent position="popper">
+                                                    <SelectValue placeholder="select the price"/>
+                                                    <SelectContent position="popper" className="overflow-y-auto h-80">
                                                         <SelectItem value="450">450</SelectItem>
                                                         <SelectItem value="750">750</SelectItem>
                                                         <SelectItem value="1100">1100</SelectItem>
