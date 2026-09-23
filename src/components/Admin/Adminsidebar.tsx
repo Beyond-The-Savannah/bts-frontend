@@ -1,6 +1,6 @@
 "use client"
 
-import { BrickWall, Briefcase, Building2, Factory, FolderPlus, Layers, Layers2, Users, } from "lucide-react";
+import { BrickWall, Briefcase, Building2, Factory, FolderPlus, Layers, Layers2, UserPlus, Users, } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -57,6 +57,11 @@ const items = [
     title: "BTS Candidates",
     url: "/Admin/bts-candidates",
     icon: Factory,
+  },
+  {
+    title: "Add new Users",
+    url: "/Admin/add-new-users",
+    icon: UserPlus,
   },
 
 ];
