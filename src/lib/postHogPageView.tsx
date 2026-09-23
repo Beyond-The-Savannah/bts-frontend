@@ -18,7 +18,9 @@ function PostHogPageView() : null {
     if (pathname && posthog && isSignedIn && user && !posthog._isIdentified()) {
       
       const email=user.primaryEmailAddress?.emailAddress
-      posthog.identify(email,{email,name:user.fullName})
+      if (email) {
+        posthog.identify(email,{email,name:user.fullName})
+      }
       
       let url = window.origin + pathname
       if (searchParams?.toString()) {
