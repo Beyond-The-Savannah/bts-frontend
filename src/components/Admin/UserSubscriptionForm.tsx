@@ -28,7 +28,7 @@ const userSubcriptionFormSchema=z.object({
 })
 
 export default function UserSubscriptionForm() {
-    const [startDate,setStartDate]=React.useState<Date|undefined>( new Date())
+    // const [startDate,setStartDate]=React.useState<Date|undefined>( new Date())
     // const [endDate,setEndDate]=useState<Date|undefined>()
 
     const form=useForm<z.infer<typeof userSubcriptionFormSchema>>({
@@ -41,9 +41,10 @@ export default function UserSubscriptionForm() {
             subscriptionType:"",
             subscriptionPrice:"",
             subscriptionTierName:"",
-            subscriptionStartDate: startDate,
-            // subscriptionEndDate:endDate,
+            subscriptionStartDate: undefined,
             subscriptionEndDate:undefined,
+            // subscriptionStartDate: startDate,
+            // subscriptionEndDate:endDate,
         }
     })
     async function onSumbit(data:z.infer<typeof userSubcriptionFormSchema>){
@@ -273,8 +274,12 @@ export default function UserSubscriptionForm() {
                                             <FieldLabel>Subscription Start Date</FieldLabel>
                                            <Calendar
                                             mode="single"
-                                            selected={startDate}
-                                            onSelect={setStartDate}
+                                            // selected={startDate}
+                                            // onSelect={setStartDate}
+                                            selected={field.value}
+                                            onSelect={(date)=>{field.onChange(date)
+                                                if(date) form.clearErrors("subscriptionStartDate")
+                                            }}
                                             captionLayout="dropdown"
                                             className="rounded-md border "
                                            />

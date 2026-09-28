@@ -18,6 +18,8 @@ export default function AddNewUsersPage() {
                     Subscription Price to "0"
                   </li>
                   <li>For paid users Subscription price has to match the paystack receipt amount</li>
+                  <li>For end date add an additional date</li>
+                  
                 </ul>
               </div>
               <UserSubscriptionForm />
