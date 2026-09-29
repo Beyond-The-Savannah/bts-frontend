@@ -34,7 +34,7 @@ export default async function Page() {
       lastName:user.lastName===null?"":user.lastName,
     })),
     ...newSubscriptionData.map((userData)=>{
-      const plan=userData.subcriptionTierName && userData.subcriptionTierType ?`${userData.subcriptionTierName} ${userData.subcriptionTierType}`:""
+      const plan=userData.subscriptionTierName && userData.subscriptionType ?`${userData.subscriptionTierName} ${userData.subscriptionType}`:""
       return{
         id:userData.id,
         status:userData.subscriptionStatus??"",
@@ -49,7 +49,14 @@ export default async function Page() {
         file:"",
         imageUrl:userData.resumeUrl??"",
         isActive: userData.subscriptionStatus === 'active',
-      isDeleted: false
+        isDeleted: false,
+        //the following values are needed to enable the edit functionality for subscribed users to work
+        subscriptionStatus:userData.subscriptionStatus??"",
+        subscriptionType:userData.subscriptionType?? "",
+        subscriptionPrice:userData.subscriptionPrice?? "",
+        subscriptionTierName:userData.subscriptionTierName?? "",
+        subscriptionStartDate:userData.subscriptionStartDate?? undefined,
+        subscriptionEndDate:userData.subscriptionEndDate?? undefined,
       }
     })
   ]

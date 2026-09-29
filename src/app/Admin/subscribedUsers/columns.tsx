@@ -26,6 +26,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Download, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
+import UserSubscriptionForm from "@/components/Admin/UserSubscriptionForm";
 
 // export const columns: ColumnDef<SubscribedUserProp>[] = [
 export const columns: ColumnDef<CombinedSubscribedUsersProp>[] = [
@@ -153,6 +154,32 @@ export const columns: ColumnDef<CombinedSubscribedUsersProp>[] = [
                       >
                         Proceed
                       </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator/>
+              <DropdownMenuItem asChild>
+                 <AlertDialog>
+                  <AlertDialogTrigger className="w-full text-sm rounded-md px-1.5 py-1 hover:bg-stone-300">
+                    Edit Record
+                  </AlertDialogTrigger>
+                  <AlertDialogContent className="min-w-[80dvw] mx-auto h-[80dvh] overflow-y-auto">
+                    <AlertDialogHeader className="flex flex-col justify-center items-center">
+                      <AlertDialogTitle className="text-sm">
+                        Edit &quot; {user.email} &quot; record
+                      </AlertDialogTitle>
+                      <AlertDialogDescription>
+                        {/* Please be sure before proceeding deleting the record */}
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    
+                        <UserSubscriptionForm user={user}/>
+                    <AlertDialogFooter className="w-12/12 mx-auto flex justify-center items-center gap-2">
+                      <AlertDialogCancel className="block">
+                        Cancel
+                      </AlertDialogCancel>
+                    
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>

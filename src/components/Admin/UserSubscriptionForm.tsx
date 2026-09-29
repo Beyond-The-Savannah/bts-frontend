@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Calendar } from "../ui/calendar"
 import { Separator } from "../ui/separator"
 import { AddUserAndSubscriptionToDb } from "@/app/actions/viewJobSubscriptionAction"
+import { CombinedSubscribedUsersProp } from "@/types/subscribedUser"
 
 const userSubcriptionFormSchema=z.object({
     firstName:z.string().trim().min(2,"First Name must be at least 2 characters"),
@@ -20,33 +21,64 @@ const userSubcriptionFormSchema=z.object({
     emailAddress:z.string().trim().min(1,"Email Address cannot be empty").email('Please enter a valid email'),
     subscriptionStatus:z.string().min(1,"Please select one status"),
     subscriptionType:z.string().min(1,"Please select one type"),
-    subscriptionPrice:z.string().min(1,"Please select one Price"),
-    subscriptionTierName:z.string().min(1,"Please select one Tier"),
+    subscriptionPrice:z.string().min(1,"Please select one price"),
+    subscriptionTierName:z.string().min(1,"Please select one tier"),
     subscriptionStartDate:z.date({message:"Please select start date"}),
     subscriptionEndDate:z.date({message:"Please select end date"}),
     
 })
 
-export default function UserSubscriptionForm() {
+export default function UserSubscriptionForm({user}:{user?:CombinedSubscribedUsersProp}) {
     // const [startDate,setStartDate]=React.useState<Date|undefined>( new Date())
     // const [endDate,setEndDate]=useState<Date|undefined>()
 
     const form=useForm<z.infer<typeof userSubcriptionFormSchema>>({
         resolver:zodResolver(userSubcriptionFormSchema),
-        defaultValues:{
-            firstName:"",
-            lastName:"",
-            emailAddress:"",
-            subscriptionStatus:"",
-            subscriptionType:"",
-            subscriptionPrice:"",
-            subscriptionTierName:"",
-            subscriptionStartDate: undefined,
-            subscriptionEndDate:undefined,
+    //      defaultValues: { firstName: "", lastName: "", emailAddress: "",
+    // subscriptionStatus: "", subscriptionType: "",
+    // subscriptionPrice: "", subscriptionTierName: "",
+    // subscriptionStartDate:undefined, subscriptionEndDate:undefined},
+        defaultValues:user?{
+            firstName:user?.firstName,
+            lastName:user?.lastName,
+            emailAddress:user?.email,
+            subscriptionStatus:user?.subscriptionStatus,
+            subscriptionType:user?.subscriptionType,
+            subscriptionPrice:user?.subscriptionPrice,
+            subscriptionTierName:user?.subscriptionTierName,
+            subscriptionStartDate: user?.subscriptionStartDate,
+            subscriptionEndDate:user?.subscriptionEndDate,
             // subscriptionStartDate: startDate,
             // subscriptionEndDate:endDate,
-        }
+        }:undefined
     })
+    // React.useEffect(()=>{
+    //     if(!user) return
+    //     const dBVlaues={
+    //         firstName:user.firstName,
+    //         lastName:user.lastName,
+    //         emailAddress:user.email,
+    //         subscriptionStatus:String(user.subscriptionStatus).toLowerCase(),
+    //         subscriptionType:String(user.subscriptionType).toLowerCase(),
+    //         subscriptionPrice:String(Number(user.subscriptionPrice)),
+    //         subscriptionTierName:user.subscriptionTierName,
+    //         subscriptionStartDate:new Date(user.subscriptionStartDate as Date),
+    //         subscriptionEndDate:new Date(user.subscriptionEndDate as Date)
+    //     }
+    //     console.log("DB Values ===>", dBVlaues)
+    //     form.reset({
+    //         firstName:user.firstName,
+    //         lastName:user.lastName,
+    //         emailAddress:user.email,
+    //         subscriptionStatus:String(user.subscriptionStatus).toLowerCase(),
+    //         subscriptionType:String(user.subscriptionType).toLowerCase(),
+    //         subscriptionPrice:String(Number(user.subscriptionPrice)),
+    //         subscriptionTierName:user.subscriptionTierName,
+    //         subscriptionStartDate:new Date(user.subscriptionStartDate as Date),
+    //         subscriptionEndDate:new Date(user.subscriptionEndDate as Date)
+    //     })
+    // },[user?.id,form])
+
     async function onSumbit(data:z.infer<typeof userSubcriptionFormSchema>){
         // toast("",{
         //     description:(<pre><code>{JSON.stringify(data, null, 2)}</code></pre>),
@@ -68,6 +100,13 @@ export default function UserSubscriptionForm() {
       subscriptionStartDate:data.subscriptionStartDate,
       subscriptionEndDate:data.subscriptionEndDate,
     }
+    if(user){
+         toast("",{
+            description:(<pre><code>{JSON.stringify(data, null, 2)}</code></pre>),
+            duration:8000
+        })
+    }else{
+
         try {
             await AddUserAndSubscriptionToDb(userData,subscriptionData)
             toast.success("User record added")
@@ -75,6 +114,7 @@ export default function UserSubscriptionForm() {
             toast.error("Error adding  user record")
         }
         form.reset()
+    }
     }
   return (
     <>
@@ -93,7 +133,7 @@ export default function UserSubscriptionForm() {
                                     control={form.control}
                                     render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel id="userSubscriptionForm">First Name</FieldLabel>
+                                            <FieldLabel htmlFor="userSubscriptionForm">First Name</FieldLabel>
                                             <Input
                                                 {...field}
                                                 type="text"
@@ -111,7 +151,7 @@ export default function UserSubscriptionForm() {
                                     control={form.control}
                                     render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel id="userSubscriptionForm">Last Name</FieldLabel>
+                                            <FieldLabel htmlFor="userSubscriptionForm">Last Name</FieldLabel>
                                             <Input
                                                 {...field}
                                                 type="text"
@@ -132,7 +172,7 @@ export default function UserSubscriptionForm() {
                                     control={form.control}
                                     render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel id="userSubscriptionForm">Email Address</FieldLabel>
+                                            <FieldLabel htmlFor="userSubscriptionForm">Email Address</FieldLabel>
                                             <Input
                                                 {...field}
                                                 type="email"
@@ -158,17 +198,18 @@ export default function UserSubscriptionForm() {
                                     render={({field,fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
                                             <FieldContent>
-                                                <FieldLabel>Subscription Status</FieldLabel>
+                                                <FieldLabel htmlFor="userSubscriptionForm">Subscription Status</FieldLabel>
                                             </FieldContent>
-                                            <Select name={field.name} value={field.value} onValueChange={field.onChange}>
-                                                <SelectTrigger id="userSubscriptionForm" aria-invalid={fieldState.invalid} className="w-full">
+                                            <Select  name={field.name} value={field.value} onValueChange={field.onChange}>
+                                                <SelectTrigger  aria-invalid={fieldState.invalid} className="w-full">
                                                     <SelectValue placeholder="select between the two states"/>
+                                                    </SelectTrigger>
                                                     <SelectContent position="popper">
-                                                        <SelectItem value="active">Active</SelectItem>
-                                                        <SelectItem value="cancelled">Cancelled</SelectItem>
+                                                        <SelectItem value="active">active</SelectItem>
+                                                        <SelectItem value="cancelled">cancelled</SelectItem>
 
                                                     </SelectContent>
-                                                </SelectTrigger>
+                                                
                                             </Select>
                                             {fieldState.invalid && (<FieldError errors={[fieldState.error]}/>)}
                                         </Field>
@@ -180,11 +221,12 @@ export default function UserSubscriptionForm() {
                                     render={({field,fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
                                             <FieldContent>
-                                                <FieldLabel>Subscription Type</FieldLabel>
+                                                <FieldLabel htmlFor="userSubscriptionForm">Subscription Tier Name</FieldLabel>
                                             </FieldContent>
-                                            <Select name={field.name} value={field.value} onValueChange={field.onChange}>
-                                                <SelectTrigger id="userSubscriptionForm" aria-invalid={fieldState.invalid} className="w-full">
+                                            <Select  name={field.name}  value={field.value} onValueChange={field.onChange}>
+                                                <SelectTrigger  aria-invalid={fieldState.invalid} className="w-full">
                                                     <SelectValue placeholder="select subcription type"/>
+                                                    </SelectTrigger>
                                                     <SelectContent position="popper">
                                                         <SelectItem value="Basic">Basic</SelectItem>
                                                         <SelectItem value="Most Popular">Most Popular</SelectItem>
@@ -193,7 +235,7 @@ export default function UserSubscriptionForm() {
                                                         <SelectItem value="Free">Free</SelectItem>
 
                                                     </SelectContent>
-                                                </SelectTrigger>
+                                                
                                             </Select>
                                             {fieldState.invalid && (<FieldError errors={[fieldState.error]}/>)}
                                         </Field>
@@ -208,11 +250,12 @@ export default function UserSubscriptionForm() {
                                     render={({field,fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
                                             <FieldContent>
-                                                <FieldLabel>Subscription Price</FieldLabel>
+                                                <FieldLabel htmlFor="userSubscriptionForm">Subscription Price</FieldLabel>
                                             </FieldContent>
-                                            <Select name={field.name} value={field.value} onValueChange={field.onChange}>
-                                                <SelectTrigger id="userSubscriptionForm" aria-invalid={fieldState.invalid} className="w-full">
+                                            <Select  name={field.name}  value={field.value} onValueChange={field.onChange}>
+                                                <SelectTrigger  aria-invalid={fieldState.invalid} className="w-full">
                                                     <SelectValue placeholder="select the price"/>
+                                                    </SelectTrigger>
                                                     <SelectContent position="popper" className="overflow-y-auto h-80">
                                                         <SelectItem value="450">450</SelectItem>
                                                         <SelectItem value="750">750</SelectItem>
@@ -231,10 +274,8 @@ export default function UserSubscriptionForm() {
                                                         <SelectItem value="132">132</SelectItem>
                                                         <SelectItem value="180">180</SelectItem>
                                                         <SelectItem value="0">0</SelectItem>
-                                                        
-
                                                     </SelectContent>
-                                                </SelectTrigger>
+                                                
                                             </Select>
                                             {fieldState.invalid && (<FieldError errors={[fieldState.error]}/>)}
                                         </Field>
@@ -246,17 +287,18 @@ export default function UserSubscriptionForm() {
                                     render={({field,fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
                                             <FieldContent>
-                                                <FieldLabel>Subscription Type</FieldLabel>
+                                                <FieldLabel htmlFor="userSubscriptionForm">Subscription Type</FieldLabel>
                                             </FieldContent>
-                                            <Select name={field.name} value={field.value} onValueChange={field.onChange}>
-                                                <SelectTrigger id="userSubscriptionForm" aria-invalid={fieldState.invalid} className="w-full">
+                                            <Select  name={field.name} value={field.value} onValueChange={field.onChange}>
+                                                <SelectTrigger  aria-invalid={fieldState.invalid} className="w-full">
                                                     <SelectValue placeholder="select the tier Type"/>
+                                                    </SelectTrigger>
                                                     <SelectContent position="popper">
-                                                        <SelectItem value="monthly">Monthly</SelectItem>
-                                                        <SelectItem value="annually">Annually</SelectItem>
+                                                        <SelectItem value="monthly">monthly</SelectItem>
+                                                        <SelectItem value="annually">annually</SelectItem>
 
                                                     </SelectContent>
-                                                </SelectTrigger>
+                                                
                                             </Select>
                                             {fieldState.invalid && (<FieldError errors={[fieldState.error]}/>)}
                                         </Field>
@@ -270,9 +312,10 @@ export default function UserSubscriptionForm() {
                                     name="subscriptionStartDate"
                                     control={form.control}
                                     render={({field,fieldState})=>(
-                                        <Field data-invalid={fieldState.invalid}>
+                                        <Field data-invalid={fieldState.invalid} className="w-3/12">
                                             <FieldLabel>Subscription Start Date</FieldLabel>
                                            <Calendar
+                                           defaultMonth={user? user.subscriptionStartDate: undefined}
                                             mode="single"
                                             // selected={startDate}
                                             // onSelect={setStartDate}
@@ -291,9 +334,10 @@ export default function UserSubscriptionForm() {
                                     name="subscriptionEndDate"
                                     control={form.control}
                                     render={({field,fieldState})=>(
-                                        <Field data-invalid={fieldState.invalid}>
+                                        <Field data-invalid={fieldState.invalid} className="w-3/12">
                                             <FieldLabel>Subscription End Date</FieldLabel>
                                            <Calendar
+                                           defaultMonth={user? user.subscriptionEndDate:undefined}
                                             mode="single"
                                             // selected={endDate}
                                             // onSelect={setEndDate}
@@ -315,9 +359,16 @@ export default function UserSubscriptionForm() {
                 </CardContent>
                 <CardFooter className="w-full flex justify-center">
                     <Field orientation="horizontal">
+                        {user ? (
+                        <Button type="submit" disabled={form.formState.isSubmitting} form="userSubscriptionForm" className="bg-green-400 hover:bg-green-600 transition-colors w-80 px-2 py-6" >
+                            {form.formState.isSubmitting ?"Editing...":"Edit"}
+                        </Button>
+                        ):(
                         <Button type="submit" disabled={form.formState.isSubmitting} form="userSubscriptionForm" className="bg-green-400 hover:bg-green-600 transition-colors w-80 px-2 py-6" >
                             {form.formState.isSubmitting ?"Adding...":"Add"}
                         </Button>
+
+                        )}
                     </Field>
                 </CardFooter>
         </Card>
