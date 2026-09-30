@@ -32,6 +32,12 @@ export interface CombinedSubscribedUsersProp {
   imageUrl:string;
   isActive:boolean;
   isDeleted:boolean;
+  subscriptionStatus?:string,
+  subscriptionType?:string,
+  subscriptionPrice?:string,
+  subscriptionTierName?:string,
+  subscriptionStartDate?: Date,
+  subscriptionEndDate?:Date,
 
 }
 
