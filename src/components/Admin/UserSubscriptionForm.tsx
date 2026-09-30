@@ -12,7 +12,7 @@ import { toast } from "sonner"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { Calendar } from "../ui/calendar"
 import { Separator } from "../ui/separator"
-import { AddUserAndSubscriptionToDb } from "@/app/actions/viewJobSubscriptionAction"
+import { AddUserAndSubscriptionToDb, UpdateUserAndSubscriptionInDb } from "@/app/actions/viewJobSubscriptionAction"
 import { CombinedSubscribedUsersProp } from "@/types/subscribedUser"
 
 const userSubcriptionFormSchema=z.object({
@@ -39,6 +39,7 @@ export default function UserSubscriptionForm({user}:{user?:CombinedSubscribedUse
     // subscriptionPrice: "", subscriptionTierName: "",
     // subscriptionStartDate:undefined, subscriptionEndDate:undefined},
         defaultValues:user?{
+            
             firstName:user?.firstName,
             lastName:user?.lastName,
             emailAddress:user?.email,
@@ -85,11 +86,13 @@ export default function UserSubscriptionForm({user}:{user?:CombinedSubscribedUse
         //     duration:8000
         // })
         const userData={
+            id:user?.id as string,
             firstName:data.firstName,
             lastName:data.lastName,
             emailAddress:data.emailAddress
         }
         const subscriptionData={
+            userId:user?.id as string,
       subscriptionTransactionReference:"",
       subcriptionTierName:data.subscriptionTierName,
       subcriptionTierType:data.subscriptionType,
@@ -101,10 +104,17 @@ export default function UserSubscriptionForm({user}:{user?:CombinedSubscribedUse
       subscriptionEndDate:data.subscriptionEndDate,
     }
     if(user){
-         toast("",{
-            description:(<pre><code>{JSON.stringify(data, null, 2)}</code></pre>),
-            duration:8000
-        })
+        //  toast("",{
+        //     description:(<pre><code>{JSON.stringify(data, null, 2)}</code></pre>),
+        //     duration:8000
+        // })
+        try {
+            await UpdateUserAndSubscriptionInDb(userData,subscriptionData)
+            toast.success("User record updated")
+            
+        } catch (error) {
+            toast.error("Error updating user record")
+        }
     }else{
 
         try {

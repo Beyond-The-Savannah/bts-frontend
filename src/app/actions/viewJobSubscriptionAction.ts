@@ -70,7 +70,44 @@ export async function AddUserAndSubscriptionToDb(
   }
 }
 
+export async function UpdateUserAndSubscriptionInDb(
+  userData:Omit<usersProp,"createdDate"|"updatedDate">,
+  subscriptionData:Omit<subscriptionsProp,"id"|"createdDate"|"updatedDate">
+){
+  try {
+    const userUpdatedResult=await db
+    .update(usersTable)
+    .set({
+      firstName:userData.firstName,
+      lastName:userData.lastName,
+      emailAddress:userData.emailAddress
+    })
+    .where(eq(usersTable.id, userData.id))
+    .returning({updatedUserId:usersTable.id})
 
+    const userToUpdateId=userUpdatedResult[0].updatedUserId;
+
+    await db.update(subscriptionsTable)
+    .set({
+       userId: userToUpdateId,
+      subscriptionTransactionReference:
+        subscriptionData.subscriptionTransactionReference,
+      subcriptionTierName: subscriptionData.subcriptionTierName,
+      subcriptionTierType: subscriptionData.subcriptionTierType,
+      subscriptionPrice: subscriptionData.subscriptionPrice,
+      subscriptionStatus: subscriptionData.subscriptionStatus,
+      subscriptionCanceledAt: subscriptionData.subscriptionCanceledAt,
+      subscriptionStartDate: subscriptionData.subscriptionStartDate,
+      subscriptionEndDate: subscriptionData.subscriptionEndDate,
+    })
+    .where(eq(subscriptionsTable.userId, userToUpdateId))
+
+
+  } catch (error) {
+    console.error("Error updating user and subscription data in db-",error)
+    return{success:false, error:"data update failed",status:400}
+  }
+}
 
 export async function UpdateUsersJobEmailNotificationCareer({
   userId,
