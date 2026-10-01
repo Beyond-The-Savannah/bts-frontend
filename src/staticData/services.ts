@@ -265,29 +265,29 @@ export const servicesList = [
   {
     id: 11,
     
-    title: "September Hiring Surge,Readiness Bundle",
-    titleSlug: "september-hiring-surge-readiness-bundle",
+    title: "Remote Job Essentials Bundle",
+    titleSlug: "remote-job-essentials-bundle",
     subheading:
-      "CV Revamp + Cover Letter + LinkedIn Optimization + Introductory Video + Master Class",
-    img: "september-hiring-surge-readiness-bundle_oiyanf",
-    openGraphImg: "september-hiring-surge-readiness-bundle_oiyanf",
+      "CV Revamp + Cover Letter + LinkedIn Optimization + Introductory Video + One Month Job Board Access",
+    img: "remote-job-essentials-bundle",
+    openGraphImg: "remote-job-essentials-bundle",
     details:
-      "Stop struggling to find remote roles! Our September Hiring Surge, Readiness Bundle is built to get you hired, offering you with the right career alignment and resources to jumpstart your search.",
+      "Stop struggling to find remote roles! Our Remote Job Essentials Bundle, is built to get you hired, offering you with the right career alignment and resources to jumpstart your search.",
     benefits: [
       "CV Revamp - A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation call CV Revamp ",
       "LinkedIn Optimization - We'll transform your LinkedIn profile into a magnet for job opportunities, ensuring it ranks higher in recruiter searches + 15 minutes consultation call",
       "Introductory Video - Pointers on how to make a polished video to introduce yourself professionally, making you memorable to potential employers.",
-      "Master Class - A two hour intensive virtual class covering how to apply for remote jobs and navigate the remote ecosystem",
+      "One Month Job Board Access - Access to our exclusive job board for one month, featuring curated remote job opportunities from reputable companies.",
     ],
     servicePolicy:
       "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
     valueProposal:
       "Companies are ramping up recruitment and this is your moment to shine. At Beyond the Savannah, we're helping you stay ahead of the curve by aligning your professional brand designed to position you for success.",
-    price: 24000,
-    priceKE: 24000,
-    priceUSD: 240,
-    priceKESString: "24,000",
-    priceUSDString: "240",
+    price: 25000,
+    priceKE: 25000,
+    priceUSD: 250,
+    priceKESString: "25,000",
+    priceUSDString: "250",
   },
   {
       id: 12,

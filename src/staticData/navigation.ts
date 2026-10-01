@@ -82,8 +82,8 @@ export const NonSimpleNavigationMenuItems = [
         link: "/service/beyond-the-savannah-whatsApp-community",
       },
       {
-        title: "September Hiring Surge,Readiness Bundle",
-        link: "/service/september-hiring-surge-readiness-bundle",
+        title: "Remote Job Essentials Bundle",
+        link: "/service/remote-job-essentials-bundle",
       },
     ],
   },
