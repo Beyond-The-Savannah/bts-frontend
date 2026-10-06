@@ -12,17 +12,18 @@ export default function AddNewUsersPage() {
               <TabsTrigger value="userDetails">User Details Form</TabsTrigger>
             </TabsList>
             <TabsContent value="userDetails">
-              <Accordion type="multiple" defaultValue={["instrustions1"]} className="bg-slate-100 rounded-md w-5/12 my-4 px-2">
-                <AccordionItem value="instrustions1">
+              <Accordion type="multiple"  defaultValue={["instrustions1"]}   className="bg-slate-100 rounded-md w-5/12 my-4 px-2">
+              {/* <Accordion type="single" collapsible={true} value={"instrustions1"}   className="bg-slate-100 rounded-md w-5/12 my-4 px-2"> */}
+                <AccordionItem value="instrustions1" >
                   <AccordionTrigger className="">Form Instrustions</AccordionTrigger>
                   <AccordionContent className="">
                         <div className="text-xs p-4 rounded-md border my-1  text-amber-700 bg-slate-200">
                           <ul className="list-disc italic">
                             <li>
-                              For free users set Subscription Type to "Free" and
+                              For free users set Subscription Tier Name to "Free" and
                               Subscription Price to "0"
                             </li>
-                            <li>For paid users Subscription price has to match the paystack receipt amount</li>
+                            <li>For paid users, Subscription Price has to match the paystack receipt amount</li>
                             <li>For Subscription End Date add an additional date</li>
                             
                           </ul>
