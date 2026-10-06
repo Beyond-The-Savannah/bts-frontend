@@ -8,25 +8,14 @@ import {
 } from "@/types/globals";
 import { SubscribedUserProp } from "@/types/subscribedUser";
 import { NextResponse } from "next/server";
-import crypto from "node:crypto";
-import { Resend } from "resend";
 
-const PAYSTACK_SECRET_KEY = process.env.PAYSTACK__SECRET_KEY!;
+import { Resend } from "resend";
+import { verifyPaystackSignature } from "@/utils/paystackSignature";
+
+
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-function verifyPaystackSignature(
-  payLoad: string,
-  signature: string | null,
-): boolean {
-  if (!signature) return false;
 
-  const secretKey = PAYSTACK_SECRET_KEY;
-  const hash = crypto
-    .createHmac("sha512", secretKey)
-    .update(payLoad)
-    .digest("hex");
-  return hash === signature;
-}
 
 export async function POST(request: Request) {
   const rawBody = await request.text();
