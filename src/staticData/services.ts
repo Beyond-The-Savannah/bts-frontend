@@ -1,55 +1,6 @@
 export const servicesList = [
-  {
-    id: 1,
-    title: "LinkedIn Optimization",
-    titleSlug: "linkedin-optimization",
-    subheading:
-      "Elevate Your Professional Brand with a 15 Minute LinkedIn Profile Optimization Session",
-    img: "linkedin_website_view_1_kz1qml",
-    openGraphImg: "LinkedIn_Optimization_openGraph_egoqgl",
-    details:
-      "Your LinkedIn profile is your digital business card, and it has the power to make a lasting impression on potential employers, clients, and professional connections. Join us for a focused 15 minute virtual consultation designed to revamp and optimize your LinkedIn profile for success.",
-    benefits: [
-      "Tailored Recommendations: Receive personalized insights and recommendations from an experienced professional.",
-      "Profile Enhancements: Discover strategies to boost your visibility and credibility on the world's largest professional network.",
-      "Keyword Optimization: Learn how to strategically incorporate industry relevant keywords into your profile to attract the right opportunities.",
-      "Networking Tips: Unlock the secrets to expanding your network and maximizing your connections.",
-      "Actionable Steps: Walk away with actionable steps and a clearer understanding of how to leverage LinkedIn effectively.",
-    ],
-    servicePolicy:
-      "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
-    valueProposal:
-      "Invest in your professional growth and make the most out of your LinkedIn presence. Book your 15 minute LinkedIn profile optimization session today and watch your online brand thrive!",
-    // price: 15000,
-    priceKE: 15000,
-    priceUSD: 150,
-    priceKESString: "15,000",
-    priceUSDString: "150",
-  },
-  {
-    id: 2,
-    title: "Students Package",
-    titleSlug: "students-package",
-    subheading:
-      "Enhance Your Job Application Package with a Comprehensive CV Review and Cover Letter",
-    img: "student_package_odwl96",
-    openGraphImg: "Students_Package_openGraph_qo1nea",
-    details:
-      "Unlock the full potential of your job search with our tailored CV review and cover letter services. This package is designed to empower you in your career journey by ensuring your application materials stand out to potential employers.",
-    benefits: [
-      "Unlock the full potential of your job search with our tailored CV review and cover letter services. This package is designed to empower you in your career journey by ensuring your application materials stand out to potential employers.",
-      "Cover Letter: Craft a compelling cover letter that highlights your strengths and showcases your motivation. We'll help you create a personalized cover letter that makes a strong impression.",
-    ],
-    servicePolicy:
-      "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
-    valueProposal:
-      "This is the boost your career needs. Take action today to increase your chances of landing your dream job. Book our CV review and cover letter package now",
-    // price: 5000,
-    priceKE: 5000,
-    priceUSD: 50,
-    priceKESString: "5,000",
-    priceUSDString: "50",
-  },
+  
+ 
   {
     id: 3,
     title: "ATS CV Revamp",
@@ -72,60 +23,6 @@ export const servicesList = [
     priceUSD: 80,
     priceKESString: "8,000",
     priceUSDString: "80",
-  },
-  {
-    id: 4,
-    title: "Coaching Session",
-    titleSlug: "coaching-session",
-    subheading: "Unlock Your Full Potential with a 1-Hour Coaching Session",
-    img: "coaching_ekq5bx",
-    openGraphImg: "Coaching_Session_openGraph_znalhl",
-    details:
-      "Embark on a journey of self discovery, self assessment, and goal setting that will transform the way you approach your career and personal growth.",
-    benefits: [
-      "Discover Your True Self: Gain insights into your strengths, values, and aspirations to better understand your unique path.",
-      "Identify Challenges: Pinpoint any obstacles or challenges that may be holding you back from reaching your full potential.",
-      "Develop Action Plans: Craft actionable strategies to overcome challenges and turn your goals into reality.",
-      "Set Clear Goals: Define concrete, achievable goals that align with your ambitions.",
-      "Chart Your Course: Create a roadmap for your personal and professional journey.",
-    ],
-    servicePolicy:
-      "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
-    valueProposal:
-      "Invest in yourself and take the first step toward a brighter, more fulfilling future. Book your 1-hour coaching session today to start your transformative journey!",
-    // price: 7000,
-    priceKE: 7000,
-    priceUSD: 70,
-    priceKESString: "7,000",
-    priceUSDString: "70",
-  },
-  {
-    id: 5,
-    title: "Interview Preparation",
-    titleSlug: "interview-preparation",
-    subheading:
-      "Prepare for Success with a 2 Hour Guided Interview Preparation Session",
-    img: "Interview_Preparation_image_noy8nm",
-    openGraphImg: "Interview_Preparation_OG_image_ycuzlo",
-    details:
-      "Your next career move deserves careful planning and strategy. Join us for a comprehensive 2 hour virtual meeting dedicated to interview preparation, where we'll equip you with the tools and confidence you need to succeed.",
-    benefits: [
-      "Discover Your True Self: Gain insights into your strengths, values, and aspirations to better understand your unique path.",
-      "Personalized Guidance: Tailored interview coaching that addresses your specific strengths and areas of improvement.",
-      "Mock Interviews: Practice makes perfect! We'll conduct mock interviews to help you refine your responses and build confidence.",
-      "Strategic Insights: Gain valuable insights into what hiring managers look for and how to stand out as the ideal candidate.",
-      "Feedback and Action Plans: Receive constructive feedback and actionable steps to enhance your interview performance.",
-      "Your Path to Success: Chart your unique path to interview success, no matter your industry or role.",
-    ],
-    servicePolicy:
-      "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
-    valueProposal:
-      "Invest in yourself and take the next step toward landing your dream job. Book your 2-hour guided interview preparation session today and set yourself up for a brighter career future!",
-    // price: 12000,
-    priceKE: 12000,
-    priceUSD: 120,
-    priceKESString: "12,000",
-    priceUSDString: "120",
   },
   {
     id: 6,
@@ -156,30 +53,58 @@ export const servicesList = [
     priceUSDString: "40",
   },
   {
-    id: 7,
-    title: "Remote Work Master Class",
-    titleSlug: "remote-work-master-class",
-    subheading: "The session will be a richly immersive two-hour experience.",
-    img: "remote_master_class_xmnolp",
-    openGraphImg: "Remote_Work_Master_Class_openGraph_b8wp3v",
+    id: 4,
+    title: "Coaching Session",
+    titleSlug: "coaching-session",
+    subheading: "Unlock Your Full Potential with a 1-Hour Coaching Session",
+    img: "coaching_ekq5bx",
+    openGraphImg: "Coaching_Session_openGraph_znalhl",
     details:
-      "Ready to thrive in the world of remote work? Join our exclusive Master Class designed for professionals seeking to transition to or excel in remote roles. Whether you're a seasoned remote worker or just starting, don't miss your chance to elevate your career,register now!",
+      "Embark on a journey of self discovery, self assessment, and goal setting that will transform the way you approach your career and personal growth.",
     benefits: [
-      "Gain a clear understanding of remote job basics, different employment types, key  and the optimal time zones to target for job applications.",
-      "Explore the fastest growing remote roles, the importance of upskilling, and the best platforms to enhance your skills.",
-      "Learn what recruiters value most and discover how to distinguish yourself from other candidate.",
-      "Find reliable remote job opportunities, effectively navigate remote job boards, and recognize red flags to avoid scams.",
-      "Learn from the industry expert with years of experience in remote work.",
+      "Discover Your True Self: Gain insights into your strengths, values, and aspirations to better understand your unique path.",
+      "Identify Challenges: Pinpoint any obstacles or challenges that may be holding you back from reaching your full potential.",
+      "Develop Action Plans: Craft actionable strategies to overcome challenges and turn your goals into reality.",
+      "Set Clear Goals: Define concrete, achievable goals that align with your ambitions.",
+      "Chart Your Course: Create a roadmap for your personal and professional journey.",
     ],
-    servicePolicy: "",
+    servicePolicy:
+      "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
     valueProposal:
-      "Whether you're a seasoned professional looking to transition to remote roles or a newcomer eager to enter the workforce, our Master Class is designed to equip you with the essential skills, strategies, and insights needed to thrive in a work environment.",
-    // price: 6000,
-    priceKE: 3500,
-    priceUSD: 35,
-    priceKESString: "3,500",
-    priceUSDString: "35",
+      "Invest in yourself and take the first step toward a brighter, more fulfilling future. Book your 1-hour coaching session today to start your transformative journey!",
+    // price: 7000,
+    priceKE: 7000,
+    priceUSD: 70,
+    priceKESString: "7,000",
+    priceUSDString: "70",
   },
+  
+  
+   {
+    id: 2,
+    title: "Students Package",
+    titleSlug: "students-package",
+    subheading:
+      "Enhance Your Job Application Package with a Comprehensive CV Review and Cover Letter",
+    img: "student_package_odwl96",
+    openGraphImg: "Students_Package_openGraph_qo1nea",
+    details:
+      "Unlock the full potential of your job search with our tailored CV review and cover letter services. This package is designed to empower you in your career journey by ensuring your application materials stand out to potential employers.",
+    benefits: [
+      "Unlock the full potential of your job search with our tailored CV review and cover letter services. This package is designed to empower you in your career journey by ensuring your application materials stand out to potential employers.",
+      "Cover Letter: Craft a compelling cover letter that highlights your strengths and showcases your motivation. We'll help you create a personalized cover letter that makes a strong impression.",
+    ],
+    servicePolicy:
+      "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
+    valueProposal:
+      "This is the boost your career needs. Take action today to increase your chances of landing your dream job. Book our CV review and cover letter package now",
+    // price: 5000,
+    priceKE: 5000,
+    priceUSD: 50,
+    priceKESString: "5,000",
+    priceUSDString: "50",
+  },
+  
   {
     id: 8,
     title: "Introductory Video",
@@ -204,6 +129,120 @@ export const servicesList = [
     priceUSD: 30,
     priceKESString: "3,000",
     priceUSDString: "30",
+  },
+  {
+    id: 11,
+    
+    title: "LinkedIn Marketing",
+    titleSlug: "linkedin_marketing",
+    subheading:
+    "Done For You LinkedIn Content & Growth Management for Busy Professionals",
+    
+    img: "linkedIn_Marketing_zgppms",
+    openGraphImg: "linkedIn_Marketing_zgppms",
+    details:
+    "Is your LinkedIn gathering digital dust while opportunities pass you by? We take the wheel so you don't have to.  We handle everything from crafting and posting content to tracking what's working so your profile stays active, visible, and working for you around the clock.",
+    // "Is your LinkedIn gathering digital dust while opportunities pass you by? We take the wheel so you don't have to. Our LinkedIn Marketing service is built for busy professionals who understand the power of a strong LinkedIn presence but simply don't have the time to maintain one. We handle everything from crafting and posting content to tracking what's working so your profile stays active, visible, and working for you around the clock.",
+    benefits: [
+      "Content Posted 3x Per Week: We create and publish engaging, professional content on your behalf three times a week, keeping your profile consistently active and visible to your network and beyond.",
+      "Hands Off Management: Whether you're in back to back meetings, running a business, or simply stretched thin, we handle your LinkedIn presence entirely, no input needed from you once we're set up.",
+      "Professionally Crafted Content: Every post is tailored to reflect your voice, industry, and professional brand, positioning you as a thought leader and attracting the right audience.",
+      "Monthly Analytics Report: At the end of each month, receive a detailed performance report delivered either via a call or a written document breaking down your growth, engagement, and key insights so you always know how your profile is performing.",
+      "Grow Your Visibility & Network: Consistent posting signals credibility to LinkedIn's algorithm, helping your profile surface in more searches and recommendations organically.",
+      // "Posting LinkedIn content on behalf of clients",
+      // "Analytics report is done at the end of the month either on call or via document",
+      // "Content is posted 3 times a week and it speaks to professionals that have no time to engage and post on their LinkedIn due to busy schedules or other reasons"
+      
+    ],
+    servicePolicy:
+    "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
+    valueProposal:
+    "Your LinkedIn is one of your most powerful professional assets but only if it's active. Let us manage it for you while you focus on what you do best. Your presence, our expertise",
+    price: 12000,
+    priceKE: 12000,
+    priceUSD: 120,
+    priceKESString: "12,000",
+    priceUSDString: "120",
+  },
+  {
+    id: 5,
+    title: "Interview Preparation",
+    titleSlug: "interview-preparation",
+    subheading:
+      "Prepare for Success with a 2 Hour Guided Interview Preparation Session",
+    img: "Interview_Preparation_image_noy8nm",
+    openGraphImg: "Interview_Preparation_OG_image_ycuzlo",
+    details:
+      "Your next career move deserves careful planning and strategy. Join us for a comprehensive 2 hour virtual meeting dedicated to interview preparation, where we'll equip you with the tools and confidence you need to succeed.",
+    benefits: [
+      "Discover Your True Self: Gain insights into your strengths, values, and aspirations to better understand your unique path.",
+      "Personalized Guidance: Tailored interview coaching that addresses your specific strengths and areas of improvement.",
+      "Mock Interviews: Practice makes perfect! We'll conduct mock interviews to help you refine your responses and build confidence.",
+      "Strategic Insights: Gain valuable insights into what hiring managers look for and how to stand out as the ideal candidate.",
+      "Feedback and Action Plans: Receive constructive feedback and actionable steps to enhance your interview performance.",
+      "Your Path to Success: Chart your unique path to interview success, no matter your industry or role.",
+    ],
+    servicePolicy:
+      "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
+    valueProposal:
+      "Invest in yourself and take the next step toward landing your dream job. Book your 2-hour guided interview preparation session today and set yourself up for a brighter career future!",
+    // price: 12000,
+    priceKE: 12000,
+    priceUSD: 120,
+    priceKESString: "12,000",
+    priceUSDString: "120",
+  },
+  {
+    id: 1,
+    title: "LinkedIn Optimization",
+    titleSlug: "linkedin-optimization",
+    subheading:
+      "Elevate Your Professional Brand with a 15 Minute LinkedIn Profile Optimization Session",
+    img: "linkedin_website_view_1_kz1qml",
+    openGraphImg: "LinkedIn_Optimization_openGraph_egoqgl",
+    details:
+      "Your LinkedIn profile is your digital business card, and it has the power to make a lasting impression on potential employers, clients, and professional connections. Join us for a focused 15 minute virtual consultation designed to revamp and optimize your LinkedIn profile for success.",
+    benefits: [
+      "Tailored Recommendations: Receive personalized insights and recommendations from an experienced professional.",
+      "Profile Enhancements: Discover strategies to boost your visibility and credibility on the world's largest professional network.",
+      "Keyword Optimization: Learn how to strategically incorporate industry relevant keywords into your profile to attract the right opportunities.",
+      "Networking Tips: Unlock the secrets to expanding your network and maximizing your connections.",
+      "Actionable Steps: Walk away with actionable steps and a clearer understanding of how to leverage LinkedIn effectively.",
+    ],
+    servicePolicy:
+      "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
+    valueProposal:
+      "Invest in your professional growth and make the most out of your LinkedIn presence. Book your 15 minute LinkedIn profile optimization session today and watch your online brand thrive!",
+    // price: 15000,
+    priceKE: 15000,
+    priceUSD: 150,
+    priceKESString: "15,000",
+    priceUSDString: "150",
+  },
+  {
+    id: 7,
+    title: "Remote Work Master Class",
+    titleSlug: "remote-work-master-class",
+    subheading: "The session will be a richly immersive two-hour experience.",
+    img: "remote_master_class_xmnolp",
+    openGraphImg: "Remote_Work_Master_Class_openGraph_b8wp3v",
+    details:
+      "Ready to thrive in the world of remote work? Join our exclusive Master Class designed for professionals seeking to transition to or excel in remote roles. Whether you're a seasoned remote worker or just starting, don't miss your chance to elevate your career,register now!",
+    benefits: [
+      "Gain a clear understanding of remote job basics, different employment types, key  and the optimal time zones to target for job applications.",
+      "Explore the fastest growing remote roles, the importance of upskilling, and the best platforms to enhance your skills.",
+      "Learn what recruiters value most and discover how to distinguish yourself from other candidate.",
+      "Find reliable remote job opportunities, effectively navigate remote job boards, and recognize red flags to avoid scams.",
+      "Learn from the industry expert with years of experience in remote work.",
+    ],
+    servicePolicy: "",
+    valueProposal:
+      "Whether you're a seasoned professional looking to transition to remote roles or a newcomer eager to enter the workforce, our Master Class is designed to equip you with the essential skills, strategies, and insights needed to thrive in a work environment.",
+    // price: 6000,
+    priceKE: 3500,
+    priceUSD: 35,
+    priceKESString: "3,500",
+    priceUSDString: "35",
   },
   {
     id: 9,
@@ -241,6 +280,33 @@ export const servicesList = [
   },
   {
     id: 10,
+    
+    title: "Remote Job Essentials Bundle",
+    titleSlug: "remote-job-essentials-bundle",
+    subheading:
+    "CV Revamp + Cover Letter + LinkedIn Optimization + Introductory Video + One Month Job Board Access",
+    img: "remote-job-essentials-bundle",
+    openGraphImg: "remote-job-essentials-bundle",
+    details:
+    "Stop struggling to find remote roles! Our Remote Job Essentials Bundle, is built to get you hired, offering you with the right career alignment and resources to jumpstart your search.",
+    benefits: [
+      "CV Revamp - A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation call CV Revamp ",
+      "LinkedIn Optimization - We'll transform your LinkedIn profile into a magnet for job opportunities, ensuring it ranks higher in recruiter searches + 15 minutes consultation call",
+      "Introductory Video - Pointers on how to make a polished video to introduce yourself professionally, making you memorable to potential employers.",
+      "One Month Job Board Access - Access to our exclusive job board for one month, featuring curated remote job opportunities from reputable companies.",
+    ],
+    servicePolicy:
+    "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
+    valueProposal:
+    "Companies are ramping up recruitment and this is your moment to shine. At Beyond the Savannah, we're helping you stay ahead of the curve by aligning your professional brand designed to position you for success.",
+    price: 25000,
+    priceKE: 25000,
+    priceUSD: 250,
+    priceKESString: "25,000",
+    priceUSDString: "250",
+  },
+  {
+    id: 12,
     title: "Beyond the Savannah WhatsApp Community",
     titleSlug: "beyond-the-savannah-whatsApp-community",
     subheading: "Let's navigate your career journey together",
@@ -262,67 +328,6 @@ export const servicesList = [
     priceKESString: "6,000",
     priceUSDString: "60",
   },
-  {
-    id: 11,
-    
-    title: "Remote Job Essentials Bundle",
-    titleSlug: "remote-job-essentials-bundle",
-    subheading:
-      "CV Revamp + Cover Letter + LinkedIn Optimization + Introductory Video + One Month Job Board Access",
-    img: "remote-job-essentials-bundle",
-    openGraphImg: "remote-job-essentials-bundle",
-    details:
-      "Stop struggling to find remote roles! Our Remote Job Essentials Bundle, is built to get you hired, offering you with the right career alignment and resources to jumpstart your search.",
-    benefits: [
-      "CV Revamp - A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation call CV Revamp ",
-      "LinkedIn Optimization - We'll transform your LinkedIn profile into a magnet for job opportunities, ensuring it ranks higher in recruiter searches + 15 minutes consultation call",
-      "Introductory Video - Pointers on how to make a polished video to introduce yourself professionally, making you memorable to potential employers.",
-      "One Month Job Board Access - Access to our exclusive job board for one month, featuring curated remote job opportunities from reputable companies.",
-    ],
-    servicePolicy:
-      "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
-    valueProposal:
-      "Companies are ramping up recruitment and this is your moment to shine. At Beyond the Savannah, we're helping you stay ahead of the curve by aligning your professional brand designed to position you for success.",
-    price: 25000,
-    priceKE: 25000,
-    priceUSD: 250,
-    priceKESString: "25,000",
-    priceUSDString: "250",
-  },
-  {
-      id: 12,
-    
-    title: "LinkedIn Marketing",
-    titleSlug: "linkedin_marketing",
-    subheading:
-    "Done For You LinkedIn Content & Growth Management for Busy Professionals",
-      
-    img: "linkedIn_Marketing_zgppms",
-    openGraphImg: "linkedIn_Marketing_zgppms",
-    details:
-      "Is your LinkedIn gathering digital dust while opportunities pass you by? We take the wheel so you don't have to.  We handle everything from crafting and posting content to tracking what's working so your profile stays active, visible, and working for you around the clock.",
-      // "Is your LinkedIn gathering digital dust while opportunities pass you by? We take the wheel so you don't have to. Our LinkedIn Marketing service is built for busy professionals who understand the power of a strong LinkedIn presence but simply don't have the time to maintain one. We handle everything from crafting and posting content to tracking what's working so your profile stays active, visible, and working for you around the clock.",
-    benefits: [
-      "Content Posted 3x Per Week: We create and publish engaging, professional content on your behalf three times a week, keeping your profile consistently active and visible to your network and beyond.",
-      "Hands Off Management: Whether you're in back to back meetings, running a business, or simply stretched thin, we handle your LinkedIn presence entirely, no input needed from you once we're set up.",
-      "Professionally Crafted Content: Every post is tailored to reflect your voice, industry, and professional brand, positioning you as a thought leader and attracting the right audience.",
-      "Monthly Analytics Report: At the end of each month, receive a detailed performance report delivered either via a call or a written document breaking down your growth, engagement, and key insights so you always know how your profile is performing.",
-      "Grow Your Visibility & Network: Consistent posting signals credibility to LinkedIn's algorithm, helping your profile surface in more searches and recommendations organically.",
-      // "Posting LinkedIn content on behalf of clients",
-      // "Analytics report is done at the end of the month either on call or via document",
-      // "Content is posted 3 times a week and it speaks to professionals that have no time to engage and post on their LinkedIn due to busy schedules or other reasons"
-      
-    ],
-    servicePolicy:
-      "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
-    valueProposal:
-      "Your LinkedIn is one of your most powerful professional assets but only if it's active. Let us manage it for you while you focus on what you do best. Your presence, our expertise",
-    price: 12000,
-    priceKE: 12000,
-    priceUSD: 120,
-    priceKESString: "12,000",
-    priceUSDString: "120",
-  }
 ];
 
 export const servicesCalendlyLinks = [
