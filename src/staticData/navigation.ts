@@ -85,6 +85,10 @@ export const NonSimpleNavigationMenuItems = [
         title: "Remote Job Essentials Bundle",
         link: "/service/remote-job-essentials-bundle",
       },
+      {
+        title: "Black November Career Upgrade Bundle",
+        link: "/service/black-november-career-upgrade-bundle",
+      },
     ],
   },
 ];
