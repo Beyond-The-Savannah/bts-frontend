@@ -81,10 +81,10 @@ export const NonSimpleNavigationMenuItems = [
         title: "Beyond the Savannah WhatsApp Community",
         link: "/service/beyond-the-savannah-whatsApp-community",
       },
-      {
-        title: "Remote Job Essentials Bundle",
-        link: "/service/remote-job-essentials-bundle",
-      },
+      // {
+      //   title: "Remote Job Essentials Bundle",
+      //   link: "/service/remote-job-essentials-bundle",
+      // },
       {
         title: "Black November Career Upgrade Bundle",
         link: "/service/black-november-career-upgrade-bundle",

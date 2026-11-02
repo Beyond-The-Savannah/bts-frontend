@@ -278,33 +278,33 @@ export const servicesList = [
     // priceKESString: "20,000",
     // priceUSDString: "200",
   },
-  {
-    id: 10,
+  // {
+  //   id: 10,
     
-    title: "Remote Job Essentials Bundle",
-    titleSlug: "remote-job-essentials-bundle",
-    subheading:
-    "CV Revamp + Cover Letter + LinkedIn Optimization + Introductory Video + One Month Job Board Access",
-    img: "remote-job-essentials-bundle",
-    openGraphImg: "remote-job-essentials-bundle",
-    details:
-    "Stop struggling to find remote roles! Our Remote Job Essentials Bundle, is built to get you hired, offering you with the right career alignment and resources to jumpstart your search.",
-    benefits: [
-      "CV Revamp - A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation call CV Revamp ",
-      "LinkedIn Optimization - We'll transform your LinkedIn profile into a magnet for job opportunities, ensuring it ranks higher in recruiter searches + 15 minutes consultation call",
-      "Introductory Video - Pointers on how to make a polished video to introduce yourself professionally, making you memorable to potential employers.",
-      "One Month Job Board Access - Access to our exclusive job board for one month, featuring curated remote job opportunities from reputable companies.",
-    ],
-    servicePolicy:
-    "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
-    valueProposal:
-    "Companies are ramping up recruitment and this is your moment to shine. At Beyond the Savannah, we're helping you stay ahead of the curve by aligning your professional brand designed to position you for success.",
-    price: 25000,
-    priceKE: 25000,
-    priceUSD: 250,
-    priceKESString: "25,000",
-    priceUSDString: "250",
-  },
+  //   title: "Remote Job Essentials Bundle",
+  //   titleSlug: "remote-job-essentials-bundle",
+  //   subheading:
+  //   "CV Revamp + Cover Letter + LinkedIn Optimization + Introductory Video + One Month Job Board Access",
+  //   img: "remote-job-essentials-bundle",
+  //   openGraphImg: "remote-job-essentials-bundle",
+  //   details:
+  //   "Stop struggling to find remote roles! Our Remote Job Essentials Bundle, is built to get you hired, offering you with the right career alignment and resources to jumpstart your search.",
+  //   benefits: [
+  //     "CV Revamp - A professionally crafted CV that highlights your skills, experience, and achievements in a way that gets noticed + a cover letter + 30 minutes consultation call CV Revamp ",
+  //     "LinkedIn Optimization - We'll transform your LinkedIn profile into a magnet for job opportunities, ensuring it ranks higher in recruiter searches + 15 minutes consultation call",
+  //     "Introductory Video - Pointers on how to make a polished video to introduce yourself professionally, making you memorable to potential employers.",
+  //     "One Month Job Board Access - Access to our exclusive job board for one month, featuring curated remote job opportunities from reputable companies.",
+  //   ],
+  //   servicePolicy:
+  //   "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
+  //   valueProposal:
+  //   "Companies are ramping up recruitment and this is your moment to shine. At Beyond the Savannah, we're helping you stay ahead of the curve by aligning your professional brand designed to position you for success.",
+  //   price: 25000,
+  //   priceKE: 25000,
+  //   priceUSD: 250,
+  //   priceKESString: "25,000",
+  //   priceUSDString: "250",
+  // },
   {
     id: 11,
     
