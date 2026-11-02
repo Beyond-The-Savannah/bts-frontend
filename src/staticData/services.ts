@@ -306,6 +306,32 @@ export const servicesList = [
     priceUSDString: "250",
   },
   {
+    id: 11,
+    
+    title: "Black November Career Upgrade Bundle",
+    titleSlug: "black-november-career-upgrade-bundle",
+    subheading:
+    "ATS Compliant CV plus Cover Letter + LinkedIn Optimization + Remote Work Masterclass",
+    img: "black-november-career-upgrade-bundle",
+    openGraphImg: "black-november-career-upgrade-bundle",
+    details:
+    "Fast track your remote job search with the Black November Career Upgrade Bundle. Get matched with the right strategy, tools, and positioning built to convert interviews into job offers.",
+    benefits: [
+      "ATS Compliant CV - Revamps your documents to bypass applicant tracking filters and catch hiring managers' eyes ",
+      "LinkedIn Optimization - A 15 minute power session to boost your profile visibility, grow your network, and attract recruiters",
+      "Remote Work Masterclass - A 2 hour expert session on landing remote jobs, mastering in-demand skills, and avoiding scams",
+    ],
+    servicePolicy:
+    "Please note: By proceeding with payment for this service and booking a subsequent session, you agree that the session fee is non-refundable if you do not attend your booked time slot. We do not offer rescheduling for no-shows.",
+    valueProposal:
+    "Capitalize on the end of year hiring rush. Beyond the Savannah's Black November Career Upgrade Bundle equips you with a standout personal brand designed to give you a competitive edge.",
+    price: 20000,
+    priceKE: 20000,
+    priceUSD: 200,
+    priceKESString: "20,000",
+    priceUSDString: "200",
+  },
+  {
     id: 12,
     title: "Beyond the Savannah WhatsApp Community",
     titleSlug: "beyond-the-savannah-whatsApp-community",
@@ -398,6 +424,12 @@ export const servicesCalendlyLinks = [
     id: 11,
     serviceName: "LinkedIn Marketing",
     amount: 1200000,
+    link: "",
+  },
+  {
+    id: 12,
+    serviceName: "Black November Career Upgrade Bundle",
+    amount: 2000000,
     link: "",
   }
 ];
