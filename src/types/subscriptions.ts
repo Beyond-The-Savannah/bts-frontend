@@ -165,6 +165,7 @@ export interface ValidSubscriptionTwo{
     planStatus?: string | null | undefined;
     endDate?: Date | null;
     emailAddress?: string | null | undefined;
+    currentOrganisation?: string | null | undefined;
     // plan:string,
     // planCost: string,
     // planStatus: string,

@@ -48,7 +48,7 @@ export default function ResumeUpload3({
   return (
     <>
       <section className={clsx("py-10")}>
-        <div className="min-h-[20.9rem]  space-y-4 px-4 py-8 bg-bts-BrownOne/50 rounded-lg ">
+        <div className="min-h-[20.9rem] md:min-h-113  space-y-4 px-4 py-8 bg-bts-BrownOne/50 rounded-lg ">
           <p className="font-semibold text-xl">Resume Upload</p>
 
           <p className=" text-xs">
@@ -97,8 +97,8 @@ export default function ResumeUpload3({
 
               {resumeData?.resumeName != null && (
                 <div className="flex items-center gap-2">
-                  <div className="flex flex-row items-center gap-2 border border-dotted bg-amber-100 max-w-lg rounded-lg py-1 pl-2">
-                    <p className="font-light text-xs">Uploaded : </p>
+                  <div className="flex flex-col items-start gap-2 border border-dotted bg-amber-100 max-w-lg rounded-lg py-4 px-4 ">
+                    <p className="font-light text-[0.6rem]">Uploaded : </p>
                     <div className="flex items-center gap-2">
                       <File />
                       <p className="font-semibold">{resumeData.resumeName}</p>

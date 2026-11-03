@@ -102,7 +102,7 @@ export default function CareerSelectionComponent({
   return (
     <>
       <section className="py-10">
-        <div className=" space-y-6  px-4 py-8 min-h-[20.3rem] bg-bts-BrownOne/50 rounded-lg ">
+        <div className=" space-y-6  px-4 py-8 min-h-[20.3rem] md:min-h-113 bg-bts-BrownOne/50 rounded-lg ">
           <div className="space-y-4">
             <p className="font-semibold text-xl">Career Selection</p>
           </div>
@@ -125,7 +125,7 @@ export default function CareerSelectionComponent({
                       ? jobDepartments?.find(
                           (department) => department.value === value,
                         )?.label
-                      : "Type & Select A Career"}
+                      : "Type & Select Career"}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
@@ -180,9 +180,9 @@ export default function CareerSelectionComponent({
             <hr className="border-2 border-y-bts-BrownOne mt-12 " />
             {selectedCareer?.value && (
               <div className=" rounded-lg px-4 text-start bg-amber-100 max-w-sm border- border-dotted">
-                <p className="text-xs">
-                  Selected Career :
-                  <span className="font-semibold text-base pl-2">
+                <p className="text-xs py-2 space-y-2">
+                  <span className="block text-[0.6rem]">Selected Career :</span>
+                  <span className="block font-semibold text-base pl">
                     {selectedCareer?.label}
                   </span>{" "}
                 </p>

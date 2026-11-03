@@ -7,6 +7,7 @@ import {
 import ResumeUpload3 from "./ResumeUpload3";
 import CareerSelectionComponent2 from "./CareerSelectionComponent2";
 import { ResumeUploadedProps } from "@/types/globals";
+import OrganisationSelectionComponent from "./OrganisationSelectionComponent";
 
 export default function SubscriptionDetailsUI2({
   jobViewSubscriptionData,
@@ -146,7 +147,7 @@ export default function SubscriptionDetailsUI2({
             </div>
             {/* {parseInt(jobViewSubscriptionData?.planCost as string) !== 600000 && jobViewSubscriptionData?.endDate!=undefined ? ( */}
             {/* {parseInt(jobViewSubscriptionData?.planCost as string) !== 600000  ? ( */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
               {jobViewSubscriptionData?.userId!=undefined &&(
                 <>
                   <CareerSelectionComponent2
@@ -155,10 +156,23 @@ export default function SubscriptionDetailsUI2({
                     emailNotification={emailNotification as boolean}
                   />
                   {/* <ResumeUpload2 /> */}
+                  <OrganisationSelectionComponent
+                    userId={jobViewSubscriptionData?.userId as string}
+                    currentOrganisation={resumeUploaded?.currentOrganisation as string}
+                  />
                   <ResumeUpload3
                     userId={jobViewSubscriptionData?.userId as string}
                     resumeData={resumeUploaded}
                   />
+                </>
+
+              )}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
+               {jobViewSubscriptionData?.userId!=undefined &&(
+                <>
+                  
+                  
                 </>
 
               )}

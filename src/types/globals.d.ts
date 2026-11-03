@@ -373,4 +373,5 @@ export interface ResumeUploadedProps {
   resumeName: string | null;
   resumeUrl: string | null;
   fileKey: string | null;
+  currentOrganisation: string | null;
 }

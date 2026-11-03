@@ -1,0 +1,1 @@
+ALTER TABLE "candidatesProfiles" ADD COLUMN "current_organisation" text;
