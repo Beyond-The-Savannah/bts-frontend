@@ -1,0 +1,1 @@
+ALTER TABLE "candidatesProfiles" ALTER COLUMN "current_organisation" SET DATA TYPE varchar(256);

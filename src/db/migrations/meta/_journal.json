@@ -141,6 +141,20 @@
       "when": 1782371765775,
       "tag": "0019_yielding_corsair",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1793696292615,
+      "tag": "0020_sticky_robbie_robertson",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1793698311963,
+      "tag": "0021_pale_bucky",
+      "breakpoints": true
     }
   ]
 }

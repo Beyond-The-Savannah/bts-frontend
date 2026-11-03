@@ -36,7 +36,8 @@ export async function GetUploadedResume(userEmail:string){
   const data=await db.select({
     resumeName:candidatesProfileTable.resumeName,
     resumeUrl:candidatesProfileTable.resumeUrl,
-    fileKey:candidatesProfileTable.fileKey
+    fileKey:candidatesProfileTable.fileKey,
+    currentOrganisation:candidatesProfileTable.currentOrganisation
   }).from(candidatesProfileTable)
   .leftJoin(usersTable,eq(candidatesProfileTable.userId,usersTable.id))
   .where(eq(usersTable.emailAddress,userEmail))

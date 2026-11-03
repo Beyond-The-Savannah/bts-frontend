@@ -1,0 +1,292 @@
+export const kenyaOrganisations = [
+  // ==========================================
+  // --- HIGHER LEARNING & TRAINING INSTITUTIONS ---
+  // ==========================================
+  {
+    id: 1,
+    name: "Moringa School",
+    type: "learning",
+    category: "Tech & Software Engineering Institute",
+  },
+  {
+    id: 2,
+    name: "University of Nairobi (UoN)",
+    type: "learning",
+    category: "Public University",
+  },
+  {
+    id: 3,
+    name: "Kenyatta University (KU)",
+    type: "learning",
+    category: "Public University",
+  },
+  {
+    id: 4,
+    name: "Strathmore University",
+    type: "learning",
+    category: "Private University",
+  },
+  {
+    id: 5,
+    name: "Moi University",
+    type: "learning",
+    category: "Public University",
+  },
+  {
+    id: 6,
+    name: "Jomo Kenyatta University of Agriculture and Technology (JKUAT)",
+    type: "learning",
+    category: "Public University",
+  },
+  {
+    id: 7,
+    name: "United States International University Africa (USIU-Africa)",
+    type: "learning",
+    category: "Private University",
+  },
+  {
+    id: 8,
+    name: "Egerton University",
+    type: "learning",
+    category: "Public University",
+  },
+  {
+    id: 9,
+    name: "Maseno University",
+    type: "learning",
+    category: "Public University",
+  },
+  {
+    id: 10,
+    name: "Technical University of Kenya (TUK)",
+    type: "learning",
+    category: "Public University",
+  },
+  {
+    id: 11,
+    name: "Daystar University",
+    type: "learning",
+    category: "Private University",
+  },
+  {
+    id: 12,
+    name: "Catholic University of Eastern Africa (CUEA)",
+    type: "learning",
+    category: "Private University",
+  },
+  {
+    id: 13,
+    name: "Africa Nazarene University",
+    type: "learning",
+    category: "Private University",
+  },
+  {
+    id: 14,
+    name: "Riara University",
+    type: "learning",
+    category: "Private University",
+  },
+  {
+    id: 15,
+    name: "Zetech University",
+    type: "learning",
+    category: "Private University",
+  },
+  {
+    id: 16,
+    name: "Kabarak University",
+    type: "learning",
+    category: "Private University",
+  },
+  {
+    id: 17,
+    name: "Dedan Kimathi University of Technology (DeKUT)",
+    type: "learning",
+    category: "Public University",
+  },
+  {
+    id: 18,
+    name: "Kenya Institute of Mass Communication (KIMC)",
+    type: "learning",
+    category: "Media & Broadcast College",
+  },
+  {
+    id: 19,
+    name: "Rift Valley Institute of Science and Technology (RVIST)",
+    type: "learning",
+    category: "TVET Institution",
+  },
+
+  // ==========================================
+  // --- WORK, CORPORATE & TECH ORGANISATIONS ---
+  // ==========================================
+  {
+    id: 20,
+    name: "Safaricom PLC",
+    type: "work",
+    category: "Telecommunications & Fintech",
+  },
+  {
+    id: 21,
+    name: "Equity Group Holdings",
+    type: "work",
+    category: "Banking & Financial Services",
+  },
+  {
+    id: 22,
+    name: "KCB Group",
+    type: "work",
+    category: "Banking & Financial Services",
+  },
+  {
+    id: 23,
+    name: "Co-operative Bank of Kenya",
+    type: "work",
+    category: "Banking & Financial Services",
+  },
+  {
+    id: 24,
+    name: "Absa Bank Kenya",
+    type: "work",
+    category: "Banking & Financial Services",
+  },
+  {
+    id: 25,
+    name: "Standard Chartered Bank Kenya",
+    type: "work",
+    category: "Banking & Financial Services",
+  },
+  {
+    id: 26,
+    name: "East African Breweries Limited (EABL)",
+    type: "work",
+    category: "Manufacturing & FMCG",
+  },
+  {
+    id: 27,
+    name: "British American Tobacco Kenya (BAT)",
+    type: "work",
+    category: "Manufacturing",
+  },
+  {
+    id: 28,
+    name: "Kenya Airways",
+    type: "work",
+    category: "Aviation & Transport",
+  },
+  {
+    id: 29,
+    name: "Kenya Power and Lighting Company (KPLC)",
+    type: "work",
+    category: "Energy & Utilities",
+  },
+  {
+    id: 30,
+    name: "KenGen (Kenya Electricity Generating Company)",
+    type: "work",
+    category: "Energy & Power Generation",
+  },
+  {
+    id: 31,
+    name: "Vivo Energy Kenya",
+    type: "work",
+    category: "Oil & Gas / Energy",
+  },
+  {
+    id: 32,
+    name: "TotalEnergies Kenya",
+    type: "work",
+    category: "Oil & Gas / Energy",
+  },
+  {
+    id: 33,
+    name: "Unilever Kenya",
+    type: "work",
+    category: "Consumer Goods (FMCG)",
+  },
+  {
+    id: 34,
+    name: "Bidco Africa",
+    type: "work",
+    category: "Manufacturing & FMCG",
+  },
+  {
+    id: 35,
+    name: "Nation Media Group",
+    type: "work",
+    category: "Media & Broadcasting",
+  },
+  {
+    id: 36,
+    name: "Standard Group PLC",
+    type: "work",
+    category: "Media & Broadcasting",
+  },
+  {
+    id: 37,
+    name: "Royal Media Services",
+    type: "work",
+    category: "Media & Broadcasting",
+  },
+  {
+    id: 38,
+    name: "iHub Nairobi",
+    type: "work",
+    category: "Tech Hub & Innovation",
+  },
+  {
+    id: 39,
+    name: "Nailab",
+    type: "work",
+    category: "Startup Incubator & Tech Hub",
+  },
+  {
+    id: 40,
+    name: "Andela Kenya",
+    type: "work",
+    category: "Software Development & Talent",
+  },
+  {
+    id: 41,
+    name: "Twiga Foods",
+    type: "work",
+    category: "Agri-Tech & Supply Chain",
+  },
+  {
+    id: 42,
+    name: "Wasoko",
+    type: "work",
+    category: "E-Commerce & Tech Retail",
+  },
+  {
+    id: 43,
+    name: "Copia Global",
+    type: "work",
+    category: "B2C E-Commerce & Logistics",
+  },
+  {
+    id: 44,
+    name: "Bolt Kenya",
+    type: "work",
+    category: "Transport Tech & Ride-Hailing",
+  },
+  {
+    id: 45,
+    name: "Uber Kenya",
+    type: "work",
+    category: "Transport Tech & Ride-Hailing",
+  },
+  {
+    id: 46,
+    name: "United Nations Environment Programme (UNEP - Gigiri)",
+    type: "work",
+    category: "International Organization / UN",
+  },
+  {
+    id: 47,
+    name: "Kenya Revenue Authority (KRA)",
+    type: "work",
+    category: "Government / Public Sector",
+  },
+  
+];

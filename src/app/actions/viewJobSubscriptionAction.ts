@@ -138,6 +138,27 @@ export async function UpdateUsersJobEmailNotificationCareer({
   }
 }
 
+export async function AddAndUpdateUsersOrganisation({
+  userId,
+  currentOrganisation,
+}: {
+  userId: string;
+  currentOrganisation: string;
+}) {
+  try {
+    await db.insert(candidatesProfileTable)
+      .values({ userId, currentOrganisation:currentOrganisation })
+      .onConflictDoUpdate({
+        target: candidatesProfileTable.userId,
+        set: { currentOrganisation:currentOrganisation }
+      });
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating user organisation - ", error);
+    return { success: false, error: "update failed", status: 400 };
+  }
+}
+
 export async function UpdateUsersEmailNotification({
   userId,
   acceptEmailNotification,
