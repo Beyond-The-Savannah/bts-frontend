@@ -6,8 +6,11 @@ interface ImageProps {
   height?: number;
   width?: number;
   priority?: boolean;
+  fetchPriority?: "high" | "low" | "auto";
+  loading?: "eager" | "lazy";
   fill?:boolean;
   sizes?:string;
+  crop?: "fill" | "fit" | "scale" | "thumb";
   alt: string;
   classname?: string;
 }
@@ -17,8 +20,11 @@ export default function DisplayImageFromNextCloudinary({
   width,
   alt,
   priority,
+  fetchPriority,
+  loading,
   fill,
   sizes,
+  crop,
   classname,
 }: ImageProps) {
   return (
@@ -28,6 +34,9 @@ export default function DisplayImageFromNextCloudinary({
       width={width}
       sizes={sizes}
       priority={priority}
+      fetchPriority={fetchPriority}
+      loading={loading}
+      crop={crop}
       alt={alt}
       className={classname}
       format="webp"

@@ -46,6 +46,7 @@ export default function ServicesSection() {
                     src={service.img}
                     height={400}
                     width={600}
+                    crop="fill"
                     alt={service.title}
                     sizes="(max-width:768px) 100vw,(max-width:1200px) 50vw, 33vw"
                     // classname="object-cover object-center w-full h-48 rounded-t-md"
