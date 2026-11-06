@@ -1,172 +1,3 @@
-// import {
-//   NonSimpleNavigationMenuItems,
-//   simpleNavigationMenuItems,
-// } from "@/staticData/navigation";
-// import {
-//   NavigationMenu,
-//   NavigationMenuContent,
-//   NavigationMenuItem,
-//   NavigationMenuList,
-//   NavigationMenuTrigger,
-// } from "./ui/navigation-menu";
-
-// import { Link } from "next-view-transitions";
-// import {
-//   Sheet,
-//   SheetClose,
-//   SheetContent,
-//   SheetDescription,
-//   SheetHeader,
-//   SheetTitle,
-//   SheetTrigger,
-// } from "./ui/sheet";
-// import { MenuSquareIcon } from "lucide-react";
-// import DisplayImageFromNextCloudinary from "./DisplayImageFromNextCloudinary";
-// import { Button } from "./ui/button";
-// // import SavannahChatUI1 from "./Customer/SavannahChatUI1";
-
-// export default function NavigationSection() {
-//   return (
-//     <>
-//       <nav className="">
-//         <NavigationMenu className=" fixed">
-//           <NavigationMenuList className="bg-bts-BrownTwo/50  backdrop-blur-md flex items-center justify-between gap-2 lg:gap-12  w-[99.9vw] rounded-md  px-4 lg:px-12 py-4">
-//             <NavigationMenuItem>
-//               <Link href="/">
-//                 <DisplayImageFromNextCloudinary
-//                   src="BTS_Logo_xa2iht"
-//                   height={800}
-//                   width={800}
-//                   prioty
-//                   alt="square shapes"
-//                   classname="object-contain size-16 -mt-8 md:size-28 lg:size-32 rounded-lg absolute"
-//                 />
-//               </Link>
-//             </NavigationMenuItem>
-//             <div className="hidden md:flex  items-end md:items-center gap-3 lg:gap-8">
-//               <ul className="hidden md:flex  items-end md:items-center gap-3 lg:gap-8">
-//                 {simpleNavigationMenuItems.map((menuItem) => (
-//                   <li key={menuItem.id}>
-//                   <NavigationMenuItem  className="">
-//                     <Link
-//                       href={`${menuItem.link}`}
-//                       className="font-semibold flex hover:scale-110 transition ease-in"
-//                     >
-//                       {menuItem.title}
-//                     </Link>
-//                   </NavigationMenuItem>
-//                   </li>
-//                 ))}
-//               </ul>
-              
-//               {NonSimpleNavigationMenuItems.map((item) => (
-//                 <NavigationMenuItem key={item.id} className=" lg:pr-20 ">
-//                   <NavigationMenuTrigger className="font-semibold text-base relative bg-transparent hover:bg-transparent hover:scale-110 transition ease-in">
-//                     {item.title}
-//                   </NavigationMenuTrigger>
-//                   <NavigationMenuContent className="">
-//                     <ul className="grid md:grid-cols-2 justify-end gap-3 p-4 w-[500px] lg:w-[600px] px-8">
-//                       {item.subLinks.map((sublink) => (
-//                         <li key={sublink.title}>
-//                           <Link
-//                             href={sublink.link}
-//                             // className="hover:shadow-md hover:shadow-amber-300 hover:bg-slate-50 rounded-md px-4 py-2"
-//                             className="flex hover:scale-105 transition ease-in"
-//                           >
-//                             {sublink.title}
-//                           </Link>
-//                         </li>
-//                       ))}
-//                     </ul>
-//                   </NavigationMenuContent>
-//                 </NavigationMenuItem>
-//               ))}
-//               <NavigationMenuItem>
-//                           <Button variant="outline" asChild>
-//                             <Link href="/Customer">Sign-in</Link>
-//                           </Button>
-//                         </NavigationMenuItem>
-//               {/* <NavigationMenuItem>
-//                 <SavannahChatUI1 />
-//               </NavigationMenuItem> */}
-//             </div>
-//             {/* mobile navigation  */}
-//             <div className="block md:hidden">
-//               <Sheet>
-//                 <SheetTrigger aria-label="mobile navigation button">
-//                   <MenuSquareIcon className="" size={32} />
-//                 </SheetTrigger>
-//                 <SheetContent className="overflow-auto">
-//                   <SheetHeader>
-//                     <SheetTitle></SheetTitle>
-//                     <SheetDescription></SheetDescription>
-//                   </SheetHeader>
-//                   <div className="">
-//                     <NavigationMenu>
-//                       {/* <NavigationMenuList className="flex flex-col items-start gap-8"> */}
-//                       <NavigationMenuList className="flex flex-col items-end ml-36 gap-8 pt-8 ">
-//                         {simpleNavigationMenuItems.map((menuItem) => (
-//                           <NavigationMenuItem
-//                             key={menuItem.id}
-//                             className=" list-none"
-//                           >
-//                             <SheetClose asChild>
-//                               <Link
-//                                 href={`${menuItem.link}`}
-//                                 className="font-semibold hover:scale-110 transition ease-in"
-//                               >
-//                                 {menuItem.title}
-//                               </Link>
-//                             </SheetClose>
-//                           </NavigationMenuItem>
-//                         ))}
-
-//                         {NonSimpleNavigationMenuItems.map((item) => (
-//                           <NavigationMenuItem
-//                             key={item.id}
-//                             className="list-none"
-//                           >
-//                             <NavigationMenuTrigger className=" px-0 font-semibold text-base relative bg-transparent hover:bg-transparent hover:scale-110 transition ease-in">
-//                               {item.title}
-//                             </NavigationMenuTrigger>
-//                             <NavigationMenuContent className="w-52">
-//                               <ul className="flex flex-col px-4 py-2 space-y-4 ">
-//                                 {item.subLinks.map((sublink) => (
-//                                   <li key={sublink.title}>
-//                                     <SheetClose asChild className="">
-//                                       <Link
-//                                         href={sublink.link}
-//                                         className="flex hover:scale-105 transition ease-in"
-//                                       >
-//                                         {sublink.title}
-//                                       </Link>
-//                                     </SheetClose>
-//                                   </li>
-//                                 ))}
-//                               </ul>
-//                             </NavigationMenuContent>
-//                           </NavigationMenuItem>
-//                         ))}
-//                         <NavigationMenuItem>
-//                           <Button variant="outline" asChild>
-//                             <Link href="/sign-in">Sign-in</Link>
-//                           </Button>
-//                         </NavigationMenuItem>
-//                         {/* <NavigationMenuItem>
-//                           <SavannahChatUI1 />
-//                         </NavigationMenuItem> */}
-//                       </NavigationMenuList>
-//                     </NavigationMenu>
-//                   </div>
-//                 </SheetContent>
-//               </Sheet>
-//             </div>
-//           </NavigationMenuList>
-//         </NavigationMenu>
-//       </nav>
-//     </>
-//   );
-// }
 
 import {
   NonSimpleNavigationMenuItems,
@@ -208,6 +39,8 @@ export default function NavigationSection() {
                   height={800}
                   width={800}
                   priority
+                  fetchPriority="high"
+                  loading="eager"
                   alt="BTS Company Logo"
                   classname="object-contain size-16 -mt-8 md:size-28 lg:size-32 rounded-lg absolute"
                 />
@@ -215,8 +48,8 @@ export default function NavigationSection() {
             </NavigationMenuItem>
             
             {/* Desktop Navigation */}
-            <div className="hidden xl:flex items-end md:items-center gap-1 lg:gap-2">
-              <ul className="hidden xl:flex items-end md:items-center gap-1 lg:gap-2">
+            <li className="hidden xl:block list-none">
+              <ul className="flex items-center gap-1 lg:gap-2">
                 {simpleNavigationMenuItems.map((menuItem) => (
                   <NavigationMenuItem key={menuItem.id} className="">
                     <Link
@@ -227,7 +60,6 @@ export default function NavigationSection() {
                     </Link>
                   </NavigationMenuItem>
                 ))}
-              </ul>
               
               {NonSimpleNavigationMenuItems.map((item) => (
                 <NavigationMenuItem key={item.id} className="lg:pr-20">
@@ -275,10 +107,11 @@ export default function NavigationSection() {
                   </Link>
                 </Button>
               </NavigationMenuItem>
-            </div>
+              </ul>
+            </li>
             
             {/* Mobile Navigation */}
-            <div className="block xl:hidden">
+            <li className="block xl:hidden list-none">
               <Sheet>
                 <SheetTrigger 
                   aria-label="Open mobile navigation menu"
@@ -368,7 +201,7 @@ export default function NavigationSection() {
                   </div>
                 </SheetContent>
               </Sheet>
-            </div>
+            </li>
           </NavigationMenuList>
         </NavigationMenu>
       </nav>

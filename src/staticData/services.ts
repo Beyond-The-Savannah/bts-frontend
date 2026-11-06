@@ -2,7 +2,7 @@ export const servicesList = [
   
  
   {
-    id: 3,
+    id: 1,
     title: "ATS CV Revamp",
     titleSlug: "ats-cv-revamp",
     subheading: "",
@@ -25,7 +25,7 @@ export const servicesList = [
     priceUSDString: "80",
   },
   {
-    id: 6,
+    id: 2,
     title: "Consultation Call",
     titleSlug: "consultation-call",
     subheading:
@@ -53,7 +53,7 @@ export const servicesList = [
     priceUSDString: "40",
   },
   {
-    id: 4,
+    id: 3,
     title: "Coaching Session",
     titleSlug: "coaching-session",
     subheading: "Unlock Your Full Potential with a 1-Hour Coaching Session",
@@ -81,7 +81,7 @@ export const servicesList = [
   
   
    {
-    id: 2,
+    id: 4,
     title: "Students Package",
     titleSlug: "students-package",
     subheading:
@@ -106,7 +106,7 @@ export const servicesList = [
   },
   
   {
-    id: 8,
+    id: 5,
     title: "Introductory Video",
     titleSlug: "introductory-video",
     subheading: "Duration 15 minutes.",
@@ -131,7 +131,7 @@ export const servicesList = [
     priceUSDString: "30",
   },
   {
-    id: 11,
+    id: 6,
     
     title: "LinkedIn Marketing",
     titleSlug: "linkedin_marketing",
@@ -165,7 +165,7 @@ export const servicesList = [
     priceUSDString: "120",
   },
   {
-    id: 5,
+    id: 7,
     title: "Interview Preparation",
     titleSlug: "interview-preparation",
     subheading:
@@ -193,7 +193,7 @@ export const servicesList = [
     priceUSDString: "120",
   },
   {
-    id: 1,
+    id: 8,
     title: "LinkedIn Optimization",
     titleSlug: "linkedin-optimization",
     subheading:
@@ -220,7 +220,7 @@ export const servicesList = [
     priceUSDString: "150",
   },
   {
-    id: 7,
+    id: 9,
     title: "Remote Work Master Class",
     titleSlug: "remote-work-master-class",
     subheading: "The session will be a richly immersive two-hour experience.",
@@ -245,7 +245,7 @@ export const servicesList = [
     priceUSDString: "35",
   },
   {
-    id: 9,
+    id: 10,
     title: "Remote Work Starter Bundle",
     titleSlug: "remote-work-starter-bundle",
     subheading: "CV Revamp + LinkedIn Optimization + Introductory Video .",

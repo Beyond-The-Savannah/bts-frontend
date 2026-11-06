@@ -1,10 +1,19 @@
+"use client";
+
+import { useState } from "react";
+import dynamic from "next/dynamic";
 import DisplayImageFromNextCloudinary from "../DisplayImageFromNextCloudinary";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import SavannahChatUI3 from "./SavannahChatUI3";
+
+const SavannahChatUI3 = dynamic(() => import("./SavannahChatUI3"), {
+  ssr: false,
+});
 
 export default function SavannahChatUI2() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Popover>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger className="flex items-center justify-center hover:scale-110 active:scale-95 transition ease-in touch-manipulation min-h-11 min-w-11 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-full">
         <DisplayImageFromNextCloudinary
           src="kazina_upvlpf"
@@ -45,7 +54,7 @@ export default function SavannahChatUI2() {
         </div>
         {/* Chat body - flex-1 min-h-0 enables proper scrolling on mobile */}
         <div className="flex-1 min-h-0 overflow-hidden flex flex-col bg-background">
-          <SavannahChatUI3 />
+          {isOpen && <SavannahChatUI3 />}
         </div>
       </PopoverContent>
     </Popover>
