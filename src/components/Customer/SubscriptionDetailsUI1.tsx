@@ -3,7 +3,7 @@ import { CircleAlert } from "lucide-react";
 import { redirect } from "next/navigation";
 import { Button } from "../ui/button";
 import CareerSelection from "./CareerSelection";
-import ResumeUpload2 from "./ResumeUpload";
+import ResumeUpload2 from "./ResumeUpload2";
 
 
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;

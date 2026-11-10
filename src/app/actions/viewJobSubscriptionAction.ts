@@ -9,9 +9,11 @@ import {
   usersProp,
   usersTable,
 } from "@/db/schema";
+import { SubscribedUserProp } from "@/types/subscribedUser";
 import { eq } from "drizzle-orm";
 // import { utapi } from "~/server/uploadthing.ts";
 import { UTApi } from "uploadthing/server";
+import { axiosInstance } from "../dal/remoteData/mutateData";
 
 
 const utapi= new UTApi()
@@ -217,6 +219,43 @@ export async function RemoveUserResume(fileKey:string){
     return {success:false,error:"Failed to delete resume",status:400}
   }
 }
+
+export async function RemoveUserResume1(fileKey:string, loggedUser:SubscribedUserProp){
+  try {
+    await utapi.deleteFiles(fileKey)
+
+   const formData = new FormData();
+   
+           formData.append("id", String(loggedUser.id));
+           formData.append("status", loggedUser.status);
+           formData.append("subscriptionPlan", loggedUser.subscriptionPlan);
+           formData.append("career", String(loggedUser.career));
+           formData.append("email", loggedUser.email || "");
+           formData.append("currentOrganization", loggedUser.currentOrganization || "");
+           formData.append("fileKey", loggedUser.fileKey || fileKey);
+           formData.append("acceptEmailNotification", String(loggedUser.acceptEmailNotification));
+           formData.append("password", loggedUser.password || "");
+           formData.append("firstName", loggedUser.firstName);
+           formData.append("lastName", loggedUser.lastName);
+           formData.append("phoneNumber", loggedUser.phoneNumber || "");
+           formData.append("AttachmentName", "");
+           formData.append("file", "");
+           formData.append("ImageUrl", loggedUser.imageUrl || "");
+           formData.append("isActive", String(loggedUser.isActive));
+           formData.append("isDeleted", String(loggedUser.isDeleted));
+           const result = await axiosInstance.put(
+             `api/BydUsers/updateUser?id=${loggedUser.id}`,
+             formData,
+             { headers: { "Content-Type": "application/json" } },
+           );
+           return result.data
+  } catch (error) {
+    console.error("Failed to delete resume", error)
+    return {success:false,error:"Failed to delete resume",status:400}
+  }
+}
+
+
 
 
 export async function UpdateSubscriptionDetails(channel:string,reference:string){
