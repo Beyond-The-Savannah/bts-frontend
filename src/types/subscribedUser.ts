@@ -36,7 +36,7 @@ export interface SubscribedUserProp {
 
 }
 export interface CombinedSubscribedUsersProp {
-  id: number| string;
+  id: number | string;
   status: string;
   subscriptionPlan: string;
   career: number | string;
@@ -65,4 +65,10 @@ export interface EmailBatchProp{
     to: string[];
     subject: string;
     react: JSX.Element;
+}
+
+export interface UploadResult {
+  fileKey: string;
+  fileUrl: string;
+  fileName: string;
 }

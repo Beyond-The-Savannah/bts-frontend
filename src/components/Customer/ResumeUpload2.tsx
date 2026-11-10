@@ -5,7 +5,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { UploadStatus } from "@/types/globals";
 import { useUser } from "@clerk/nextjs";
-import { SubscribedUserProp } from "@/types/subscribedUser";
+import { SubscribedUserProp, UploadResult } from "@/types/subscribedUser";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -56,37 +56,39 @@ export default function ResumeUpload2() {
       }
     }
   }
-  async function handleResumeUpload1() {
+  async function handleResumeUpload1(upload:UploadResult) {
      try {
       if (
         loggedUser !== undefined &&
         (user != undefined || user != null)
       ) {
-        const formData = new FormData();
+       
 
-        formData.append("id", String(loggedUser.id));
-        formData.append("status", loggedUser.status);
-        formData.append("subscriptionPlan", loggedUser.subscriptionPlan);
-        formData.append("career", String(loggedUser.career));
-        formData.append("email", user.primaryEmailAddress?.emailAddress || "");
-        formData.append("currentOrganization", loggedUser.currentOrganization || "");
-        formData.append("fileKey", loggedUser.fileKey || fileKey);
-        formData.append("acceptEmailNotification", String(loggedUser.acceptEmailNotification));
-        formData.append("password", loggedUser.password || "");
-        formData.append("firstName", loggedUser.firstName);
-        formData.append("lastName", loggedUser.lastName);
-        formData.append("phoneNumber", loggedUser.phoneNumber || "");
-        formData.append("AttachmentName", fileName);
-        formData.append("file", "");
-        formData.append("ImageUrl", loggedUser.imageUrl || fileUrl);
-        formData.append("isActive", String(loggedUser.isActive));
-        formData.append("isDeleted", String(loggedUser.isDeleted));
+        const updatePayload = {
+          id: loggedUser.id,
+          status: loggedUser.status,
+          subscriptionPlan: loggedUser.subscriptionPlan,
+          career: Number(loggedUser.career),
+          email: user.primaryEmailAddress?.emailAddress || "",
+          currentOrganization: loggedUser.currentOrganization || "",
+          fileKey: loggedUser.fileKey || upload.fileKey || "",
+          acceptEmailNotification: Boolean(loggedUser.acceptEmailNotification),
+          password: loggedUser.password || "",
+          firstName: loggedUser.firstName,
+          lastName: loggedUser.lastName,
+          phoneNumber: loggedUser.phoneNumber || "",
+          attachmentName: upload.fileName,
+          file: "",
+          imageUrl: upload.fileUrl,
+          isActive: Boolean(loggedUser.isActive),
+          isDeleted: Boolean(loggedUser.isDeleted)
+        };      
 
         // const result = await axios.put(`https://efmsapi-staging.azurewebsites.net/api/BydUsers/updateUserDetails?email=${user?.primaryEmailAddress?.emailAddress}`,
         const result = await axiosInstance.put(
           `api/BydUsers/updateUser?id=${loggedUser.id}`,
           // `api/BydUsers/updateUserDetails?email=${loggedUser.email}`,
-          formData,
+          updatePayload,
           { headers: { "Content-Type": "application/json" } },
           // { headers: { "Content-Type": "multipart/form-data" } },
         );
@@ -100,8 +102,9 @@ export default function ResumeUpload2() {
         ) {
           toast.error(`Error, resume can't be uploaded, try again later`);
         }
-        // setFile(null);
-        // setStatus("idle");
+
+        console.log("UPLOAD RESUME FUNCTION", updatePayload);
+        
       }
     } catch (error) {
       // setStatus("error");
@@ -127,56 +130,57 @@ export default function ResumeUpload2() {
     }
     };
 
-  async function handleResumeUpload() {
-    setStatus("uploading");
-    try {
-      if (
-        loggedUser !== undefined &&
-        file !== null &&
-        (user != undefined || user != null)
-      ) {
-        const formData = new FormData();
+  // async function handleResumeUpload() {
+  //   setStatus("uploading");
+  //   try {
+  //     if (
+  //       loggedUser !== undefined &&
+  //       file !== null &&
+  //       (user != undefined || user != null)
+  //     ) {
+  //       const formData = new FormData();
 
-        formData.append("id", String(loggedUser.id));
-        formData.append("status", loggedUser.status);
-        formData.append("subscriptionPlan", loggedUser.subscriptionPlan);
-        formData.append("career", String(loggedUser.career));
-        formData.append("email", user.primaryEmailAddress?.emailAddress || "");
-        formData.append("password", loggedUser.password || "");
-        formData.append("firstName", loggedUser.firstName);
-        formData.append("lastName", loggedUser.lastName);
-        formData.append("phoneNumber", loggedUser.phoneNumber || "");
-        formData.append("AttachmentName", resumeName);
-        formData.append("file", file);
-        formData.append("ImageUrl", loggedUser.imageUrl || "");
-        formData.append("isActive", String(loggedUser.isActive));
-        formData.append("isDeleted", String(loggedUser.isDeleted));
+  //       formData.append("id", String(loggedUser.id));
+  //       formData.append("status", loggedUser.status);
+  //       formData.append("subscriptionPlan", loggedUser.subscriptionPlan);
+  //       formData.append("career", String(loggedUser.career));
+  //       formData.append("email", user.primaryEmailAddress?.emailAddress || "");
+  //       formData.append("password", loggedUser.password || "");
+  //       formData.append("firstName", loggedUser.firstName);
+  //       formData.append("lastName", loggedUser.lastName);
+  //       formData.append("phoneNumber", loggedUser.phoneNumber || "");
+  //       formData.append("AttachmentName", resumeName);
+  //       formData.append("file", file);
+  //       formData.append("ImageUrl", loggedUser.imageUrl || "");
+  //       formData.append("isActive", String(loggedUser.isActive));
+  //       formData.append("isDeleted", String(loggedUser.isDeleted));
 
-        // const result = await axios.put(`https://efmsapi-staging.azurewebsites.net/api/BydUsers/updateUserDetails?email=${user?.primaryEmailAddress?.emailAddress}`,
-        const result = await axiosInstance.put(
-          `api/BydUsers/updateUserDetails?email=${user?.primaryEmailAddress?.emailAddress}`,
-          formData,
-          { headers: { "Content-Type": "multipart/form-data" } },
-        );
-        // console.log("UPLOAD RESUME FUNCYION", result.data);
-        if (result.data.errorMessage == "Update Done Affected Rows : 1") {
-          toast.success(`Resume has been uploaded`);
-        }
-        if (
-          result.data.errorMessage ==
-          "Update Done But No Matching Records Found"
-        ) {
-          toast.error(`Error, resume can't be uploaded, try again later`);
-        }
-        setFile(null);
-        setStatus("idle");
-      }
-    } catch (error) {
-      setStatus("error");
-      toast.error(`Error on uploading file, please try again later`);
-      console.log("Cannot upload users resume", error);
-    }
-  }
+  //       // const result = await axios.put(`https://efmsapi-staging.azurewebsites.net/api/BydUsers/updateUserDetails?email=${user?.primaryEmailAddress?.emailAddress}`,
+  //       const result = await axiosInstance.put(
+  //         `api/BydUsers/updateUserDetails?email=${user?.primaryEmailAddress?.emailAddress}`,
+  //         formData,
+  //         { headers: { "Content-Type": "multipart/form-data" } },
+  //       );
+  //       // console.log("UPLOAD RESUME FUNCYION", result.data);
+  //       if (result.data.errorMessage == "Update Done Affected Rows : 1") {
+  //         toast.success(`Resume has been uploaded`);
+  //       }
+  //       if (
+  //         result.data.errorMessage ==
+  //         "Update Done But No Matching Records Found"
+  //       ) {
+  //         toast.error(`Error, resume can't be uploaded, try again later`);
+  //       }
+  //       setFile(null);
+  //       setStatus("idle");
+  //     }
+  //   } catch (error) {
+  //     setStatus("error");
+  //     toast.error(`Error on uploading file, please try again later`);
+  //     console.log("Cannot upload users resume", error);
+  //   }
+  // }
+
   useEffect(() => {
     async function getLoggedUserData() {
       try {
@@ -255,7 +259,11 @@ export default function ResumeUpload2() {
               setFileUrl(uploadedFile.ufsUrl);
               setFileName(uploadedFile.name);
               try {
-                await handleResumeUpload1();
+                await handleResumeUpload1({
+                  fileKey: uploadedFile.key,
+                  fileUrl: uploadedFile.ufsUrl,
+                  fileName: uploadedFile.name,
+                });
               } catch (error) {
                 console.log("Error on uploading resume", error);
               }
