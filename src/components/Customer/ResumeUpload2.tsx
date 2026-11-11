@@ -69,17 +69,17 @@ export default function ResumeUpload2() {
           status: loggedUser.status,
           subscriptionPlan: loggedUser.subscriptionPlan,
           career: Number(loggedUser.career),
-          email: user.primaryEmailAddress?.emailAddress || "",
+          email: user.primaryEmailAddress?.emailAddress || loggedUser.email,
           currentOrganization: loggedUser.currentOrganization || "",
-          fileKey: loggedUser.fileKey || upload.fileKey || "",
+          fileKey: upload.fileKey || loggedUser.fileKey || "",
           acceptEmailNotification: Boolean(loggedUser.acceptEmailNotification),
           password: loggedUser.password || "",
           firstName: loggedUser.firstName,
           lastName: loggedUser.lastName,
           phoneNumber: loggedUser.phoneNumber || "",
-          attachmentName: upload.fileName,
+          AttachmentName: upload.fileName,
           file: "",
-          imageUrl: upload.fileUrl,
+          ImageUrl: upload.fileUrl || loggedUser.imageUrl || "",
           isActive: Boolean(loggedUser.isActive),
           isDeleted: Boolean(loggedUser.isDeleted)
         };      
@@ -89,8 +89,8 @@ export default function ResumeUpload2() {
           `api/BydUsers/updateUser?id=${loggedUser.id}`,
           // `api/BydUsers/updateUserDetails?email=${loggedUser.email}`,
           updatePayload,
-          { headers: { "Content-Type": "application/json" } },
-          // { headers: { "Content-Type": "multipart/form-data" } },
+          // { headers: { "Content-Type": "application/json" } },
+          { headers: { "Content-Type": "multipart/form-data" } },
         );
         // console.log("UPLOAD RESUME FUNCYION", result.data);
         if (result.data.errorMessage == "Update Done Affected Rows : 1") {

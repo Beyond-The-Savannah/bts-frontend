@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { Button } from "../ui/button";
 import CareerSelection from "./CareerSelection";
 import ResumeUpload2 from "./ResumeUpload2";
+import OrganisationSelectionComponent2 from "./OrganisationSelectionComponent2";
 
 
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
@@ -242,12 +243,13 @@ export default function SubscriptionDetailsUI1({jobViewSubscriptionData,whatsApp
                ) : null}
             </div>
             {jobViewSubscriptionData?.plan.amount !== 600000 && jobViewSubscriptionData!==undefined ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
                 <CareerSelection
                   emailAddress={
                     jobViewSubscriptionData?.customer.email as string
                   }
                 />
+                <OrganisationSelectionComponent2/>
                 <ResumeUpload2 />
               </div>
             ) : null}
