@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import CareerSelection from "./CareerSelection";
 import ResumeUpload2 from "./ResumeUpload2";
 import OrganisationSelectionComponent2 from "./OrganisationSelectionComponent2";
+import CareerSelectionComponent from "./CareerSelectionComponent";
 
 
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
@@ -244,11 +245,12 @@ export default function SubscriptionDetailsUI1({jobViewSubscriptionData,whatsApp
             </div>
             {jobViewSubscriptionData?.plan.amount !== 600000 && jobViewSubscriptionData!==undefined ? (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
-                <CareerSelection
+                {/* <CareerSelection
                   emailAddress={
                     jobViewSubscriptionData?.customer.email as string
                   }
-                />
+                /> */}
+                <CareerSelectionComponent/>
                 <OrganisationSelectionComponent2/>
                 <ResumeUpload2 />
               </div>

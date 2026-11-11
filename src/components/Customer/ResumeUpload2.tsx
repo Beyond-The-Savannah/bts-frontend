@@ -242,7 +242,7 @@ export default function ResumeUpload2() {
           )}
         </div> */}
 
-        <div className="min-h-[20.3rem]  space-y-4 px-4 py-8 bg-bts-BrownOne/50 rounded-lg mt- ">
+        <div className="min-h-[20.3rem] md:min-h-113  space-y-4 px-4 py-8 bg-bts-BrownOne/50 rounded-lg mt- ">
           <p className="font-semibold text-xl">Resume Upload</p>
           <p className=" text-xs">
             Ensure that your resume file is less than 1MB and that the file
@@ -273,7 +273,7 @@ export default function ResumeUpload2() {
               toast.error("Failed to upload resume");
             }}
           />
-          <hr className="border-2 border-y-bts-BrownOne mt-10 " />
+          {/* <hr className="border-2 border-y-bts-BrownOne mt-10 " /> */}
 
           <>
               <hr className="border-2 border-y-bts-BrownOne mt-28 " />
