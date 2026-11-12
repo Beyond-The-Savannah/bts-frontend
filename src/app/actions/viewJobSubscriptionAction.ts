@@ -224,28 +224,28 @@ export async function RemoveUserResume1(fileKey:string, loggedUser:SubscribedUse
   try {
     await utapi.deleteFiles(fileKey)
 
-   const formData = new FormData();
-   
-           formData.append("id", String(loggedUser.id));
-           formData.append("status", loggedUser.status);
-           formData.append("subscriptionPlan", loggedUser.subscriptionPlan);
-           formData.append("career", String(loggedUser.career));
-           formData.append("email", loggedUser.email || "");
-           formData.append("currentOrganization", loggedUser.currentOrganization || "");
-           formData.append("fileKey", loggedUser.fileKey || fileKey);
-           formData.append("acceptEmailNotification", String(loggedUser.acceptEmailNotification));
-           formData.append("password", loggedUser.password || "");
-           formData.append("firstName", loggedUser.firstName);
-           formData.append("lastName", loggedUser.lastName);
-           formData.append("phoneNumber", loggedUser.phoneNumber || "");
-           formData.append("AttachmentName", "");
-           formData.append("file", "");
-           formData.append("ImageUrl", loggedUser.imageUrl || "");
-           formData.append("isActive", String(loggedUser.isActive));
-           formData.append("isDeleted", String(loggedUser.isDeleted));
+   const updatePayload = {
+          id: loggedUser.id,
+          status: loggedUser.status,
+          subscriptionPlan: loggedUser.subscriptionPlan,
+          career: Number(loggedUser.career),
+          email: loggedUser.email,
+          currentOrganization: loggedUser.currentOrganization,
+          fileKey: "",
+          acceptEmailNotification: Boolean(loggedUser.acceptEmailNotification),
+          password: loggedUser.password,
+          firstName: loggedUser.firstName,
+          lastName: loggedUser.lastName,
+          phoneNumber: loggedUser.phoneNumber,
+          attachmentName:  "",
+          file: "",
+          imageUrl: "",
+          isActive: Boolean(loggedUser.isActive),
+          isDeleted: Boolean(loggedUser.isDeleted)
+        }; 
            const result = await axiosInstance.put(
              `api/BydUsers/updateUser?id=${loggedUser.id}`,
-             formData,
+             updatePayload,
              { headers: { "Content-Type": "application/json" } },
            );
            return result.data
