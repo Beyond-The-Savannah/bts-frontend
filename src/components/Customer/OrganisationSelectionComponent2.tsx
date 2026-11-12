@@ -64,10 +64,10 @@ export default function OrganisationSelectionComponent2() {
           password: loggedUser.password ,
           firstName: loggedUser.firstName,
           lastName: loggedUser.lastName,
-          phoneNumber: loggedUser.phoneNumber ,
-          AttachmentName: loggedUser.attachmentName,
-          file: loggedUser.file,
-          ImageUrl:loggedUser.imageUrl ,
+          phoneNumber: loggedUser.phoneNumber || "" ,
+          attachmentName: loggedUser.attachmentName,
+          file: loggedUser.file || "",
+          imageUrl:loggedUser.imageUrl ,
           isActive: Boolean(loggedUser.isActive),
           isDeleted: Boolean(loggedUser.isDeleted)
         };      
@@ -75,8 +75,8 @@ export default function OrganisationSelectionComponent2() {
         const result = await axiosInstance.put(
           `api/BydUsers/updateUser?id=${loggedUser.id}`,
           updatePayload,
-          // { headers: { "Content-Type": "application/json" } },
-          { headers: { "Content-Type": "multipart/form-data" } },
+          { headers: { "Content-Type": "application/json" } },
+          // { headers: { "Content-Type": "multipart/form-data" } },
         );
         // console.log("UPLOAD RESUME FUNCYION", result.data);
         if (result.data.errorMessage == "Update Done Affected Rows : 1") {
