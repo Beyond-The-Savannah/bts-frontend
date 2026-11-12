@@ -9,9 +9,11 @@ import {
   usersProp,
   usersTable,
 } from "@/db/schema";
+import { SubscribedUserProp } from "@/types/subscribedUser";
 import { eq } from "drizzle-orm";
 // import { utapi } from "~/server/uploadthing.ts";
 import { UTApi } from "uploadthing/server";
+import { axiosInstance } from "../dal/remoteData/mutateData";
 
 
 const utapi= new UTApi()
@@ -217,6 +219,43 @@ export async function RemoveUserResume(fileKey:string){
     return {success:false,error:"Failed to delete resume",status:400}
   }
 }
+
+export async function RemoveUserResume1(fileKey:string, loggedUser:SubscribedUserProp){
+  try {
+    await utapi.deleteFiles(fileKey)
+
+   const updatePayload = {
+          id: loggedUser.id,
+          status: loggedUser.status,
+          subscriptionPlan: loggedUser.subscriptionPlan,
+          career: Number(loggedUser.career),
+          email: loggedUser.email,
+          currentOrganization: loggedUser.currentOrganization,
+          fileKey: "",
+          acceptEmailNotification: Boolean(loggedUser.acceptEmailNotification),
+          password: loggedUser.password,
+          firstName: loggedUser.firstName,
+          lastName: loggedUser.lastName,
+          phoneNumber: loggedUser.phoneNumber,
+          attachmentName:  "",
+          file: "",
+          imageUrl: "",
+          isActive: Boolean(loggedUser.isActive),
+          isDeleted: Boolean(loggedUser.isDeleted)
+        }; 
+           const result = await axiosInstance.put(
+             `api/BydUsers/updateUser?id=${loggedUser.id}`,
+             updatePayload,
+             { headers: { "Content-Type": "application/json" } },
+           );
+           return result.data
+  } catch (error) {
+    console.error("Failed to delete resume", error)
+    return {success:false,error:"Failed to delete resume",status:400}
+  }
+}
+
+
 
 
 export async function UpdateSubscriptionDetails(channel:string,reference:string){
