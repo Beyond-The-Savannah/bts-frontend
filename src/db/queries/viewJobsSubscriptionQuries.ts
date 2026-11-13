@@ -96,7 +96,9 @@ const data=await db.select({
   career:accountSettingsTable.careerEmailNotification,
   phoneNumber:candidatesProfileTable.phoneNumber,
   resumeName:candidatesProfileTable.resumeName,
-  resumeUrl:candidatesProfileTable.resumeUrl
+  resumeUrl:candidatesProfileTable.resumeUrl,
+  currentOrganization:candidatesProfileTable.currentOrganisation
+  
 })
 .from(usersTable)
 .leftJoin(subscriptionsTable,eq(subscriptionsTable.userId,usersTable.id))

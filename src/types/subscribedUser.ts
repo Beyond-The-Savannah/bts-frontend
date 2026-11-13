@@ -46,6 +46,7 @@ export interface CombinedSubscribedUsersProp {
   lastName: string;
   phoneNumber:string;
   attachmentName:string;
+  currentOrganization:string;
   file:string;
   imageUrl:string;
   isActive:boolean;

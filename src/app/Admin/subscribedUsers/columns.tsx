@@ -114,6 +114,10 @@ export const columns: ColumnDef<CombinedSubscribedUsersProp>[] = [
     },
   },
   {
+    accessorKey:"currentOrganization",
+    header:"Organisation"
+  },
+  {
     id: "actions",
     header: "actions",
     cell: ({ row }) => {

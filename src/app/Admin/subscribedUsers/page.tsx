@@ -32,6 +32,7 @@ export default async function Page() {
       file:user.file??"",
       firstName:user.firstName===null?"":user.firstName,
       lastName:user.lastName===null?"":user.lastName,
+      currentOrganization:user.currentOrganization??"",
     })),
     ...newSubscriptionData.map((userData)=>{
       const plan=userData.subscriptionTierName && userData.subscriptionType ?`${userData.subscriptionTierName} ${userData.subscriptionType}`:""
@@ -50,6 +51,7 @@ export default async function Page() {
         imageUrl:userData.resumeUrl??"",
         isActive: userData.subscriptionStatus === 'active',
         isDeleted: false,
+        currentOrganization:userData.currentOrganization??"",
         //the following values are needed to enable the edit functionality for subscribed users to work
         subscriptionStatus:userData.subscriptionStatus??"",
         subscriptionType:userData.subscriptionType?? "",
