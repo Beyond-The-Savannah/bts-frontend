@@ -55,42 +55,6 @@ export default function CareerSelectionComponent({
 
   const { data: jobDepartments } = useGetJobSubCategoryDropDownList();
 
-  // // set their carrer in localStorage
-  // useEffect(() => {
-  //   if (value !== null && value !== undefined) {
-  //     const stringValue = value.toString();
-  //     localStorage.setItem("CareerDeparmentValue", stringValue);
-  //   }
-  // }, [value]);
-
-  // // get the carrer from localStorage and update state
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     const storedValue = localStorage.getItem("CareerDeparmentValue") ?? "";
-  //     setSelectedCareerDepartmentValue(storedValue);
-  //   }
-  // }, []);
-
-  // // update the DB with the career selected
-  // useEffect(() => {
-  //   if (
-  //     selectedCareerDepartmentValue !== null &&
-  //     selectedCareerDepartmentValue !== undefined &&
-  //     selectedCareerDepartmentValue !== "" &&
-  //     userEmailAddress
-  //   ) {
-  //     try {
-  //       axiosInstance.put(
-  //         `/api/BydUsers/updateUserDetails?email=${userEmailAddress}`,
-  //         {
-  //           career: parseInt(selectedCareerDepartmentValue),
-  //         },
-  //       );
-  //     } catch (error) {
-  //       console.log("Error in updating your career in DB", error);
-  //     }
-  //   }
-  // }, [selectedCareerDepartmentValue, userEmailAddress]);
 
    useEffect(() => {
     async function getLoggedUserData() {
@@ -113,59 +77,49 @@ export default function CareerSelectionComponent({
   }, [user?.primaryEmailAddress?.emailAddress]);
 
   const handleEmailNotificationChange = async () => {
-    // toast.message("Updating email notification...");
-    // const response = await UpdateUsersEmailNotification({
-      //   userId:String(loggedUser?.id),
-      //   acceptEmailNotification: !emailNotificationState,
-      // });
-      // if (response.success === true) {
-        //   toast.success("Notification updated successfully");
-        //   router.refresh();
-        //   router.push("/Customer");
-        // } else {
-          //   toast.error("Notification update failed");
-          // }
-          toast.message("Updating career email notification...");
-          try{
-            if (
-              loggedUser !== undefined &&
-              (user != undefined || user != null)
-            ) 
-            
-            {
+    toast.message("Updating career email notification...");
+    try{
+      if (
+        loggedUser !== undefined &&
+        (user != undefined || user != null)
+      ) 
+      
+      {
         // setEmailNotificationState(!loggedUser.acceptEmailNotification);
         setEmailNotificationState(!emailNotificationState);
-       
+    
 
-        const updatePayload = {
+        const updatePayload1 = {
           id: loggedUser.id,
           status: loggedUser.status,
           subscriptionPlan: loggedUser.subscriptionPlan,
-          career: value || Number(loggedUser.career),
+          career: Number(loggedUser.career),
           email: user.primaryEmailAddress?.emailAddress || loggedUser.email,
           currentOrganization:loggedUser.currentOrganization,
-          fileKey:loggedUser.fileKey ,
-          acceptEmailNotification: emailNotificationState ,
-          password: loggedUser.password ,
-          firstName: loggedUser.firstName,
-          lastName: loggedUser.lastName,
-          phoneNumber: loggedUser.phoneNumber ,
-          AttachmentName: loggedUser.attachmentName,
-          file: loggedUser.file,
-          ImageUrl:loggedUser.imageUrl ,
+          fileKey:loggedUser.fileKey==null ?"":loggedUser.fileKey ,
+          acceptEmailNotification: emailNotificationState,
+          password: loggedUser.password==null? "":loggedUser.password,
+          firstName: loggedUser.firstName==null ?"":loggedUser.firstName,
+          lastName: loggedUser.lastName ==null ?"":loggedUser.lastName,
+          phoneNumber: loggedUser.phoneNumber==null ?"":loggedUser.phoneNumber ,
+          attachmentName: loggedUser.attachmentName==null?"":loggedUser.attachmentName,
+          file: loggedUser.file==null ?"":"",
+          imageUrl:loggedUser.imageUrl ,
           isActive: Boolean(loggedUser.isActive),
           isDeleted: Boolean(loggedUser.isDeleted)
-        };      
+        }; 
 
         const result = await axiosInstance.put(
           `api/BydUsers/updateUser?id=${loggedUser.id}`,
-          updatePayload,
-          // { headers: { "Content-Type": "application/json" } },
-          { headers: { "Content-Type": "multipart/form-data" } },
+          updatePayload1,
+          { headers: { "Content-Type": "application/json" } },
+          // { headers: { "Content-Type": "multipart/form-data" } },
         );
         // console.log("UPLOAD RESUME FUNCYION", result.data);
         if (result.data.errorMessage == "Update Done Affected Rows : 1") {
           toast.success(`Career email notification has been updated`);
+          // router.refresh()
+          router.push("/Customer");
         }
         if (
             result.data.errorMessage ==
@@ -174,10 +128,8 @@ export default function CareerSelectionComponent({
             toast.error(`Error, career email notification can't be updated, try again later`);
         }
         
-        console.log("UPLOAD Career Email Notification FUNCTION", updatePayload);
-        // router.refresh()
+        console.log("UPLOAD Career Email Notification FUNCTION", updatePayload1);
       }
-      router.push("/Customer");
   }
     catch(error){
       console.log("Error updating career email notification",error);
@@ -201,15 +153,15 @@ export default function CareerSelectionComponent({
           career: value || Number(loggedUser.career),
           email: user.primaryEmailAddress?.emailAddress || loggedUser.email,
           currentOrganization:loggedUser.currentOrganization,
-          fileKey:loggedUser.fileKey ,
+          fileKey:loggedUser.fileKey==null ?"":loggedUser.fileKey ,
           acceptEmailNotification: Boolean(loggedUser.acceptEmailNotification),
-          password: loggedUser.password ,
-          firstName: loggedUser.firstName,
-          lastName: loggedUser.lastName,
-          phoneNumber: loggedUser.phoneNumber ,
-          AttachmentName: loggedUser.attachmentName,
-          file: loggedUser.file,
-          ImageUrl:loggedUser.imageUrl ,
+          password: loggedUser.password==null? "":loggedUser.password,
+          firstName: loggedUser.firstName==null ?"":loggedUser.firstName,
+          lastName: loggedUser.lastName ==null ?"":loggedUser.lastName,
+          phoneNumber: loggedUser.phoneNumber==null ?"":loggedUser.phoneNumber ,
+          attachmentName: loggedUser.attachmentName==null?"":loggedUser.attachmentName,
+          file: loggedUser.file==null ?"":"",
+          imageUrl:loggedUser.imageUrl ,
           isActive: Boolean(loggedUser.isActive),
           isDeleted: Boolean(loggedUser.isDeleted)
         };      
@@ -217,8 +169,8 @@ export default function CareerSelectionComponent({
         const result = await axiosInstance.put(
           `api/BydUsers/updateUser?id=${loggedUser.id}`,
           updatePayload,
-          // { headers: { "Content-Type": "application/json" } },
-          { headers: { "Content-Type": "multipart/form-data" } },
+          { headers: { "Content-Type": "application/json" } },
+          // { headers: { "Content-Type": "multipart/form-data" } },
         );
         // console.log("UPLOAD RESUME FUNCYION", result.data);
         if (result.data.errorMessage == "Update Done Affected Rows : 1") {
@@ -248,81 +200,7 @@ export default function CareerSelectionComponent({
   );
   return (
     <>
-      {/* {selectedCareerDepartmentValue ? (
-        <>
-          <p className="text-xs">
-            Selected Career:
-            <span className="font-semibold text-base pl-2">
-              {selectedCareer?.label}
-            </span>{" "}
-          </p>
-        </>
-      ) : (
-        <div className="space-y-4">
-          <p className="text-">
-            Please select a career category that best matches your career
-          </p>
-          <div className="bg-gray-300 px-4 py-4 max-w-lg text-sm flex items-center gap-1 rounded-lg">
-            <TriangleAlertIcon /> You can only select your career once, hence
-            select carefully
-          </div>
-          <div className="c">
-            <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  role="combobox"
-                  aria-expanded={open}
-                  className="w-full  justify-between"
-                >
-                  {value !== null
-                    ? jobDepartments?.find(
-                        (department) => department.value === value,
-                      )?.label
-                    : "Type & Select A Career"}
-                  <ChevronsUpDown className="opacity-50" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="min-w-[380px] p-0">
-                <Command>
-                  <CommandInput placeholder="Search Career Name..." />
-                  <CommandList>
-                    <CommandEmpty>Career not found</CommandEmpty>
-                    <CommandGroup>
-                      {jobDepartments?.map((department, index) => (
-                        <CommandItem
-                          key={index}
-                          value={department.label}
-                          onSelect={(selectedLabel) => {
-                            const selectedDepartment = jobDepartments.find(
-                              (department) => department.label == selectedLabel,
-                            );
-                            setValue(
-                              selectedDepartment
-                                ? selectedDepartment.value
-                                : null,
-                            );
-                            setOpen(false);
-                          }}
-                        >
-                          <Check
-                            className={clsx(
-                              value == department.value
-                                ? "opacity-100"
-                                : "opacity-0",
-                            )}
-                          />
-                          {department.label}
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
-          </div>
-        </div>
-      )} */}
+  
 
        <section className="py-10">
               <div className=" space-y-6  px-4 py-8 min-h-[20.3rem] md:min-h-113 bg-bts-BrownOne/50 rounded-lg ">
@@ -403,7 +281,7 @@ export default function CareerSelectionComponent({
                   </div>
                   <hr className="border-2 border-y-bts-BrownOne mt-12 " />
                   {/* {selectedCareer?.value && ( */}
-                  {loggedUser?.career && (
+                  {loggedUser?.career ? (
                     <div className=" rounded-lg px-4 text-start bg-amber-100 max-w-sm border- border-dotted">
                       <p className="text-xs py-2 space-y-2">
                         <span className="block text-[0.6rem]">Selected Career :</span>
@@ -412,7 +290,7 @@ export default function CareerSelectionComponent({
                         </span>{" "}
                       </p>
                     </div>
-                  )}
+                  ): null}
                   <div className="flex items-center gap-2 w-full ">
                     <p className="text-xs">
                       Get email notification for new jobs postings

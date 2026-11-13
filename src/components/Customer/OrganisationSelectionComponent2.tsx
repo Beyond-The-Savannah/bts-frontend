@@ -58,15 +58,15 @@ export default function OrganisationSelectionComponent2() {
           subscriptionPlan: loggedUser.subscriptionPlan,
           career: Number(loggedUser.career),
           email: user.primaryEmailAddress?.emailAddress || loggedUser.email,
-          currentOrganization: organisation || value || loggedUser.currentOrganization,
-          fileKey:loggedUser.fileKey ,
+          currentOrganization: organisation || value || loggedUser.currentOrganization==null &&"",
+          fileKey:loggedUser.fileKey==null ?"":loggedUser.fileKey ,
           acceptEmailNotification: Boolean(loggedUser.acceptEmailNotification),
-          password: loggedUser.password ,
-          firstName: loggedUser.firstName,
-          lastName: loggedUser.lastName,
-          phoneNumber: loggedUser.phoneNumber || "" ,
-          attachmentName: loggedUser.attachmentName,
-          file: loggedUser.file || "",
+          password: loggedUser.password==null ?"":loggedUser.password ,
+          firstName: loggedUser.firstName==null ?"":loggedUser.firstName,
+          lastName: loggedUser.lastName ==null ?"":loggedUser.lastName,
+          phoneNumber: loggedUser.phoneNumber ==null ?"":loggedUser.phoneNumber ,
+          attachmentName: loggedUser.attachmentName==null ?"":loggedUser.attachmentName,
+          file: loggedUser.file==null ?"":"",
           imageUrl:loggedUser.imageUrl ,
           isActive: Boolean(loggedUser.isActive),
           isDeleted: Boolean(loggedUser.isDeleted)
@@ -214,7 +214,7 @@ export default function OrganisationSelectionComponent2() {
             )}
           </div>
           <hr className="border-2 border-y-bts-BrownOne mt-12 " />
-          {loggedUser?.currentOrganization != "" && (
+          {loggedUser?.currentOrganization?(
             <div className=" rounded-lg px-4 text-start bg-amber-100 max-w-sm border- border-dotted">
               <p className="text-xs py-2 space-y-2">
                 <span className="block text-[0.6rem]">
@@ -226,7 +226,7 @@ export default function OrganisationSelectionComponent2() {
                 </span>{" "}
               </p>
             </div>
-          )}
+          ):null}
         </div>
       </div>
     </section>
