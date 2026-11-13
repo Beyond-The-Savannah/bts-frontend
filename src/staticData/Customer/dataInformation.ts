@@ -1,3 +1,5 @@
+
+
 export const kenyaOrganisations = [
   // ==========================================
   // --- HIGHER LEARNING & TRAINING INSTITUTIONS ---
@@ -115,6 +117,12 @@ export const kenyaOrganisations = [
     name: "Rift Valley Institute of Science and Technology (RVIST)",
     type: "learning",
     category: "TVET Institution",
+  },
+  {id:49,
+    name:"Laikipia University",
+    type:"Learning",
+    category:"Public",
+
   },
 
   // ==========================================
@@ -287,6 +295,11 @@ export const kenyaOrganisations = [
     name: "Kenya Revenue Authority (KRA)",
     type: "work",
     category: "Government / Public Sector",
+  },
+    {id:48,
+    name:"WYLDE International",
+    type:"work",
+    category:"Consultancy",
   },
   
 ];

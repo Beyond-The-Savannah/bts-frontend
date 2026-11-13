@@ -141,7 +141,7 @@ export const candidatesProfileTable=pgTable("candidatesProfiles",{
 })
 export const accountSettingsTable=pgTable("accountSettings",{
   id:uuid("id").primaryKey().defaultRandom(),
-  userId:uuid("user_id").notNull().references(()=>usersTable.id,{onDelete:"no action"}),
+  userId:uuid("user_id").notNull().unique().references(()=>usersTable.id,{onDelete:"no action"}),
   careerEmailNotification:numeric("career_email_notification"),
   acceptEmailNotification:boolean("accept_email_notification").default(true),
   deleteAccount:boolean("delete_account").default(false),
