@@ -38,6 +38,7 @@ import { axiosInstance } from "@/app/dal/remoteData/mutateData";
 import ResumeAnalyseBtn from "./ResumeAnalyseBtn";
 import rehypeRaw from "rehype-raw";
 import { UploadedResumeDataProps } from "@/types/subscriptions";
+import ResumeAnalyseBtn2 from "./ResumeAnalyseBtn2";
 
 export default function ViewJob({
   jobsId,
@@ -170,13 +171,41 @@ export default function ViewJob({
                     </Link>
                   </Button>
 
-                  {singleJob &&
+                  {/* {singleJob &&
                     (loggedUser != undefined ||
                       userResume?.resumeUrl != null) &&
                     loggedUser?.imageUrl != "" && (
                       <>
                         <div className="relative">
                           <ResumeAnalyseBtn
+                            loggedUser={loggedUser}
+                            userResumeUrl={userResume?.resumeUrl as string}
+                            singleJob={singleJob}
+                            generation={generation}
+                            setGeneration={setGeneration}
+                          />
+                          <div className="rounded-lg bg-sky-50 px-3 py-4 mt-2 mb-10 md:absolute md:top-12 w-full md:w-12/12">
+                            <div className="prose prose-sm">
+                              
+                              <ReactMarkdown
+                                remarkPlugins={[remarkGfm]}
+                                rehypePlugins={[rehypeRaw]}
+                              >
+                                {generation}
+                              </ReactMarkdown>
+                            </div>
+                           
+                          </div>
+                        </div>
+                      </>
+                    )} */}
+                  {singleJob &&
+                    (loggedUser != undefined ||
+                      userResume?.resumeUrl != null) &&
+                    loggedUser?.imageUrl != "" && (
+                      <>
+                        <div className="relative">
+                          <ResumeAnalyseBtn2
                             loggedUser={loggedUser}
                             userResumeUrl={userResume?.resumeUrl as string}
                             singleJob={singleJob}

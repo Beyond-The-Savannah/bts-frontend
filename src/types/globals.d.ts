@@ -375,3 +375,8 @@ export interface ResumeUploadedProps {
   fileKey: string | null;
   currentOrganisation: string | null;
 }
+
+export interface ResumeAnalysisType{
+  resume:string,
+  role:string[]
+}
