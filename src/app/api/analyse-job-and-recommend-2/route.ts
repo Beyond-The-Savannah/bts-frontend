@@ -1,153 +1,129 @@
-import { resumeSchema } from "@/schemas/resumeSchema"
-import { ResumeAnalysisType } from "@/types/globals"
+import { resumeSchema2 } from "@/schemas/resumeSchema2";
 import { createOpenAI } from "@ai-sdk/openai";
+import { Output, streamText } from "ai";
+import axios from "axios";
 
-import { Output, streamText } from "ai"
-import axios from "axios"
-
+export const maxDuration = 120; // structured analysis + full resume can take a while
 
 const openai = createOpenAI({ apiKey: process.env.OPEN_AI_KEY });
 
-const SavannahAnalysisTemplate = `You are Savannah — a remote work assistant and career specialist whose ONLY data sources are:
-  1) the candidate resume text provided in the current user turn, and
-  2) the job description text provided in the current user turn.
+// Use a stronger model than "nano" if you can afford it: strict verbatim-quote
+// compliance + resume rewriting is where small models slip.
+const MODEL = process.env.RESUME_MODEL ?? "gpt-5.4-nano-2026-03-17";
 
-IMMUTABLE RULE (Highest priority — do NOT break):
-  • You MUST NOT use any knowledge, inference, assumption, or outside context beyond the provided resume and job description texts.
-  • You MUST NOT invent universities, degrees, skills, companies, dates, or responsibilities.
-  • If a claim cannot be supported by an exact verbatim snippet from the resume (see Evidence Rule), you MUST output: "Not found / Unable to determine from resume." and must NOT assert it.
+type RequestBody = {
+  question: {
+    resume: string; // URL to the PDF
+    role: string; // full job description text
+    confirmedAdditions?: string[]; // facts the user confirmed are TRUE (from a previous run's gaps)
+  };
+};
 
-EVIDENCE RULE (enforced for every claim):
-  • For every factual claim about the candidate (industry, job title, responsibilities, education, certifications, skills, years), include at least one VERBATIM quoted snippet from the resume that directly supports that claim.
-  • After each quote, label the resume section and page/location where it was found in parentheses. Example: "Bachelors of Science..." (Education, page 3).
-  • If no verbatim snippet exists, write exactly: "Not found / Unable to determine from resume."
+const SavannahAnalysisTemplate = `You are Savannah — a remote work assistant and career specialist. Your ONLY data sources are:
+  1) the candidate's resume (attached PDF), and
+  2) the job description in the user turn, and
+  3) the optional list "CONFIRMED ADDITIONS", which are facts the candidate has personally confirmed are true.
+Treat CONFIRMED ADDITIONS as part of the resume for all purposes, but cite them as (Candidate-confirmed) instead of a page number.
 
-DATA USAGE RULES:
-  • Resume = source of truth for candidate background. Use job description ONLY to extract role requirements (must-haves, preferreds) for comparison.
-  • Do NOT reinterpret or relabel resume entries based on job-description language. E.g., if resume lists "Information and Communication Technology", you must NOT output "Computer Science" unless the resume literally says "Computer Science".
-  • Do NOT expand short lists or change tokens. If the resume lists "Javascript Typescript React NextJs", output those tokens verbatim; do not add or substitute "Java, Python, C++".
+You do two jobs:
+  JOB A — Score and analyse the resume against the job description.
+  JOB B — Regenerate an ATS-optimised resume tailored to the job description.
 
-ANALYSIS STEPS (strict order — do not skip):
-  1. Candidate Background Verification (MUST be the first section)
-     - For each of: Industry/field; Job titles & responsibilities; Education & field of study; Technical skills & certifications:
-       • Provide verbatim resume quote(s) that support each item.
-       • If nothing supports an item, write "Not found / Unable to determine from resume."
-     - Do NOT proceed past this step until all items above are addressed.
+IMMUTABLE RULES (highest priority):
+  • Never invent or infer universities, degrees, skills, tools, companies, titles, dates, metrics, team sizes, achievements or responsibilities, in the analysis OR the regenerated resume.
+  • Never add a skill/tool/certification from the job description that is not evidenced in the resume or CONFIRMED ADDITIONS. Missing items go in "missingRequirements" and "itemsToAddManually", never in the regenerated resume.
+  • Never relabel resume entries (e.g. "Information and Communication Technology" must not become "Computer Science").
+  • Copy job titles, employers, institutions, degrees, dates, certifications and contact details exactly as written. If a contact field is missing, use "[Not provided in original resume]".
 
-  2. Mandatory Requirement Check
-     - Extract MUST-HAVE requirements from the job description (quote them).
-     - For each requirement, answer: "Proven in resume" OR "Not found / Unable to determine from resume." Include the supporting verbatim quote if proven.
+JOB A — ANALYSIS
+Evidence rule: every factual claim about the candidate needs a VERBATIM quote from the resume plus its location, e.g. "Bachelors of Science..." (Education, page 3). If no quote exists, the evidence must be exactly "Not found / Unable to determine from resume." and the claim must not be asserted.
 
-  3. Skills Alignment
-     - Compare only skills verbatim-present in the resume to the job description skills.
-     - Do NOT assume synonyms, categories, or implied skills.
+Steps:
+  1. Extract every requirement from the job description (must-have vs preferred), using the job's own wording.
+  2. For each one, set status: "proven" (direct verbatim evidence), "partial" (related but not the same thing; quote it), or "not_found". Do not assume synonyms or implied skills.
+  3. Identify strengths (each with a verbatim quote).
+  4. List missing requirements and, for each, say where it would go on the resume IF the candidate truly has it.
+  5. Assess the ORIGINAL resume's ATS formatting issues (e.g. no clear section headings, skills buried in paragraphs, inconsistent dates, columns/tables/graphics, missing contact info).
 
-  4. Experience Relevance
-     - For each claimed relevant experience, include the verbatim excerpt from the resume that justifies the claim.
-     - If the resume lacks direct evidence, mark it as "Not found / Unable to determine from resume."
+Scoring: compute each breakdown component 0-100, then
+  overallScore = 0.35*requiredSkills + 0.30*experienceRelevance + 0.15*keywordCoverage + 0.10*educationAndCertifications + 0.10*atsFormatting
+Round to a whole number. Must-have gaps weigh more heavily than preferred gaps. Set scoreLabel from:
+  90-100 Exceptional | 80-89 Strong | 70-79 Good | 60-69 Moderate | 50-59 Weak | 40-49 Poor | 30-39 Very poor | 20-29 Extremely poor | 10-19 Critical mismatch | 0-9 Total mismatch.
+Set cvRevampRecommended = true ONLY if overallScore < 70 AND the candidate's proven background is in a different field from the job. In that case, the "summary" must state that structural optimisation cannot close a core qualification gap and recommend the CV Revamp service: https://beyondthesavannah.co.ke/service/ats-cv-revamp
 
-  5. Industry/Domain Match
-     - State whether the resume-proven background aligns with the job field. Use only resume quotes to support alignment or write "Unable to determine industry alignment."
+JOB B — REGENERATED RESUME (this is how the resume "passes the ATS")
+Do:
+  • Put the most job-relevant genuine experience, skills and certifications first.
+  • Use these sections, in this order, omitting empty ones: name, professional background, contact, professional summary, technical skills, professional experience, education, certifications.
+  • Mirror the job description's exact terminology ONLY where the resume already evidences the same thing (e.g. resume says "React", job says "React.js"). List every such case in "keywordsMirrored" with the verbatim resume evidence.
+  • Group skills sensibly, keeping every skill token exactly as written.
+  • Start bullets with strong action verbs and tighten wording without changing meaning or adding any fact, number, scope or outcome. Where a job-relevant responsibility exists, surface it near the top of that role's bullets.
+  • Write a 2-3 sentence professional summary using only resume facts. State years of experience only if the resume states it verbatim. No superlatives.
+  • Keep it plain text: no tables, columns, icons, emojis, markdown, or inline quotes/commentary.
+Do not:
+  • Pad sections, estimate metrics, or fill gaps.
+  • Include anything that cannot be traced back to the resume or CONFIRMED ADDITIONS.
 
-Scoring Framework (Strict)
-   - 90-100%: Exceptional match - exceeds most requirements with directly relevant experience.  
-   - 80-89%: Strong match - meets most requirements with close alignment.  
-   - 70-79%: Good match - meets some requirements, notable gaps.  
-   - 60-69%: Moderate match - limited alignment, significant gaps.  
-   - 50-59%: Weak match - major misalignment.  
-   - 40-49%: Poor match - little relevance.  
-   - 30-39%: Very poor match - minimal transferable skills.  
-   - 20-29%: Extremely poor match - strong mismatch.  
-   - 10-19%: Critical mismatch - completely different field.  
-   - 0-9%: Total mismatch - no alignment whatsoever. 
-   
+"itemsToAddManually": list each missing requirement, missing contact detail or missing metric, each phrased as "Add only if true: ...".
 
-ATS Resume Template Reference:
-   - Your Full Name
-   - Your Professional Background  
-   - Contact Information
-   - Professional Summary
-   - Technical Skills
-   - Professional Experience
-   - Education
-   - Certifications
+If the resume has conflicting entries, quote both ("Conflicting entries (quote1) vs (quote2)") in the analysis, omit the conflicting detail from the regenerated resume, and list it in itemsToAddManually.
 
-FINAL VERIFICATION CHECK (MUST-run before any output):
-  • For every asserted fact in the outgoing response, there must be at least one VERBATIM quote from the resume included directly beneath that fact.
-  • If any asserted fact lacks a supporting quote, remove the assertion and output "Not found / Unable to determine from resume."
-  • Do NOT paraphrase evidence as justification — quotes are mandatory.
+FINAL CHECK before output: scan the regenerated resume line by line and delete anything not traceable to the resume or CONFIRMED ADDITIONS. Scan the analysis and remove any assertion lacking a verbatim quote.`;
 
-OUTPUT FORMAT (strict order and naming):
-  1) Overall Score: /100 with justification (justify only using resume evidence and job-description requirements).
-  2) Candidate Background Verification — list each field with verbatim evidence or "Not found / Unable to determine from resume."
-  3) Critical Gaps — list MUST-HAVES from job description that are "Not found / Unable to determine from resume."
-  4) Strengths — only items verbatim-proven in the resume (quote each).
-  5) Actionable Recommendations — only suggest training/skills; make clear these are recommendations (not resume facts).
-  6) ATS Optimization Advice — 
-     • IF the score is 70% or higher AND the resume lacks proper ATS structure: Recommend structural adjustments.
-     • IF the score is below 70% AND there is an industry mismatch: State that structural optimization cannot fix a core qualification gap, and explicitly recommend the CV Revamp service (https://beyondthesavannah.co.ke/service/ats-cv-revamp) to completely realign the profile toward this new target domain.
-  7) Summary — A concise final evaluation summarizing the alignment or scale of the industry mismatch.
-  Provide your response in Markdown format using:
-  - ### for main headings (e.g., # Overall Score)
-  - #### for subheadings
-  - - for bullet points
-  - **bold** for emphasis where appropriate.
-
-PROHIBITED BEHAVIORS (explicit):
-  • Never invent or substitute degree names, institutions, or skills.
-  • Never map resume fields to different fields (e.g., ICT → Computer Science) unless the resume explicitly contains the mapped text.
-  • Never include fuzzy or inferred claims such as "experienced in X" unless a verbatim resume line supports "experienced in X".
-  • Never output a skill, university, employer, certification, or title that does not appear verbatim in the provided resume.
-
-ERROR REPORTING:
-  • If you detect any ambiguity in the resume (conflicting lines), quote both snippets and label them "Conflicting entries (quote1) vs (quote2)". Do not choose one unless resume makes it explicit.
-
-EXAMPLE (required behavior for verification):
-  • If the resume contains:
-      Education: "Bachelors of Science in information and Communication Technology — Laikipia University"
-      Skills: "Programming languages and frameworks Javascript Typescript React NextJs"
-    Then your Candidate Background Verification MUST include those exact quotes and MUST NOT claim: "Bachelor of Science in Computer Science from ABC University" or "Skills: Java, Python, C++".`;
- 
+export async function POST(request: Request) {
     
-export async function POST(request:Request){
+  let body: RequestBody;
+  try {
+    body = await request.json();
+  } catch {
+    return new Response("Invalid JSON body", { status: 400 });
+  }
 
-    const {question}:{question:ResumeAnalysisType}=await request.json()
+  const { resume, role, confirmedAdditions = [] } = body.question ?? ({} as RequestBody["question"]);
 
-    try {
-        
-        const response=await axios.get(question.resume,{responseType:"arraybuffer"})
-        const resumeBuffer=Buffer.from(response.data)
+  if (!resume || !role?.trim()) {
+    return new Response("Both 'resume' and 'role' (job description) are required", { status: 400 });
+  }
 
-        const result=streamText({
-            model:openai("gpt-5.4-nano-2026-03-17"),
-            system:SavannahAnalysisTemplate,
-            output:Output.object({
-                schema:resumeSchema
-            }),
-            messages:[
-                {
-                    role:'user',
-                    content:[
-                        {
-                            type:'text',
-                            text:`Analyse my resume for the provided job description ${question.role} and then generate a new resume that with the updated recommedations`,
-                        },
-                        {
-                            type:'file',
-                            data:resumeBuffer,
-                            mediaType:'application/pdf'
-                        }
-                    ]
-                }
-            ]
-        })
-        // Route handlers must return a Response; `partialOutputStream` is a raw
-        // ReadableStream. `toUIMessageStreamResponse()` sends the same SSE
-        // `data: {...}` frames the client already parses.
-        // return result.toUIMessageStreamResponse()
-        return result.toTextStreamResponse()
-    } catch (error) {
-        console.log('API Error from analyse job and recommend 2 end point',error)
-        return new Response("Internal Server Error",{status:500})
-    }
+  try {
+    const response = await axios.get(resume, {
+      responseType: "arraybuffer",
+      timeout: 15_000,
+      maxContentLength: 10 * 1024 * 1024, // 10 MB cap
+    });
+    const resumeBuffer = Buffer.from(response.data);
+
+    const additionsBlock = confirmedAdditions.length
+      ? `\n\nCONFIRMED ADDITIONS (candidate-verified as true; treat as part of the resume):\n${confirmedAdditions
+          .map((a) => `- ${a}`)
+          .join("\n")}`
+      : "\n\nCONFIRMED ADDITIONS: none";
+
+    const result = streamText({
+      model: openai(MODEL),
+      system: SavannahAnalysisTemplate,
+      output: Output.object({ schema: resumeSchema2 }),
+      messages: [
+        {
+          role: "user",
+          content: [
+            {
+              type: "text",
+              text: `Score my resume against the job description below, then regenerate an ATS-optimised version tailored to it.\n\nJOB DESCRIPTION:\n${role}${additionsBlock}`,
+            },
+            {
+              type: "file",
+              data: resumeBuffer,
+              mediaType: "application/pdf",
+            },
+          ],
+        },
+      ],
+    });
+
+    return result.toTextStreamResponse();
+  } catch (error) {
+    console.error("API Error from analyse job and recommend endpoint", error);
+    return new Response("Internal Server Error", { status: 500 });
+  }
 }
