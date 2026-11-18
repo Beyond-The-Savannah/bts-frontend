@@ -116,258 +116,260 @@ export default function ResumeAnalyseBtn2({ loggedUser, userResumeUrl, singleJob
 
   return (
     <>
-      <div className="flex gap-2 ">
-        <Button
-          className="bg-bts-GreenOne hover:scale-105 transition duration-500 rounded md:w-76 flex hover:cursor-pointer"
-          disabled={isLoading}
-          onClick={() => runAnalysis()}
-        >
-          {isLoading ? "Analysing your resume please wait..." : "Analyse my resume for this role"}
-          <DisplayImageFromNextCloudinary
-            src="kazina_upvlpf"
-            height={800}
-            width={800}
-            alt="savannah avatar"
-            classname="size-12 -mt-10"
-          />
-        </Button>
-        {isLoading && (
-          <Button variant="outline" onClick={() => stop()}>
-            Stop
+      <div className="">
+        <div className="flex gap-2 ">
+          <Button
+            className="bg-bts-GreenOne hover:scale-105 transition duration-500 rounded md:w-76 flex hover:cursor-pointer"
+            disabled={isLoading}
+            onClick={() => runAnalysis()}
+          >
+            {isLoading ? "Analysing..." : "Analyse my resume for this role"}
+            <DisplayImageFromNextCloudinary
+              src="kazina_upvlpf"
+              height={800}
+              width={800}
+              alt="savannah avatar"
+              classname="size-12 -mt-10"
+            />
           </Button>
-        )}
-      </div>
-
-      {error && (
-        <p className="text-red-600 my-4">
-          Something went wrong analysing your resume. Please try again.
-        </p>
-      )}
-      <div className="px-2 py-8 h-[75dvh] overflow-y-auto">
-
-      {/* ---------- SCORE ---------- */}
-      {object?.overallScore !== undefined && (
-        <section className="border rounded-md p-4 my-6">
-          <p className="text-4xl font-bold">
-            {object.overallScore}
-            <span className="text-lg font-normal">/100</span>
-            {object.scoreLabel && <span className="text-lg font-semibold ml-3">{object.scoreLabel}</span>}
-          </p>
-          <p className="mt-2">{object.scoreJustification}</p>
-
-          <ul className="mt-4 space-y-2">
-            {breakdownRows.map(([label, value]) =>
-              value === undefined ? null : (
-                <li key={label}>
-                  <div className="flex justify-between text-sm">
-                    <span>{label}</span>
-                    <span>{value}%</span>
-                  </div>
-                  <div className="h-2 bg-gray-200 rounded">
-                    <div className="h-2 bg-bts-GreenOne rounded" style={{ width: `${value}%` }} />
-                  </div>
-                </li>
-              )
-            )}
-          </ul>
-        </section>
-      )}
-
-      {/* ---------- STRENGTHS ---------- */}
-      {!!object?.strengths?.length && (
-        <section className="my-6">
-          <h3 className="font-bold">Strengths</h3>
-          <ul className="list-disc pl-5">
-            {object.strengths.map((s, i) => (
-              <li key={i}>
-                {s?.strength}
-                {s?.evidence && <span className="block text-sm italic text-gray-600">{s.evidence}</span>}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {/* ---------- GAPS + CONFIRM ---------- */}
-      {!!object?.missingRequirements?.length && (
-        <section className="border rounded-md p-4 my-6">
-          <h3 className="font-bold">Gaps found</h3>
-          <p className="text-sm text-gray-600 mb-3">
-            If you genuinely have any of these, describe it briefly and regenerate. Leave blank
-            anything that isn&apos;t true, and it will not be added to your CV.
-          </p>
-          <ul className="space-y-4">
-            {object.missingRequirements.map((m, i) => {
-              if (!m?.requirement) return null;
-              return (
-                // <li key={i}>
-                //   <p className="font-semibold">
-                //     {m.requirement}
-                //     {m.importance && (
-                //       <span className="ml-2 text-xs uppercase text-gray-500">
-                //         {m.importance.replace("_", " ")}
-                //       </span>
-                //     )}
-                //   </p>
-                //   <p className="text-sm text-gray-600">{m.howToAddIfTrue}</p>
-                //   <input
-                //     className="mt-1 w-full border rounded px-2 py-1 text-sm"
-                //     placeholder="I have this: where/how did you use it?"
-                //     value={additions[m.requirement] ?? ""}
-                //     onChange={(e) =>
-                //       setAdditions((prev) => ({ ...prev, [m.requirement!]: e.target.value }))
-                //     }
-                //   />
-                // </li>
-                <li key={i}>
-  <p className="font-semibold">
-    {m.requirement}
-    {m.importance && (
-      <span className="ml-2 text-xs uppercase text-gray-500">
-        {m.importance.replace("_", " ")}
-      </span>
-    )}
-  </p>
-  <p className="text-sm text-gray-600 mb-1">{m.howToAddIfTrue}</p>
-  <ReactQuill
-    theme="snow"
-    modules={quillModules}
-    placeholder="I have this: where/how did you use it?"
-    value={additions[m.requirement] ?? ""}
-    onChange={(content) =>
-      setAdditions((prev) => ({ ...prev, [m.requirement!]: content }))
-    }
-  />
-</li>
-              );
-            })}
-          </ul>
-          <Button className="mt-4" disabled={isLoading} onClick={rerunWithAdditions}>
-            Regenerate with my additions
-          </Button>
-        </section>
-      )}
-
-{!!object?.itemsToAddManually?.length && (
-        <section className="my-6">
-          <h3 className="font-bold">Items to add manually</h3>
-          <ul className="list-disc pl-5">
-            {object.itemsToAddManually.map((x, i) => (
-              <li key={i}>{x}</li>
-            ))}
-          </ul>
-        </section>
-      )}
-      f
-      {!!object?.atsFormatIssues?.length && (
-        <section className="my-6">
-          <h3 className="font-bold">ATS formatting issues in your original CV</h3>
-          <ul className="list-disc pl-5">
-            {object.atsFormatIssues.map((x, i) => (
-              <li key={i}>{x}</li>
-            ))}
-          </ul>
-        </section>
-      )}
-      
-
-      {object?.summary && (
-        <section className="my-6">
-          <h3 className="font-bold">Summary</h3>
-          <p>{object.summary}</p>
-          {object.cvRevampRecommended && (
-            <a
-              className="underline text-bts-GreenOne"
-              href="https://beyondthesavannah.co.ke/service/ats-cv-revamp"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Explore the CV Revamp service
-            </a>
+          {isLoading && (
+            <Button variant="outline" onClick={() => stop()}>
+              Stop
+            </Button>
           )}
-        </section>
-      )}
+        </div>
 
-      {/* ---------- REGENERATED RESUME ---------- */}
-      {r && (
-        <>
-          <div className="flex items-center justify-between mt-8">
-            <div className="hidden">
-              <h3 className="font-bold">Your ATS-optimised resume</h3>
-              <Button variant="outline" onClick={copyResume} disabled={isLoading}>
-                {copied ? "Copied!" : "Copy as text"}
-              </Button>
-            </div>
-            <Button onClick={reactToPrintFn} className="gap-2 hover:scale-105 transition hover:bg-lime-900 duration-500 hover:cursor-pointer">Download Your Optimized Resume <Download/></Button>
-          </div>
+        {error && (
+          <p className="text-red-600 my-4">
+            Something went wrong analysing your resume. Please try again.
+          </p>
+        )}
+        <div className={`px-2 py-8 mt-4 h-[75dvh] ${object?.overallScore !== undefined && "bg-sky-50" }  prose prose-sm overflow-y-auto`}>
 
-          <div ref={contentRef} className="px-4 py-8 border rounded-md my-4">
-            <p className="text-center text-xl font-bold">{r.fullName}</p>
-            {/* {r.professionalBackground && <p className="text-center">{r.professionalBackground}</p>} */}
-            {r.professionalTitle && <p className="text-center">{r.professionalTitle}</p>}
-            <hr className="my-2" />
-            <p className="flex flex-wrap justify-center gap-1 text-sm">
-              {[r.contact?.email, r.contact?.phone, ...(r.contact?.links ?? [])]
-                .filter(Boolean)
-                .map((item, i, arr) => (
-                  <span key={i}>
-                    {item}
-                    {i < arr.length - 1 && " |"}
-                  </span>
-                ))}
+        {/* ---------- SCORE ---------- */}
+        {object?.overallScore !== undefined && (
+          <section className="border rounded-md p-4 my-6 ">
+            <p className="text-4xl font-bold">
+              {object.overallScore}
+              <span className="text-lg font-normal">/100</span>
+              {object.scoreLabel && <span className="text-lg font-semibold ml-3">{object.scoreLabel}</span>}
             </p>
+            <p className="mt-2">{object.scoreJustification}</p>
 
-            <p className="font-bold mt-6">Professional Summary</p>
-            <p>{r.professionalSummary}</p>
+            <ul className="mt-4 space-y-2 hidden">
+              {breakdownRows.map(([label, value]) =>
+                value === undefined ? null : (
+                  <li key={label}>
+                    <div className="flex justify-between text-sm">
+                      <span>{label}</span>
+                      <span>{value}%</span>
+                    </div>
+                    <div className="h-2 bg-gray-200 rounded">
+                      <div className="h-2 bg-bts-GreenOne rounded" style={{ width: `${value}%` }} />
+                    </div>
+                  </li>
+                )
+              )}
+            </ul>
+          </section>
+        )}
 
-            <p className="font-bold mt-6">Technical Skills</p>
+        {/* ---------- STRENGTHS ---------- */}
+        {!!object?.strengths?.length && (
+          <section className="my-6">
+            <h3 className="font-bold">Strengths</h3>
             <ul className="list-disc pl-5">
-              {r.technicalSkills?.map((group, i) => (
+              {object.strengths.map((s, i) => (
                 <li key={i}>
-                  {group?.category && <span className="font-semibold">{group.category}: </span>}
-                  {group?.skills?.join(", ")}
+                  {s?.strength}
+                  {s?.evidence && <span className="block text-sm italic text-gray-600">{s.evidence}</span>}
                 </li>
               ))}
             </ul>
+          </section>
+        )}
 
-            <p className="font-bold mt-6">Professional Experience</p>
-            {r.experience?.map((exp, i) => (
-              <div key={i}>
-                <p className="font-semibold pb-2 pt-4">
-                  {exp?.title} | {exp?.employer} ({exp?.dates})
-                </p>
-                <ul className="list-disc pl-5">
-                  {exp?.bullets?.map((b, j) => (
-                    <li key={j}>{b}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-
-            <p className="font-bold mt-6">Education</p>
-            <ul className="list-disc pl-5">
-              {r.education?.map((ed, i) => (
-                <li key={i}>
-                  {ed?.degree} | {ed?.institution} ({ed?.dates})
-                </li>
-              ))}
-            </ul>
-
-            {!!r.certifications?.length && (
-              <>
-                <p className="font-bold mt-6">Certifications</p>
-                <ul className="list-disc pl-5">
-                  {r.certifications.map((c, i) => (
-                    <li key={i}>{c}</li>
-                  ))}
-                </ul>
-              </>
-            )}
-          </div>
-        </>
+        {/* ---------- GAPS + CONFIRM ---------- */}
+        {!!object?.missingRequirements?.length && (
+          <section className="border rounded-md p-4 my-6">
+            <h3 className="font-bold">Gaps found</h3>
+            <p className="text-sm text-gray-600 mb-3">
+              If you genuinely have any of these, describe it briefly and regenerate. Leave blank
+              anything that isn&apos;t true, and it will not be added to your CV.
+            </p>
+            <ul className="space-y-4">
+              {object.missingRequirements.map((m, i) => {
+                if (!m?.requirement) return null;
+                return (
+                  // <li key={i}>
+                  //   <p className="font-semibold">
+                  //     {m.requirement}
+                  //     {m.importance && (
+                  //       <span className="ml-2 text-xs uppercase text-gray-500">
+                  //         {m.importance.replace("_", " ")}
+                  //       </span>
+                  //     )}
+                  //   </p>
+                  //   <p className="text-sm text-gray-600">{m.howToAddIfTrue}</p>
+                  //   <input
+                  //     className="mt-1 w-full border rounded px-2 py-1 text-sm"
+                  //     placeholder="I have this: where/how did you use it?"
+                  //     value={additions[m.requirement] ?? ""}
+                  //     onChange={(e) =>
+                  //       setAdditions((prev) => ({ ...prev, [m.requirement!]: e.target.value }))
+                  //     }
+                  //   />
+                  // </li>
+                  <li key={i}>
+    <p className="font-semibold">
+      {m.requirement}
+      {m.importance && (
+        <span className="ml-2 text-xs uppercase text-gray-500">
+          {m.importance.replace("_", " ")}
+        </span>
       )}
+    </p>
+    <p className="text-sm text-gray-600 mb-1">{m.howToAddIfTrue}</p>
+    <ReactQuill
+      theme="snow"
+      modules={quillModules}
+      placeholder="I have this: where/how did you use it?"
+      value={additions[m.requirement] ?? ""}
+      onChange={(content) =>
+        setAdditions((prev) => ({ ...prev, [m.requirement!]: content }))
+      }
+    />
+  </li>
+                );
+              })}
+            </ul>
+            <Button className="mt-4" disabled={isLoading} onClick={rerunWithAdditions}>
+              Regenerate with my additions
+            </Button>
+          </section>
+        )}
 
-      
+  {!!object?.itemsToAddManually?.length && (
+          <section className="my-6">
+            <h3 className="font-bold">Items to add manually</h3>
+            <ul className="list-disc pl-5">
+              {object.itemsToAddManually.map((x, i) => (
+                <li key={i}>{x}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+        
+        {!!object?.atsFormatIssues?.length && (
+          <section className="my-6">
+            <h3 className="font-bold">ATS formatting issues in your original CV</h3>
+            <ul className="list-disc pl-5">
+              {object.atsFormatIssues.map((x, i) => (
+                <li key={i}>{x}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+        
+
+        {object?.summary && (
+          <section className="my-6">
+            <h3 className="font-bold">Summary</h3>
+            <p>{object.summary}</p>
+            {object.cvRevampRecommended && (
+              <a
+                className="underline text-bts-GreenOne"
+                href="https://beyondthesavannah.co.ke/service/ats-cv-revamp"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Explore the CV Revamp service
+              </a>
+            )}
+          </section>
+        )}
+
+        {/* ---------- REGENERATED RESUME ---------- */}
+        {r && (
+          <>
+            <div className="flex items-center justify-between mt-8">
+              <div className="hidden">
+                <h3 className="font-bold">Your ATS-optimised resume</h3>
+                <Button variant="outline" onClick={copyResume} disabled={isLoading}>
+                  {copied ? "Copied!" : "Copy as text"}
+                </Button>
+              </div>
+              <Button onClick={reactToPrintFn} className="gap-2 hover:scale-105 transition hover:bg-lime-900 duration-500 hover:cursor-pointer">Download Your Optimized Resume <Download/></Button>
+            </div>
+
+            <div ref={contentRef} className="px-4 py-8 border rounded-md my-4">
+              <p className="text-center text-xl font-bold">{r.fullName}</p>
+              {/* {r.professionalBackground && <p className="text-center">{r.professionalBackground}</p>} */}
+              {r.professionalTitle && <p className="text-center">{r.professionalTitle}</p>}
+              <hr className="my-2" />
+              <p className="flex flex-wrap justify-center gap-1 text-sm">
+                {[r.contact?.email, r.contact?.phone, ...(r.contact?.links ?? [])]
+                  .filter(Boolean)
+                  .map((item, i, arr) => (
+                    <span key={i}>
+                      {item}
+                      {i < arr.length - 1 && " |"}
+                    </span>
+                  ))}
+              </p>
+
+              <p className="font-bold mt-6">Professional Summary</p>
+              <p>{r.professionalSummary}</p>
+
+              <p className="font-bold mt-6">Technical Skills</p>
+              <ul className="list-disc pl-5">
+                {r.technicalSkills?.map((group, i) => (
+                  <li key={i}>
+                    {group?.category && <span className="font-semibold">{group.category}: </span>}
+                    {group?.skills?.join(", ")}
+                  </li>
+                ))}
+              </ul>
+
+              <p className="font-bold mt-6">Professional Experience</p>
+              {r.experience?.map((exp, i) => (
+                <div key={i}>
+                  <p className="font-semibold pb-2 pt-4">
+                    {exp?.title} | {exp?.employer} ({exp?.dates})
+                  </p>
+                  <ul className="list-disc pl-5">
+                    {exp?.bullets?.map((b, j) => (
+                      <li key={j}>{b}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+
+              <p className="font-bold mt-6">Education</p>
+              <ul className="list-disc pl-5">
+                {r.education?.map((ed, i) => (
+                  <li key={i}>
+                    {ed?.degree} | {ed?.institution} ({ed?.dates})
+                  </li>
+                ))}
+              </ul>
+
+              {!!r.certifications?.length && (
+                <>
+                  <p className="font-bold mt-6">Certifications</p>
+                  <ul className="list-disc pl-5">
+                    {r.certifications.map((c, i) => (
+                      <li key={i}>{c}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
+          </>
+        )}
+
+        
+        </div>
       </div>
     </>
   );

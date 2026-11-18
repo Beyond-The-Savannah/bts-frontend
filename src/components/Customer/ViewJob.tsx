@@ -171,7 +171,7 @@ export default function ViewJob({
                     </Link>
                   </Button>
 
-                  {/* {singleJob &&
+                  {singleJob &&
                     (loggedUser != undefined ||
                       userResume?.resumeUrl != null) &&
                     loggedUser?.imageUrl != "" && (
@@ -184,7 +184,8 @@ export default function ViewJob({
                             generation={generation}
                             setGeneration={setGeneration}
                           />
-                          <div className="rounded-lg bg-sky-50 px-3 py-4 mt-2 mb-10 md:absolute md:top-12 w-full md:w-12/12">
+                          
+                          <div className={`rounded-lg ${generation!="" && "bg-sky-50"} px-3 py-4 mt-2 mb-10 md:absolute md:top-12 w-full md:w-12/12`}>
                             <div className="prose prose-sm">
                               
                               <ReactMarkdown
@@ -198,8 +199,8 @@ export default function ViewJob({
                           </div>
                         </div>
                       </>
-                    )} */}
-                  {singleJob &&
+                    )}
+                  {/* {singleJob &&
                     (loggedUser != undefined ||
                       userResume?.resumeUrl != null) &&
                     loggedUser?.imageUrl != "" && (
@@ -209,12 +210,12 @@ export default function ViewJob({
                             loggedUser={loggedUser}
                             userResumeUrl={userResume?.resumeUrl as string}
                             singleJob={singleJob}
-                            generation={generation}
-                            setGeneration={setGeneration}
+                    
                           />
+                          {generation!="" ?(
                           <div className="rounded-lg bg-sky-50 px-3 py-4 mt-2 mb-10 md:absolute md:top-12 w-full md:w-12/12">
                             <div className="prose prose-sm">
-                              {/* <div className="typeset typeset-docs max-w-[37em]"> */}
+                              
                               <ReactMarkdown
                                 remarkPlugins={[remarkGfm]}
                                 rehypePlugins={[rehypeRaw]}
@@ -222,15 +223,13 @@ export default function ViewJob({
                                 {generation}
                               </ReactMarkdown>
                             </div>
-                            {/* <div className="typeset typeset-docs max-w-[37em]">
-                              
-                                {generation}
-                              
-                            </div> */}
+                         
                           </div>
+
+                          ):null}
                         </div>
                       </>
-                    )}
+                    )} */}
                 </div>
               </div>
             )}
