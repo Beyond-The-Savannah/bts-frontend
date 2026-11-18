@@ -39,7 +39,7 @@ export default function SubscriptionDetailsUI1({jobViewSubscriptionData,whatsApp
     <>
     <section className="pt-4 pb-20">
         <div className="w-full mx-auto px-4">
-          <h2 className="text-xl">Hi {jobViewSubscriptionData?.customer.first_name?? "There"}</h2>
+          <h2 className="text-xl">Hi {jobViewSubscriptionData?.customer.first_name !="" ? jobViewSubscriptionData?.customer.first_name:"There"}</h2>
           <div className="border-2 rounded-md border-bts-BrownThree w-36"></div>
           <p className="capitalize text-3xl font-bold text-bts-GreenOne mt-2"></p>
           <div className="min-h-[70vh] mt-10 md:mt-20">
