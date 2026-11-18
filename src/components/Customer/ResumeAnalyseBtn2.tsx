@@ -9,6 +9,28 @@ import { SingleRemoteJob } from "@/types/remoteJobsListing";
 import { useObject } from "@ai-sdk/react";
 import { resumeSchema2 } from "@/schemas/resumeSchema2";
 import { Download } from "lucide-react";
+import dynamic from "next/dynamic";
+import "react-quill-new/dist/quill.snow.css"; // or "react-quill/dist/quill.snow.css"
+
+const ReactQuill = dynamic(() => import("react-quill-new"), {
+  ssr: false,
+  loading: () => <div className="h-24 border rounded animate-pulse" />,
+});
+
+const quillModules = {
+  toolbar: [["bold", "italic"], [{ list: "ordered" }, { list: "bullet" }]],
+};
+
+// Quill gives HTML; the model needs plain text. Also makes "<p><br></p>" count as empty.
+function quillToText(html: string): string {
+  const withBreaks = html
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/(p|div|h[1-6])>/gi, "\n")
+    .replace(/<li[^>]*>/gi, "- ")
+    .replace(/<\/li>/gi, "\n");
+  const doc = new DOMParser().parseFromString(withBreaks, "text/html");
+  return (doc.body.textContent ?? "").replace(/\n{3,}/g, "\n\n").trim();
+}
 
 interface ResumeAnalyseProp {
   loggedUser?: SubscribedUserProp;
@@ -38,12 +60,20 @@ export default function ResumeAnalyseBtn2({ loggedUser, userResumeUrl, singleJob
   const runAnalysis = (confirmedAdditions: string[] = []) =>
     submit({ question: { resume: resumeUrl, role: jobDescription, confirmedAdditions } });
 
+  // const rerunWithAdditions = () => {
+  //   const confirmed = Object.entries(additions)
+  //     .filter(([, detail]) => detail.trim().length > 0)
+  //     .map(([requirement, detail]) => `${requirement}: ${detail.trim()}`);
+  //   runAnalysis(confirmed);
+  // };
+
   const rerunWithAdditions = () => {
-    const confirmed = Object.entries(additions)
-      .filter(([, detail]) => detail.trim().length > 0)
-      .map(([requirement, detail]) => `${requirement}: ${detail.trim()}`);
-    runAnalysis(confirmed);
-  };
+  const confirmed = Object.entries(additions)
+    .map(([requirement, html]) => [requirement, quillToText(html)] as const)
+    .filter(([, detail]) => detail.length > 0)
+    .map(([requirement, detail]) => `${requirement}: ${detail}`);
+  runAnalysis(confirmed);
+};
 
   const r = object?.regeneratedResume;
 
@@ -170,25 +200,45 @@ export default function ResumeAnalyseBtn2({ loggedUser, userResumeUrl, singleJob
             {object.missingRequirements.map((m, i) => {
               if (!m?.requirement) return null;
               return (
+                // <li key={i}>
+                //   <p className="font-semibold">
+                //     {m.requirement}
+                //     {m.importance && (
+                //       <span className="ml-2 text-xs uppercase text-gray-500">
+                //         {m.importance.replace("_", " ")}
+                //       </span>
+                //     )}
+                //   </p>
+                //   <p className="text-sm text-gray-600">{m.howToAddIfTrue}</p>
+                //   <input
+                //     className="mt-1 w-full border rounded px-2 py-1 text-sm"
+                //     placeholder="I have this: where/how did you use it?"
+                //     value={additions[m.requirement] ?? ""}
+                //     onChange={(e) =>
+                //       setAdditions((prev) => ({ ...prev, [m.requirement!]: e.target.value }))
+                //     }
+                //   />
+                // </li>
                 <li key={i}>
-                  <p className="font-semibold">
-                    {m.requirement}
-                    {m.importance && (
-                      <span className="ml-2 text-xs uppercase text-gray-500">
-                        {m.importance.replace("_", " ")}
-                      </span>
-                    )}
-                  </p>
-                  <p className="text-sm text-gray-600">{m.howToAddIfTrue}</p>
-                  <input
-                    className="mt-1 w-full border rounded px-2 py-1 text-sm"
-                    placeholder="I have this: where/how did you use it?"
-                    value={additions[m.requirement] ?? ""}
-                    onChange={(e) =>
-                      setAdditions((prev) => ({ ...prev, [m.requirement!]: e.target.value }))
-                    }
-                  />
-                </li>
+  <p className="font-semibold">
+    {m.requirement}
+    {m.importance && (
+      <span className="ml-2 text-xs uppercase text-gray-500">
+        {m.importance.replace("_", " ")}
+      </span>
+    )}
+  </p>
+  <p className="text-sm text-gray-600 mb-1">{m.howToAddIfTrue}</p>
+  <ReactQuill
+    theme="snow"
+    modules={quillModules}
+    placeholder="I have this: where/how did you use it?"
+    value={additions[m.requirement] ?? ""}
+    onChange={(content) =>
+      setAdditions((prev) => ({ ...prev, [m.requirement!]: content }))
+    }
+  />
+</li>
               );
             })}
           </ul>
