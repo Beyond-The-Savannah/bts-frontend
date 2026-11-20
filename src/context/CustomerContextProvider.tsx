@@ -1,45 +1,21 @@
-import { ReactNode, use } from "react";
-import { CustomerContext } from "./CustomerContext";
-import { useUser } from "@clerk/nextjs";
-import { GetCustomerSubscriptionDetailsByCustomerIDFromPaystack } from "@/app/dal/UserSubscriptionInformation";
+'use client'
+
 import { subscriptionDetailsProps } from "@/types/subscriptions";
-import { subscriptionResult } from "@/app/dal/subscriptions";
+import { createContext, ReactNode, useContext } from "react";
 
-export default function CustomerContextProvider({children}: {children: ReactNode;}) {
+const CustomerContext1=createContext<Promise<subscriptionDetailsProps>|null>(null)
+
+export function useCustomerDetails1(){
   
-    const { user } = useUser();
-  
-    const getUserSubscriptionInformationWorkFlowOne = async () => {
-    const result = await GetCustomerSubscriptionDetailsByCustomerIDFromPaystack();
-    return result;
-  };
-  
-    const getUserSubscriptionInformationWorkFlowTwo = async () => {
-    const result = await subscriptionResult(user?.primaryEmailAddress?.emailAddress as string);
-    return result;
-  };
+  const userSubscriptionInfo=useContext(CustomerContext1)
 
-  const getUserSubscriptionInformationWorkFlowOnePromise = getUserSubscriptionInformationWorkFlowOne();
-  const getUserSubscriptionInformationWorkFlowTwoPromise = getUserSubscriptionInformationWorkFlowTwo();
+  if(!userSubscriptionInfo){throw new Error("useCustomerDetails1 must be used within a UserProvider ")}
+  return userSubscriptionInfo
+}
 
-  const userSubscriptionInfo:subscriptionDetailsProps[] = use(getUserSubscriptionInformationWorkFlowOnePromise);
-  const userSubscriptionData = use(getUserSubscriptionInformationWorkFlowTwoPromise);
+export function CustomerContextProvider({children,userSubscriptionInfo}: {children: ReactNode,userSubscriptionInfo:Promise<subscriptionDetailsProps>}) {
+  return (
+    <CustomerContext1.Provider value={userSubscriptionInfo}>{children}</CustomerContext1.Provider>
+  )
 
-   //get the whatsapp subscription info for the subscription workflow one
-  const whatsAppSubscriptionDetails1 = userSubscriptionInfo?.find(
-    (subscription) => subscription.amount == 600000 &&
-      ["active", "attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase(),),
-  );
-
-
-  //get the subscription info for the subscription workflow one
-    const jobsListingSubscriptionDetails1 = userSubscriptionInfo?.find(
-    (subscription) => subscription.amount != 600000 &&
-      ["active", "attention", "non-renewing", "completed"].includes(subscription.status.toLowerCase(),),
-  );
-
-
-  //get the subscription info for the subscription workflow two
-
-  return <CustomerContext value={{}}>{children}</CustomerContext>;
 }

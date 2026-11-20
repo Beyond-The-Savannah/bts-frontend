@@ -3,13 +3,14 @@ import { SubscribedUserProp } from "@/types/subscribedUser";
 import { subscriptionDetailsProps } from "@/types/subscriptions";
 import { currentUser } from "@clerk/nextjs/server";
 import axios, { AxiosError } from "axios";
+import { cache } from "react";
 
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
 const BTS_API_URL = process.env.NEXT_PUBLIC_DB_BASE_URL;
 
-/*get customer id from paystack*/
-async function GetCustomerIDFromPaystack() {
-  const user = await currentUser();
+
+const GetCustomerIDFromPaystack=cache(async ()=>{
+      const user = await currentUser();
   if (!user) {
     return null;
   }
@@ -28,10 +29,10 @@ async function GetCustomerIDFromPaystack() {
     console.error("Error in getting customer id", error);
     return null;
   }
-}
+})
 
-export async function GetCustomerSubscriptionDetailsByCustomerIDFromPaystack() {
-  const customerID:string | null = await GetCustomerIDFromPaystack();
+export const GetCustomerSubscriptionDetailsByCustomerIDFromPaystack=cache(async ()=>{
+    const customerID:string | null = await GetCustomerIDFromPaystack();
   
   if(!customerID){ return}
 
@@ -71,10 +72,10 @@ export async function GetCustomerSubscriptionDetailsByCustomerIDFromPaystack() {
     console.error("Error in getting customer subscription details", error);
     return null;
   }
-}
+})
 
-export async function GetEmployerSubscriptionDetailsFromPaystack(email:string){
-  // 'use cache'
+
+export const GetEmployerSubscriptionDetailsFromPaystack=cache(async(email:string)=>{
   //fetch for the employer subscription idcode from paystack
   let employerID=''
   try {
@@ -104,7 +105,9 @@ export async function GetEmployerSubscriptionDetailsFromPaystack(email:string){
       return null
     }
   }
-}
+})
+
+
 
 export async function AddNewSubscriberToDatabase() {
   const userSubscriptionInformation: subscriptionDetailsProps[] | null =

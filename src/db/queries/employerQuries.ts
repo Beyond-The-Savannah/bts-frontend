@@ -1,53 +1,40 @@
 import { desc, eq, ilike, ne,count } from "drizzle-orm";
 import { db } from "../db";
 import { candidatePoolTable, jobsTable } from "../schema";
+import { cache } from "react";
 
-export async function GetEmpolyerJobs(orgId:string) {
-  const data = await db.select().from(jobsTable).where(eq(jobsTable.companyOrganizationId,orgId));
+
+export const GetEmpolyerJobs =cache(async(orgId:string)=>{
+   const data = await db.select().from(jobsTable).where(eq(jobsTable.companyOrganizationId,orgId));
   return data;
-}
+})
 
-export async function GetEmployerJobsDepartmentOnly(orgId:string){
-const data=await db.select({department:jobsTable.department}).from(jobsTable).where(eq(jobsTable.companyOrganizationId,orgId))
+export const GetEmployerJobsDepartmentOnly =cache(async(orgId:string)=>{
+  const data=await db.select({department:jobsTable.department}).from(jobsTable).where(eq(jobsTable.companyOrganizationId,orgId))
 return data
-}
-
-export async function GetCandidatesPool(){
+})
+export const GetCandidatesPool=cache(async()=>{
   const data=await db.select().from(candidatePoolTable).orderBy(desc(candidatePoolTable.updatedAt))
   return data
-}
-export async function GetCandidatesWithResume(){
+})
+export const GetCandidatesWithResume=cache(async()=>{
   const data= await db.select().from(candidatePoolTable).where(ne(candidatePoolTable.resumeLink,''))
   return data
-}
-export async function GetCandidatesWithOutResume(){
+})
+export const GetCandidatesWithOutResume=cache(async()=>{
   const data= await db.select().from(candidatePoolTable).where(eq(candidatePoolTable.resumeLink,''))
   return data
-}
-export async function GetCandidateBYEmail(email:string){
+})
+export const GetCandidateBYEmail=cache(async(email:string)=>{
   const data=await db.select().from(candidatePoolTable).where(eq(candidatePoolTable.email,email))
   return data
-}
-
-export async function GetCandidatesBasedOnJobDepartment(jobDepartment:string){
+})
+export const GetCandidatesBasedOnJobDepartment=cache(async(jobDepartment:string)=>{
   const data=await db.select().from(candidatePoolTable).where(ilike(candidatePoolTable.profession,`%${jobDepartment}%`))
   return data
-}
-
-// export async function GetRelevantCandidates(orgId: string) {
-//   const allJobsByEmployer = await GetEmployerJobsDepartmentOnly(orgId);
-//   const allCandidates = await GetCandidatesPool();
-//   const uniqueDepartments = [...new Set(allJobsByEmployer.map(job => job.department))];
-  
-//   const relavantCandidates = allCandidates.filter((candidate) =>
-//     uniqueDepartments.includes(candidate.profession as string),
-//   );
-//   return relavantCandidates;
-// }
-
-
-export async function GetRelevantCandidates(orgId: string) {
-  const allJobsByEmployer = await GetEmployerJobsDepartmentOnly(orgId);
+})
+export const GetRelevantCandidates=cache(async(orgId:string)=>{
+   const allJobsByEmployer = await GetEmployerJobsDepartmentOnly(orgId);
   const allCandidates = await GetCandidatesPool();
   const uniqueDepartments = [...new Set(allJobsByEmployer.map(job => job.department))];
   
@@ -62,17 +49,92 @@ export async function GetRelevantCandidates(orgId: string) {
   }
   );
   return relavantCandidates;
-}
 
-export async function GetCanidatesWithResumeTotalCount(){
-  const data=await db.select({count:count()}).from(candidatePoolTable).where(ne(candidatePoolTable.resumeLink,''))
+})
+export const GetCanidatesWithResumeTotalCount=cache(async()=>{
+    const data=await db.select({count:count()}).from(candidatePoolTable).where(ne(candidatePoolTable.resumeLink,''))
   return data.at(0)?.count || 0
-}
-export async function GetCanidatesWithOutResumeTotalCount(){
-  const data=await db.select({count:count()}).from(candidatePoolTable).where(eq(candidatePoolTable.resumeLink,''))
+})
+export const GetCanidatesWithOutResumeTotalCount=cache(async()=>{
+   const data=await db.select({count:count()}).from(candidatePoolTable).where(eq(candidatePoolTable.resumeLink,''))
   return data.at(0)?.count || 0
-}
-export async function GetAllCandidatesTotalCount(){
+})
+export const GetAllCandidatesTotalCount=cache(async()=>{
   const data=await db.select({count:count()}).from(candidatePoolTable)
   return data.at(0)?.count || 0
-}
+})
+
+// export async function GetEmpolyerJobs(orgId:string) {
+//   const data = await db.select().from(jobsTable).where(eq(jobsTable.companyOrganizationId,orgId));
+//   return data;
+// }
+
+// export async function GetEmployerJobsDepartmentOnly(orgId:string){
+// const data=await db.select({department:jobsTable.department}).from(jobsTable).where(eq(jobsTable.companyOrganizationId,orgId))
+// return data
+// }
+
+// export async function GetCandidatesPool(){
+//   const data=await db.select().from(candidatePoolTable).orderBy(desc(candidatePoolTable.updatedAt))
+//   return data
+// }
+// export async function GetCandidatesWithResume(){
+//   const data= await db.select().from(candidatePoolTable).where(ne(candidatePoolTable.resumeLink,''))
+//   return data
+// }
+// export async function GetCandidatesWithOutResume(){
+//   const data= await db.select().from(candidatePoolTable).where(eq(candidatePoolTable.resumeLink,''))
+//   return data
+// }
+// export async function GetCandidateBYEmail(email:string){
+//   const data=await db.select().from(candidatePoolTable).where(eq(candidatePoolTable.email,email))
+//   return data
+// }
+
+// export async function GetCandidatesBasedOnJobDepartment(jobDepartment:string){
+//   const data=await db.select().from(candidatePoolTable).where(ilike(candidatePoolTable.profession,`%${jobDepartment}%`))
+//   return data
+// }
+
+// export async function GetRelevantCandidates(orgId: string) {
+//   const allJobsByEmployer = await GetEmployerJobsDepartmentOnly(orgId);
+//   const allCandidates = await GetCandidatesPool();
+//   const uniqueDepartments = [...new Set(allJobsByEmployer.map(job => job.department))];
+  
+//   const relavantCandidates = allCandidates.filter((candidate) =>
+//     uniqueDepartments.includes(candidate.profession as string),
+//   );
+//   return relavantCandidates;
+// }
+
+
+// export async function GetRelevantCandidates(orgId: string) {
+//   const allJobsByEmployer = await GetEmployerJobsDepartmentOnly(orgId);
+//   const allCandidates = await GetCandidatesPool();
+//   const uniqueDepartments = [...new Set(allJobsByEmployer.map(job => job.department))];
+  
+//   const relavantCandidates = allCandidates.filter((candidate) =>{
+//     const profession=(candidate.profession as string).toLowerCase()
+//     /*The some method checks if any of the unique departments from the employer's jobs are included in 
+//     the candidate's profession. It returns true if there is a match, indicating that the candidate is
+//      relevant to at least one of the job departments, and false otherwise. The includes then checks
+//      if a substring of the deparyment name exists within the candidate's profession*/
+//     return uniqueDepartments.some(department=>profession.includes(department.toLowerCase()))
+
+//   }
+//   );
+//   return relavantCandidates;
+// }
+
+// export async function GetCanidatesWithResumeTotalCount(){
+//   const data=await db.select({count:count()}).from(candidatePoolTable).where(ne(candidatePoolTable.resumeLink,''))
+//   return data.at(0)?.count || 0
+// }
+// export async function GetCanidatesWithOutResumeTotalCount(){
+//   const data=await db.select({count:count()}).from(candidatePoolTable).where(eq(candidatePoolTable.resumeLink,''))
+//   return data.at(0)?.count || 0
+// }
+// export async function GetAllCandidatesTotalCount(){
+//   const data=await db.select({count:count()}).from(candidatePoolTable)
+//   return data.at(0)?.count || 0
+// }
