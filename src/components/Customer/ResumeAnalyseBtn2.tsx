@@ -8,7 +8,7 @@ import { SubscribedUserProp } from "@/types/subscribedUser";
 import { SingleRemoteJob } from "@/types/remoteJobsListing";
 import { useObject } from "@ai-sdk/react";
 import { resumeSchema2 } from "@/schemas/resumeSchema2";
-import { Download } from "lucide-react";
+import { Download, RefreshCcw } from "lucide-react";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css"; // or "react-quill/dist/quill.snow.css"
 
@@ -133,7 +133,7 @@ export default function ResumeAnalyseBtn2({ loggedUser, userResumeUrl, singleJob
             />
           </Button>
           {isLoading && (
-            <Button variant="outline" onClick={() => stop()}>
+            <Button variant="outline" className="hover:scale-105 hover:cursor-pointer transition" onClick={() => stop()}>
               Stop
             </Button>
           )}
@@ -243,8 +243,8 @@ export default function ResumeAnalyseBtn2({ loggedUser, userResumeUrl, singleJob
                 );
               })}
             </ul>
-            <Button className="mt-4" disabled={isLoading} onClick={rerunWithAdditions}>
-              Regenerate with my additions
+            <Button className="mt-4 hover:scale-105 transition hover:cursor-pointer bg-blue-800 hover:bg-blue-900" disabled={isLoading} onClick={rerunWithAdditions}>
+              Regenerate with my additions <RefreshCcw/>
             </Button>
           </section>
         )}
@@ -299,7 +299,7 @@ export default function ResumeAnalyseBtn2({ loggedUser, userResumeUrl, singleJob
                   {copied ? "Copied!" : "Copy as text"}
                 </Button>
               </div>
-              <Button onClick={reactToPrintFn} className="gap-2 hover:scale-105 transition hover:bg-lime-900 duration-500 hover:cursor-pointer">Download Your Optimized Resume <Download/></Button>
+              <Button onClick={reactToPrintFn} className="gap-2 hover:scale-105 transition bg-lime-700 hover:bg-lime-900 duration-500 hover:cursor-pointer">Download Your Optimized Resume <Download/></Button>
             </div>
 
             <div ref={contentRef} className="px-4 py-8 border rounded-md my-4">

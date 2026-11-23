@@ -171,7 +171,7 @@ export default function ViewJob({
                     </Link>
                   </Button>
 
-                  {singleJob &&
+                  {/* {singleJob &&
                     (loggedUser != undefined ||
                       userResume?.resumeUrl != null) &&
                     loggedUser?.imageUrl != "" && (
@@ -199,8 +199,8 @@ export default function ViewJob({
                           </div>
                         </div>
                       </>
-                    )}
-                  {/* {singleJob &&
+                    )} */}
+                  {singleJob &&
                     (loggedUser != undefined ||
                       userResume?.resumeUrl != null) &&
                     loggedUser?.imageUrl != "" && (
@@ -213,7 +213,7 @@ export default function ViewJob({
                     
                           />
                           {generation!="" ?(
-                          <div className="rounded-lg bg-sky-50 px-3 py-4 mt-2 mb-10 md:absolute md:top-12 w-full md:w-12/12">
+                          <div className="rounded-lg bg-sky-50 px-4 py-4 mt-2 mb-10 md:absolute md:top-12 w-full md:w-12/12">
                             <div className="prose prose-sm">
                               
                               <ReactMarkdown
@@ -229,7 +229,7 @@ export default function ViewJob({
                           ):null}
                         </div>
                       </>
-                    )} */}
+                    )}
                 </div>
               </div>
             )}
