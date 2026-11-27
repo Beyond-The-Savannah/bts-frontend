@@ -157,7 +157,8 @@ export default function ResumeUpload2() {
             Ensure that your resume file is less than 1MB and that the file
             format is pdf
           </p>
-        {loggedUser?.fileKey != null  ?(
+        {/* {loggedUser?.fileKey != null  ?( */}
+        {loggedUser?.fileKey != undefined  ?(
           <>
           <UploadButton
           disabled={loggedUser.fileKey!=""}
@@ -187,7 +188,8 @@ export default function ResumeUpload2() {
           />
           <hr className="border-2 border-y-bts-BrownOne mt-10 " />
         
-          {loggedUser?.fileKey != null && loggedUser.fileKey!="" && (
+          {/* {loggedUser?.fileKey != null && loggedUser.fileKey!="" && ( */}
+          {loggedUser?.fileKey != undefined && loggedUser.fileKey!="" && (
             <div className="flex items-center gap-2">
               <div className="flex flex-col items-start gap-2 border border-dotted bg-amber-100 max-w-lg rounded-lg py-4 px-4 ">
                 <p className="font-light text-[0.6rem]">Uploaded : </p>
