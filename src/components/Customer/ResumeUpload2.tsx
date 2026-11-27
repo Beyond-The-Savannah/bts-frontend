@@ -161,7 +161,7 @@ export default function ResumeUpload2() {
         {(loggedUser?.fileKey == null || loggedUser.fileKey=="") ?(
           <>
           <UploadButton
-          disabled={loggedUser?.fileKey!=""|| loggedUser?.fileKey!=null}
+          // disabled={loggedUser?.fileKey!=""}
             endpoint="imageUploader"
             onUploadBegin={() => {
               toast.message("Uploading resume...");
