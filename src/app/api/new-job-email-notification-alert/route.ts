@@ -87,7 +87,8 @@ export const { POST } = serve(async (context) => {
             !noNewJobsNotifications.includes(user.email),
         )
         .map((user) => ({
-          firstName: user.firstName ?? "There",
+          // firstName: user.firstName ?? "There",
+          firstName: user.firstName ==null ? "There": user.firstName,
           email: user.email,
           career: user.career,
         }));
